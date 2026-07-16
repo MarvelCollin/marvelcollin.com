@@ -1,10 +1,12 @@
 import type { Dir, Variant } from '../Interface/IVariant';
 
-const EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
-const IRIS_EASE = 'cubic-bezier(0.7, 0, 0.3, 1)';
+const EASE = 'cubic-bezier(0.45, 0, 0.15, 1)';
+const IRIS_EASE = 'cubic-bezier(0.40, 0, 0.15, 1)';
 
 const FILL = '#17130b';
 const EDGE = '#d8bd6e';
+
+const HOLD = 100;
 
 const VARIANTS: Variant[] = [
   { type: 'wipe', dir: 'right' },
@@ -45,32 +47,32 @@ function buildWipe(o: HTMLElement, v: Variant, onCovered: () => void): () => Pro
   const axis = v.dir === 'left' || v.dir === 'right' ? 'to right' : 'to bottom';
   const grad = `linear-gradient(${axis}, ${EDGE} 0%, ${FILL} 7%, ${FILL} 93%, ${EDGE} 100%)`;
   const p = panel(o, `background:${grad};transform:${from};`);
-  p.animate([{ transform: from }, { transform: mid }], { duration: 440, easing: EASE, fill: 'forwards' }).finished.then(onCovered);
-  return () => p.animate([{ transform: mid }, { transform: to }], { duration: 480, easing: EASE, fill: 'forwards' }).finished;
+  p.animate([{ transform: from }, { transform: mid }], { duration: 620, easing: EASE, fill: 'forwards' }).finished.then(onCovered);
+  return () => p.animate([{ transform: mid }, { transform: to }], { duration: 680, easing: EASE, fill: 'forwards' }).finished;
 }
 
 function buildIris(o: HTMLElement, onCovered: () => void): () => Promise<unknown> {
   const gold = panel(o, `background:${EDGE};clip-path:${C0};`);
   const dark = panel(o, `background:${FILL};clip-path:${C0};`);
-  gold.animate([{ clipPath: C0 }, { clipPath: C1 }], { duration: 500, easing: IRIS_EASE, fill: 'forwards' });
-  dark.animate([{ clipPath: C0 }, { clipPath: C1 }], { duration: 500, delay: 40, easing: IRIS_EASE, fill: 'forwards' }).finished.then(onCovered);
+  gold.animate([{ clipPath: C0 }, { clipPath: C1 }], { duration: 700, easing: IRIS_EASE, fill: 'forwards' });
+  dark.animate([{ clipPath: C0 }, { clipPath: C1 }], { duration: 700, delay: 40, easing: IRIS_EASE, fill: 'forwards' }).finished.then(onCovered);
   return () =>
     Promise.all([
-      dark.animate([{ clipPath: C1 }, { clipPath: C0 }], { duration: 500, easing: IRIS_EASE, fill: 'forwards' }).finished,
-      gold.animate([{ clipPath: C1 }, { clipPath: C0 }], { duration: 500, delay: 40, easing: IRIS_EASE, fill: 'forwards' }).finished,
+      dark.animate([{ clipPath: C1 }, { clipPath: C0 }], { duration: 700, easing: IRIS_EASE, fill: 'forwards' }).finished,
+      gold.animate([{ clipPath: C1 }, { clipPath: C0 }], { duration: 700, delay: 40, easing: IRIS_EASE, fill: 'forwards' }).finished,
     ]);
 }
 
 function buildSplit(o: HTMLElement, onCovered: () => void): () => Promise<unknown> {
   const top = panel(o, `bottom:auto;height:50%;background:linear-gradient(to bottom, ${FILL} 0%, ${FILL} 86%, ${EDGE} 100%);transform:translateY(-100%);`);
   const bot = panel(o, `top:auto;height:50%;background:linear-gradient(to top, ${FILL} 0%, ${FILL} 86%, ${EDGE} 100%);transform:translateY(100%);`);
-  const a = top.animate([{ transform: 'translateY(-100%)' }, { transform: 'translateY(0%)' }], { duration: 440, easing: EASE, fill: 'forwards' });
-  const b = bot.animate([{ transform: 'translateY(100%)' }, { transform: 'translateY(0%)' }], { duration: 440, easing: EASE, fill: 'forwards' });
+  const a = top.animate([{ transform: 'translateY(-100%)' }, { transform: 'translateY(0%)' }], { duration: 620, easing: EASE, fill: 'forwards' });
+  const b = bot.animate([{ transform: 'translateY(100%)' }, { transform: 'translateY(0%)' }], { duration: 620, easing: EASE, fill: 'forwards' });
   Promise.all([a.finished, b.finished]).then(onCovered);
   return () =>
     Promise.all([
-      top.animate([{ transform: 'translateY(0%)' }, { transform: 'translateY(-100%)' }], { duration: 460, easing: EASE, fill: 'forwards' }).finished,
-      bot.animate([{ transform: 'translateY(0%)' }, { transform: 'translateY(100%)' }], { duration: 460, easing: EASE, fill: 'forwards' }).finished,
+      top.animate([{ transform: 'translateY(0%)' }, { transform: 'translateY(-100%)' }], { duration: 660, easing: EASE, fill: 'forwards' }).finished,
+      bot.animate([{ transform: 'translateY(0%)' }, { transform: 'translateY(100%)' }], { duration: 660, easing: EASE, fill: 'forwards' }).finished,
     ]);
 }
 
@@ -84,9 +86,9 @@ export function runTransition(): Promise<void> {
 
     if (reduce) {
       const p = panel(o, `background:${FILL};opacity:0;`);
-      p.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 180, easing: 'ease', fill: 'forwards' }).finished.then(() => {
+      p.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, easing: 'ease', fill: 'forwards' }).finished.then(() => {
         resolve();
-        p.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 180, easing: 'ease', fill: 'forwards' }).finished.then(() => o.remove());
+        p.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, easing: 'ease', fill: 'forwards' }).finished.then(() => o.remove());
       });
       return;
     }
@@ -95,7 +97,7 @@ export function runTransition(): Promise<void> {
     let reveal: () => Promise<unknown> = () => Promise.resolve();
     const onCovered = () => {
       resolve();
-      reveal().then(() => o.remove());
+      setTimeout(() => reveal().then(() => o.remove()), HOLD);
     };
     reveal = v.type === 'iris' ? buildIris(o, onCovered) : v.type === 'split' ? buildSplit(o, onCovered) : buildWipe(o, v, onCovered);
   });

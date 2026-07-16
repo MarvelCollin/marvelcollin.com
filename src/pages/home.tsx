@@ -23,16 +23,17 @@ export function Home() {
     <div data-screen-label="Home">
       <section className="mx-auto max-w-[1320px] px-10 pt-[140px] pb-20 max-[900px]:px-[22px] max-[900px]:pt-[100px] max-[560px]:pt-[92px]">
         <div className="pb-[120px]">
-          <h1 className="max-w-[16ch] font-sans text-[clamp(40px,6.2vw,96px)] font-semibold leading-[1.08] tracking-[-0.025em]">
-            Marvel Collin, <span className="inline-block -rotate-1 font-hand text-[1.12em] font-normal leading-[0.9] text-accent-soft">full-stack developer</span>.
+          <span className="mb-4 inline-block -rotate-2 font-hand text-[clamp(22px,2.8vw,36px)] leading-none text-accent-soft">full-stack developer</span>
+          <h1 className="max-w-[14ch] font-sans text-[clamp(40px,6.2vw,96px)] font-semibold leading-[1.08] tracking-[-0.025em]">
+            Marvel Collin.
           </h1>
           <div className="mt-[100px] grid grid-cols-[1fr_auto] gap-20 border-t border-line pt-9 text-[16px] leading-[1.65] text-fg-dim max-[900px]:grid-cols-1 max-[900px]:gap-6">
             <p>
               I'm a Computer Science student at BINUS University and a full-stack engineer on the lab's R&D team. I build web apps from database to interface in TypeScript, React, Go, and .NET. On the side I make games, ML experiments, and award-winning robotics.
             </p>
             <div className="flex flex-col items-end gap-1.5 whitespace-nowrap pt-1 text-[14px] text-fg-dim max-[900px]:items-start max-[900px]:whitespace-normal">
-              <p>Open to collaborations</p>
-              <a className="mt-2 border-b border-accent-soft pb-px text-accent" href="/contact">Get in touch →</a>
+              <p>Jakarta, Indonesia</p>
+              <a className="mt-2 border-b border-accent-soft pb-px text-accent" href="mailto:marvelcollin7@gmail.com">marvelcollin7@gmail.com</a>
             </div>
           </div>
         </div>

@@ -58,7 +58,7 @@ export function Gallery({ images, captions, name }: { images: string[]; captions
                   style={{ width: FRAME_W }}
                 >
                   <span className="relative block aspect-[4/3] overflow-hidden bg-bg-2">
-                    <img className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover/thumb:scale-105" src={img(src, 600)} alt={captions[j] || name} loading="lazy" decoding="async" />
+                    <img className="absolute inset-0 h-full w-full object-cover transition-transform duration-500" src={img(src, 600)} alt={captions[j] || name} loading="lazy" decoding="async" />
                   </span>
                 </span>
               </button>

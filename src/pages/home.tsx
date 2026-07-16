@@ -54,7 +54,7 @@ export function Home() {
                       key={p.slug}
                       href={'/work/' + p.slug}
                       className={
-                        'group relative block origin-center transition-transform duration-300 ease-out hover:z-20 hover:rotate-0 hover:scale-[1.035] ' +
+                        'group relative block origin-center transition-transform duration-300 ease-out hover:z-20 hover:rotate-0 hover:-translate-y-1 ' +
                         ROT[i % ROT.length]
                       }
                     >

@@ -89,7 +89,7 @@ export function Home() {
         </div>
 
         {feature && (
-          <div className="pt-[120px]">
+          <div className="pt-[140px]">
             <div className="mb-12 grid grid-cols-2 items-end gap-[60px] max-[900px]:grid-cols-1 max-[900px]:gap-[30px]">
               <h2 className="font-sans text-[clamp(36px,5vw,72px)] font-semibold leading-[1.06] tracking-[-0.025em]">{feature.name}</h2>
               <p className="max-w-[46ch] text-[18px] leading-[1.5] text-fg-dim">

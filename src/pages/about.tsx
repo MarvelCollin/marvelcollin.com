@@ -53,7 +53,7 @@ export function About() {
           </div>
         </div>
 
-        <div className="pt-20">
+        <div className="pt-18">
           <div className="mb-2 flex items-baseline justify-between border-b border-line pb-[14px]">
             <span className="font-hand text-[clamp(26px,2.8vw,36px)] leading-none text-accent-soft">Experience</span>
             <span className="text-[13px] font-light text-fg-dim">2019 to present</span>
@@ -71,7 +71,7 @@ export function About() {
           </div>
         </div>
 
-        <div className="pt-20">
+        <div className="pt-24">
           <div className="mb-2 flex items-baseline justify-between border-b border-line pb-[14px]">
             <span className="font-hand text-[clamp(26px,2.8vw,36px)] leading-none text-accent-soft">Education</span>
             <span className="text-[13px] font-light text-fg-dim">2020 to present</span>
@@ -89,7 +89,7 @@ export function About() {
           </div>
         </div>
 
-        <div className="pt-20">
+        <div className="pt-16">
           <div className="mb-2 flex items-baseline justify-between border-b border-line pb-[14px]">
             <span className="font-hand text-[clamp(26px,2.8vw,36px)] leading-none text-accent-soft">Licenses & Awards</span>
             <span className="text-[13px] font-light text-fg-dim">2022 to 2025</span>

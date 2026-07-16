@@ -5,7 +5,7 @@ import {
   SiC, SiJavascript, SiKotlin, SiRuby, SiRust, SiR,
   SiAngular, SiSvelte, SiVuedotjs, SiTailwindcss,
   SiSqlite, SiMongodb, SiRedis, SiFirebase, SiDocker,
-  SiFigma, SiVercel, SiPostman, SiOpenjdk,
+  SiFigma, SiVercel, SiPostman,
   SiNodedotjs, SiNextdotjs, SiNuxtdotjs, SiExpress,
   SiLaravel, SiNestjs, SiSupabase, SiPrisma,
   SiGit, SiTensorflow, SiSwift, SiDart, SiFlutter,

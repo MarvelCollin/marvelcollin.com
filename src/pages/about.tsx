@@ -46,11 +46,11 @@ export function About() {
           </div>
           <div className="grid grid-cols-2 gap-x-[60px] border-t border-line max-[900px]:grid-cols-1 max-[900px]:gap-0">
             {SKILLS.map((s, i) => {
-              const Icon = skillIcon(s.name);
+              const skill = skillIcon(s.name);
               return (
                 <div className="grid grid-cols-[140px_1fr] items-center gap-5 border-b border-line py-[18px] max-[900px]:grid-cols-[120px_1fr] max-[560px]:grid-cols-1 max-[560px]:gap-0.5" key={i}>
                   <div className="flex items-center gap-2.5 text-[16px] font-medium">
-                    {Icon && <Icon size={15} className="shrink-0 text-fg-dim" />}
+                    {skill && <skill.Icon size={15} className="shrink-0" style={{ color: skill.color }} />}
                     {s.name}
                   </div>
                   <div className="text-[14px] leading-[1.45] text-fg-dim">{s.opinion}</div>
@@ -72,7 +72,11 @@ export function About() {
                 <div className="grid grid-cols-[160px_1fr] items-start gap-[60px] border-b border-line py-7 max-[900px]:grid-cols-1 max-[900px]:gap-2" key={i}>
                   <div className="text-[13px] font-sans leading-[1.4] text-muted pt-1">{j.yr}</div>
                   <div className="flex gap-4">
-                    {logo && <img src={logo} alt="" className="mt-1 h-7 w-7 shrink-0 rounded object-contain" loading="lazy" decoding="async" />}
+                    {logo && (
+                      <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-line bg-bg-2 p-1.5">
+                        <img src={logo} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                      </div>
+                    )}
                     <div>
                       <div className="text-[20px] font-medium leading-[1.3]">{j.role} <span className="font-light text-fg-dim">at {j.where}</span></div>
                       <div className="mt-1.5 max-w-[54ch] text-[14px] leading-[1.5] text-fg-dim">{j.note}</div>
@@ -96,7 +100,11 @@ export function About() {
                 <div className="grid grid-cols-[160px_1fr] items-start gap-[60px] border-b border-line py-7 max-[900px]:grid-cols-1 max-[900px]:gap-2" key={e.id}>
                   <div className="text-[13px] font-sans leading-[1.4] text-muted pt-1">{e.yr}</div>
                   <div className="flex gap-4">
-                    {logo && <img src={logo} alt="" className="mt-1 h-7 w-7 shrink-0 rounded object-contain" loading="lazy" decoding="async" />}
+                    {logo && (
+                      <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-line bg-bg-2 p-1.5">
+                        <img src={logo} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                      </div>
+                    )}
                     <div>
                       <div className="text-[20px] font-medium leading-[1.3]">{e.degree} <span className="font-light text-fg-dim">{e.school}</span></div>
                       <div className="mt-1.5 max-w-[54ch] text-[14px] leading-[1.5] text-fg-dim">{e.note}</div>

@@ -4,16 +4,16 @@
 @import "./styles/responsive.css" layer(base);
 
 @theme {
-  --color-bg: #0b0b0a;
-  --color-bg-2: #141312;
-  --color-bg-3: #1c1b18;
-  --color-highlight: #1b1813;
-  --color-fg: #ece9e3;
-  --color-fg-dim: #8a877e;
-  --color-muted: #56534b;
-  --color-line: #262420;
-  --color-accent: #c8a44a;
-  --color-accent-soft: #dcbd6e;
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-bg-3: var(--bg-3);
+  --color-highlight: var(--highlight);
+  --color-fg: var(--fg);
+  --color-fg-dim: var(--fg-dim);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
   --font-sans: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-hand: "Caveat", "Segoe Script", cursive;
 }

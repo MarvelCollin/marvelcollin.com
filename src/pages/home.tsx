@@ -45,7 +45,7 @@ export function Home() {
             <span className="-rotate-2 font-hand text-[22px] leading-none text-accent-soft">pinned favourites</span>
           </div>
 
-          <div className="rounded-2xl bg-[radial-gradient(rgba(255,255,255,0.028)_1px,transparent_1px)] [background-size:22px_22px] px-2 py-8 sm:px-6">
+          <div className="rounded-2xl bg-[radial-gradient(var(--dot)_1px,transparent_1px)] [background-size:22px_22px] px-2 py-8 sm:px-6">
             <div className="flex gap-7 sm:gap-9">
               {columns.map((col, ci) => (
                 <div key={ci} className="flex flex-1 flex-col gap-10">

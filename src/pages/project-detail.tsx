@@ -10,7 +10,7 @@ const BACK_CLASS =
 const PAGE_CLASS =
   'mx-auto max-w-[1320px] px-10 pt-[140px] pb-20 max-[900px]:px-[22px] max-[900px]:pt-[100px] max-[560px]:pt-[92px]';
 const BOARD =
-  'bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:24px_24px]';
+  'bg-[radial-gradient(var(--dot)_1px,transparent_1px)] [background-size:24px_24px]';
 
 export function ProjectDetail({ slug }: { slug: string }) {
   const { works: PROJECTS, loading } = useContent();

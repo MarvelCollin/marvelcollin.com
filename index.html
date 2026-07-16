@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/src/index.css" />
+<script>(function(){var t=localStorage.getItem('theme');if(!t)t=matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';if(t==='light')document.documentElement.dataset.theme='light';})()</script>
 </head>
 <body>
 <nav class="top">
@@ -18,7 +19,25 @@
     <li><a href="/about" data-route="/about">About</a></li>
     <li><a href="/contact" data-route="/contact">Contact</a></li>
   </ul>
+  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme"></button>
 </nav>
+<script>
+(function(){
+  var btn=document.getElementById('theme-toggle');
+  function update(){
+    var light=document.documentElement.dataset.theme==='light';
+    btn.textContent=light?'dark':'light';
+    btn.setAttribute('aria-label',light?'Switch to dark mode':'Switch to light mode');
+  }
+  btn.addEventListener('click',function(){
+    var light=document.documentElement.dataset.theme==='light';
+    if(light){delete document.documentElement.dataset.theme;localStorage.setItem('theme','dark');}
+    else{document.documentElement.dataset.theme='light';localStorage.setItem('theme','light');}
+    update();
+  });
+  update();
+})();
+</script>
 <main id="app"></main>
 <script type="module" src="/src/main.tsx"></script>
 </body>

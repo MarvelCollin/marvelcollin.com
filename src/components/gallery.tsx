@@ -30,7 +30,7 @@ export function Gallery({ images, captions, name }: { images: string[]; captions
 
   return (
     <div className="mx-auto max-w-[1320px] px-10 py-[60px] max-[900px]:px-[22px] max-[900px]:py-[30px]">
-      <div className="rounded-2xl bg-[radial-gradient(rgba(255,255,255,0.028)_1px,transparent_1px)] [background-size:22px_22px] px-4 py-6 sm:px-8">
+      <div className="rounded-2xl bg-[radial-gradient(var(--dot)_1px,transparent_1px)] [background-size:22px_22px] px-4 py-6 sm:px-8">
         <div className="overflow-x-auto">
           <div className="relative mx-auto" style={{ width: lineW, height: boxH }}>
             <svg className="pointer-events-none absolute inset-0" width={lineW} height={boxH} viewBox={`0 0 ${lineW} ${boxH}`} preserveAspectRatio="none" aria-hidden="true">

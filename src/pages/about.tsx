@@ -1,6 +1,7 @@
 import { useContent } from '../content/use-content';
 import { img } from '../lib/img';
 import { MetaList } from '../components/meta-list';
+import { skillIcon, orgLogo } from '../lib/icons';
 
 export function About() {
   const { skills: SKILLS, experience: HISTORY, recognition: AWARDS, education: EDUCATION } = useContent();
@@ -44,12 +45,18 @@ export function About() {
             <span className="text-[13px] font-light text-fg-dim">2018 to now</span>
           </div>
           <div className="grid grid-cols-2 gap-x-[60px] border-t border-line max-[900px]:grid-cols-1 max-[900px]:gap-0">
-            {SKILLS.map((s, i) => (
-              <div className="grid grid-cols-[120px_1fr] items-baseline gap-5 border-b border-line py-[18px] max-[900px]:grid-cols-[100px_1fr] max-[560px]:grid-cols-1 max-[560px]:gap-0.5" key={i}>
-                <div className="text-[16px] font-medium">{s.name}</div>
-                <div className="text-[14px] leading-[1.45] text-fg-dim">{s.opinion}</div>
-              </div>
-            ))}
+            {SKILLS.map((s, i) => {
+              const Icon = skillIcon(s.name);
+              return (
+                <div className="grid grid-cols-[140px_1fr] items-center gap-5 border-b border-line py-[18px] max-[900px]:grid-cols-[120px_1fr] max-[560px]:grid-cols-1 max-[560px]:gap-0.5" key={i}>
+                  <div className="flex items-center gap-2.5 text-[16px] font-medium">
+                    {Icon && <Icon size={15} className="shrink-0 text-fg-dim" />}
+                    {s.name}
+                  </div>
+                  <div className="text-[14px] leading-[1.45] text-fg-dim">{s.opinion}</div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -59,15 +66,21 @@ export function About() {
             <span className="text-[13px] font-light text-fg-dim">2019 to present</span>
           </div>
           <div className="mt-2">
-            {HISTORY.map((j, i) => (
-              <div className="grid grid-cols-[160px_1fr] items-baseline gap-[60px] border-b border-line py-7 max-[900px]:grid-cols-1 max-[900px]:gap-2" key={i}>
-                <div className="text-[13px] font-sans leading-[1.4] text-muted">{j.yr}</div>
-                <div>
-                  <div className="text-[20px] font-medium leading-[1.3]">{j.role} <span className="font-light text-fg-dim">at {j.where}</span></div>
-                  <div className="mt-1.5 max-w-[54ch] text-[14px] leading-[1.5] text-fg-dim">{j.note}</div>
+            {HISTORY.map((j, i) => {
+              const logo = orgLogo(j.where);
+              return (
+                <div className="grid grid-cols-[160px_1fr] items-start gap-[60px] border-b border-line py-7 max-[900px]:grid-cols-1 max-[900px]:gap-2" key={i}>
+                  <div className="text-[13px] font-sans leading-[1.4] text-muted pt-1">{j.yr}</div>
+                  <div className="flex gap-4">
+                    {logo && <img src={logo} alt="" className="mt-1 h-7 w-7 shrink-0 rounded object-contain" loading="lazy" decoding="async" />}
+                    <div>
+                      <div className="text-[20px] font-medium leading-[1.3]">{j.role} <span className="font-light text-fg-dim">at {j.where}</span></div>
+                      <div className="mt-1.5 max-w-[54ch] text-[14px] leading-[1.5] text-fg-dim">{j.note}</div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -77,15 +90,21 @@ export function About() {
             <span className="text-[13px] font-light text-fg-dim">2020 to present</span>
           </div>
           <div className="mt-2">
-            {EDUCATION.map((e) => (
-              <div className="grid grid-cols-[160px_1fr] items-baseline gap-[60px] border-b border-line py-7 max-[900px]:grid-cols-1 max-[900px]:gap-2" key={e.id}>
-                <div className="text-[13px] font-sans leading-[1.4] text-muted">{e.yr}</div>
-                <div>
-                  <div className="text-[20px] font-medium leading-[1.3]">{e.degree} <span className="font-light text-fg-dim">{e.school}</span></div>
-                  <div className="mt-1.5 max-w-[54ch] text-[14px] leading-[1.5] text-fg-dim">{e.note}</div>
+            {EDUCATION.map((e) => {
+              const logo = orgLogo(e.school);
+              return (
+                <div className="grid grid-cols-[160px_1fr] items-start gap-[60px] border-b border-line py-7 max-[900px]:grid-cols-1 max-[900px]:gap-2" key={e.id}>
+                  <div className="text-[13px] font-sans leading-[1.4] text-muted pt-1">{e.yr}</div>
+                  <div className="flex gap-4">
+                    {logo && <img src={logo} alt="" className="mt-1 h-7 w-7 shrink-0 rounded object-contain" loading="lazy" decoding="async" />}
+                    <div>
+                      <div className="text-[20px] font-medium leading-[1.3]">{e.degree} <span className="font-light text-fg-dim">{e.school}</span></div>
+                      <div className="mt-1.5 max-w-[54ch] text-[14px] leading-[1.5] text-fg-dim">{e.note}</div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 

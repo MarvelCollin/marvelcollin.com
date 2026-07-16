@@ -7,6 +7,7 @@ import { Work } from './pages/work';
 import { ProjectDetail } from './pages/project-detail';
 import { About } from './pages/about';
 import { Contact } from './pages/contact';
+import { Research } from './pages/research';
 
 const Admin = lazy(() => import('./pages/admin').then((m) => ({ default: m.Admin })));
 
@@ -22,6 +23,7 @@ function App() {
         (r === '/work' && (parsed.kind === 'work' || parsed.kind === 'project')) ||
         (r === '/about' && parsed.kind === 'about') ||
         (r === '/contact' && parsed.kind === 'contact') ||
+        (r === '/research' && parsed.kind === 'research') ||
         (r === '/' && parsed.kind === 'home');
       a.classList.toggle('active', isActive);
     });
@@ -40,6 +42,7 @@ function App() {
   if (parsed.kind === 'work') return <Work />;
   if (parsed.kind === 'about') return <About />;
   if (parsed.kind === 'contact') return <Contact />;
+  if (parsed.kind === 'research') return <Research />;
   if (parsed.kind === 'admin') return <Suspense fallback={<section className="page admin"><p className="note">…</p></section>}><Admin /></Suspense>;
   return <Home />;
 }

@@ -10,11 +10,13 @@ export function Reveal({
   className = '',
   as: Tag = 'div',
   delay = 0,
+  id,
 }: {
   children: ReactNode;
   className?: string;
   as?: 'div' | 'section' | 'p' | 'span';
   delay?: number;
+  id?: string;
 }) {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(REDUCED);
@@ -38,6 +40,7 @@ export function Reveal({
   return (
     <Tag
       ref={ref as never}
+      id={id}
       className={className}
       style={
         REDUCED

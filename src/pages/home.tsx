@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useContent, findWork } from '../content/use-content';
 import { Thumbnail } from '../components/thumbnail';
+import { Reveal } from '../components/reveal';
 import { useColumnCount } from '../hooks/use-column-count';
 import type { Project } from '../Interface/IProject';
 
@@ -32,19 +33,19 @@ export function Home() {
             <div className="shrink-0 text-right text-[14px] leading-[1.8] text-fg-dim max-[900px]:text-left">
               <p>Software Engineer</p>
               <p>Jakarta, Indonesia</p>
-              <a className="mt-2 inline-block text-fg-dim transition-colors hover:text-fg" href="mailto:marvelcollin7@gmail.com">marvelcollin7@gmail.com</a>
+              <a className="mt-2 inline-block text-accent-soft transition-colors hover:text-fg" href="mailto:marvelcollin7@gmail.com">marvelcollin7@gmail.com</a>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-bg-2 px-10 py-24 max-[900px]:px-[22px] max-[900px]:py-16">
+      <Reveal as="section" className="bg-bg-2 px-10 py-24 max-[900px]:px-[22px] max-[900px]:py-16">
         <div className="mx-auto max-w-[1320px]">
           <div className="mb-8 flex items-end justify-between gap-4">
             <p className="text-[13px] uppercase tracking-[0.1em] text-muted">
               Selected work · {String(Math.min(works.length, 6)).padStart(2, '0')} / {String(works.length).padStart(2, '0')}
             </p>
-            <a href="/work" className="text-[13px] text-fg-dim transition-colors hover:text-fg">View all →</a>
+            <a href="/work" className="text-[13px] text-accent-soft transition-colors hover:text-fg">View all →</a>
           </div>
 
           <div className="rounded-2xl bg-[radial-gradient(var(--dot)_1px,transparent_1px)] [background-size:22px_22px] px-2 py-8 sm:px-6">
@@ -85,10 +86,10 @@ export function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </Reveal>
 
       {feature && (
-        <section className="px-10 py-32 max-[900px]:px-[22px] max-[900px]:py-20">
+        <Reveal as="section" className="px-10 py-32 max-[900px]:px-[22px] max-[900px]:py-20">
           <div className="mx-auto max-w-[960px]">
             <p className="mb-4 text-[13px] uppercase tracking-[0.1em] text-muted">Featured</p>
             <h2 className="font-sans text-[clamp(32px,4.5vw,56px)] font-semibold leading-[1.08] tracking-[-0.025em]">{feature.name}</h2>
@@ -118,7 +119,7 @@ export function Home() {
               </div>
             </a>
           </div>
-        </section>
+        </Reveal>
       )}
     </div>
   );

@@ -1,6 +1,7 @@
 import { useContent } from '../content/use-content';
 import { img } from '../lib/img';
 import { skillIcon, orgLogo } from '../lib/icons';
+import { Reveal } from '../components/reveal';
 
 export function About() {
   const { skills: SKILLS, experience: HISTORY, recognition: AWARDS, education: EDUCATION } = useContent();
@@ -18,21 +19,21 @@ export function About() {
           <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[14px] text-fg-dim">
             <span>Jakarta, Indonesia</span>
             <span className="text-line">·</span>
-            <a className="transition-colors hover:text-fg" href="https://github.com/MarvelCollin" target="_blank" rel="noreferrer">GitHub</a>
-            <a className="transition-colors hover:text-fg" href="https://www.linkedin.com/in/marvel-collin-0244a21ba/" target="_blank" rel="noreferrer">LinkedIn</a>
-            <a className="transition-colors hover:text-fg" href="https://www.instagram.com/marvelcolin_/" target="_blank" rel="noreferrer">Instagram</a>
+            <a className="text-accent-soft transition-colors hover:text-fg" href="https://github.com/MarvelCollin" target="_blank" rel="noreferrer">GitHub</a>
+            <a className="text-accent-soft transition-colors hover:text-fg" href="https://www.linkedin.com/in/marvel-collin-0244a21ba/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a className="text-accent-soft transition-colors hover:text-fg" href="https://www.instagram.com/marvelcolin_/" target="_blank" rel="noreferrer">Instagram</a>
           </div>
         </div>
       </section>
 
-      <section className="bg-bg-2 px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
+      <Reveal as="section" className="bg-bg-2 px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
         <div className="mx-auto max-w-[1320px]">
           <p className="mb-8 text-[13px] uppercase tracking-[0.1em] text-muted">Skills</p>
           <div className="flex flex-wrap gap-3">
             {SKILLS.map((s, i) => {
               const skill = skillIcon(s.name);
               return (
-                <div key={i} className="group relative flex items-center gap-2.5 rounded-full border border-line bg-bg px-4 py-2.5 text-[14px] transition-colors hover:border-muted">
+                <div key={i} className="group relative flex items-center gap-2.5 rounded-full border border-line bg-bg px-4 py-2.5 text-[14px] transition-all duration-200 hover:border-muted hover:scale-[1.03]">
                   {skill && <skill.Icon size={14} className="shrink-0" style={{ color: skill.color }} />}
                   <span className="font-medium">{s.name}</span>
                   {s.opinion && (
@@ -43,9 +44,9 @@ export function About() {
             })}
           </div>
         </div>
-      </section>
+      </Reveal>
 
-      <section className="px-10 py-24 max-[900px]:px-[22px] max-[900px]:py-16">
+      <Reveal as="section" className="px-10 py-24 max-[900px]:px-[22px] max-[900px]:py-16">
         <div className="mx-auto max-w-[900px]">
           <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-muted">Experience</p>
           <div className="space-y-12">
@@ -70,9 +71,9 @@ export function About() {
             })}
           </div>
         </div>
-      </section>
+      </Reveal>
 
-      <section className="bg-bg-2 px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
+      <Reveal as="section" className="bg-bg-2 px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
         <div className="mx-auto max-w-[900px]">
           <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-muted">Education</p>
           <div className="space-y-10">
@@ -97,9 +98,9 @@ export function About() {
             })}
           </div>
         </div>
-      </section>
+      </Reveal>
 
-      <section className="px-10 py-24 max-[900px]:px-[22px] max-[900px]:py-16">
+      <Reveal as="section" className="px-10 py-24 max-[900px]:px-[22px] max-[900px]:py-16">
         <div className="mx-auto max-w-[900px]">
           <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-muted">Licenses & Awards</p>
           <div className="space-y-6">
@@ -124,7 +125,7 @@ export function About() {
             ))}
           </div>
         </div>
-      </section>
+      </Reveal>
     </div>
   );
 }

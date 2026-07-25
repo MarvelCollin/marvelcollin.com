@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useContent } from '../content/use-content';
 import { Thumbnail } from '../components/thumbnail';
+import { Reveal } from '../components/reveal';
 import { useColumnCount } from '../hooks/use-column-count';
 import type { Project } from '../Interface/IProject';
 
@@ -60,7 +61,7 @@ export function Work() {
         </div>
       </section>
 
-      <section className="bg-bg-2 px-10 py-12 max-[900px]:px-[22px]">
+      <Reveal as="section" className="bg-bg-2 px-10 py-12 max-[900px]:px-[22px]">
         <div className="mx-auto max-w-[1320px]">
           {loading && PROJECTS.length === 0 ? (
             <p className="text-sm text-fg-dim">Loading projects…</p>
@@ -104,7 +105,7 @@ export function Work() {
             </div>
           )}
         </div>
-      </section>
+      </Reveal>
     </div>
   );
 }

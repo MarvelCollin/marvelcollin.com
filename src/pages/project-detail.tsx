@@ -1,6 +1,7 @@
 import { useContent, findWork, workIndex } from '../content/use-content';
 import { Thumbnail } from '../components/thumbnail';
 import { Gallery } from '../components/gallery';
+import { Reveal } from '../components/reveal';
 import { Clip } from '../components/clip';
 import { ClipDefs } from '../components/clip-defs';
 
@@ -103,36 +104,36 @@ export function ProjectDetail({ slug }: { slug: string }) {
         </section>
 
         {sections.map((section, i) => (
-          <section className="px-10 py-24 max-[900px]:px-[22px] max-[900px]:py-14" key={i}>
+          <Reveal as="section" className="px-10 py-24 max-[900px]:px-[22px] max-[900px]:py-14" key={i}>
             <div className="mx-auto max-w-[720px]">
               <p className="mb-6 text-[11px] uppercase tracking-[0.13em] text-muted">{section.label}</p>
               <p className="text-[clamp(18px,2.2vw,26px)] leading-[1.6] text-fg">{section.body}</p>
             </div>
-          </section>
+          </Reveal>
         ))}
 
         <Gallery images={galleryImages} captions={galleryCaptions} name={p.name} />
 
-        <section className="bg-bg-2 px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
+        <Reveal as="section" className="bg-bg-2 px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
           <div className="mx-auto grid max-w-[900px] grid-cols-2 gap-12 max-[900px]:grid-cols-1 max-[900px]:gap-8">
             <div className="group">
               <span className="mb-3 block text-[11px] uppercase tracking-[0.11em] text-muted">{prev ? '← Previous' : '← Back'}</span>
               {prev ? (
-                <a className="inline-block text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-fg-dim max-[560px]:text-[22px]" href={'/work/' + prev.slug}>{prev.name}</a>
+                <a className="inline-block text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-accent-soft max-[560px]:text-[22px]" href={'/work/' + prev.slug}>{prev.name}</a>
               ) : (
-                <a className="inline-block text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-fg-dim max-[560px]:text-[22px]" href="/work">All projects</a>
+                <a className="inline-block text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-accent-soft max-[560px]:text-[22px]" href="/work">All projects</a>
               )}
             </div>
             <div className="group text-right max-[900px]:text-left">
               <span className="mb-3 block text-[11px] uppercase tracking-[0.11em] text-muted">{next ? 'Next →' : '→ Back'}</span>
               {next ? (
-                <a className="inline-block text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-fg-dim max-[560px]:text-[22px]" href={'/work/' + next.slug}>{next.name}</a>
+                <a className="inline-block text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-accent-soft max-[560px]:text-[22px]" href={'/work/' + next.slug}>{next.name}</a>
               ) : (
-                <a className="inline-block text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-fg-dim max-[560px]:text-[22px]" href="/work">All projects</a>
+                <a className="inline-block text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-accent-soft max-[560px]:text-[22px]" href="/work">All projects</a>
               )}
             </div>
           </div>
-        </section>
+        </Reveal>
       </div>
     </div>
   );

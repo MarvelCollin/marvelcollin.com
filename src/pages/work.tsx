@@ -36,7 +36,7 @@ export function Work() {
             Projects
           </h1>
           <p className="mt-4 text-sm leading-relaxed text-fg-dim">
-            Ten projects from 2021 to 2025, pinned up like a workbench rather than listed in a row.
+            {PROJECTS.length} projects from 2021 to 2025.
           </p>
         </div>
 
@@ -48,7 +48,7 @@ export function Work() {
               className={
                 'cursor-pointer border px-[14px] py-[7px] text-xs tracking-[0.04em] transition-colors ' +
                 (filter === f.key
-                  ? 'border-accent bg-accent text-bg'
+                  ? 'border-fg bg-fg text-bg'
                   : 'border-line text-fg-dim hover:border-muted hover:text-fg')
               }
             >
@@ -85,7 +85,7 @@ export function Work() {
                           </span>
                         </div>
                         <div className="px-1 pt-3 text-center">
-                          <div className="font-hand text-[27px] leading-tight text-[#2a2620]">{p.name}</div>
+                          <div className="text-[16px] font-medium leading-tight text-[#2a2620]">{p.name}</div>
                           <div className="mt-1 font-sans text-[10px] uppercase tracking-[0.14em] text-[#8a7f6a]">
                             {p.stack} · {p.year}
                           </div>

@@ -88,7 +88,7 @@ nav.top .brand .sep {
   font-weight: 300;
 }
 nav.top .brand .role {
-  color: var(--fg-dim);
+  color: var(--muted);
   font-weight: 300;
 }
 nav.top ul {
@@ -114,7 +114,7 @@ nav.top li a.active::after {
   right: 0;
   bottom: -7px;
   height: 1px;
-  background: var(--accent);
+  background: var(--fg);
 }
 nav.top .right {
   color: var(--fg-dim);
@@ -122,7 +122,7 @@ nav.top .right {
   font-weight: 300;
 }
 nav.top .right .here {
-  color: var(--accent);
+  color: var(--fg);
 }
 .theme-toggle {
   background: none;

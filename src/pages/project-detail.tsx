@@ -6,7 +6,7 @@ import { Clip } from '../components/clip';
 import { ClipDefs } from '../components/clip-defs';
 
 const BACK_CLASS =
-  'group fixed left-10 top-[84px] z-[60] font-sans text-[11px] uppercase tracking-[0.12em] text-fg-dim transition-colors hover:text-accent max-[900px]:left-[22px]';
+  'group fixed left-10 top-[84px] z-[60] font-sans text-[11px] uppercase tracking-[0.12em] text-fg-dim transition-colors hover:text-fg max-[900px]:left-[22px]';
 const PAGE_CLASS =
   'mx-auto max-w-[1320px] px-10 pt-[140px] pb-20 max-[900px]:px-[22px] max-[900px]:pt-[100px] max-[560px]:pt-[92px]';
 const BOARD =
@@ -56,7 +56,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
         <section className={'relative px-10 pb-20 pt-[150px] max-[900px]:px-[22px] max-[900px]:pb-12 max-[900px]:pt-[120px] ' + BOARD}>
           <div className="mx-auto grid max-w-[1320px] grid-cols-[1.04fr_0.96fr] items-center gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-12">
             <div className="max-[900px]:order-2">
-              <span className="mb-4 inline-block -rotate-2 font-hand text-[clamp(30px,3.6vw,50px)] leading-none text-accent-soft">{p.tag}</span>
+              <p className="mb-4 text-[13px] uppercase tracking-[0.1em] text-muted">{p.tag}</p>
               <div className="mb-5 font-sans text-[12px] uppercase tracking-[0.14em] text-muted">{p.num} · {p.year}</div>
               <h1 className="font-sans text-[clamp(52px,7.4vw,108px)] font-bold leading-[0.94] tracking-[-0.03em] text-fg">{p.name}</h1>
               <p className="mt-6 max-w-[42ch] text-[clamp(18px,2vw,24px)] font-light leading-[1.4] text-fg-dim">
@@ -65,7 +65,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
               {repo && (
                 <div className="mt-9 flex flex-wrap gap-3.5">
                   <a
-                    className="rounded-lg border border-line bg-bg-2 px-[18px] py-2.5 font-sans text-[13px] tracking-[0.04em] text-fg transition-colors hover:border-accent hover:text-accent"
+                    className="rounded-lg border border-line bg-bg-2 px-[18px] py-2.5 font-sans text-[13px] tracking-[0.04em] text-fg transition-colors hover:border-fg hover:text-fg"
                     href={repo}
                     target="_blank"
                     rel="noreferrer"
@@ -87,7 +87,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
                   <div className="relative aspect-[4/3] overflow-hidden bg-bg-2">
                     <Thumbnail p={p} />
                   </div>
-                  <div className="px-1 pt-3 text-center font-hand text-[30px] leading-tight text-[#2a2620]">{p.name}</div>
+                  <div className="px-1 pt-3 text-center text-[18px] font-medium leading-tight text-[#2a2620]">{p.name}</div>
                 </div>
               </div>
             </div>
@@ -109,9 +109,8 @@ export function ProjectDetail({ slug }: { slug: string }) {
 
         {sections.map((section, i) => (
           <div className="mx-auto grid max-w-[1320px] grid-cols-[200px_1fr] gap-[60px] px-10 py-[140px] max-[900px]:grid-cols-1 max-[900px]:gap-5 max-[900px]:px-[22px] max-[900px]:py-[60px]" key={i}>
-            <div className="sticky top-[120px] h-fit border-t border-accent pt-[14px] max-[900px]:static">
-              <div className="font-sans text-[11px] uppercase tracking-[0.13em] text-accent">{section.label}</div>
-              <div className="mt-2 -rotate-2 font-hand text-[26px] leading-none text-fg-dim">field notes</div>
+            <div className="sticky top-[120px] h-fit border-t border-line pt-[14px] max-[900px]:static">
+              <div className="font-sans text-[11px] uppercase tracking-[0.13em] text-muted">{section.label}</div>
             </div>
             <div className="max-w-[62ch]">
               <p className="text-[clamp(20px,2.4vw,28px)] leading-[1.5] text-fg">{section.body}</p>
@@ -122,22 +121,22 @@ export function ProjectDetail({ slug }: { slug: string }) {
         <Gallery images={galleryImages} captions={galleryCaptions} name={p.name} />
 
         <div className="mx-auto max-w-[1320px] px-10 pb-[120px] pt-20 max-[900px]:px-[22px] max-[900px]:pb-[80px] max-[900px]:pt-[60px]">
-          <span className="mb-5 inline-block -rotate-2 font-hand text-[30px] leading-none text-accent-soft">keep browsing</span>
+          <p className="mb-5 text-[13px] uppercase tracking-[0.1em] text-muted">More projects</p>
           <div className="grid grid-cols-2 gap-12 border-t border-line pt-12 max-[900px]:grid-cols-1 max-[900px]:gap-6">
             <div className="group">
               <span className="mb-[14px] block font-sans text-[11px] uppercase tracking-[0.11em] text-muted">{prev ? '← Previous' : '← Back'}</span>
               {prev ? (
-                <a className="inline-block font-sans text-[36px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-accent" href={'/work/' + prev.slug}>{prev.name}</a>
+                <a className="inline-block font-sans text-[36px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-fg-dim" href={'/work/' + prev.slug}>{prev.name}</a>
               ) : (
-                <a className="inline-block font-sans text-[36px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-accent" href="/work">All projects</a>
+                <a className="inline-block font-sans text-[36px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-fg-dim" href="/work">All projects</a>
               )}
             </div>
             <div className="group text-right max-[900px]:text-left">
               <span className="mb-[14px] block font-sans text-[11px] uppercase tracking-[0.11em] text-muted">{next ? 'Next →' : '→ Back'}</span>
               {next ? (
-                <a className="inline-block font-sans text-[36px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-accent" href={'/work/' + next.slug}>{next.name}</a>
+                <a className="inline-block font-sans text-[36px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-fg-dim" href={'/work/' + next.slug}>{next.name}</a>
               ) : (
-                <a className="inline-block font-sans text-[36px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-accent" href="/work">All projects</a>
+                <a className="inline-block font-sans text-[36px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-fg-dim" href="/work">All projects</a>
               )}
             </div>
           </div>

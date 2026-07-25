@@ -5,7 +5,7 @@ export function Research() {
     <div data-screen-label="Research">
       <section className="mx-auto max-w-[1320px] px-10 pt-[140px] pb-20 max-[900px]:px-[22px] max-[900px]:pt-[100px] max-[560px]:pt-[92px]">
         <div className="pb-16">
-          <span className="mb-6 inline-block -rotate-2 font-hand text-[clamp(32px,4vw,54px)] leading-none text-accent-soft">research</span>
+          <p className="mb-5 text-[13px] uppercase tracking-[0.1em] text-muted">Research</p>
           <h1 className="max-w-[18ch] font-sans text-[clamp(40px,5.6vw,80px)] font-semibold leading-[1.04] tracking-[-0.025em]">
             Papers & Experiments
           </h1>
@@ -25,7 +25,7 @@ export function Research() {
             >
               <div className="text-[13px] font-sans text-muted">{p.year}</div>
               <div>
-                <h3 className="text-[20px] font-medium leading-[1.3] group-hover:text-accent transition-colors">{p.title}</h3>
+                <h3 className="text-[20px] font-medium leading-[1.3] group-hover:text-fg transition-colors">{p.title}</h3>
                 <p className="mt-1 text-[14px] text-fg-dim">{p.authors.join(', ')}</p>
                 <p className="mt-2 max-w-[54ch] text-[14px] leading-[1.5] text-fg-dim">{p.summary}</p>
                 <div className="mt-3 flex flex-wrap gap-2">
@@ -34,7 +34,7 @@ export function Research() {
                   ))}
                 </div>
               </div>
-              <span className="text-[13px] text-fg-dim transition-colors group-hover:text-accent max-[900px]:hidden">View repo →</span>
+              <span className="text-[13px] text-fg-dim transition-colors group-hover:text-fg max-[900px]:hidden">View repo →</span>
             </a>
           ))}
         </div>

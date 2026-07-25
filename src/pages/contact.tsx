@@ -3,7 +3,7 @@ export function Contact() {
     <div data-screen-label="Contact">
       <section className="mx-auto max-w-[960px] px-10 pt-[140px] pb-20 max-[900px]:px-[22px] max-[900px]:pt-[100px] max-[560px]:pt-[92px]">
         <a
-          className="mb-16 block max-w-full break-words font-sans text-[clamp(28px,5vw,60px)] font-semibold leading-none tracking-[-0.035em] text-fg transition-colors duration-300 [overflow-wrap:anywhere] hover:text-accent max-[900px]:text-[clamp(24px,6.5vw,40px)]"
+          className="mb-16 block max-w-full break-words font-sans text-[clamp(28px,5vw,60px)] font-semibold leading-none tracking-[-0.035em] text-fg transition-colors duration-300 [overflow-wrap:anywhere] hover:text-fg-dim max-[900px]:text-[clamp(24px,6.5vw,40px)]"
           href="mailto:marvelcollin7@gmail.com"
         >
           marvelcollin7@gmail.com

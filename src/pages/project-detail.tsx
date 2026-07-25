@@ -1,14 +1,13 @@
 import { useContent, findWork, workIndex } from '../content/use-content';
 import { Thumbnail } from '../components/thumbnail';
 import { Gallery } from '../components/gallery';
-import { MetaList } from '../components/meta-list';
 import { Clip } from '../components/clip';
 import { ClipDefs } from '../components/clip-defs';
 
 const BACK_CLASS =
   'group fixed left-10 top-[84px] z-[60] font-sans text-[11px] uppercase tracking-[0.12em] text-fg-dim transition-colors hover:text-fg max-[900px]:left-[22px]';
 const PAGE_CLASS =
-  'mx-auto max-w-[1320px] px-10 pt-[140px] pb-20 max-[900px]:px-[22px] max-[900px]:pt-[100px] max-[560px]:pt-[92px]';
+  'mx-auto max-w-[900px] px-10 pt-[140px] pb-20 max-[900px]:px-[22px] max-[900px]:pt-[100px] max-[560px]:pt-[92px]';
 const BOARD =
   'bg-[radial-gradient(var(--dot)_1px,transparent_1px)] [background-size:24px_24px]';
 
@@ -94,53 +93,46 @@ export function ProjectDetail({ slug }: { slug: string }) {
           </div>
         </section>
 
-        <section className="px-10 py-10 max-[900px]:px-[22px] max-[900px]:py-8">
-          <div className="mx-auto max-w-[1320px]">
-            <MetaList
-              items={[
-                { label: 'Client', value: p.client },
-                { label: 'Role', value: p.role },
-                { label: 'Stack', value: p.stack },
-                { label: 'Year', value: String(p.year) },
-              ]}
-            />
+        <section className="bg-bg-2 px-10 py-10 max-[900px]:px-[22px] max-[900px]:py-8">
+          <div className="mx-auto flex max-w-[1320px] flex-wrap gap-x-12 gap-y-4 text-[14px] max-[560px]:flex-col max-[560px]:gap-3">
+            <div><span className="mr-2 text-[11px] uppercase tracking-[0.06em] text-muted">Client</span> <span className="text-fg">{p.client}</span></div>
+            <div><span className="mr-2 text-[11px] uppercase tracking-[0.06em] text-muted">Role</span> <span className="text-fg">{p.role}</span></div>
+            <div><span className="mr-2 text-[11px] uppercase tracking-[0.06em] text-muted">Stack</span> <span className="text-fg">{p.stack}</span></div>
+            <div><span className="mr-2 text-[11px] uppercase tracking-[0.06em] text-muted">Year</span> <span className="text-fg">{String(p.year)}</span></div>
           </div>
         </section>
 
         {sections.map((section, i) => (
-          <div className="mx-auto grid max-w-[1320px] grid-cols-[200px_1fr] gap-[60px] px-10 py-[140px] max-[900px]:grid-cols-1 max-[900px]:gap-5 max-[900px]:px-[22px] max-[900px]:py-[60px]" key={i}>
-            <div className="sticky top-[120px] h-fit border-t border-line pt-[14px] max-[900px]:static">
-              <div className="font-sans text-[11px] uppercase tracking-[0.13em] text-muted">{section.label}</div>
+          <section className="px-10 py-24 max-[900px]:px-[22px] max-[900px]:py-14" key={i}>
+            <div className="mx-auto max-w-[720px]">
+              <p className="mb-6 text-[11px] uppercase tracking-[0.13em] text-muted">{section.label}</p>
+              <p className="text-[clamp(18px,2.2vw,26px)] leading-[1.6] text-fg">{section.body}</p>
             </div>
-            <div className="max-w-[62ch]">
-              <p className="text-[clamp(20px,2.4vw,28px)] leading-[1.5] text-fg">{section.body}</p>
-            </div>
-          </div>
+          </section>
         ))}
 
         <Gallery images={galleryImages} captions={galleryCaptions} name={p.name} />
 
-        <div className="mx-auto max-w-[1320px] px-10 pb-[120px] pt-20 max-[900px]:px-[22px] max-[900px]:pb-[80px] max-[900px]:pt-[60px]">
-          <p className="mb-5 text-[13px] uppercase tracking-[0.1em] text-muted">More projects</p>
-          <div className="grid grid-cols-2 gap-12 border-t border-line pt-12 max-[900px]:grid-cols-1 max-[900px]:gap-6">
+        <section className="bg-bg-2 px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
+          <div className="mx-auto grid max-w-[900px] grid-cols-2 gap-12 max-[900px]:grid-cols-1 max-[900px]:gap-8">
             <div className="group">
-              <span className="mb-[14px] block font-sans text-[11px] uppercase tracking-[0.11em] text-muted">{prev ? '← Previous' : '← Back'}</span>
+              <span className="mb-3 block text-[11px] uppercase tracking-[0.11em] text-muted">{prev ? '← Previous' : '← Back'}</span>
               {prev ? (
-                <a className="inline-block font-sans text-[36px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-fg-dim" href={'/work/' + prev.slug}>{prev.name}</a>
+                <a className="inline-block text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-fg-dim max-[560px]:text-[22px]" href={'/work/' + prev.slug}>{prev.name}</a>
               ) : (
-                <a className="inline-block font-sans text-[36px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-fg-dim" href="/work">All projects</a>
+                <a className="inline-block text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-fg-dim max-[560px]:text-[22px]" href="/work">All projects</a>
               )}
             </div>
             <div className="group text-right max-[900px]:text-left">
-              <span className="mb-[14px] block font-sans text-[11px] uppercase tracking-[0.11em] text-muted">{next ? 'Next →' : '→ Back'}</span>
+              <span className="mb-3 block text-[11px] uppercase tracking-[0.11em] text-muted">{next ? 'Next →' : '→ Back'}</span>
               {next ? (
-                <a className="inline-block font-sans text-[36px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-fg-dim" href={'/work/' + next.slug}>{next.name}</a>
+                <a className="inline-block text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-fg-dim max-[560px]:text-[22px]" href={'/work/' + next.slug}>{next.name}</a>
               ) : (
-                <a className="inline-block font-sans text-[36px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-fg-dim" href="/work">All projects</a>
+                <a className="inline-block text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-fg-dim max-[560px]:text-[22px]" href="/work">All projects</a>
               )}
             </div>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );

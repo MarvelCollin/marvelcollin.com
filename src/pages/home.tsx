@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { useContent, findWork } from '../content/use-content';
 import { Thumbnail } from '../components/thumbnail';
-import { MetaList } from '../components/meta-list';
 import { useColumnCount } from '../hooks/use-column-count';
 import type { Project } from '../Interface/IProject';
 
@@ -21,28 +20,31 @@ export function Home() {
 
   return (
     <div data-screen-label="Home">
-      <section className="mx-auto max-w-[1320px] px-10 pt-[140px] pb-20 max-[900px]:px-[22px] max-[900px]:pt-[100px] max-[560px]:pt-[92px]">
-        <div className="pb-[120px]">
-          <p className="mb-5 text-[13px] uppercase tracking-[0.1em] text-muted">Software Engineer</p>
-          <h1 className="max-w-[14ch] font-sans text-[clamp(40px,6.2vw,96px)] font-semibold leading-[1.08] tracking-[-0.025em]">
-            Marvel Collin.
+      <section className="flex min-h-[90vh] flex-col justify-center px-10 max-[900px]:px-[22px]">
+        <div className="mx-auto w-full max-w-[1320px]">
+          <h1 className="font-sans text-[clamp(56px,10vw,148px)] font-semibold leading-[0.92] tracking-[-0.04em]">
+            Marvel<br />Collin.
           </h1>
-          <div className="mt-[100px] grid grid-cols-[1fr_auto] gap-20 border-t border-line pt-9 text-[16px] leading-[1.65] text-fg-dim max-[900px]:grid-cols-1 max-[900px]:gap-6">
-            <p>
-              I'm a Computer Science student at BINUS University and a full-stack engineer on the lab's R&D team. I build web apps from database to interface in TypeScript, React, Go, and .NET. On the side I make games, ML experiments, and award-winning robotics.
+          <div className="mt-12 flex items-start justify-between gap-16 max-[900px]:flex-col max-[900px]:gap-8">
+            <p className="max-w-[48ch] text-[17px] leading-[1.7] text-fg-dim">
+              Computer Science student at BINUS University and a full-stack engineer on the lab's R&D team. I build web apps from database to interface in TypeScript, React, Go, and .NET. On the side I make games, ML experiments, and award-winning robotics.
             </p>
-            <div className="flex flex-col items-end gap-1.5 whitespace-nowrap pt-1 text-[14px] text-fg-dim max-[900px]:items-start max-[900px]:whitespace-normal">
+            <div className="shrink-0 text-right text-[14px] leading-[1.8] text-fg-dim max-[900px]:text-left">
+              <p>Software Engineer</p>
               <p>Jakarta, Indonesia</p>
-              <a className="mt-2 border-b border-line pb-px text-fg-dim transition-colors hover:text-fg" href="mailto:marvelcollin7@gmail.com">marvelcollin7@gmail.com</a>
+              <a className="mt-2 inline-block text-fg-dim transition-colors hover:text-fg" href="mailto:marvelcollin7@gmail.com">marvelcollin7@gmail.com</a>
             </div>
           </div>
         </div>
+      </section>
 
-        <div className="pt-[120px]">
-          <div className="mb-[22px] flex items-end justify-between gap-4">
+      <section className="bg-bg-2 px-10 py-24 max-[900px]:px-[22px] max-[900px]:py-16">
+        <div className="mx-auto max-w-[1320px]">
+          <div className="mb-8 flex items-end justify-between gap-4">
             <p className="text-[13px] uppercase tracking-[0.1em] text-muted">
               Selected work · {String(Math.min(works.length, 6)).padStart(2, '0')} / {String(works.length).padStart(2, '0')}
             </p>
+            <a href="/work" className="text-[13px] text-fg-dim transition-colors hover:text-fg">View all →</a>
           </div>
 
           <div className="rounded-2xl bg-[radial-gradient(var(--dot)_1px,transparent_1px)] [background-size:22px_22px] px-2 py-8 sm:px-6">
@@ -82,22 +84,18 @@ export function Home() {
               ))}
             </div>
           </div>
-
-          <div className="mt-6 text-sm text-fg-dim">
-            <a href="/work" className="border-b border-line pb-px text-fg-dim transition-colors hover:text-fg">All {works.length} projects →</a>
-          </div>
         </div>
+      </section>
 
-        {feature && (
-          <div className="pt-[140px]">
-            <div className="mb-12 grid grid-cols-2 items-end gap-[60px] max-[900px]:grid-cols-1 max-[900px]:gap-[30px]">
-              <h2 className="font-sans text-[clamp(36px,5vw,72px)] font-semibold leading-[1.06] tracking-[-0.025em]">{feature.name}</h2>
-              <p className="max-w-[46ch] text-[18px] leading-[1.5] text-fg-dim">
-                <b className="font-medium text-fg">{feature.name}</b> {feature.body[0]}
-              </p>
-            </div>
+      {feature && (
+        <section className="px-10 py-32 max-[900px]:px-[22px] max-[900px]:py-20">
+          <div className="mx-auto max-w-[960px]">
+            <p className="mb-4 text-[13px] uppercase tracking-[0.1em] text-muted">Featured</p>
+            <h2 className="font-sans text-[clamp(32px,4.5vw,56px)] font-semibold leading-[1.08] tracking-[-0.025em]">{feature.name}</h2>
+            <p className="mt-4 max-w-[50ch] text-[17px] leading-[1.6] text-fg-dim">{feature.body[0]}</p>
+
             <a
-              className="group relative mx-auto block max-w-[940px] origin-center -rotate-1 transition-transform duration-300 ease-out hover:rotate-0 hover:scale-[1.015]"
+              className="group relative mt-14 mx-auto block max-w-[800px] origin-center -rotate-1 transition-transform duration-300 ease-out hover:rotate-0 hover:scale-[1.015]"
               href={'/work/' + feature.slug}
             >
               <span className="pointer-events-none absolute -top-4 left-1/2 z-10 h-8 w-36 -translate-x-1/2 -rotate-2 bg-[rgba(220,189,110,0.32)] shadow-[0_1px_5px_rgba(0,0,0,0.35)]" />
@@ -119,19 +117,9 @@ export function Home() {
                 </div>
               </div>
             </a>
-            <div className="mt-8">
-              <MetaList
-                items={[
-                  { label: 'Type', value: feature.tag },
-                  { label: 'Role', value: feature.role },
-                  { label: 'Stack', value: feature.stack },
-                  { label: 'Result', value: feature.result },
-                ]}
-              />
-            </div>
           </div>
-        )}
-      </section>
+        </section>
+      )}
     </div>
   );
 }

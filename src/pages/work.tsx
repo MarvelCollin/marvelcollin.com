@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useContent } from '../content/use-content';
+import { orgLogo } from '../lib/icons';
 import { Thumbnail } from '../components/thumbnail';
 import { Reveal } from '../components/reveal';
 import { useColumnCount } from '../hooks/use-column-count';
@@ -9,7 +10,7 @@ const ROT = ['-rotate-2', 'rotate-1', 'rotate-3', '-rotate-3', 'rotate-2', '-rot
 const ASPECT = ['aspect-[4/5]', 'aspect-square', 'aspect-[3/4]', 'aspect-[5/6]', 'aspect-[4/3]', 'aspect-[4/5]'];
 
 export function Work() {
-  const { works: PROJECTS, loading } = useContent();
+  const { works: PROJECTS, loading, experience: HISTORY, education: EDUCATION } = useContent();
   const [filter, setFilter] = useState('all');
   const cols = useColumnCount();
   const filtered = useMemo(
@@ -104,6 +105,60 @@ export function Work() {
               </div>
             </div>
           )}
+        </div>
+      </Reveal>
+
+      <Reveal as="section" className="px-10 py-24 max-[900px]:px-[22px] max-[900px]:py-16">
+        <div className="mx-auto max-w-[900px]">
+          <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-muted">Experience</p>
+          <div className="space-y-12">
+            {HISTORY.map((j, i) => {
+              const logo = orgLogo(j.where);
+              return (
+                <div key={i}>
+                  <div className="flex items-center gap-4">
+                    {logo && (
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-line bg-bg-2 p-1.5">
+                        <img src={logo} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                      </div>
+                    )}
+                    <div>
+                      <div className="text-[18px] font-medium leading-[1.3]">{j.role}</div>
+                      <div className="mt-0.5 text-[14px] text-fg-dim">{j.where} · {j.yr}</div>
+                    </div>
+                  </div>
+                  {j.note && <p className="mt-3 max-w-[54ch] text-[15px] leading-[1.6] text-fg-dim pl-[60px] max-[900px]:pl-0">{j.note}</p>}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </Reveal>
+
+      <Reveal as="section" className="bg-bg-2 px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
+        <div className="mx-auto max-w-[900px]">
+          <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-muted">Education</p>
+          <div className="space-y-10">
+            {EDUCATION.map((e) => {
+              const logo = orgLogo(e.school);
+              return (
+                <div key={e.id}>
+                  <div className="flex items-center gap-4">
+                    {logo && (
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-line bg-bg p-1.5">
+                        <img src={logo} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                      </div>
+                    )}
+                    <div>
+                      <div className="text-[18px] font-medium leading-[1.3]">{e.degree}</div>
+                      <div className="mt-0.5 text-[14px] text-fg-dim">{e.school} · {e.yr}</div>
+                    </div>
+                  </div>
+                  {e.note && <p className="mt-3 max-w-[54ch] text-[15px] leading-[1.6] text-fg-dim pl-[60px] max-[900px]:pl-0">{e.note}</p>}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </Reveal>
     </div>

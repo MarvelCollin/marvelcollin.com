@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useContent } from '../content/use-content';
 import { img } from '../lib/img';
-import { orgLogo } from '../lib/icons';
 import { Reveal } from '../components/reveal';
 import { SkillBalls } from '../components/skill-balls';
 
@@ -16,7 +15,7 @@ function classifySkill(name: string): string {
 }
 
 export function About() {
-  const { skills: SKILLS, experience: HISTORY, recognition: AWARDS, education: EDUCATION } = useContent();
+  const { skills: SKILLS, recognition: AWARDS } = useContent();
   const [skillFilter, setSkillFilter] = useState('all');
 
   const classified = useMemo(() => SKILLS.map(s => ({ ...s, cat: classifySkill(s.name) })), [SKILLS]);
@@ -60,86 +59,7 @@ export function About() {
         </div>
       </section>
 
-      <Reveal as="section" className="bg-bg-2 px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
-        <div className="mx-auto max-w-[1320px]">
-          <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-            <p className="text-[13px] uppercase tracking-[0.1em] text-muted">Skills</p>
-            <div className="flex flex-wrap gap-2">
-              {filters.map(f => (
-                <button
-                  key={f.key}
-                  onClick={() => setSkillFilter(f.key)}
-                  className={
-                    'cursor-pointer rounded-full border px-3.5 py-[5px] text-[12px] tracking-[0.04em] transition-colors ' +
-                    (skillFilter === f.key
-                      ? 'border-fg bg-fg text-bg'
-                      : 'border-line text-fg-dim hover:border-muted hover:text-fg')
-                  }
-                >
-                  {f.label} ({counts[f.key]})
-                </button>
-              ))}
-            </div>
-          </div>
-          <SkillBalls skills={filtered} />
-        </div>
-      </Reveal>
-
-      <Reveal as="section" className="px-10 py-24 max-[900px]:px-[22px] max-[900px]:py-16">
-        <div className="mx-auto max-w-[900px]">
-          <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-muted">Experience</p>
-          <div className="space-y-12">
-            {HISTORY.map((j, i) => {
-              const logo = orgLogo(j.where);
-              return (
-                <div key={i}>
-                  <div className="flex items-center gap-4">
-                    {logo && (
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-line bg-bg-2 p-1.5">
-                        <img src={logo} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
-                      </div>
-                    )}
-                    <div>
-                      <div className="text-[18px] font-medium leading-[1.3]">{j.role}</div>
-                      <div className="mt-0.5 text-[14px] text-fg-dim">{j.where} · {j.yr}</div>
-                    </div>
-                  </div>
-                  {j.note && <p className="mt-3 max-w-[54ch] text-[15px] leading-[1.6] text-fg-dim pl-[60px] max-[900px]:pl-0">{j.note}</p>}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </Reveal>
-
-      <Reveal as="section" className="bg-bg-2 px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
-        <div className="mx-auto max-w-[900px]">
-          <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-muted">Education</p>
-          <div className="space-y-10">
-            {EDUCATION.map((e) => {
-              const logo = orgLogo(e.school);
-              return (
-                <div key={e.id}>
-                  <div className="flex items-center gap-4">
-                    {logo && (
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-line bg-bg p-1.5">
-                        <img src={logo} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
-                      </div>
-                    )}
-                    <div>
-                      <div className="text-[18px] font-medium leading-[1.3]">{e.degree}</div>
-                      <div className="mt-0.5 text-[14px] text-fg-dim">{e.school} · {e.yr}</div>
-                    </div>
-                  </div>
-                  {e.note && <p className="mt-3 max-w-[54ch] text-[15px] leading-[1.6] text-fg-dim pl-[60px] max-[900px]:pl-0">{e.note}</p>}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </Reveal>
-
-      <Reveal as="section" className="px-10 py-24 max-[900px]:px-[22px] max-[900px]:py-16">
+      <Reveal as="section" className="px-10 pb-24 max-[900px]:px-[22px] max-[900px]:pb-16">
         <div className="mx-auto max-w-[900px]">
           <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-muted">Licenses & Awards</p>
           <div className="space-y-6">
@@ -163,6 +83,31 @@ export function About() {
               </div>
             ))}
           </div>
+        </div>
+      </Reveal>
+
+      <Reveal as="section" className="bg-bg-2 px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
+        <div className="mx-auto max-w-[1320px]">
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+            <p className="text-[13px] uppercase tracking-[0.1em] text-muted">Skills</p>
+            <div className="flex flex-wrap gap-2">
+              {filters.map(f => (
+                <button
+                  key={f.key}
+                  onClick={() => setSkillFilter(f.key)}
+                  className={
+                    'cursor-pointer rounded-full border px-3.5 py-[5px] text-[12px] tracking-[0.04em] transition-colors ' +
+                    (skillFilter === f.key
+                      ? 'border-fg bg-fg text-bg'
+                      : 'border-line text-fg-dim hover:border-muted hover:text-fg')
+                  }
+                >
+                  {f.label} ({counts[f.key]})
+                </button>
+              ))}
+            </div>
+          </div>
+          <SkillBalls skills={filtered} />
         </div>
       </Reveal>
     </div>

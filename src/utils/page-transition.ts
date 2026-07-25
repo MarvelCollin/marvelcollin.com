@@ -3,8 +3,8 @@ import type { Dir, Variant } from '../Interface/IVariant';
 const EASE = 'cubic-bezier(0.45, 0, 0.15, 1)';
 const IRIS_EASE = 'cubic-bezier(0.40, 0, 0.15, 1)';
 
-const FILL = '#17130b';
-const EDGE = '#d8bd6e';
+const FILL = '#0c0b09';
+const EDGE = '#2a2720';
 
 const HOLD = 100;
 

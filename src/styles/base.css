@@ -1,33 +1,33 @@
 :root {
-  --bg: #0a0a0a;
-  --bg-2: #141414;
-  --bg-3: #1c1c1c;
-  --highlight: #1a1a1a;
-  --fg: #e5e5e5;
-  --fg-dim: #737373;
-  --muted: #525252;
-  --line: #262626;
-  --line-soft: rgba(255, 255, 255, 0.03);
-  --accent: #e5e5e5;
-  --accent-soft: #a3a3a3;
-  --dot: rgba(255, 255, 255, 0.025);
+  --bg: #0c0b09;
+  --bg-2: #15140f;
+  --bg-3: #1e1b17;
+  --highlight: #1a1812;
+  --fg: #e8e4dc;
+  --fg-dim: #8a8378;
+  --muted: #5c564d;
+  --line: #2a2720;
+  --line-soft: rgba(232, 228, 220, 0.04);
+  --accent: #b5aa9c;
+  --accent-soft: #8a8175;
+  --dot: rgba(255, 248, 230, 0.025);
   --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --nav-bg: rgba(10, 10, 10, 0.85);
+  --nav-bg: rgba(12, 11, 9, 0.85);
 }
 html[data-theme="light"] {
-  --bg: #fafafa;
-  --bg-2: #f0f0f0;
-  --bg-3: #e5e5e5;
-  --highlight: #f5f5f5;
-  --fg: #171717;
-  --fg-dim: #737373;
-  --muted: #a3a3a3;
-  --line: #e5e5e5;
-  --line-soft: rgba(0, 0, 0, 0.04);
-  --accent: #171717;
-  --accent-soft: #525252;
+  --bg: #f8f5f0;
+  --bg-2: #efebe4;
+  --bg-3: #e3dfd7;
+  --highlight: #f3efe8;
+  --fg: #1c1917;
+  --fg-dim: #78726a;
+  --muted: #a8a19a;
+  --line: #e0dbd3;
+  --line-soft: rgba(28, 25, 23, 0.04);
+  --accent: #6b6359;
+  --accent-soft: #8a8278;
   --dot: rgba(0, 0, 0, 0.04);
-  --nav-bg: rgba(250, 250, 250, 0.85);
+  --nav-bg: rgba(248, 245, 240, 0.85);
 }
 * {
   box-sizing: border-box;
@@ -45,6 +45,15 @@ body {
 body {
   font-weight: 400;
   letter-spacing: 0;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
 }
 a {
   color: inherit;
@@ -106,13 +115,7 @@ nav.top li a {
   color: var(--fg-dim);
   transition: color 0.25s;
 }
-nav.top li a:hover {
-  color: var(--fg);
-}
-nav.top li a.active {
-  color: var(--fg);
-}
-nav.top li a.active::after {
+nav.top li a::after {
   content: "";
   position: absolute;
   left: 0;
@@ -120,6 +123,21 @@ nav.top li a.active::after {
   bottom: -7px;
   height: 1px;
   background: var(--fg);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+nav.top li a:hover {
+  color: var(--fg);
+}
+nav.top li a:hover::after {
+  transform: scaleX(1);
+}
+nav.top li a.active {
+  color: var(--fg);
+}
+nav.top li a.active::after {
+  transform: scaleX(1);
 }
 nav.top .right {
   color: var(--fg-dim);

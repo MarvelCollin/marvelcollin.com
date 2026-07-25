@@ -109,8 +109,6 @@ export function SkillBalls({ skills }: { skills: Skill[] }) {
       Matter.Runner.stop(runner);
       Matter.Engine.clear(engine);
       Matter.Composite.clear(engine.world, false);
-      setReady(false);
-      nodesRef.current.clear();
     };
   }, [skills]);
 
@@ -127,7 +125,7 @@ export function SkillBalls({ skills }: { skills: Skill[] }) {
         return (
           <div
             key={s.id || s.name}
-            ref={el => { if (el) nodesRef.current.set(s.name, el); }}
+            ref={el => { if (el) nodesRef.current.set(s.name, el); else nodesRef.current.delete(s.name); }}
             className="absolute left-0 top-0 flex flex-col items-center justify-center rounded-full border"
             style={{
               width: R * 2,

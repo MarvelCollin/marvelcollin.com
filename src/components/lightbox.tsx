@@ -53,7 +53,7 @@ export function Lightbox({
           <div className="relative overflow-hidden bg-bg-2">
             <img className="block max-h-[78vh] max-w-[86vw] object-contain" src={img(images[index], 1600)} alt={caption || name} />
           </div>
-          <div className="px-1 pt-3 text-center font-hand text-[27px] leading-tight text-[#2a2620]">{caption || name}</div>
+          <div className="px-1 pt-3 text-center text-[16px] font-medium leading-tight text-[#2a2620]">{caption || name}</div>
         </div>
         <button
           className="absolute -right-3 -top-3 z-[3] flex h-9 w-9 items-center justify-center rounded-full bg-[#e9e3d6] text-[20px] leading-none text-[#2a2620] shadow-[0_6px_16px_-4px_rgba(0,0,0,0.6)] transition-transform hover:scale-110"

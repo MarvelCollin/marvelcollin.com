@@ -33,7 +33,7 @@ export function Home() {
             </p>
             <div className="flex flex-col items-end gap-1.5 whitespace-nowrap pt-1 text-[14px] text-fg-dim max-[900px]:items-start max-[900px]:whitespace-normal">
               <p>Jakarta, Indonesia</p>
-              <a className="mt-2 border-b border-line pb-px text-fg transition-colors hover:text-accent" href="mailto:marvelcollin7@gmail.com">marvelcollin7@gmail.com</a>
+              <a className="mt-2 border-b border-line pb-px text-fg-dim transition-colors hover:text-fg" href="mailto:marvelcollin7@gmail.com">marvelcollin7@gmail.com</a>
             </div>
           </div>
         </div>
@@ -84,7 +84,7 @@ export function Home() {
           </div>
 
           <div className="mt-6 text-sm text-fg-dim">
-            <a href="/work" className="border-b border-line pb-px text-fg transition-colors hover:text-accent">All {works.length} projects →</a>
+            <a href="/work" className="border-b border-line pb-px text-fg-dim transition-colors hover:text-fg">All {works.length} projects →</a>
           </div>
         </div>
 

@@ -1,10 +1,46 @@
+import { useMemo, useState } from 'react';
 import { useContent } from '../content/use-content';
 import { img } from '../lib/img';
 import { skillIcon, orgLogo } from '../lib/icons';
 import { Reveal } from '../components/reveal';
 
+const WEB_KEYS = ['typescript', 'javascript', 'react', 'next', 'nuxt', 'vue', 'angular', 'svelte', 'node', 'express', 'nest', 'tailwind', '.net', 'c#', 'php', 'laravel', 'go', 'java', 'kotlin', 'html', 'css', 'graphql', 'rest', 'supabase', 'prisma', 'firebase', 'mongodb', 'sqlite', 'redis', 'sql'];
+const AI_KEYS = ['python', 'tensorflow', 'pytorch', 'r language', 'machine learning', 'deep learning', 'nlp', 'data', 'scikit', 'pandas', 'numpy', 'opencv', 'keras'];
+const CREATIVE_KEYS = ['three.js', 'unity', 'arduino', 'robotics', '3d printing', 'blender', 'figma', 'gamedev', 'game'];
+
+function classifySkill(name: string): string {
+  const n = name.toLowerCase();
+  if (AI_KEYS.some(k => n.includes(k))) return 'ai';
+  if (CREATIVE_KEYS.some(k => n.includes(k))) return 'creative';
+  if (WEB_KEYS.some(k => n.includes(k))) return 'web';
+  return 'other';
+}
+
 export function About() {
   const { skills: SKILLS, experience: HISTORY, recognition: AWARDS, education: EDUCATION } = useContent();
+  const [skillFilter, setSkillFilter] = useState('all');
+
+  const classified = useMemo(() => SKILLS.map(s => ({ ...s, cat: classifySkill(s.name) })), [SKILLS]);
+
+  const counts = useMemo(() => {
+    const c: Record<string, number> = { all: classified.length, web: 0, ai: 0, creative: 0, other: 0 };
+    classified.forEach(s => c[s.cat]++);
+    return c;
+  }, [classified]);
+
+  const filtered = useMemo(
+    () => skillFilter === 'all' ? classified : classified.filter(s => s.cat === skillFilter),
+    [classified, skillFilter],
+  );
+
+  const filters = [
+    { key: 'all', label: 'All' },
+    { key: 'web', label: 'Web Dev' },
+    { key: 'ai', label: 'AI / ML' },
+    { key: 'creative', label: 'Creative' },
+    { key: 'other', label: 'Other' },
+  ].filter(f => f.key === 'all' || counts[f.key] > 0);
+
   return (
     <div data-screen-label="About">
       <section className="px-10 pt-[160px] pb-24 max-[900px]:px-[22px] max-[900px]:pt-[100px] max-[900px]:pb-16">
@@ -28,12 +64,30 @@ export function About() {
 
       <Reveal as="section" className="bg-bg-2 px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
         <div className="mx-auto max-w-[1320px]">
-          <p className="mb-8 text-[13px] uppercase tracking-[0.1em] text-muted">Skills</p>
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+            <p className="text-[13px] uppercase tracking-[0.1em] text-muted">Skills</p>
+            <div className="flex flex-wrap gap-2">
+              {filters.map(f => (
+                <button
+                  key={f.key}
+                  onClick={() => setSkillFilter(f.key)}
+                  className={
+                    'cursor-pointer rounded-full border px-3.5 py-[5px] text-[12px] tracking-[0.04em] transition-colors ' +
+                    (skillFilter === f.key
+                      ? 'border-fg bg-fg text-bg'
+                      : 'border-line text-fg-dim hover:border-muted hover:text-fg')
+                  }
+                >
+                  {f.label} ({counts[f.key]})
+                </button>
+              ))}
+            </div>
+          </div>
           <div className="flex flex-wrap gap-3">
-            {SKILLS.map((s, i) => {
+            {filtered.map((s, i) => {
               const skill = skillIcon(s.name);
               return (
-                <div key={i} className="group relative flex items-center gap-2.5 rounded-full border border-line bg-bg px-4 py-2.5 text-[14px] transition-all duration-200 hover:border-muted hover:scale-[1.03]">
+                <div key={s.id || i} className="group relative flex items-center gap-2.5 rounded-full border border-line bg-bg px-4 py-2.5 text-[14px] transition-all duration-200 hover:border-muted hover:scale-[1.03]">
                   {skill && <skill.Icon size={14} className="shrink-0" style={{ color: skill.color }} />}
                   <span className="font-medium">{s.name}</span>
                   {s.opinion && (
@@ -42,6 +96,9 @@ export function About() {
                 </div>
               );
             })}
+            {filtered.length === 0 && (
+              <p className="text-[14px] text-fg-dim">No skills in this category.</p>
+            )}
           </div>
         </div>
       </Reveal>

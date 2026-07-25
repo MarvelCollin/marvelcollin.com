@@ -9,8 +9,8 @@ interface Skill {
   sort: number;
 }
 
-const S = 46;
-const MIN = 18;
+const S = 68;
+const MIN = 26;
 const WALL = 60;
 
 interface Dim {
@@ -203,8 +203,8 @@ export function SkillBalls({ skills }: { skills: Skill[] }) {
             )}
             <span
               ref={el => { if (el) labelsRef.current.set(s.name, el); else labelsRef.current.delete(s.name); }}
-              className="absolute left-1/2 whitespace-nowrap text-[7px] font-semibold uppercase tracking-wider"
-              style={{ color: color + 'cc', top: d.h + 3, transform: 'translateX(-50%)' }}
+              className="absolute left-1/2 whitespace-nowrap text-[8px] font-semibold uppercase tracking-wider"
+              style={{ color: color + 'cc', top: d.h + 4, transform: 'translateX(-50%)' }}
             >
               {s.name.length > 12 ? s.name.slice(0, 10) + '..' : s.name}
             </span>

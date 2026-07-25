@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react';
 import Matter from 'matter-js';
 import { skillIcon } from '../lib/icons';
 
@@ -9,15 +9,26 @@ interface Skill {
   sort: number;
 }
 
-const R = 26;
+const S = 46;
+const MIN = 18;
 const WALL = 60;
+
+interface Dim {
+  w: number;
+  h: number;
+  cx: number;
+  cy: number;
+}
 
 export function SkillBalls({ skills }: { skills: Skill[] }) {
   const boxRef = useRef<HTMLDivElement>(null);
+  const measureRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<Matter.Engine | null>(null);
   const bodiesRef = useRef<Matter.Body[]>([]);
   const nodesRef = useRef<Map<string, HTMLDivElement>>(new Map());
+  const labelsRef = useRef<Map<string, HTMLSpanElement>>(new Map());
   const frameRef = useRef(0);
+  const [dims, setDims] = useState<Map<string, Dim>>(new Map());
   const [ready, setReady] = useState(false);
 
   const icons = useMemo(() => {
@@ -29,9 +40,36 @@ export function SkillBalls({ skills }: { skills: Skill[] }) {
     return m;
   }, [skills]);
 
+  useLayoutEffect(() => {
+    const host = measureRef.current;
+    if (!host || skills.length === 0) return;
+
+    const next = new Map<string, Dim>();
+    skills.forEach((s, i) => {
+      const svg = host.children[i]?.querySelector('svg');
+      if (!svg) {
+        next.set(s.name, { w: S, h: S, cx: S / 2, cy: S / 2 });
+        return;
+      }
+      const vb = svg.viewBox.baseVal;
+      const scale = vb.width && vb.height ? Math.min(S / vb.width, S / vb.height) : 1;
+      const b = svg.getBBox();
+      const offX = (S - vb.width * scale) / 2 - vb.x * scale;
+      const offY = (S - vb.height * scale) / 2 - vb.y * scale;
+      next.set(s.name, {
+        w: Math.max(MIN, b.width * scale),
+        h: Math.max(MIN, b.height * scale),
+        cx: (b.x + b.width / 2) * scale + offX,
+        cy: (b.y + b.height / 2) * scale + offY,
+      });
+    });
+    setDims(next);
+  }, [skills, icons]);
+
   useEffect(() => {
     const box = boxRef.current;
     if (!box || skills.length === 0) return;
+    if (!skills.every(s => dims.has(s.name))) return;
 
     const w = box.clientWidth;
     const h = box.clientHeight;
@@ -48,20 +86,24 @@ export function SkillBalls({ skills }: { skills: Skill[] }) {
     Matter.Composite.add(engine.world, walls);
 
     const perRow = Math.ceil(Math.sqrt(skills.length));
-    const spacing = Math.min((w - 100) / perRow, R * 3);
+    const spacing = Math.min((w - 100) / perRow, S * 1.7);
     const startX = (w - (perRow - 1) * spacing) / 2;
 
     const balls = skills.map((s, i) => {
+      const d = dims.get(s.name)!;
       const row = Math.floor(i / perRow);
       const col = i % perRow;
-      return Matter.Bodies.circle(
+      return Matter.Bodies.rectangle(
         startX + col * spacing + (Math.random() - 0.5) * 8,
-        -50 - row * (R * 2.8) + (Math.random() - 0.5) * 15,
-        R,
+        -60 - row * (S * 1.9) + (Math.random() - 0.5) * 15,
+        d.w,
+        d.h,
         {
-          restitution: 0.4,
-          friction: 0.05,
-          frictionAir: 0.01,
+          chamfer: { radius: Math.min(d.w, d.h) * 0.14 },
+          angle: (Math.random() - 0.5) * 0.5,
+          restitution: 0.25,
+          friction: 0.2,
+          frictionAir: 0.012,
           density: 0.003,
           label: s.name,
         },
@@ -86,7 +128,10 @@ export function SkillBalls({ skills }: { skills: Skill[] }) {
       balls.forEach(b => {
         const el = nodesRef.current.get(b.label);
         if (!el) return;
-        el.style.transform = `translate(${b.position.x - R}px, ${b.position.y - R}px) rotate(${b.angle}rad)`;
+        const d = dims.get(b.label)!;
+        el.style.transform = `translate(${b.position.x - d.w / 2}px, ${b.position.y - d.h / 2}px) rotate(${b.angle}rad)`;
+        const lbl = labelsRef.current.get(b.label);
+        if (lbl) lbl.style.transform = `translateX(-50%) rotate(${-b.angle}rad)`;
       });
       frameRef.current = requestAnimationFrame(sync);
     };
@@ -110,7 +155,7 @@ export function SkillBalls({ skills }: { skills: Skill[] }) {
       Matter.Engine.clear(engine);
       Matter.Composite.clear(engine.world, false);
     };
-  }, [skills]);
+  }, [skills, dims]);
 
   return (
     <div
@@ -118,27 +163,48 @@ export function SkillBalls({ skills }: { skills: Skill[] }) {
       className="relative h-[500px] w-full cursor-grab overflow-hidden rounded-2xl border border-line bg-bg max-[560px]:h-[400px]"
       style={{ touchAction: 'none' }}
     >
+      <div ref={measureRef} aria-hidden className="pointer-events-none absolute -left-[9999px] top-0 opacity-0">
+        {skills.map(s => {
+          const ic = icons.get(s.name);
+          return <span key={s.id || s.name}>{ic && <ic.Icon size={S} />}</span>;
+        })}
+      </div>
+
       {ready && skills.map(s => {
         const ic = icons.get(s.name);
-        const fallbackColor = '#8a8378';
-        const color = ic?.color || fallbackColor;
+        const d = dims.get(s.name);
+        if (!d) return null;
+        const color = ic?.color || '#8a8378';
         return (
           <div
             key={s.id || s.name}
             ref={el => { if (el) nodesRef.current.set(s.name, el); else nodesRef.current.delete(s.name); }}
-            className="absolute left-0 top-0 flex flex-col items-center justify-center rounded-full border"
-            style={{
-              width: R * 2,
-              height: R * 2,
-              borderColor: color + '50',
-              backgroundColor: color + '12',
-              willChange: 'transform',
-            }}
+            className="absolute left-0 top-0"
+            style={{ width: d.w, height: d.h, willChange: 'transform' }}
           >
-            {ic && <ic.Icon size={R * 0.7} style={{ color }} />}
+            {ic ? (
+              <ic.Icon
+                size={S}
+                style={{
+                  position: 'absolute',
+                  left: d.w / 2 - d.cx,
+                  top: d.h / 2 - d.cy,
+                  color,
+                  filter: 'drop-shadow(0 1px 2px rgb(0 0 0 / 0.2))',
+                }}
+              />
+            ) : (
+              <div
+                className="flex h-full w-full items-center justify-center rounded-lg border text-[13px] font-semibold uppercase"
+                style={{ borderColor: color + '55', backgroundColor: color + '14', color }}
+              >
+                {s.name.slice(0, 2)}
+              </div>
+            )}
             <span
-              className="absolute whitespace-nowrap text-[7px] font-semibold uppercase tracking-wider"
-              style={{ color: color + 'bb', bottom: -14 }}
+              ref={el => { if (el) labelsRef.current.set(s.name, el); else labelsRef.current.delete(s.name); }}
+              className="absolute left-1/2 whitespace-nowrap text-[7px] font-semibold uppercase tracking-wider"
+              style={{ color: color + 'cc', top: d.h + 3, transform: 'translateX(-50%)' }}
             >
               {s.name.length > 12 ? s.name.slice(0, 10) + '..' : s.name}
             </span>

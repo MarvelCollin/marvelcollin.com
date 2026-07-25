@@ -35,8 +35,73 @@ export function Work() {
       <section className="px-10 pt-[160px] pb-8 max-[900px]:px-[22px] max-[900px]:pt-[100px]">
         <div className="mx-auto max-w-[1320px]">
           <h1 className="font-sans text-[clamp(36px,5vw,64px)] font-semibold leading-[1.06] tracking-[-0.025em]">
-            Projects
+            Work
           </h1>
+          <p className="mt-3 text-[15px] leading-relaxed text-fg-dim">
+            Experience, studies, and {PROJECTS.length} projects.
+          </p>
+        </div>
+      </section>
+
+      <Reveal as="section" className="px-10 pb-20 max-[900px]:px-[22px] max-[900px]:pb-14">
+        <div className="mx-auto max-w-[900px]">
+          <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-muted">Experience</p>
+          <div className="space-y-12">
+            {HISTORY.map((j, i) => {
+              const logo = orgLogo(j.where);
+              return (
+                <div key={i}>
+                  <div className="flex items-center gap-4">
+                    {logo && (
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-line bg-bg-2 p-1.5">
+                        <img src={logo} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                      </div>
+                    )}
+                    <div>
+                      <div className="text-[18px] font-medium leading-[1.3]">{j.role}</div>
+                      <div className="mt-0.5 text-[14px] text-fg-dim">{j.where} · {j.yr}</div>
+                    </div>
+                  </div>
+                  {j.note && <p className="mt-3 max-w-[54ch] text-[15px] leading-[1.6] text-fg-dim pl-[60px] max-[900px]:pl-0">{j.note}</p>}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </Reveal>
+
+      <Reveal as="section" className="bg-bg-2 px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
+        <div className="mx-auto max-w-[900px]">
+          <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-muted">Education</p>
+          <div className="space-y-10">
+            {EDUCATION.map((e) => {
+              const logo = orgLogo(e.school);
+              return (
+                <div key={e.id}>
+                  <div className="flex items-center gap-4">
+                    {logo && (
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-line bg-bg p-1.5">
+                        <img src={logo} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                      </div>
+                    )}
+                    <div>
+                      <div className="text-[18px] font-medium leading-[1.3]">{e.degree}</div>
+                      <div className="mt-0.5 text-[14px] text-fg-dim">{e.school} · {e.yr}</div>
+                    </div>
+                  </div>
+                  {e.note && <p className="mt-3 max-w-[54ch] text-[15px] leading-[1.6] text-fg-dim pl-[60px] max-[900px]:pl-0">{e.note}</p>}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </Reveal>
+
+      <section className="px-10 pt-24 pb-8 max-[900px]:px-[22px] max-[900px]:pt-16">
+        <div className="mx-auto max-w-[1320px]">
+          <h2 className="font-sans text-[clamp(28px,3.6vw,44px)] font-semibold leading-[1.1] tracking-[-0.02em]">
+            Projects
+          </h2>
           <p className="mt-3 text-[15px] leading-relaxed text-fg-dim">
             {PROJECTS.length} projects from 2021 to 2025.
           </p>
@@ -105,60 +170,6 @@ export function Work() {
               </div>
             </div>
           )}
-        </div>
-      </Reveal>
-
-      <Reveal as="section" className="px-10 py-24 max-[900px]:px-[22px] max-[900px]:py-16">
-        <div className="mx-auto max-w-[900px]">
-          <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-muted">Experience</p>
-          <div className="space-y-12">
-            {HISTORY.map((j, i) => {
-              const logo = orgLogo(j.where);
-              return (
-                <div key={i}>
-                  <div className="flex items-center gap-4">
-                    {logo && (
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-line bg-bg-2 p-1.5">
-                        <img src={logo} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
-                      </div>
-                    )}
-                    <div>
-                      <div className="text-[18px] font-medium leading-[1.3]">{j.role}</div>
-                      <div className="mt-0.5 text-[14px] text-fg-dim">{j.where} · {j.yr}</div>
-                    </div>
-                  </div>
-                  {j.note && <p className="mt-3 max-w-[54ch] text-[15px] leading-[1.6] text-fg-dim pl-[60px] max-[900px]:pl-0">{j.note}</p>}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </Reveal>
-
-      <Reveal as="section" className="bg-bg-2 px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
-        <div className="mx-auto max-w-[900px]">
-          <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-muted">Education</p>
-          <div className="space-y-10">
-            {EDUCATION.map((e) => {
-              const logo = orgLogo(e.school);
-              return (
-                <div key={e.id}>
-                  <div className="flex items-center gap-4">
-                    {logo && (
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-line bg-bg p-1.5">
-                        <img src={logo} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
-                      </div>
-                    )}
-                    <div>
-                      <div className="text-[18px] font-medium leading-[1.3]">{e.degree}</div>
-                      <div className="mt-0.5 text-[14px] text-fg-dim">{e.school} · {e.yr}</div>
-                    </div>
-                  </div>
-                  {e.note && <p className="mt-3 max-w-[54ch] text-[15px] leading-[1.6] text-fg-dim pl-[60px] max-[900px]:pl-0">{e.note}</p>}
-                </div>
-              );
-            })}
-          </div>
         </div>
       </Reveal>
     </div>

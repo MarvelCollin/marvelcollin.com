@@ -3,15 +3,14 @@ import { useContent } from '../content/use-content';
 import { img } from '../lib/img';
 import { skillIcon, orgLogo } from '../lib/icons';
 import { Reveal } from '../components/reveal';
+import { SkillBalls } from '../components/skill-balls';
 
 const WEB_KEYS = ['typescript', 'javascript', 'react', 'next', 'nuxt', 'vue', 'angular', 'svelte', 'node', 'express', 'nest', 'tailwind', '.net', 'c#', 'php', 'laravel', 'go', 'java', 'kotlin', 'html', 'css', 'graphql', 'rest', 'supabase', 'prisma', 'firebase', 'mongodb', 'sqlite', 'redis', 'sql'];
 const AI_KEYS = ['python', 'tensorflow', 'pytorch', 'r language', 'machine learning', 'deep learning', 'nlp', 'data', 'scikit', 'pandas', 'numpy', 'opencv', 'keras'];
-const CREATIVE_KEYS = ['three.js', 'unity', 'arduino', 'robotics', '3d printing', 'blender', 'figma', 'gamedev', 'game'];
 
 function classifySkill(name: string): string {
   const n = name.toLowerCase();
   if (AI_KEYS.some(k => n.includes(k))) return 'ai';
-  if (CREATIVE_KEYS.some(k => n.includes(k))) return 'creative';
   if (WEB_KEYS.some(k => n.includes(k))) return 'web';
   return 'other';
 }
@@ -23,7 +22,7 @@ export function About() {
   const classified = useMemo(() => SKILLS.map(s => ({ ...s, cat: classifySkill(s.name) })), [SKILLS]);
 
   const counts = useMemo(() => {
-    const c: Record<string, number> = { all: classified.length, web: 0, ai: 0, creative: 0, other: 0 };
+    const c: Record<string, number> = { all: classified.length, web: 0, ai: 0, other: 0 };
     classified.forEach(s => c[s.cat]++);
     return c;
   }, [classified]);
@@ -37,7 +36,6 @@ export function About() {
     { key: 'all', label: 'All' },
     { key: 'web', label: 'Web Dev' },
     { key: 'ai', label: 'AI / ML' },
-    { key: 'creative', label: 'Creative' },
     { key: 'other', label: 'Other' },
   ].filter(f => f.key === 'all' || counts[f.key] > 0);
 
@@ -83,23 +81,7 @@ export function About() {
               ))}
             </div>
           </div>
-          <div className="flex flex-wrap gap-3">
-            {filtered.map((s, i) => {
-              const skill = skillIcon(s.name);
-              return (
-                <div key={s.id || i} className="group relative flex items-center gap-2.5 rounded-full border border-line bg-bg px-4 py-2.5 text-[14px] transition-all duration-200 hover:border-muted hover:scale-[1.03]">
-                  {skill && <skill.Icon size={14} className="shrink-0" style={{ color: skill.color }} />}
-                  <span className="font-medium">{s.name}</span>
-                  {s.opinion && (
-                    <span className="ml-1 hidden text-fg-dim lg:inline">— {s.opinion}</span>
-                  )}
-                </div>
-              );
-            })}
-            {filtered.length === 0 && (
-              <p className="text-[14px] text-fg-dim">No skills in this category.</p>
-            )}
-          </div>
+          <SkillBalls skills={filtered} />
         </div>
       </Reveal>
 

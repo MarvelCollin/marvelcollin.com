@@ -23,7 +23,7 @@ export function Home() {
     <div data-screen-label="Home">
       <section className="mx-auto max-w-[1320px] px-10 pt-[140px] pb-20 max-[900px]:px-[22px] max-[900px]:pt-[100px] max-[560px]:pt-[92px]">
         <div className="pb-[120px]">
-          <span className="mb-4 inline-block -rotate-2 font-hand text-[clamp(22px,2.8vw,36px)] leading-none text-accent-soft">full-stack developer</span>
+          <p className="mb-5 text-[13px] uppercase tracking-[0.1em] text-muted">Software Engineer</p>
           <h1 className="max-w-[14ch] font-sans text-[clamp(40px,6.2vw,96px)] font-semibold leading-[1.08] tracking-[-0.025em]">
             Marvel Collin.
           </h1>
@@ -33,17 +33,16 @@ export function Home() {
             </p>
             <div className="flex flex-col items-end gap-1.5 whitespace-nowrap pt-1 text-[14px] text-fg-dim max-[900px]:items-start max-[900px]:whitespace-normal">
               <p>Jakarta, Indonesia</p>
-              <a className="mt-2 border-b border-accent-soft pb-px text-accent" href="mailto:marvelcollin7@gmail.com">marvelcollin7@gmail.com</a>
+              <a className="mt-2 border-b border-line pb-px text-fg transition-colors hover:text-accent" href="mailto:marvelcollin7@gmail.com">marvelcollin7@gmail.com</a>
             </div>
           </div>
         </div>
 
         <div className="pt-[120px]">
           <div className="mb-[22px] flex items-end justify-between gap-4">
-            <p className="text-[13px] tracking-[0.06em] text-muted">
+            <p className="text-[13px] uppercase tracking-[0.1em] text-muted">
               Selected work · {String(Math.min(works.length, 6)).padStart(2, '0')} / {String(works.length).padStart(2, '0')}
             </p>
-            <span className="-rotate-2 font-hand text-[22px] leading-none text-accent-soft">pinned favourites</span>
           </div>
 
           <div className="rounded-2xl bg-[radial-gradient(var(--dot)_1px,transparent_1px)] [background-size:22px_22px] px-2 py-8 sm:px-6">
@@ -71,7 +70,7 @@ export function Home() {
                           </span>
                         </div>
                         <div className="px-1 pt-3 text-center">
-                          <div className="font-hand text-[27px] leading-tight text-[#2a2620]">{p.name}</div>
+                          <div className="text-[16px] font-medium leading-tight text-[#2a2620]">{p.name}</div>
                           <div className="mt-1 font-sans text-[10px] uppercase tracking-[0.14em] text-[#8a7f6a]">
                             {p.stack} · {p.year}
                           </div>
@@ -85,7 +84,7 @@ export function Home() {
           </div>
 
           <div className="mt-6 text-sm text-fg-dim">
-            <a href="/work" className="border-b border-accent-soft pb-px text-accent">All {works.length} projects →</a>
+            <a href="/work" className="border-b border-line pb-px text-fg transition-colors hover:text-accent">All {works.length} projects →</a>
           </div>
         </div>
 
@@ -113,7 +112,7 @@ export function Home() {
                   </span>
                 </div>
                 <div className="px-1 pt-4 text-center">
-                  <div className="font-hand text-[34px] leading-tight text-[#2a2620]">{feature.name}</div>
+                  <div className="text-[20px] font-medium leading-tight text-[#2a2620]">{feature.name}</div>
                   <div className="mt-1 font-sans text-[10px] uppercase tracking-[0.14em] text-[#8a7f6a]">
                     {feature.stack} · {feature.year}
                   </div>

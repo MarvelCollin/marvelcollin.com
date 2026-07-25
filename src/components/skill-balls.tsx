@@ -39,7 +39,7 @@ export function SkillBalls({ skills }: { skills: Skill[] }) {
     const engine = Matter.Engine.create({ gravity: { x: 0, y: 1.2, scale: 0.001 } });
     engineRef.current = engine;
 
-    const wallOpts: Matter.IBodyDefinition = { isStatic: true, restitution: 0.4, render: { visible: false } };
+    const wallOpts = { isStatic: true, restitution: 0.4 } as const;
     const walls = [
       Matter.Bodies.rectangle(w / 2, h + WALL / 2, w * 2, WALL, wallOpts),
       Matter.Bodies.rectangle(-WALL / 2, h / 2, WALL, h * 3, wallOpts),

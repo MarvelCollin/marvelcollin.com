@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useContent } from '../content/use-content';
 import { img } from '../lib/img';
-import { skillIcon, orgLogo } from '../lib/icons';
+import { orgLogo } from '../lib/icons';
 import { Reveal } from '../components/reveal';
 import { SkillBalls } from '../components/skill-balls';
 

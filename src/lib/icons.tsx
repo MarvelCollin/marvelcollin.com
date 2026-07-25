@@ -39,7 +39,7 @@ const SKILLS: [string, IconType, string][] = [
   ['dart', SiDart, '#0175c2'],
   ['flutter', SiFlutter, '#02569b'],
   ['c++', SiCplusplus, '#00599c'],
-  ['c language', SiC, '#a8b9cc'],
+  ['c language', SiC, '#659ad2'],
   ['ruby', SiRuby, '#cc342d'],
   ['rust', SiRust, '#dea584'],
   ['r language', SiR, '#276dc3'],
@@ -66,12 +66,23 @@ const SKILLS: [string, IconType, string][] = [
   ['postman', SiPostman, '#ff6c37'],
 ];
 
+const EXACT: Record<string, [IconType, string]> = {
+  c: [SiC, '#659ad2'],
+  r: [SiR, '#276dc3'],
+  go: [SiGo, '#00add8'],
+};
+
 export function skillIcon(name: string): { Icon: IconType; color: string } | null {
-  const lower = name.toLowerCase();
-  for (const [key, Icon, color] of SKILLS) {
-    if (lower.includes(key)) return { Icon, color };
+  const lower = name.trim().toLowerCase();
+
+  const exact = EXACT[lower];
+  if (exact) return { Icon: exact[0], color: exact[1] };
+
+  let best: [string, IconType, string] | null = null;
+  for (const entry of SKILLS) {
+    if (lower.includes(entry[0]) && (!best || entry[0].length > best[0].length)) best = entry;
   }
-  return null;
+  return best ? { Icon: best[1], color: best[2] } : null;
 }
 
 const ORGS: Record<string, string> = {

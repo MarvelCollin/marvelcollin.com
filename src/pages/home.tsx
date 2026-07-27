@@ -3,6 +3,7 @@ import { useContent, findWork } from '../content/use-content';
 import { Thumbnail } from '../components/thumbnail';
 import { Reveal } from '../components/reveal';
 import { CardSkeleton } from '../components/skeleton';
+import { FaGithub } from 'react-icons/fa6';
 import { useColumnCount } from '../hooks/use-column-count';
 import type { Project } from '../Interface/IProject';
 
@@ -37,6 +38,17 @@ export function Home() {
               <a className="mt-2 inline-block text-accent-soft transition-colors hover:text-fg" href="mailto:marvelcollin7@gmail.com">marvelcollin7@gmail.com</a>
             </div>
           </div>
+
+          <a
+            className="group mt-12 inline-flex items-center gap-3 rounded-xl border border-fg bg-fg px-6 py-4 font-sans text-[15px] font-medium tracking-[0.01em] text-bg shadow-[0_14px_34px_-18px_rgba(0,0,0,0.9)] transition-transform duration-300 hover:-translate-y-0.5 max-[560px]:w-full max-[560px]:justify-center"
+            href="https://github.com/MarvelCollin"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FaGithub size={20} />
+            Check out my GitHub profile
+            <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </a>
         </div>
       </section>
 

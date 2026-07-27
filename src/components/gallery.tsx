@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { img } from '../lib/img';
 import { Clip } from './clip';
 import { Lightbox } from './lightbox';
+import { SmartImage } from './smart-image';
 
 const PHOTO_W = 140;
 const FRAME_W = PHOTO_W + 16;
@@ -58,7 +59,7 @@ export function Gallery({ images, captions, name }: { images: string[]; captions
                   style={{ width: FRAME_W }}
                 >
                   <span className="relative block aspect-[4/3] overflow-hidden bg-bg-2">
-                    <img className="absolute inset-0 h-full w-full object-cover transition-transform duration-500" src={img(src, 600)} alt={captions[j] || name} loading="lazy" decoding="async" />
+                    <SmartImage fill src={img(src, 600)} alt={captions[j] || name} className="object-cover" />
                   </span>
                 </span>
               </button>

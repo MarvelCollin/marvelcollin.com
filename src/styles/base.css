@@ -208,6 +208,94 @@ main {
   color: var(--bg);
   border-color: var(--fg);
 }
+.sm-img {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+.sm-img.is-fill {
+  position: absolute;
+  inset: 0;
+}
+.sm-img img {
+  position: relative;
+  z-index: 1;
+}
+.sm-skel {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: var(--bg-3);
+  background-image: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgba(232, 228, 220, 0.07) 42%,
+    rgba(232, 228, 220, 0.14) 50%,
+    rgba(232, 228, 220, 0.07) 58%,
+    transparent 80%
+  );
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  animation: sm-shimmer 1.5s ease-in-out infinite;
+  transition: opacity 0.4s ease 0.12s;
+}
+html[data-theme="light"] .sm-skel {
+  background-image: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgba(28, 25, 23, 0.04) 42%,
+    rgba(28, 25, 23, 0.09) 50%,
+    rgba(28, 25, 23, 0.04) 58%,
+    transparent 80%
+  );
+}
+.sm-fail {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-2);
+  color: var(--muted);
+}
+.skel-block {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: var(--bg-3);
+  background-image: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgba(232, 228, 220, 0.07) 42%,
+    rgba(232, 228, 220, 0.14) 50%,
+    rgba(232, 228, 220, 0.07) 58%,
+    transparent 80%
+  );
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  animation: sm-shimmer 1.5s ease-in-out infinite;
+}
+html[data-theme="light"] .skel-block {
+  background-image: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgba(28, 25, 23, 0.04) 42%,
+    rgba(28, 25, 23, 0.09) 50%,
+    rgba(28, 25, 23, 0.04) 58%,
+    transparent 80%
+  );
+}
+@keyframes sm-shimmer {
+  0% {
+    background-position: 180% 0;
+  }
+  100% {
+    background-position: -80% 0;
+  }
+}
 @keyframes lb-fade {
   from {
     opacity: 0;
@@ -235,6 +323,10 @@ main {
 @media (prefers-reduced-motion: reduce) {
   .lb-fade,
   .lb-pop {
+    animation: none;
+  }
+  .sm-skel,
+  .skel-block {
     animation: none;
   }
 }

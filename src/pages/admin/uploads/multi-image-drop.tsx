@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { UploadModal } from './upload-modal';
+import { SmartImage } from '../../../components/smart-image';
 
 export function MultiImageDrop({ label, value, onChange }: { label: string; value: string[]; onChange: (v: string[]) => void }) {
   const [open, setOpen] = useState(false);
@@ -16,7 +17,7 @@ export function MultiImageDrop({ label, value, onChange }: { label: string; valu
         <div className="img-grid">
           {value.map((url, i) => (
             <div className="img-cell" key={i}>
-              <img src={url} alt="" />
+              <SmartImage fill src={url} alt="" eager className="object-contain" />
               <button type="button" onClick={() => remove(i)}>×</button>
             </div>
           ))}

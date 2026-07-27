@@ -3,6 +3,7 @@ import { useContent } from '../content/use-content';
 import { img } from '../lib/img';
 import { Reveal } from '../components/reveal';
 import { SkillBalls } from '../components/skill-balls';
+import { SmartImage } from '../components/smart-image';
 
 const WEB_KEYS = ['typescript', 'javascript', 'react', 'next', 'nuxt', 'vue', 'angular', 'svelte', 'node', 'express', 'nest', 'tailwind', '.net', 'c#', 'php', 'laravel', 'go', 'java', 'kotlin', 'html', 'css', 'graphql', 'rest', 'supabase', 'prisma', 'firebase', 'mongodb', 'sqlite', 'redis', 'sql'];
 const AI_KEYS = ['python', 'tensorflow', 'pytorch', 'r language', 'machine learning', 'deep learning', 'nlp', 'data', 'scikit', 'pandas', 'numpy', 'opencv', 'keras'];
@@ -72,12 +73,12 @@ export function About() {
                   <span className="hidden text-[14px] text-fg-dim max-[560px]:block">{a.where}</span>
                 </div>
                 {a.image && (
-                  <img
-                    className="mt-4 max-h-[280px] w-full max-w-[520px] rounded-lg border border-line bg-bg-2 object-contain object-left"
+                  <SmartImage
                     src={img(a.image, 1000)}
                     alt={a.name}
-                    loading="lazy"
-                    decoding="async"
+                    wrapClassName="mt-4 w-full max-w-[520px] rounded-lg border border-line bg-bg-2"
+                    className="max-h-[280px] w-full object-contain object-left"
+                    skelStyle={{ aspectRatio: '16 / 10' }}
                   />
                 )}
               </div>

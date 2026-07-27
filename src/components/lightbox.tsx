@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { img } from '../lib/img';
+import { SmartImage } from './smart-image';
 
 export function Lightbox({
   images,
@@ -51,7 +52,13 @@ export function Lightbox({
       <div key={index} className="lb-pop relative z-[2]">
         <div className="bg-[#e9e3d6] p-[18px] shadow-[0_40px_90px_-24px_rgba(0,0,0,0.9)] max-[560px]:p-3">
           <div className="relative overflow-hidden bg-bg-2">
-            <img className="block max-h-[78vh] max-w-[86vw] object-contain" src={img(images[index], 1600)} alt={caption || name} />
+            <SmartImage
+              eager
+              src={img(images[index], 1600)}
+              alt={caption || name}
+              className="block max-h-[78vh] max-w-[86vw] object-contain"
+              skelStyle={{ width: 'min(70vw, 720px)', height: 'min(52vh, 480px)' }}
+            />
           </div>
           <div className="px-1 pt-3 text-center text-[16px] font-medium leading-tight text-[#2a2620]">{caption || name}</div>
         </div>

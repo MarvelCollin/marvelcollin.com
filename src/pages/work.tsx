@@ -11,6 +11,18 @@ import type { Project } from '../Interface/IProject';
 const ROT = ['-rotate-2', 'rotate-1', 'rotate-3', '-rotate-3', 'rotate-2', '-rotate-1', 'rotate-2', '-rotate-2', 'rotate-1', '-rotate-3'];
 const ASPECT = ['aspect-[4/5]', 'aspect-square', 'aspect-[3/4]', 'aspect-[5/6]', 'aspect-[4/3]', 'aspect-[4/5]'];
 
+function OrgMark({ name, logo, dark = false }: { name: string; logo: string | null; dark?: boolean }) {
+  return (
+    <div className={'flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-line p-1.5 ' + (dark ? 'bg-bg' : 'bg-bg-2')}>
+      {logo ? (
+        <SmartImage src={logo} alt="" wrapClassName="h-full w-full rounded" className="h-full w-full object-contain" />
+      ) : (
+        <span className="font-sans text-[15px] font-semibold uppercase tracking-[0.02em] text-muted">{name.trim().charAt(0)}</span>
+      )}
+    </div>
+  );
+}
+
 export function Work() {
   const { works: PROJECTS, loading, experience: HISTORY, education: EDUCATION } = useContent();
   const [filter, setFilter] = useState('all');
@@ -55,11 +67,7 @@ export function Work() {
               return (
                 <div key={i}>
                   <div className="flex items-center gap-4">
-                    {logo && (
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-line bg-bg-2 p-1.5">
-                        <SmartImage src={logo} alt="" wrapClassName="h-full w-full rounded" className="h-full w-full object-contain" />
-                      </div>
-                    )}
+                    <OrgMark name={j.where} logo={logo} />
                     <div>
                       <div className="text-[18px] font-medium leading-[1.3]">{j.role}</div>
                       <div className="mt-0.5 text-[14px] text-fg-dim">{j.where} · {j.yr}</div>
@@ -83,11 +91,7 @@ export function Work() {
               return (
                 <div key={e.id}>
                   <div className="flex items-center gap-4">
-                    {logo && (
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-line bg-bg p-1.5">
-                        <SmartImage src={logo} alt="" wrapClassName="h-full w-full rounded" className="h-full w-full object-contain" />
-                      </div>
-                    )}
+                    <OrgMark name={e.school} logo={logo} dark />
                     <div>
                       <div className="text-[18px] font-medium leading-[1.3]">{e.degree}</div>
                       <div className="mt-0.5 text-[14px] text-fg-dim">{e.school} · {e.yr}</div>

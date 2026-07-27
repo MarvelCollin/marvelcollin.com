@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { img } from '../lib/img';
+import { useModal } from '../hooks/use-modal';
 import { SmartImage } from './smart-image';
 
 export function Lightbox({
@@ -17,6 +18,8 @@ export function Lightbox({
   onClose: () => void;
   onNav: (d: number) => void;
 }) {
+  const boxRef = useModal<HTMLDivElement>();
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -29,7 +32,14 @@ export function Lightbox({
 
   const caption = captions[index];
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 max-[560px]:p-4" role="dialog" aria-modal="true">
+    <div
+      ref={boxRef}
+      tabIndex={-1}
+      className="fixed inset-0 z-[100] flex items-center justify-center p-6 outline-none max-[560px]:p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-label={caption || name}
+    >
       <button className="lb-fade absolute inset-0 cursor-zoom-out bg-[rgba(8,8,7,0.84)]" aria-label="Close" onClick={onClose} />
       {images.length > 1 && (
         <>

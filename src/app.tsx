@@ -2,13 +2,24 @@ import { useState, useEffect, lazy, Suspense } from 'react';
 import { useRoute } from './hooks/use-route';
 import { parseRoute } from './utils/parse-route';
 import { runTransition } from './utils/page-transition';
+import { ContentError } from './components/content-error';
+import { Skel } from './components/skeleton';
 import { Home } from './pages/home';
-import { Work } from './pages/work';
-import { ProjectDetail } from './pages/project-detail';
-import { About } from './pages/about';
-import { Research } from './pages/research';
 
+const Work = lazy(() => import('./pages/work').then((m) => ({ default: m.Work })));
+const ProjectDetail = lazy(() => import('./pages/project-detail').then((m) => ({ default: m.ProjectDetail })));
+const About = lazy(() => import('./pages/about').then((m) => ({ default: m.About })));
+const Research = lazy(() => import('./pages/research').then((m) => ({ default: m.Research })));
 const Admin = lazy(() => import('./pages/admin').then((m) => ({ default: m.Admin })));
+
+function RouteFallback() {
+  return (
+    <section className="mx-auto max-w-[1320px] px-10 pt-[160px] max-[900px]:px-[22px] max-[900px]:pt-[100px]">
+      <Skel className="h-[60px] w-[min(420px,80%)] rounded-lg" />
+      <Skel className="mt-6 h-[16px] w-[min(560px,90%)] rounded" />
+    </section>
+  );
+}
 
 function App() {
   const route = useRoute();
@@ -36,12 +47,20 @@ function App() {
   }, [route, renderRoute]);
 
   const parsed = parseRoute(renderRoute);
-  if (parsed.kind === 'project') return <ProjectDetail slug={parsed.slug} />;
-  if (parsed.kind === 'work') return <Work />;
-  if (parsed.kind === 'about') return <About />;
-  if (parsed.kind === 'research') return <Research />;
-  if (parsed.kind === 'admin') return <Suspense fallback={<section className="page admin"><p className="note">…</p></section>}><Admin /></Suspense>;
-  return <Home />;
+
+  return (
+    <>
+      <Suspense fallback={<RouteFallback />}>
+        {parsed.kind === 'project' && <ProjectDetail slug={parsed.slug} />}
+        {parsed.kind === 'work' && <Work />}
+        {parsed.kind === 'about' && <About />}
+        {parsed.kind === 'research' && <Research />}
+        {parsed.kind === 'admin' && <Admin />}
+        {parsed.kind === 'home' && <Home />}
+      </Suspense>
+      <ContentError />
+    </>
+  );
 }
 
 export default App;

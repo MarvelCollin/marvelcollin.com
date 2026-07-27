@@ -7,17 +7,19 @@ import { Reveal } from '../components/reveal';
 import { CardSkeleton, EntrySkeleton } from '../components/skeleton';
 import { useColumnCount } from '../hooks/use-column-count';
 import type { Project } from '../Interface/IProject';
+import { FaBriefcase, FaGraduationCap } from 'react-icons/fa6';
 
 const ROT = ['-rotate-2', 'rotate-1', 'rotate-3', '-rotate-3', 'rotate-2', '-rotate-1', 'rotate-2', '-rotate-2', 'rotate-1', '-rotate-3'];
 const ASPECT = ['aspect-[4/5]', 'aspect-square', 'aspect-[3/4]', 'aspect-[5/6]', 'aspect-[4/3]', 'aspect-[4/5]'];
 
-function OrgMark({ name, logo, dark = false }: { name: string; logo: string | null; dark?: boolean }) {
+function OrgMark({ logo, dark = false, kind = 'work' }: { logo: string | null; dark?: boolean; kind?: 'work' | 'school' }) {
+  const Icon = kind === 'school' ? FaGraduationCap : FaBriefcase;
   return (
     <div className={'flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-line p-1.5 ' + (dark ? 'bg-bg' : 'bg-bg-2')}>
       {logo ? (
         <SmartImage src={logo} alt="" wrapClassName="h-full w-full rounded" className="h-full w-full object-contain" />
       ) : (
-        <span className="font-sans text-[15px] font-semibold uppercase tracking-[0.02em] text-muted">{name.trim().charAt(0)}</span>
+        <Icon size={17} className="text-muted opacity-60" aria-hidden="true" />
       )}
     </div>
   );
@@ -67,7 +69,7 @@ export function Work() {
               return (
                 <div key={i}>
                   <div className="flex items-center gap-4">
-                    <OrgMark name={j.where} logo={logo} />
+                    <OrgMark logo={logo} />
                     <div>
                       <div className="text-[18px] font-medium leading-[1.3]">{j.role}</div>
                       <div className="mt-0.5 text-[14px] text-fg-dim">{j.where} · {j.yr}</div>
@@ -91,7 +93,7 @@ export function Work() {
               return (
                 <div key={e.id}>
                   <div className="flex items-center gap-4">
-                    <OrgMark name={e.school} logo={logo} dark />
+                    <OrgMark logo={logo} dark kind="school" />
                     <div>
                       <div className="text-[18px] font-medium leading-[1.3]">{e.degree}</div>
                       <div className="mt-0.5 text-[14px] text-fg-dim">{e.school} · {e.yr}</div>

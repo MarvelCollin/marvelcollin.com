@@ -2,7 +2,9 @@ import { useMemo, useState } from 'react';
 import { useContent } from '../content/use-content';
 import { orgLogo } from '../lib/icons';
 import { Thumbnail } from '../components/thumbnail';
+import { SmartImage } from '../components/smart-image';
 import { Reveal } from '../components/reveal';
+import { CardSkeleton, EntrySkeleton } from '../components/skeleton';
 import { useColumnCount } from '../hooks/use-column-count';
 import type { Project } from '../Interface/IProject';
 
@@ -46,6 +48,7 @@ export function Work() {
       <Reveal as="section" className="px-10 pb-20 max-[900px]:px-[22px] max-[900px]:pb-14">
         <div className="mx-auto max-w-[900px]">
           <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-muted">Experience</p>
+          {loading && HISTORY.length === 0 && <EntrySkeleton count={3} />}
           <div className="space-y-12">
             {HISTORY.map((j, i) => {
               const logo = orgLogo(j.where);
@@ -54,7 +57,7 @@ export function Work() {
                   <div className="flex items-center gap-4">
                     {logo && (
                       <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-line bg-bg-2 p-1.5">
-                        <img src={logo} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                        <SmartImage src={logo} alt="" wrapClassName="h-full w-full rounded" className="h-full w-full object-contain" />
                       </div>
                     )}
                     <div>
@@ -73,6 +76,7 @@ export function Work() {
       <Reveal as="section" className="bg-bg-2 px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
         <div className="mx-auto max-w-[900px]">
           <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-muted">Education</p>
+          {loading && EDUCATION.length === 0 && <EntrySkeleton count={2} />}
           <div className="space-y-10">
             {EDUCATION.map((e) => {
               const logo = orgLogo(e.school);
@@ -81,7 +85,7 @@ export function Work() {
                   <div className="flex items-center gap-4">
                     {logo && (
                       <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-line bg-bg p-1.5">
-                        <img src={logo} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
+                        <SmartImage src={logo} alt="" wrapClassName="h-full w-full rounded" className="h-full w-full object-contain" />
                       </div>
                     )}
                     <div>
@@ -130,7 +134,17 @@ export function Work() {
       <Reveal as="section" className="bg-bg-2 px-10 py-12 max-[900px]:px-[22px]">
         <div className="mx-auto max-w-[1320px]">
           {loading && PROJECTS.length === 0 ? (
-            <p className="text-sm text-fg-dim">Loading projects…</p>
+            <div className="rounded-2xl bg-[radial-gradient(var(--dot)_1px,transparent_1px)] [background-size:22px_22px] px-2 py-8 sm:px-6">
+              <div className="flex gap-7 sm:gap-9">
+                {Array.from({ length: cols }, (_, ci) => (
+                  <div key={ci} className="flex flex-1 flex-col gap-10">
+                    {Array.from({ length: 2 }, (_, ri) => (
+                      <CardSkeleton key={ri} aspect={ASPECT[(ci + ri * cols) % ASPECT.length]} />
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
           ) : (
             <div className="rounded-2xl bg-[radial-gradient(var(--dot)_1px,transparent_1px)] [background-size:22px_22px] px-2 py-8 sm:px-6">
               <div className="flex gap-7 sm:gap-9">

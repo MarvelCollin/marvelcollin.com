@@ -4,6 +4,7 @@ import { Gallery } from '../components/gallery';
 import { Reveal } from '../components/reveal';
 import { Clip } from '../components/clip';
 import { ClipDefs } from '../components/clip-defs';
+import { Skel } from '../components/skeleton';
 
 const BACK_CLASS =
   'group fixed left-10 top-[84px] z-[60] font-sans text-[11px] uppercase tracking-[0.12em] text-fg-dim transition-colors hover:text-fg max-[900px]:left-[22px]';
@@ -20,7 +21,12 @@ export function ProjectDetail({ slug }: { slug: string }) {
       return (
         <div data-screen-label="Project">
           <section className={PAGE_CLASS}>
-            <p className="text-sm text-fg-dim">Loading…</p>
+            <div className="space-y-5">
+              <Skel className="h-[13px] w-[120px] rounded" />
+              <Skel className="h-[64px] w-[min(560px,90%)] rounded-lg" />
+              <Skel className="h-[20px] w-[min(420px,75%)] rounded" />
+              <Skel className="mt-6 block aspect-[4/3] w-full max-w-[520px] rounded-lg" />
+            </div>
           </section>
         </div>
       );

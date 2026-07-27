@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useContent, findWork } from '../content/use-content';
 import { Thumbnail } from '../components/thumbnail';
 import { Reveal } from '../components/reveal';
+import { CardSkeleton } from '../components/skeleton';
 import { useColumnCount } from '../hooks/use-column-count';
 import type { Project } from '../Interface/IProject';
 
@@ -9,7 +10,7 @@ const ROT = ['-rotate-2', 'rotate-1', 'rotate-3', '-rotate-3', 'rotate-2', '-rot
 const ASPECT = ['aspect-[4/5]', 'aspect-square', 'aspect-[3/4]', 'aspect-[5/6]', 'aspect-[4/3]', 'aspect-[4/5]'];
 
 export function Home() {
-  const { works } = useContent();
+  const { works, loading } = useContent();
   const feature = findWork(works, 'tetrimosuv');
   const cols = useColumnCount();
   const selected = useMemo(() => works.slice(0, 6), [works]);
@@ -50,6 +51,14 @@ export function Home() {
 
           <div className="rounded-2xl bg-[radial-gradient(var(--dot)_1px,transparent_1px)] [background-size:22px_22px] px-2 py-8 sm:px-6">
             <div className="flex gap-7 sm:gap-9">
+              {loading && works.length === 0 &&
+                Array.from({ length: cols }, (_, ci) => (
+                  <div key={'s' + ci} className="flex flex-1 flex-col gap-10">
+                    {Array.from({ length: 2 }, (_, ri) => (
+                      <CardSkeleton key={ri} aspect={ASPECT[(ci + ri * cols) % ASPECT.length]} />
+                    ))}
+                  </div>
+                ))}
               {columns.map((col, ci) => (
                 <div key={ci} className="flex flex-1 flex-col gap-10">
                   {col.map(({ p, i }) => (

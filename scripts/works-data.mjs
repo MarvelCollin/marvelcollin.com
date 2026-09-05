@@ -42,10 +42,14 @@ export const WORKS = [
   },
   {
     slug: 'constellation',
+    cover: '/shots/constellation-1.webp',
+    images: ['/shots/constellation-1.webp'],
     repo: 'https://github.com/MarvelCollin/Constellation',
   },
   {
     slug: 'quizlingo',
+    cover: '/shots/quizlingo-2.webp',
+    images: ['/shots/quizlingo-2.webp', '/shots/quizlingo-1.webp'],
     repo: 'https://github.com/MarvelCollin/QuizLingo',
   },
   {
@@ -54,6 +58,8 @@ export const WORKS = [
   },
   {
     slug: 'devora',
+    cover: '/shots/devora-1.webp',
+    images: ['/shots/devora-1.webp', '/shots/devora-2.webp'],
     repo: 'https://github.com/MarvelCollin/Devora',
   },
   {

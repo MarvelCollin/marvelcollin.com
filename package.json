@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "works:seed": "node scripts/works-seed.mjs",
     "db:setup": "node scripts/db.mjs all",
     "db:migrate": "node scripts/db.mjs migrate",
     "db:seed": "node scripts/db.mjs seed",

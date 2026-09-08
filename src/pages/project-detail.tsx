@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { useContent, findWork, workIndex } from '../content/use-content';
 import { Thumbnail } from '../components/thumbnail';
 import { Gallery } from '../components/gallery';
+import { Lightbox } from '../components/lightbox';
 import { Reveal } from '../components/reveal';
 import { Clip } from '../components/clip';
 import { ClipDefs } from '../components/clip-defs';
@@ -15,6 +17,7 @@ const BOARD =
 
 export function ProjectDetail({ slug }: { slug: string }) {
   const { works: PROJECTS, loading } = useContent();
+  const [heroIndex, setHeroIndex] = useState<number | null>(null);
   const p = findWork(PROJECTS, slug);
   if (!p) {
     if (loading) {
@@ -51,6 +54,8 @@ export function ProjectDetail({ slug }: { slug: string }) {
   const repo = p.repo && /^https?:\/\//i.test(p.repo) ? p.repo : null;
   const galleryImages = (p.images ?? []).filter((src) => src && src !== p.cover);
   const galleryCaptions = galleryImages.map((_, i) => p.stills[i] ?? '');
+  const heroImages = [p.cover, ...galleryImages].filter(Boolean) as string[];
+  const heroCaptions = [p.name, ...galleryCaptions];
 
   return (
     <div data-screen-label={'Project · ' + p.name}>
@@ -89,12 +94,18 @@ export function ProjectDetail({ slug }: { slug: string }) {
               <div className="relative mx-auto mt-4 w-full max-w-[480px] origin-top -rotate-2">
                 <Clip className="absolute left-[24%] top-[-16px] z-20 h-[40px] w-[20px] -translate-x-1/2 drop-shadow-[0_3px_5px_rgba(0,0,0,0.5)]" />
                 <Clip className="absolute left-[76%] top-[-16px] z-20 h-[40px] w-[20px] -translate-x-1/2 drop-shadow-[0_3px_5px_rgba(0,0,0,0.5)]" />
-                <div className="bg-[#e9e3d6] p-[16px] shadow-[0_34px_70px_-24px_rgba(0,0,0,0.85)] max-[560px]:p-3">
+                <button
+                  type="button"
+                  disabled={heroImages.length === 0}
+                  onClick={() => setHeroIndex(0)}
+                  aria-label={'View ' + p.name + ' image full size'}
+                  className="block w-full bg-[#e9e3d6] p-[16px] text-left shadow-[0_34px_70px_-24px_rgba(0,0,0,0.85)] transition-transform duration-300 ease-out enabled:cursor-zoom-in enabled:hover:-translate-y-1 max-[560px]:p-3"
+                >
                   <div className="relative aspect-[4/3] overflow-hidden bg-bg-2">
                     <Thumbnail p={p} />
                   </div>
                   <div className="px-1 pt-3 text-center text-[18px] font-medium leading-tight text-[#2a2620]">{p.name}</div>
-                </div>
+                </button>
               </div>
             </div>
           </div>
@@ -141,6 +152,16 @@ export function ProjectDetail({ slug }: { slug: string }) {
           </div>
         </Reveal>
       </div>
+      {heroIndex !== null && heroImages.length > 0 && (
+        <Lightbox
+          images={heroImages}
+          captions={heroCaptions}
+          name={p.name}
+          index={heroIndex}
+          onClose={() => setHeroIndex(null)}
+          onNav={(d) => setHeroIndex((i) => ((i ?? 0) + d + heroImages.length) % heroImages.length)}
+        />
+      )}
     </div>
   );
 }

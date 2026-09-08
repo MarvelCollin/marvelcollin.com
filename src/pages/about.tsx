@@ -76,9 +76,9 @@ export function About() {
                   <SmartImage
                     src={img(a.image, 1000)}
                     alt={a.name}
-                    wrapClassName="mt-4 w-full max-w-[520px] rounded-lg border border-line bg-bg-2"
-                    className="max-h-[280px] w-full object-contain object-left"
-                    skelStyle={{ aspectRatio: '16 / 10' }}
+                    wrapClassName="mt-4 w-fit max-w-[520px] rounded-lg border border-line bg-bg-2"
+                    className="h-auto max-h-[340px] w-auto max-w-full object-contain"
+                    skelStyle={{ width: 'min(320px, 100%)', aspectRatio: '4 / 3' }}
                   />
                 )}
               </div>

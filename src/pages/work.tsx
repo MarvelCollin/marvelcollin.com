@@ -42,6 +42,22 @@ export function Work() {
     }
     return out;
   }, [HISTORY]);
+  const byYear = useMemo(() => {
+    const map = new Map<string, typeof filtered>();
+    for (const p of filtered) {
+      const list = map.get(p.year);
+      if (list) list.push(p);
+      else map.set(p.year, [p]);
+    }
+    return [...map.entries()].sort((a, b) => b[0].localeCompare(a[0]));
+  }, [filtered]);
+  const span = useMemo(() => {
+    const years = PROJECTS.map((p) => p.year).filter(Boolean).sort();
+    if (years.length === 0) return '';
+    const first = years[0];
+    const last = years[years.length - 1];
+    return first === last ? first : `${first} to ${last}`;
+  }, [PROJECTS]);
   const filters = [
     { key: 'all', label: `All (${PROJECTS.length})` },
     { key: 'client', label: `Client (${PROJECTS.filter((p) => p.tag === 'client').length})` },
@@ -139,7 +155,7 @@ export function Work() {
             Projects
           </h2>
           <p className="mt-3 text-[15px] leading-relaxed text-fg-dim">
-            {PROJECTS.length} projects from 2021 to 2025.
+            {PROJECTS.length} projects{span && ` from ${span}`}, grouped by year.
           </p>
         </div>
       </section>
@@ -164,8 +180,19 @@ export function Work() {
       </section>
 
       <Reveal as="section" className="bg-bg-2 px-10 py-12 max-[900px]:px-[22px]">
-        <div className="mx-auto max-w-[1320px]">
-          <ProjectGrid works={filtered} loading={loading} />
+        <div className="mx-auto max-w-[1320px] space-y-16">
+          {loading && PROJECTS.length === 0 && <ProjectGrid works={[]} loading />}
+          {byYear.map(([year, items]) => (
+            <div key={year}>
+              <div className="mb-6 flex items-baseline gap-4 border-b border-line pb-3">
+                <h3 className="font-sans text-[26px] font-semibold tabular-nums tracking-[-0.02em] max-[560px]:text-[22px]">{year}</h3>
+                <span className="text-[13px] text-muted">
+                  {items.length} {items.length === 1 ? 'project' : 'projects'}
+                </span>
+              </div>
+              <ProjectGrid works={items} loading={false} />
+            </div>
+          ))}
         </div>
       </Reveal>
     </div>

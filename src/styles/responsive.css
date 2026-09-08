@@ -1,17 +1,33 @@
 @media (max-width: 900px) {
   nav.top {
-    padding: 16px 22px;
-    flex-wrap: wrap;
-    column-gap: 16px;
-    row-gap: 8px;
+    padding: 12px 22px;
+    flex-wrap: nowrap;
+    align-items: center;
+    column-gap: 14px;
   }
   nav.top .brand .sep,
   nav.top .brand .role {
     display: none;
   }
   nav.top ul {
-    gap: 18px;
+    gap: 16px;
     font-size: 13px;
+  }
+  nav.top li a,
+  nav.top .theme-toggle {
+    display: inline-block;
+    padding: 12px 3px;
+  }
+  nav.top .brand {
+    display: inline-block;
+    padding: 10px 0;
+    white-space: nowrap;
+  }
+  nav.top ul {
+    white-space: nowrap;
+  }
+  nav.top li a::after {
+    bottom: 3px;
   }
   nav.top .right {
     display: none;
@@ -26,8 +42,19 @@
   .page {
     padding-top: 92px;
   }
+  nav.top {
+    padding: 10px 16px;
+    column-gap: 10px;
+  }
   nav.top .brand {
-    font-size: 15px;
+    font-size: 14px;
+  }
+  nav.top ul {
+    gap: 13px;
+    font-size: 12px;
+  }
+  .theme-toggle {
+    font-size: 12px;
   }
   .adm-form .row2 {
     grid-template-columns: 1fr;

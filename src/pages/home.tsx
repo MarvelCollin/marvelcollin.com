@@ -14,7 +14,7 @@ export function Home() {
 
   return (
     <div data-screen-label="Home">
-      <section className="safelight flex min-h-[90vh] flex-col justify-center px-10 max-[900px]:px-[22px]">
+      <section className="safelight flex min-h-[90vh] flex-col justify-center px-10 max-[900px]:min-h-[84vh] max-[900px]:px-[22px] max-[900px]:pt-[92px] max-[900px]:pb-12">
         <div className="mx-auto w-full max-w-[1320px]">
           <h1 className="font-sans text-[clamp(56px,10vw,148px)] font-semibold leading-[0.92] tracking-[-0.04em]">
             Marvel<br />Collin.

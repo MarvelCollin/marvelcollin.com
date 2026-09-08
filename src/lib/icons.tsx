@@ -88,6 +88,8 @@ export function skillIcon(name: string): { Icon: IconType; color: string } | nul
 const ORGS: Record<string, string> = {
   binus: 'https://www.google.com/s2/favicons?domain=binus.ac.id&sz=128',
   immanuel: 'https://www.google.com/s2/favicons?domain=ski.sch.id&sz=128',
+  satu: '/logos/satu.png',
+  'e-ducate': '/logos/educate.jpg',
 };
 
 export function orgLogo(name: string): string | null {

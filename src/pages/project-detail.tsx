@@ -67,7 +67,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
         <section className={'relative px-10 pb-20 pt-[150px] max-[900px]:px-[22px] max-[900px]:pb-12 max-[900px]:pt-[120px] ' + BOARD}>
           <div className="mx-auto grid max-w-[1320px] grid-cols-[1.04fr_0.96fr] items-center gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-12">
             <div className="max-[900px]:order-2">
-              <p className="mb-4 text-[13px] uppercase tracking-[0.1em] text-muted">{p.tag}</p>
+              <p className="mb-4 text-[13px] uppercase tracking-[0.1em] text-accent-2">{p.tag}</p>
               <div className="mb-5 font-sans text-[12px] uppercase tracking-[0.14em] text-muted">{p.num} · {p.year}</div>
               <h1 className="font-sans text-[clamp(52px,7.4vw,108px)] font-bold leading-[0.94] tracking-[-0.03em] text-fg">{p.name}</h1>
               <p className="mt-6 max-w-[42ch] text-[clamp(18px,2vw,24px)] font-light leading-[1.4] text-fg-dim">
@@ -76,7 +76,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
               {repo && (
                 <div className="mt-9 flex flex-wrap gap-3.5">
                   <a
-                    className="rounded-lg border border-line bg-bg-2 px-[18px] py-2.5 font-sans text-[13px] tracking-[0.04em] text-fg transition-colors hover:border-fg hover:text-fg"
+                    className="rounded-lg border border-line bg-bg-2 px-[18px] py-2.5 font-sans text-[13px] tracking-[0.04em] text-fg transition-colors hover:border-accent hover:text-accent"
                     href={repo}
                     target="_blank"
                     rel="noreferrer"
@@ -88,7 +88,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
             </div>
 
             <div className="relative pt-2 max-[900px]:order-1">
-              <div className="absolute left-[4%] right-[4%] top-4 z-0 h-px bg-[linear-gradient(90deg,transparent,rgba(220,189,110,0.5)_8%,rgba(220,189,110,0.6)_50%,rgba(220,189,110,0.5)_92%,transparent)] shadow-[0_1px_2px_rgba(0,0,0,0.45)]" />
+              <div className="absolute left-[4%] right-[4%] top-4 z-0 h-px bg-[linear-gradient(90deg,transparent,var(--tape)_8%,var(--accent)_50%,var(--tape)_92%,transparent)] shadow-[0_1px_2px_rgba(0,0,0,0.45)]" />
               <span className="absolute left-[4%] top-4 z-0 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#231f1a]" />
               <span className="absolute right-[4%] top-4 z-0 h-2 w-2 translate-x-1/2 -translate-y-1/2 rounded-full bg-[#231f1a]" />
               <div className="relative mx-auto mt-4 w-full max-w-[480px] origin-top -rotate-2">
@@ -123,7 +123,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
         {sections.map((section, i) => (
           <Reveal as="section" className="px-10 py-24 max-[900px]:px-[22px] max-[900px]:py-14" key={i}>
             <div className="mx-auto max-w-[720px]">
-              <p className="mb-6 text-[11px] uppercase tracking-[0.13em] text-muted">{section.label}</p>
+              <p className="mb-6 text-[11px] uppercase tracking-[0.13em] text-accent-2">{section.label}</p>
               <p className="text-[clamp(18px,2.2vw,26px)] leading-[1.6] text-fg">{section.body}</p>
             </div>
           </Reveal>
@@ -134,7 +134,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
         <Reveal as="section" className="bg-bg-2 px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
           <div className="mx-auto grid max-w-[900px] grid-cols-2 gap-12 max-[900px]:grid-cols-1 max-[900px]:gap-8">
             <div className="group">
-              <span className="mb-3 block text-[11px] uppercase tracking-[0.11em] text-muted">{prev ? '← Previous' : '← Back'}</span>
+              <span className="mb-3 block text-[11px] uppercase tracking-[0.11em] text-accent-2">{prev ? '← Previous' : '← Back'}</span>
               {prev ? (
                 <a className="inline-block text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-accent-soft max-[560px]:text-[22px]" href={'/work/' + prev.slug}>{prev.name}</a>
               ) : (
@@ -142,7 +142,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
               )}
             </div>
             <div className="group text-right max-[900px]:text-left">
-              <span className="mb-3 block text-[11px] uppercase tracking-[0.11em] text-muted">{next ? 'Next →' : '→ Back'}</span>
+              <span className="mb-3 block text-[11px] uppercase tracking-[0.11em] text-accent-2">{next ? 'Next →' : '→ Back'}</span>
               {next ? (
                 <a className="inline-block text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-accent-soft max-[560px]:text-[22px]" href={'/work/' + next.slug}>{next.name}</a>
               ) : (

@@ -14,5 +14,9 @@
   --color-line: var(--line);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-2: var(--accent-2);
+  --color-accent-2-deep: var(--accent-2-deep);
+  --color-tape: var(--tape);
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 }

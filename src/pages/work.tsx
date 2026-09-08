@@ -64,7 +64,7 @@ export function Work() {
 
       <Reveal as="section" className="px-10 pb-20 max-[900px]:px-[22px] max-[900px]:pb-14">
         <div className="mx-auto max-w-[900px]">
-          <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-muted">Experience</p>
+          <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-accent-2">Experience</p>
           {loading && HISTORY.length === 0 && <EntrySkeleton count={3} />}
           <div className="space-y-12">
             {HISTORY_GROUPS.map((g, i) => {
@@ -111,7 +111,7 @@ export function Work() {
 
       <Reveal as="section" className="bg-bg-2 px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
         <div className="mx-auto max-w-[900px]">
-          <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-muted">Education</p>
+          <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-accent-2">Education</p>
           {loading && EDUCATION.length === 0 && <EntrySkeleton count={2} />}
           <div className="space-y-10">
             {EDUCATION.map((e) => {
@@ -153,8 +153,8 @@ export function Work() {
               className={
                 'cursor-pointer rounded-full border px-4 py-[7px] text-xs tracking-[0.04em] transition-colors ' +
                 (filter === f.key
-                  ? 'border-fg bg-fg text-bg'
-                  : 'border-line text-fg-dim hover:border-muted hover:text-fg')
+                  ? 'border-accent bg-accent text-accent-ink'
+                  : 'border-line text-fg-dim hover:border-accent hover:text-accent')
               }
             >
               {f.label}

@@ -62,7 +62,7 @@ export function About() {
 
       <Reveal as="section" className="px-10 pb-24 max-[900px]:px-[22px] max-[900px]:pb-16">
         <div className="mx-auto max-w-[900px]">
-          <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-muted">Licenses & Awards</p>
+          <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-accent-2">Licenses & Awards</p>
           <div className="space-y-6">
             {AWARDS.map((a) => (
               <div key={a.id}>
@@ -90,7 +90,7 @@ export function About() {
       <Reveal as="section" className="bg-bg-2 px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
         <div className="mx-auto max-w-[1320px]">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-            <p className="text-[13px] uppercase tracking-[0.1em] text-muted">Skills</p>
+            <p className="text-[13px] uppercase tracking-[0.1em] text-accent-2">Skills</p>
             <div className="flex flex-wrap gap-2">
               {filters.map(f => (
                 <button
@@ -99,8 +99,8 @@ export function About() {
                   className={
                     'cursor-pointer rounded-full border px-3.5 py-[5px] text-[12px] tracking-[0.04em] transition-colors ' +
                     (skillFilter === f.key
-                      ? 'border-fg bg-fg text-bg'
-                      : 'border-line text-fg-dim hover:border-muted hover:text-fg')
+                      ? 'border-accent bg-accent text-accent-ink'
+                      : 'border-line text-fg-dim hover:border-accent hover:text-accent')
                   }
                 >
                   {f.label} ({counts[f.key]})

@@ -14,7 +14,7 @@ export function Home() {
 
   return (
     <div data-screen-label="Home">
-      <section className="flex min-h-[90vh] flex-col justify-center px-10 max-[900px]:px-[22px]">
+      <section className="safelight flex min-h-[90vh] flex-col justify-center px-10 max-[900px]:px-[22px]">
         <div className="mx-auto w-full max-w-[1320px]">
           <h1 className="font-sans text-[clamp(56px,10vw,148px)] font-semibold leading-[0.92] tracking-[-0.04em]">
             Marvel<br />Collin.
@@ -31,7 +31,7 @@ export function Home() {
           </div>
 
           <a
-            className="group mt-12 inline-flex items-center gap-3 rounded-xl border border-fg bg-fg px-6 py-4 font-sans text-[15px] font-medium tracking-[0.01em] text-bg shadow-[0_14px_34px_-18px_rgba(0,0,0,0.9)] transition-transform duration-300 hover:-translate-y-0.5 max-[560px]:w-full max-[560px]:justify-center"
+            className="group mt-12 inline-flex items-center gap-3 rounded-xl border border-accent bg-accent px-6 py-4 font-sans text-[15px] font-medium tracking-[0.01em] text-accent-ink shadow-[0_16px_38px_-18px_var(--accent)] transition-transform duration-300 hover:-translate-y-0.5 max-[560px]:w-full max-[560px]:justify-center"
             href="https://github.com/MarvelCollin"
             target="_blank"
             rel="noreferrer"
@@ -46,7 +46,7 @@ export function Home() {
       <Reveal as="section" className="bg-bg-2 px-10 py-24 max-[900px]:px-[22px] max-[900px]:py-16">
         <div className="mx-auto max-w-[1320px]">
           <div className="mb-8 flex items-end justify-between gap-4">
-            <p className="text-[13px] uppercase tracking-[0.1em] text-muted">
+            <p className="text-[13px] uppercase tracking-[0.1em] text-accent-2">
               Selected work · {String(selected.length).padStart(2, '0')} / {String(works.length).padStart(2, '0')}
             </p>
             <a href="/work" className="text-[13px] text-accent-soft transition-colors hover:text-fg">View all →</a>
@@ -59,7 +59,7 @@ export function Home() {
       {feature && (
         <Reveal as="section" className="px-10 py-32 max-[900px]:px-[22px] max-[900px]:py-20">
           <div className="mx-auto max-w-[960px]">
-            <p className="mb-4 text-[13px] uppercase tracking-[0.1em] text-muted">Featured</p>
+            <p className="mb-4 text-[13px] uppercase tracking-[0.1em] text-accent-2">Featured</p>
             <h2 className="font-sans text-[clamp(32px,4.5vw,56px)] font-semibold leading-[1.08] tracking-[-0.025em]">{feature.name}</h2>
             <p className="mt-4 max-w-[50ch] text-[17px] leading-[1.6] text-fg-dim">{feature.body[0]}</p>
 
@@ -67,7 +67,7 @@ export function Home() {
               className="group relative mt-14 mx-auto block max-w-[800px] origin-center -rotate-1 transition-transform duration-300 ease-out hover:rotate-0 hover:scale-[1.015]"
               href={'/work/' + feature.slug}
             >
-              <span className="pointer-events-none absolute -top-4 left-1/2 z-10 h-8 w-36 -translate-x-1/2 -rotate-2 bg-[rgba(220,189,110,0.32)] shadow-[0_1px_5px_rgba(0,0,0,0.35)]" />
+              <span className="pointer-events-none absolute -top-4 left-1/2 z-10 h-8 w-36 -translate-x-1/2 -rotate-2 bg-tape shadow-[0_1px_5px_rgba(0,0,0,0.35)]" />
               <div className="bg-[#e9e3d6] p-[18px] shadow-[0_24px_56px_-18px_rgba(0,0,0,0.75)] transition-shadow duration-300 group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.85)]">
                 <div className="relative aspect-[16/9] overflow-hidden bg-bg-2 after:absolute after:inset-0 after:z-[1] after:content-[''] after:bg-[linear-gradient(to_top,rgba(20,18,14,0.45),transparent_40%),linear-gradient(to_bottom,rgba(20,18,14,0.3),transparent_28%)]">
                   <Thumbnail p={feature} />
@@ -92,7 +92,7 @@ export function Home() {
 
       <Reveal as="section" id="contact" className="bg-bg-2 px-10 py-28 max-[900px]:px-[22px] max-[900px]:py-20">
         <div className="mx-auto w-full max-w-[1320px]">
-          <p className="mb-6 text-[13px] uppercase tracking-[0.1em] text-muted">Get in touch</p>
+          <p className="mb-6 text-[13px] uppercase tracking-[0.1em] text-accent-2">Get in touch</p>
           <a
             className="block font-sans text-[clamp(28px,5.5vw,64px)] font-semibold leading-[1.05] tracking-[-0.03em] text-fg transition-colors duration-300 hover:text-accent-soft"
             href="mailto:marvelcollin7@gmail.com"

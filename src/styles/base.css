@@ -1,31 +1,41 @@
 :root {
   --bg: #0c0b09;
-  --bg-2: #15140f;
-  --bg-3: #1e1b17;
-  --highlight: #1a1812;
+  --bg-2: #0f1319;
+  --bg-3: #171c25;
+  --highlight: #141821;
   --fg: #e8e4dc;
-  --fg-dim: #8a8378;
-  --muted: #5c564d;
-  --line: #2a2720;
-  --line-soft: rgba(232, 228, 220, 0.04);
-  --accent: #b5aa9c;
-  --accent-soft: #8a8175;
+  --fg-dim: #8f887c;
+  --muted: #857f73;
+  --line: #262a31;
+  --line-soft: rgba(232, 228, 220, 0.05);
+  --accent: #e6a441;
+  --accent-soft: #dda04a;
+  --accent-ink: #12100b;
+  --accent-2: #82abe0;
+  --accent-2-deep: #3a5f96;
+  --tape: rgba(230, 164, 65, 0.34);
+  --glow: rgba(230, 164, 65, 0.13);
   --dot: rgba(255, 248, 230, 0.025);
   --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --nav-bg: rgba(12, 11, 9, 0.85);
 }
 html[data-theme="light"] {
   --bg: #f8f5f0;
-  --bg-2: #efebe4;
-  --bg-3: #e3dfd7;
-  --highlight: #f3efe8;
+  --bg-2: #e9edf3;
+  --bg-3: #dbe1ea;
+  --highlight: #eef1f6;
   --fg: #1c1917;
-  --fg-dim: #78726a;
-  --muted: #a8a19a;
-  --line: #e0dbd3;
-  --line-soft: rgba(28, 25, 23, 0.04);
-  --accent: #6b6359;
-  --accent-soft: #8a8278;
+  --fg-dim: #6d6862;
+  --muted: #6f6b65;
+  --line: #d9dce2;
+  --line-soft: rgba(28, 25, 23, 0.05);
+  --accent: #99610c;
+  --accent-soft: #9a5f0c;
+  --accent-ink: #fff8ec;
+  --accent-2: #2f5b96;
+  --accent-2-deep: #24476f;
+  --tape: rgba(180, 112, 15, 0.26);
+  --glow: rgba(180, 112, 15, 0.1);
   --dot: rgba(0, 0, 0, 0.04);
   --nav-bg: rgba(248, 245, 240, 0.85);
 }
@@ -60,8 +70,13 @@ a {
   text-decoration: none;
 }
 ::selection {
-  background: var(--fg);
-  color: var(--bg);
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar {
   width: 7px;
@@ -74,7 +89,7 @@ a {
   background: var(--line);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--muted);
+  background: var(--accent);
 }
 nav.top {
   position: fixed;
@@ -121,8 +136,8 @@ nav.top li a::after {
   left: 0;
   right: 0;
   bottom: -7px;
-  height: 1px;
-  background: var(--fg);
+  height: 2px;
+  background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
@@ -159,7 +174,22 @@ nav.top .right .here {
   transition: color 0.25s;
 }
 .theme-toggle:hover {
-  color: var(--fg);
+  color: var(--accent);
+}
+.safelight {
+  position: relative;
+  isolation: isolate;
+}
+.safelight::before {
+  content: "";
+  position: absolute;
+  left: -8%;
+  right: -8%;
+  top: -22%;
+  height: 620px;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(52% 58% at 26% 34%, var(--glow), transparent 72%);
 }
 main {
   position: relative;
@@ -200,7 +230,7 @@ main {
 }
 .btn.primary {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--accent-ink);
   border-color: var(--accent);
 }
 .btn.primary:hover {

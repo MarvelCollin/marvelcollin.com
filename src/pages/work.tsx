@@ -27,6 +27,21 @@ export function Work() {
     () => (filter === 'all' ? PROJECTS : PROJECTS.filter((p) => p.tag === filter)),
     [PROJECTS, filter],
   );
+  const HISTORY_GROUPS = useMemo(() => {
+    const out: { where: string; span: string; items: typeof HISTORY }[] = [];
+    for (const j of HISTORY) {
+      const last = out[out.length - 1];
+      if (last && last.where === j.where) last.items.push(j);
+      else out.push({ where: j.where, span: j.yr, items: [j] });
+    }
+    for (const g of out) {
+      if (g.items.length < 2) continue;
+      const start = g.items[g.items.length - 1].yr.split(' to ')[0];
+      const end = g.items[0].yr.split(' to ')[1] ?? g.items[0].yr;
+      g.span = `${start} to ${end}`;
+    }
+    return out;
+  }, [HISTORY]);
   const filters = [
     { key: 'all', label: `All (${PROJECTS.length})` },
     { key: 'client', label: `Client (${PROJECTS.filter((p) => p.tag === 'client').length})` },
@@ -52,18 +67,41 @@ export function Work() {
           <p className="mb-10 text-[13px] uppercase tracking-[0.1em] text-muted">Experience</p>
           {loading && HISTORY.length === 0 && <EntrySkeleton count={3} />}
           <div className="space-y-12">
-            {HISTORY.map((j, i) => {
-              const logo = orgLogo(j.where);
+            {HISTORY_GROUPS.map((g, i) => {
+              const logo = orgLogo(g.where);
+              if (g.items.length === 1) {
+                const j = g.items[0];
+                return (
+                  <div key={i}>
+                    <div className="flex items-center gap-4">
+                      <OrgMark logo={logo} />
+                      <div>
+                        <div className="text-[18px] font-medium leading-[1.3]">{j.role}</div>
+                        <div className="mt-0.5 text-[14px] text-fg-dim">{j.where} · {j.yr}</div>
+                      </div>
+                    </div>
+                    {j.note && <p className="mt-3 max-w-[54ch] text-[15px] leading-[1.6] text-fg-dim pl-[60px] max-[900px]:pl-0">{j.note}</p>}
+                  </div>
+                );
+              }
               return (
                 <div key={i}>
                   <div className="flex items-center gap-4">
                     <OrgMark logo={logo} />
                     <div>
-                      <div className="text-[18px] font-medium leading-[1.3]">{j.role}</div>
-                      <div className="mt-0.5 text-[14px] text-fg-dim">{j.where} · {j.yr}</div>
+                      <div className="text-[18px] font-medium leading-[1.3]">{g.where}</div>
+                      <div className="mt-0.5 text-[14px] text-fg-dim">{g.span}</div>
                     </div>
                   </div>
-                  {j.note && <p className="mt-3 max-w-[54ch] text-[15px] leading-[1.6] text-fg-dim pl-[60px] max-[900px]:pl-0">{j.note}</p>}
+                  <div className="ml-[21px] mt-5 space-y-5 border-l border-line pl-6 max-[900px]:ml-0 max-[900px]:pl-4">
+                    {g.items.map((j, k) => (
+                      <div key={k}>
+                        <div className="text-[16px] font-medium leading-[1.3]">{j.role}</div>
+                        <div className="mt-0.5 text-[13px] text-muted">{j.yr}</div>
+                        {j.note && <p className="mt-2 max-w-[54ch] text-[15px] leading-[1.6] text-fg-dim">{j.note}</p>}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               );
             })}

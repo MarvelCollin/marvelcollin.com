@@ -28,7 +28,7 @@ export const WORKS = [
   },
   {
     slug: 'itel',
-    name: 'ITEL',
+    name: 'NRX',
     year: '2026',
     role: 'Fullstack',
     stack: 'Next.js · React 19 · Go · PostgreSQL',
@@ -37,7 +37,7 @@ export const WORKS = [
     description: 'an ISO compliance management platform',
     brief: 'Compliance frameworks, evidence and audits in one workspace.',
     body: [
-      'ITEL turns scattered spreadsheets, screenshots and chat threads into a single workspace for incidents, assets, people and controls, aimed at teams working toward SOC 2, ISO 27001 and GDPR.',
+      'NRX turns scattered spreadsheets, screenshots and chat threads into a single workspace for incidents, assets, people and controls, aimed at teams working toward SOC 2, ISO 27001 and GDPR.',
       'The frontend is Next.js 16 on the App Router with React 19, TanStack Query over a single axios client, SSE driven notifications and an embedded OnlyOffice editor with a word level document diff for the policy library.',
       'The backend is Go and Gin in clean architecture layers with Wire dependency injection, GORM against PostgreSQL, Redis caching, JWT auth over httpOnly cookies, Azure Blob storage for uploads and generated swagger docs.',
       'Live at itel.stevenlie.my.id with a staging environment alongside it. The frontend unit suite runs 386 Vitest tests plus Playwright end to end specs.',
@@ -220,6 +220,8 @@ export const WORKS = [
     result: 'v2.12 shipping',
     tone: 'ocean',
     stills: ['Dashboard', 'Sales', 'Receipts'],
+    cover: '/shots/polaris-1.png',
+    images: ['/shots/polaris-1.png'],
     repo: 'https://github.com/MarvelCollin/Polaris',
   },
   {

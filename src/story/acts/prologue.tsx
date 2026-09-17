@@ -72,7 +72,7 @@ export function Prologue() {
 
         <a
           data-part="cta"
-          className="group mt-12 inline-flex items-center gap-3 rounded-xl border border-accent bg-accent px-6 py-4 font-sans text-[15px] font-medium tracking-[0.01em] text-accent-ink shadow-[0_16px_38px_-18px_var(--accent)] transition-transform duration-300 hover:-translate-y-0.5 max-[560px]:w-full max-[560px]:justify-center"
+          className="group mt-12 flex w-fit items-center gap-3 rounded-xl border border-accent bg-accent px-6 py-4 font-sans text-[15px] font-medium tracking-[0.01em] text-accent-ink shadow-[0_16px_38px_-18px_var(--accent)] transition-transform duration-300 hover:-translate-y-0.5 max-[560px]:w-full max-[560px]:justify-center"
           href="https://github.com/MarvelCollin"
           target="_blank"
           rel="noreferrer"
@@ -85,7 +85,7 @@ export function Prologue() {
         <a
           data-part="cue"
           href="#origin"
-          className="group mt-20 inline-flex items-center gap-4 text-[12px] uppercase tracking-[0.18em] text-muted transition-colors hover:text-fg max-[900px]:mt-12"
+          className="group mt-16 flex w-fit items-center gap-4 text-[12px] uppercase tracking-[0.18em] text-muted transition-colors hover:text-fg max-[900px]:mt-12"
         >
           <span className="tabular-nums">{COUNT} chapters</span>
           <span className="h-px w-12 bg-line transition-all duration-300 group-hover:w-20 group-hover:bg-accent" />

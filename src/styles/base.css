@@ -52,6 +52,15 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
 body {
   font-weight: 400;
   letter-spacing: 0;
@@ -110,6 +119,17 @@ nav.top .brand {
   font-weight: 500;
   font-size: 16px;
   letter-spacing: 0;
+}
+.nav-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  will-change: transform;
 }
 nav.top .brand .sep {
   color: var(--muted);
@@ -175,6 +195,40 @@ nav.top .right .here {
 }
 .theme-toggle:hover {
   color: var(--accent);
+}
+.skip-link {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 300;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 13px;
+  transform: translateY(-160%);
+  transition: transform 0.2s ease;
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+@keyframes ov-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.ov-enter {
+  animation: ov-in 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ov-enter {
+    animation: none;
+  }
 }
 .safelight {
   position: relative;

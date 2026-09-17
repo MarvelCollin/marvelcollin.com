@@ -27,3 +27,5 @@ supabase/
 
 .tmp/
 .playwright-mcp/
+
+.claude/

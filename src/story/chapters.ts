@@ -1,0 +1,78 @@
+import type { Chapter } from '../Interface/IChapter';
+
+export const CHAPTERS: Chapter[] = [
+  {
+    id: 'prologue',
+    numeral: '00',
+    label: 'Prologue',
+    title: 'Marvel Collin',
+    dek: 'Fullstack engineer in Jakarta.',
+    marginal: 'Jakarta',
+    band: false,
+  },
+  {
+    id: 'origin',
+    numeral: 'I',
+    label: 'Origin',
+    title: 'Where it starts',
+    dek: 'Computer and network engineering in Pontianak, then Computer Science at BINUS University.',
+    marginal: '2020',
+    band: true,
+  },
+  {
+    id: 'practice',
+    numeral: 'II',
+    label: 'Practice',
+    title: 'In production',
+    dek: '8 internal apps built, 25+ maintained, 1000+ users across all 7 BINUS campuses.',
+    marginal: '2022',
+    band: false,
+  },
+  {
+    id: 'craft',
+    numeral: 'III',
+    label: 'Craft',
+    title: 'The toolkit',
+    dek: 'Backend, infrastructure, data, ML. Drag them around.',
+    marginal: 'Stack',
+    band: true,
+  },
+  {
+    id: 'work',
+    numeral: 'IV',
+    label: 'Work',
+    title: 'What got built',
+    dek: 'Freelance platforms, products, and things I wanted to exist.',
+    marginal: 'Projects',
+    band: false,
+  },
+  {
+    id: 'research',
+    numeral: 'V',
+    label: 'Research',
+    title: 'Open questions',
+    dek: 'Model compression and Indonesian NLP.',
+    marginal: 'Papers',
+    band: true,
+  },
+  {
+    id: 'recognition',
+    numeral: 'VI',
+    label: 'Recognition',
+    title: 'Marks along the way',
+    dek: 'National and ASEAN robotics medals, laboratory awards.',
+    marginal: 'Awards',
+    band: false,
+  },
+  {
+    id: 'epilogue',
+    numeral: 'VII',
+    label: 'Epilogue',
+    title: 'Still writing',
+    dek: 'Open to work and collaborations.',
+    marginal: 'Contact',
+    band: true,
+  },
+];
+
+export const NAV_CHAPTERS = ['origin', 'craft', 'work', 'research', 'epilogue'];

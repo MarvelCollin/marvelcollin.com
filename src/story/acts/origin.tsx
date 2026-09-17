@@ -5,7 +5,6 @@ import { Reveal } from '../../components/reveal';
 import { EntrySkeleton } from '../../components/skeleton';
 
 const FACTS = [
-  { term: 'GPA', detail: '3.6 / 4.00' },
   { term: 'Based in', detail: 'Jakarta, Indonesia' },
   { term: 'Languages', detail: 'English fluent, Indonesian native' },
 ];

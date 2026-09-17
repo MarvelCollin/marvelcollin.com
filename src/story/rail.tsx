@@ -1,47 +1,53 @@
 import { CHAPTERS } from './chapters';
 
+const LAST = CHAPTERS.length - 1;
+
 export function ChapterRail({ active }: { active: string }) {
+  const index = Math.max(0, CHAPTERS.findIndex((c) => c.id === active));
+  const reached = (index / LAST) * 100;
+
   return (
     <nav
       aria-label="Chapter index"
-      className="fixed right-2 top-1/2 z-40 hidden -translate-y-1/2 min-[1440px]:block"
+      className="fixed right-7 top-1/2 z-40 hidden -translate-y-1/2 min-[1440px]:block"
     >
-      <ol className="flex flex-col">
-        {CHAPTERS.map((c) => {
-          const on = active === c.id;
-          return (
-            <li key={c.id}>
-              <a
-                href={'#' + c.id}
-                aria-current={on ? 'true' : undefined}
-                className="group relative flex h-11 w-11 items-center justify-end gap-2.5 pr-1"
+      <div className="relative h-[340px] w-px bg-line">
+        <span
+          className="absolute left-0 top-0 w-px bg-accent transition-[height] duration-500 ease-out"
+          style={{ height: reached + '%' }}
+        />
+        <span className="absolute bottom-0 right-full top-0 mr-3 flex items-center [writing-mode:vertical-rl]">
+          <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-fg-dim">
+            {CHAPTERS[index].label}
+          </span>
+        </span>
+        <ol>
+          {CHAPTERS.map((c, i) => {
+            const on = i === index;
+            return (
+              <li
+                key={c.id}
+                className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2"
+                style={{ top: (i / LAST) * 100 + '%' }}
               >
-                <span
-                  className={
-                    'pointer-events-none absolute right-full mr-2 whitespace-nowrap rounded bg-bg-2 px-2 py-1 font-sans text-[11px] uppercase tracking-[0.16em] text-fg opacity-0 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.8)] transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100'
-                  }
+                <a
+                  href={'#' + c.id}
+                  aria-label={c.label}
+                  aria-current={on ? 'true' : undefined}
+                  className="group flex h-9 w-9 items-center justify-center"
                 >
-                  {c.label}
-                </span>
-                <span
-                  className={
-                    'font-sans text-[10px] tabular-nums tracking-[0.1em] transition-colors duration-300 ' +
-                    (on ? 'text-accent' : 'text-muted group-hover:text-fg-dim')
-                  }
-                >
-                  {c.numeral}
-                </span>
-                <span
-                  className={
-                    'h-px transition-all duration-300 ' +
-                    (on ? 'w-4 bg-accent' : 'w-2 bg-line group-hover:w-3.5 group-hover:bg-fg-dim')
-                  }
-                />
-              </a>
-            </li>
-          );
-        })}
-      </ol>
+                  <span
+                    className={
+                      'block rounded-full transition-all duration-300 ' +
+                      (on ? 'h-2 w-2 bg-accent' : 'h-1 w-1 bg-line group-hover:h-1.5 group-hover:w-1.5 group-hover:bg-fg-dim')
+                    }
+                  />
+                </a>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
     </nav>
   );
 }

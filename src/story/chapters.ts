@@ -24,7 +24,7 @@ export const CHAPTERS: Chapter[] = [
     numeral: 'II',
     label: 'Practice',
     title: 'In production',
-    dek: '8 internal apps built, 25+ maintained, 5000+ users across all 7 BINUS campuses.',
+    dek: 'Fullstack engineer and R&D staff at BINUS University since 2024. Internal platforms, production Linux servers, laboratory teaching.',
     marginal: '2022',
     band: false,
   },

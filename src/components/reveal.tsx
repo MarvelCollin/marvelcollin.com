@@ -1,5 +1,6 @@
-import type { ReactNode } from 'react';
-import { REDUCED, useInView } from '../hooks/use-in-view';
+import { useEffect, useRef, type ReactNode } from 'react';
+import { animate, createScope, onScroll, utils } from 'animejs';
+import { EASE_OUT, ENTER, MEDIA, failOpen } from '../lib/motion';
 
 export function Reveal({
   children,
@@ -14,23 +15,36 @@ export function Reveal({
   delay?: number;
   id?: string;
 }) {
-  const { ref, visible } = useInView<HTMLElement>();
+  const root = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = root.current;
+    if (!el) return;
+    let cancel = () => {};
+
+    const scope = createScope({ root: root as never, mediaQueries: MEDIA }).add((self) => {
+      if (self?.matches.reduceMotion) return;
+      utils.set(el, { opacity: 0, y: 20 });
+      const observer = onScroll({ target: el, enter: ENTER, repeat: false });
+      animate(el, {
+        opacity: 1,
+        y: 0,
+        duration: 700,
+        delay,
+        ease: EASE_OUT,
+        autoplay: observer,
+      });
+      cancel = failOpen(() => observer.ready, () => utils.set(el, { opacity: 1, y: 0 }));
+    });
+
+    return () => {
+      cancel();
+      scope.revert();
+    };
+  }, [delay]);
 
   return (
-    <Tag
-      ref={ref as never}
-      id={id}
-      className={className}
-      style={
-        REDUCED
-          ? undefined
-          : {
-              opacity: visible ? 1 : 0,
-              transform: visible ? 'translateY(0)' : 'translateY(20px)',
-              transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
-            }
-      }
-    >
+    <Tag ref={root as never} id={id} className={className}>
       {children}
     </Tag>
   );

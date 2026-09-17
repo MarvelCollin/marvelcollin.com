@@ -3,6 +3,13 @@ import { createRoot } from 'react-dom/client';
 import App from './app';
 import { ContentProvider } from './components/content-provider';
 import { initNavInterception } from './utils/nav';
+import { legacyAnchor } from './utils/work-link';
+
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+const anchor = legacyAnchor(location.pathname);
+if (anchor) history.replaceState(null, '', '/' + anchor);
+else if (location.pathname !== '/' && location.pathname !== '/admin') history.replaceState(null, '', '/' + location.hash);
 
 initNavInterception();
 

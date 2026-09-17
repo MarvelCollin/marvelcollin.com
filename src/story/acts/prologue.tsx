@@ -1,31 +1,69 @@
+import { useEffect, useRef } from 'react';
 import { FaGithub } from 'react-icons/fa6';
+import { createScope, createTimeline, stagger, utils } from 'animejs';
 import { CHAPTERS } from '../chapters';
+import { EASE_OUT, MEDIA, failOpen } from '../../lib/motion';
 
 const COUNT = CHAPTERS.length - 1;
+const PARTS = '[data-part="kicker"], [data-part="title"], [data-part="intro"], [data-part="meta"], [data-part="cta"], [data-part="cue"]';
 
 export function Prologue() {
+  const root = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = root.current;
+    if (!el) return;
+    let cancel = () => {};
+
+    const scope = createScope({ root: root as never, mediaQueries: MEDIA }).add((self) => {
+      const parts = Array.from(el.querySelectorAll(PARTS));
+      if (parts.length === 0) return;
+      const show = () => utils.set(parts, { opacity: 1, y: 0 });
+
+      if (self?.matches.reduceMotion) {
+        show();
+        return;
+      }
+
+      utils.set(parts, { opacity: 0, y: 24 });
+      const tl = createTimeline({ defaults: { ease: EASE_OUT, duration: 880 } }).add(parts, {
+        opacity: 1,
+        y: 0,
+        delay: stagger(110, { start: 120 }),
+      });
+
+      cancel = failOpen(() => tl.began, show);
+    });
+
+    return () => {
+      cancel();
+      scope.revert();
+    };
+  }, []);
+
   return (
     <section
+      ref={root as never}
       id="prologue"
       data-chapter="prologue"
       aria-label="Prologue"
       className="safelight relative flex min-h-[94vh] flex-col justify-center px-10 pt-[120px] pb-16 max-[900px]:min-h-[86vh] max-[900px]:px-[22px] max-[900px]:pt-[96px]"
     >
       <div className="mx-auto w-full max-w-[1280px]">
-        <div className="flex items-center gap-4">
+        <div data-part="kicker" className="flex items-center gap-4">
           <span className="h-px w-10 bg-accent" />
           <span className="font-sans text-[12px] uppercase tracking-[0.22em] text-accent-2">Prologue</span>
         </div>
 
-        <h1 className="mt-10 font-sans text-[clamp(56px,10vw,148px)] font-semibold leading-[0.92] tracking-[-0.04em] max-[900px]:mt-7">
+        <h1 data-part="title" className="mt-10 font-sans text-[clamp(56px,10vw,148px)] font-semibold leading-[0.92] tracking-[-0.04em] max-[900px]:mt-7">
           Marvel<br />Collin.
         </h1>
 
         <div className="mt-12 flex items-start justify-between gap-16 max-[900px]:flex-col max-[900px]:gap-8">
-          <p className="max-w-[46ch] text-[17px] leading-[1.7] text-fg-dim">
+          <p data-part="intro" className="max-w-[46ch] text-[17px] leading-[1.7] text-fg-dim">
             Fullstack engineer and R&D staff at BINUS University. I build internal platforms in Go, .NET Core, and TypeScript, run the Linux servers under them, and take freelance work out of Singapore and Jakarta.
           </p>
-          <div className="shrink-0 text-right text-[14px] leading-[1.8] text-fg-dim max-[900px]:text-left">
+          <div data-part="meta" className="shrink-0 text-right text-[14px] leading-[1.8] text-fg-dim max-[900px]:text-left">
             <p>Fullstack Engineer</p>
             <p>Jakarta, Indonesia</p>
             <a className="mt-2 inline-block text-accent-soft transition-colors hover:text-fg" href="mailto:marvelcollin7@gmail.com">marvelcollin7@gmail.com</a>
@@ -33,6 +71,7 @@ export function Prologue() {
         </div>
 
         <a
+          data-part="cta"
           className="group mt-12 inline-flex items-center gap-3 rounded-xl border border-accent bg-accent px-6 py-4 font-sans text-[15px] font-medium tracking-[0.01em] text-accent-ink shadow-[0_16px_38px_-18px_var(--accent)] transition-transform duration-300 hover:-translate-y-0.5 max-[560px]:w-full max-[560px]:justify-center"
           href="https://github.com/MarvelCollin"
           target="_blank"
@@ -44,6 +83,7 @@ export function Prologue() {
         </a>
 
         <a
+          data-part="cue"
           href="#origin"
           className="group mt-20 inline-flex items-center gap-4 text-[12px] uppercase tracking-[0.18em] text-muted transition-colors hover:text-fg max-[900px]:mt-12"
         >

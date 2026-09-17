@@ -5,15 +5,6 @@ import { OrgMark } from '../../components/org-mark';
 import { Reveal } from '../../components/reveal';
 import { EntrySkeleton } from '../../components/skeleton';
 
-const STATS = [
-  { value: '8', label: 'internal apps built' },
-  { value: '25+', label: 'platforms maintained' },
-  { value: '5000+', label: 'users across 7 campuses' },
-  { value: '700+', label: 'students taught' },
-  { value: '10+', label: 'repos moved to self hosted CI' },
-  { value: '15 → 5 min', label: 'release time, automated' },
-];
-
 export function Practice() {
   const { experience, loading } = useContent();
 
@@ -35,15 +26,6 @@ export function Practice() {
 
   return (
     <div className="max-w-[900px]">
-      <Reveal className="mb-16 grid grid-cols-3 gap-x-10 gap-y-8 border-y border-line py-8 max-[700px]:grid-cols-2 max-[480px]:grid-cols-1">
-        {STATS.map((s) => (
-          <div key={s.label}>
-            <div className="font-sans text-[clamp(22px,2.6vw,30px)] font-semibold tabular-nums tracking-[-0.02em] text-accent">{s.value}</div>
-            <div className="mt-1.5 text-[13px] leading-[1.45] text-fg-dim">{s.label}</div>
-          </div>
-        ))}
-      </Reveal>
-
       {loading && experience.length === 0 && <EntrySkeleton count={3} />}
       <div className="space-y-12">
         {groups.map((g, i) => {

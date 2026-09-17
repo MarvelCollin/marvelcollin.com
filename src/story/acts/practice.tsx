@@ -8,7 +8,7 @@ import { EntrySkeleton } from '../../components/skeleton';
 const STATS = [
   { value: '8', label: 'internal apps built' },
   { value: '25+', label: 'platforms maintained' },
-  { value: '1000+', label: 'users across 7 campuses' },
+  { value: '5000+', label: 'users across 7 campuses' },
   { value: '700+', label: 'students taught' },
   { value: '10+', label: 'repos moved to self hosted CI' },
   { value: '15 → 5 min', label: 'release time, automated' },

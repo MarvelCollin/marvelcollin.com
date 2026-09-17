@@ -24,7 +24,7 @@ export const CHAPTERS: Chapter[] = [
     numeral: 'II',
     label: 'Practice',
     title: 'In production',
-    dek: '8 internal apps built, 25+ maintained, 1000+ users across all 7 BINUS campuses.',
+    dek: '8 internal apps built, 25+ maintained, 5000+ users across all 7 BINUS campuses.',
     marginal: '2022',
     band: false,
   },

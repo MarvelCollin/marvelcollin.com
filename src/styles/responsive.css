@@ -1,4 +1,7 @@
 @media (max-width: 900px) {
+  html {
+    scroll-padding-top: 84px;
+  }
   nav.top {
     padding: 12px 22px;
     flex-wrap: nowrap;

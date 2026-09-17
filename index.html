@@ -22,34 +22,7 @@
 <script>(function(){var t=localStorage.getItem('theme');if(!t)t=matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';if(t==='light')document.documentElement.dataset.theme='light';})()</script>
 </head>
 <body>
-<nav class="top">
-  <a href="/" class="brand">Marvel Collin</a>
-  <ul id="nav-ul">
-    <li><a href="/" data-route="/">Home</a></li>
-    <li><a href="/work" data-route="/work">Work</a></li>
-    <li><a href="/about" data-route="/about">About</a></li>
-    <li><a href="/research" data-route="/research">Research</a></li>
-  </ul>
-  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme"></button>
-</nav>
-<script>
-(function(){
-  var btn=document.getElementById('theme-toggle');
-  function update(){
-    var light=document.documentElement.dataset.theme==='light';
-    btn.textContent=light?'dark':'light';
-    btn.setAttribute('aria-label',light?'Switch to dark mode':'Switch to light mode');
-  }
-  btn.addEventListener('click',function(){
-    var light=document.documentElement.dataset.theme==='light';
-    if(light){delete document.documentElement.dataset.theme;localStorage.setItem('theme','dark');}
-    else{document.documentElement.dataset.theme='light';localStorage.setItem('theme','light');}
-    update();
-  });
-  update();
-})();
-</script>
-<main id="app"></main>
+<div id="app"></div>
 <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>

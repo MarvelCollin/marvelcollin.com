@@ -1,8 +1,9 @@
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { Skill } from '../../../types/content';
-import { skillIcon } from '../../../lib/icons';
-import { ICON, measure } from './shape';
-import type { Glyph, Shape } from './shape';
+import { skillGlyph } from '../../../lib/skill-logos';
+import type { Glyph } from '../../../lib/skill-logos';
+import { ICON, measureImage, measureSvg } from './shape';
+import type { Shape } from './shape';
 import { usePhysics } from './use-physics';
 import { Piece } from './piece';
 
@@ -10,7 +11,7 @@ function useGlyphs(skills: Skill[]) {
   return useMemo(() => {
     const map = new Map<string, Glyph>();
     for (const s of skills) {
-      const g = skillIcon(s.name);
+      const g = skillGlyph(s.name);
       if (g) map.set(s.name, g);
     }
     return map;
@@ -24,7 +25,17 @@ function useShapes(skills: Skill[], glyphs: Map<string, Glyph>) {
   useLayoutEffect(() => {
     const el = host.current;
     if (!el || skills.length === 0) return;
-    setShapes(new Map(skills.map((s, i) => [s.name, measure(el.children[i]?.querySelector('svg'))])));
+    let alive = true;
+    const jobs = skills.map((s, i) => {
+      const g = glyphs.get(s.name);
+      return g && 'src' in g ? measureImage(g.src) : Promise.resolve(measureSvg(el.children[i]?.querySelector('svg')));
+    });
+    Promise.all(jobs).then((list) => {
+      if (alive) setShapes(new Map(skills.map((s, i) => [s.name, list[i]])));
+    });
+    return () => {
+      alive = false;
+    };
   }, [skills, glyphs]);
 
   return { host, shapes };
@@ -46,7 +57,7 @@ export function SkillBalls({ skills }: { skills: Skill[] }) {
       <div ref={host} aria-hidden className="pointer-events-none absolute -left-[9999px] top-0 opacity-0">
         {skills.map((s) => {
           const g = glyphs.get(s.name);
-          return <span key={s.id || s.name}>{g && <g.Icon size={ICON} />}</span>;
+          return <span key={s.id || s.name}>{g && 'Icon' in g && <g.Icon size={ICON} />}</span>;
         })}
       </div>
 

@@ -1,5 +1,5 @@
 import { useContent } from '../../../content/use-content';
-import { orgLogo } from '../../../lib/icons';
+import { orgLogo } from '../../../lib/org-logo';
 import { OrgMark } from '../../../components/ui/org-mark';
 import { Reveal } from '../../../components/ui/reveal';
 import { EntrySkeleton } from '../../../components/ui/skeleton';

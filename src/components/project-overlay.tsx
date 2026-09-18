@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useState } from 'react';
 import { animate, createScope } from 'animejs';
 import { useContent, findWork, workIndex } from '../content/use-content';
 import { useModal } from '../hooks/use-modal';
+import { useDismiss } from '../hooks/use-dismiss';
 import { workHref } from '../utils/work-link';
 import { img } from '../lib/img';
 import { flipFrom, takeFlipOrigin } from '../lib/flip';
@@ -17,7 +18,8 @@ const JUMP = 'inline-block font-display text-[28px] font-semibold leading-[1.1] 
 
 export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () => void }) {
   const { works, loading } = useContent();
-  const boxRef = useModal<HTMLDivElement>();
+  const boxRef = useModal<HTMLDivElement>(onClose);
+  const dismiss = useDismiss<HTMLDivElement>(onClose, '[data-sheet]');
   const [heroIndex, setHeroIndex] = useState<number | null>(null);
   const p = findWork(works, slug);
 
@@ -59,14 +61,6 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
     return () => scope.revert();
   }, [openSlug, boxRef]);
 
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && heroIndex === null) onClose();
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [onClose, heroIndex]);
-
   const idx = p ? workIndex(works, slug) : -1;
   const prev = idx > 0 ? works[idx - 1] : null;
   const next = idx >= 0 && idx < works.length - 1 ? works[idx + 1] : null;
@@ -83,9 +77,7 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
       role="dialog"
       aria-modal="true"
       aria-label={p ? p.name : 'Project'}
-      onClick={(e) => {
-        if (!(e.target as HTMLElement).closest('[data-sheet]')) onClose();
-      }}
+      {...dismiss}
       className="fixed inset-0 z-[90] cursor-zoom-out overflow-y-auto overscroll-contain outline-none"
     >
       <ClipDefs />

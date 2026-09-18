@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import type { ChangeEvent, ClipboardEvent, DragEvent } from 'react';
 import { uploadImage } from '../../../lib/storage';
+import { useModal } from '../../../hooks/use-modal';
+import { useDismiss } from '../../../hooks/use-dismiss';
 
 function filesFromClipboard(e: ClipboardEvent<HTMLDivElement>): File[] {
   return Array.from(e.clipboardData.items)
@@ -12,14 +14,9 @@ function filesFromClipboard(e: ClipboardEvent<HTMLDivElement>): File[] {
 export function UploadModal({ title, multiple, onClose, onAdd }: { title: string; multiple: boolean; onClose: () => void; onAdd: (url: string) => void }) {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
-  const boxRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => { boxRef.current?.focus(); }, []);
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [onClose]);
+  const leave = () => { if (!busy) onClose(); };
+  const boxRef = useModal<HTMLDivElement>(leave);
+  const dismiss = useDismiss<HTMLDivElement>(leave, '.modal');
 
   const upload = async (files: File[]) => {
     setBusy(true); setErr('');
@@ -50,19 +47,18 @@ export function UploadModal({ title, multiple, onClose, onAdd }: { title: string
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay" {...dismiss}>
       <div
         className="modal"
         ref={boxRef}
         tabIndex={-1}
-        onClick={(e) => e.stopPropagation()}
         onPaste={onPaste}
         onDrop={onDrop}
         onDragOver={(e) => e.preventDefault()}
       >
         <div className="modal-head">
           <h3>{title}{busy && <em> uploading…</em>}</h3>
-          <button type="button" className="modal-x" onClick={onClose} aria-label="Close">×</button>
+          <button type="button" className="modal-x" onClick={leave} disabled={busy} aria-label="Close">×</button>
         </div>
         <label className="modal-drop">
           <span>{busy ? 'Uploading…' : 'Paste a screenshot with Ctrl+V, drop a file here, or click to browse'}</span>

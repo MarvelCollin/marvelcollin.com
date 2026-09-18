@@ -1,4 +1,4 @@
-import { TABLES } from '../supabase';
+import { TABLES } from '../env';
 import type { Project } from '../../types/content';
 import type { WorkRow } from '../../types/rows';
 import { table } from './table';

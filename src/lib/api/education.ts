@@ -1,4 +1,4 @@
-import { TABLES } from '../supabase';
+import { TABLES } from '../env';
 import type { Education } from '../../types/content';
 import { table } from './table';
 

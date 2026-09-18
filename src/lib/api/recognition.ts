@@ -1,4 +1,4 @@
-import { TABLES } from '../supabase';
+import { TABLES } from '../env';
 import type { Award } from '../../types/content';
 import type { RecognitionRow } from '../../types/rows';
 import { table } from './table';

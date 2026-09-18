@@ -1,4 +1,4 @@
-import { TABLES } from '../supabase';
+import { TABLES } from '../env';
 import type { HistoryItem } from '../../types/content';
 import type { ExperienceRow } from '../../types/rows';
 import { table } from './table';

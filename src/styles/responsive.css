@@ -19,7 +19,8 @@
   nav.top li a,
   nav.top .theme-toggle {
     display: inline-block;
-    padding: 12px 3px;
+    padding: 13px 4px;
+    line-height: 18px;
   }
   nav.top .brand {
     display: inline-block;

@@ -72,17 +72,24 @@ export function Prologue() {
           </dl>
         </div>
 
-        <a
-          data-part="cta"
-          className="group mt-12 flex w-fit items-center gap-3 rounded-lg border border-accent bg-accent px-6 py-4 font-mono text-[14px] font-medium uppercase tracking-[0.08em] text-accent-ink transition-transform duration-300 hover:-translate-y-0.5 max-[560px]:w-full max-[560px]:justify-center"
-          href="https://github.com/MarvelCollin"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <FaGithub size={20} />
-          Check out my GitHub profile
-          <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
-        </a>
+        <div data-part="cta" className="mt-12 flex flex-wrap items-center gap-4">
+          <a
+            className="group flex items-center gap-3 rounded-lg border border-accent bg-accent px-6 py-4 font-mono text-[13px] font-medium uppercase tracking-[0.1em] text-accent-ink transition-transform duration-300 hover:-translate-y-0.5 max-[560px]:w-full max-[560px]:justify-center"
+            href="#work"
+          >
+            See the work
+            <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </a>
+          <a
+            className="flex items-center gap-3 rounded-lg border border-line px-6 py-4 font-mono text-[13px] uppercase tracking-[0.1em] text-fg-dim transition-colors hover:border-accent hover:text-fg max-[560px]:w-full max-[560px]:justify-center"
+            href="https://github.com/MarvelCollin"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FaGithub size={18} />
+            GitHub profile
+          </a>
+        </div>
 
         <a
           data-part="cue"

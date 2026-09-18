@@ -45,7 +45,7 @@ export function ChapterMasthead({ meta }: { meta: ChapterMeta }) {
         .add(heading, { opacity: 1, y: 0, duration: 720 }, '-=700')
         .add(dek, { opacity: 1, y: 0 }, '-=560');
 
-      cancel = failOpen(() => observer.ready, show);
+      cancel = failOpen(el, heading, show);
     });
 
     return () => {
@@ -59,7 +59,7 @@ export function ChapterMasthead({ meta }: { meta: ChapterMeta }) {
       <div className="flex items-center gap-5 max-[560px]:gap-3">
         <span
           data-part="numeral"
-          className="flex h-11 w-11 shrink-0 items-center justify-center border border-accent/45 font-sans text-[13px] font-medium tabular-nums tracking-[0.06em] text-accent max-[560px]:h-9 max-[560px]:w-9 max-[560px]:text-[11px]"
+          className="flex h-11 w-11 shrink-0 items-center justify-center border border-accent/45 font-mono text-[13px] font-medium tabular-nums tracking-[0.06em] text-accent max-[560px]:h-9 max-[560px]:w-9 max-[560px]:text-[11px]"
         >
           {meta.numeral}
         </span>
@@ -77,7 +77,7 @@ export function ChapterMasthead({ meta }: { meta: ChapterMeta }) {
         </svg>
         <span
           data-part="margin"
-          className="shrink-0 font-sans text-[11px] uppercase tracking-[0.16em] text-muted max-[560px]:hidden"
+          className="shrink-0 font-mono text-[11px] uppercase tracking-[0.16em] text-muted max-[560px]:hidden"
         >
           {meta.marginal}
         </span>
@@ -85,7 +85,7 @@ export function ChapterMasthead({ meta }: { meta: ChapterMeta }) {
 
       <h2
         data-part="heading"
-        className="mt-8 font-sans text-[clamp(38px,6vw,76px)] font-semibold leading-[1.02] tracking-[-0.035em] max-[560px]:mt-6"
+        className="mt-8 font-display text-[clamp(38px,6vw,76px)] font-semibold leading-[1.02] tracking-[-0.018em] max-[560px]:mt-6"
       >
         {meta.label}
       </h2>

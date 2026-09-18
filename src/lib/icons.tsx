@@ -10,8 +10,12 @@ import {
   SiLaravel, SiNestjs, SiSupabase, SiPrisma,
   SiGit, SiTensorflow, SiSwift, SiDart, SiFlutter,
   SiNginx, SiKubernetes, SiUnity,
+  SiLinux, SiGithubactions, SiPostgresql, SiMysql, SiGnubash, SiCloudflare,
+  SiGithubpages, SiCisco, SiPytorch, SiHuggingface, SiScikitlearn, SiPandas,
+  SiJupyter, SiTauri, SiElectron, SiVite, SiSocketdotio, SiCypress,
+  SiShadcnui, SiAndroid, SiGooglechrome, SiLabview, SiBootstrap,
 } from 'react-icons/si';
-import { TbCube3dSphere, TbBrandCSharp } from 'react-icons/tb';
+import { TbCube3dSphere, TbBrandCSharp, TbBrandPowershell, TbBrain, TbMicrophone, TbPlugConnected } from 'react-icons/tb';
 import { FaJava } from 'react-icons/fa6';
 
 const SKILLS: [string, IconType, string][] = [
@@ -64,6 +68,34 @@ const SKILLS: [string, IconType, string][] = [
   ['figma', SiFigma, '#f24e1e'],
   ['vercel', SiVercel, '#a0a0a0'],
   ['postman', SiPostman, '#ff6c37'],
+  ['linux', SiLinux, '#fcc624'],
+  ['github actions', SiGithubactions, '#2088ff'],
+  ['docker compose', SiDocker, '#2496ed'],
+  ['postgres', SiPostgresql, '#4169e1'],
+  ['mysql', SiMysql, '#4479a1'],
+  ['bash', SiGnubash, '#4eaa25'],
+  ['powershell', TbBrandPowershell, '#5391fe'],
+  ['cloudflare', SiCloudflare, '#f38020'],
+  ['github pages', SiGithubpages, '#a0a0a0'],
+  ['networking', SiCisco, '#1ba0d7'],
+  ['pytorch', SiPytorch, '#ee4c2c'],
+  ['hugging face', SiHuggingface, '#ffd21e'],
+  ['llm', TbBrain, '#c792ea'],
+  ['scikit', SiScikitlearn, '#f7931e'],
+  ['pandas', SiPandas, '#9c8cff'],
+  ['jupyter', SiJupyter, '#f37626'],
+  ['speech', TbMicrophone, '#7ec8e3'],
+  ['mcp', TbPlugConnected, '#d97757'],
+  ['tauri', SiTauri, '#ffc131'],
+  ['electron', SiElectron, '#47848f'],
+  ['vite', SiVite, '#646cff'],
+  ['socket', SiSocketdotio, '#a0a0a0'],
+  ['cypress', SiCypress, '#69d3a7'],
+  ['shadcn', SiShadcnui, '#a0a0a0'],
+  ['android', SiAndroid, '#3ddc84'],
+  ['chrome', SiGooglechrome, '#4285f4'],
+  ['labview', SiLabview, '#ffdb00'],
+  ['bootstrap', SiBootstrap, '#7952b3'],
 ];
 
 const EXACT: Record<string, [IconType, string]> = {

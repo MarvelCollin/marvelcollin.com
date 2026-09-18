@@ -4,8 +4,8 @@ import { Skel } from '../../../components/ui/skeleton';
 
 const SkillBalls = lazy(() => import('../skill-board').then((m) => ({ default: m.SkillBalls })));
 
-const WEB_KEYS = ['typescript', 'javascript', 'react', 'next', 'nuxt', 'vue', 'angular', 'svelte', 'node', 'express', 'nest', 'tailwind', '.net', 'c#', 'php', 'laravel', 'go', 'java', 'kotlin', 'html', 'css', 'graphql', 'rest', 'supabase', 'prisma', 'firebase', 'mongodb', 'sqlite', 'redis', 'sql'];
-const AI_KEYS = ['python', 'tensorflow', 'pytorch', 'r language', 'machine learning', 'deep learning', 'nlp', 'data', 'scikit', 'pandas', 'numpy', 'opencv', 'keras'];
+const WEB_KEYS = ['typescript', 'javascript', 'react', 'next', 'nuxt', 'vue', 'angular', 'svelte', 'node', 'express', 'nest', 'tailwind', '.net', 'c#', 'php', 'laravel', 'go', 'java', 'kotlin', 'html', 'css', 'graphql', 'rest', 'supabase', 'prisma', 'firebase', 'mongodb', 'sqlite', 'redis', 'sql', 'vite', 'shadcn', 'bootstrap', 'socket', 'cypress'];
+const AI_KEYS = ['python', 'tensorflow', 'pytorch', 'r language', 'machine learning', 'deep learning', 'nlp', 'data', 'scikit', 'pandas', 'numpy', 'opencv', 'keras', 'hugging', 'llm', 'jupyter', 'speech', 'mcp'];
 
 function classifySkill(name: string): string {
   const n = name.toLowerCase();

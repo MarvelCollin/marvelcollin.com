@@ -120,7 +120,7 @@ export function SkillBalls({ skills }: { skills: Skill[] }) {
     Matter.Composite.add(engine.world, mc);
 
     const runner = Matter.Runner.create();
-    Matter.Runner.run(runner, engine);
+    let running = false;
 
     setReady(true);
 
@@ -133,9 +133,25 @@ export function SkillBalls({ skills }: { skills: Skill[] }) {
         const lbl = labelsRef.current.get(b.label);
         if (lbl) lbl.style.transform = `translateX(-50%) rotate(${-b.angle}rad)`;
       });
+      if (running) frameRef.current = requestAnimationFrame(sync);
+    };
+
+    const start = () => {
+      if (running) return;
+      running = true;
+      Matter.Runner.run(runner, engine);
       frameRef.current = requestAnimationFrame(sync);
     };
-    frameRef.current = requestAnimationFrame(sync);
+
+    const stop = () => {
+      if (!running) return;
+      running = false;
+      Matter.Runner.stop(runner);
+      cancelAnimationFrame(frameRef.current);
+    };
+
+    const io = new IntersectionObserver(([entry]) => (entry.isIntersecting ? start() : stop()));
+    io.observe(box);
 
     const onResize = () => {
       const nw = box.clientWidth;
@@ -149,9 +165,9 @@ export function SkillBalls({ skills }: { skills: Skill[] }) {
     ro.observe(box);
 
     return () => {
-      cancelAnimationFrame(frameRef.current);
+      stop();
+      io.disconnect();
       ro.disconnect();
-      Matter.Runner.stop(runner);
       Matter.Engine.clear(engine);
       Matter.Composite.clear(engine.world, false);
     };

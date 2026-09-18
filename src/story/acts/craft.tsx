@@ -1,6 +1,8 @@
-import { useMemo, useState } from 'react';
+import { lazy, Suspense, useMemo, useState } from 'react';
 import { useContent } from '../../content/use-content';
-import { SkillBalls } from '../../components/skill-balls';
+import { Skel } from '../../components/skeleton';
+
+const SkillBalls = lazy(() => import('../../components/skill-balls').then((m) => ({ default: m.SkillBalls })));
 
 const WEB_KEYS = ['typescript', 'javascript', 'react', 'next', 'nuxt', 'vue', 'angular', 'svelte', 'node', 'express', 'nest', 'tailwind', '.net', 'c#', 'php', 'laravel', 'go', 'java', 'kotlin', 'html', 'css', 'graphql', 'rest', 'supabase', 'prisma', 'firebase', 'mongodb', 'sqlite', 'redis', 'sql'];
 const AI_KEYS = ['python', 'tensorflow', 'pytorch', 'r language', 'machine learning', 'deep learning', 'nlp', 'data', 'scikit', 'pandas', 'numpy', 'opencv', 'keras'];
@@ -59,7 +61,9 @@ export function Craft() {
           ))}
         </div>
       </div>
-      <SkillBalls skills={filtered} />
+      <Suspense fallback={<Skel className="block h-[420px] w-full rounded-lg" />}>
+        <SkillBalls skills={filtered} />
+      </Suspense>
     </div>
   );
 }

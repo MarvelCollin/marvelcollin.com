@@ -3,7 +3,7 @@ import { TbBrain, TbCube3dSphere, TbMicrophone } from 'react-icons/tb';
 
 export type Glyph = { src: string } | { Icon: IconType; color: string };
 
-const FILES = import.meta.glob('../assets/skills/*.svg', { query: '?url', import: 'default', eager: true }) as Record<string, string>;
+const FILES = import.meta.glob('../assets/skills/*.svg', { query: '?no-inline', import: 'default', eager: true }) as Record<string, string>;
 
 const file = (name: string) => FILES[`../assets/skills/${name}.svg`];
 

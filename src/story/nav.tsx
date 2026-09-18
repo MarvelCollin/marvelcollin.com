@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CHAPTERS, NAV_CHAPTERS } from './chapters';
 
 const ITEMS = NAV_CHAPTERS.map((id) => CHAPTERS.find((c) => c.id === id)).filter(
@@ -34,8 +34,36 @@ function useTheme() {
   return { light, toggle };
 }
 
-export function SiteNav({ active, progress }: { active: string; progress: number }) {
+function useProgressBar() {
+  const bar = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      const reach = document.documentElement.scrollHeight - window.innerHeight;
+      const ratio = reach <= 0 ? 0 : Math.min(1, Math.max(0, window.scrollY / reach));
+      if (bar.current) bar.current.style.transform = `scaleX(${ratio})`;
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(measure);
+    };
+    measure();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
+  return bar;
+}
+
+export function SiteNav({ active }: { active: string }) {
   const { light, toggle } = useTheme();
+  const bar = useProgressBar();
   const highlight = NEAREST[active] ?? '';
 
   return (
@@ -55,7 +83,7 @@ export function SiteNav({ active, progress }: { active: string; progress: number
       <button type="button" className="theme-toggle" onClick={toggle} aria-label={light ? 'Switch to dark mode' : 'Switch to light mode'}>
         {light ? 'dark' : 'light'}
       </button>
-      <span className="nav-progress" style={{ transform: `scaleX(${progress})` }} aria-hidden="true" />
+      <span ref={bar} className="nav-progress" aria-hidden="true" />
     </nav>
   );
 }

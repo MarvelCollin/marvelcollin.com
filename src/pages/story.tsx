@@ -13,7 +13,7 @@ import { Recognition } from '../story/acts/recognition';
 import { Epilogue } from '../story/acts/epilogue';
 import { ProjectOverlay } from '../components/project-overlay';
 import { Backdrop } from '../components/backdrop';
-import { useActiveChapter, useScrollProgress } from '../hooks/use-story-progress';
+import { useActiveChapter } from '../hooks/use-story-progress';
 import { useWorkHash } from '../hooks/use-work-hash';
 
 const META = Object.fromEntries(CHAPTERS.map((c) => [c.id, c]));
@@ -31,7 +31,6 @@ const ACTS = [
 export function Story() {
   const ids = useMemo(() => CHAPTERS.map((c) => c.id), []);
   const active = useActiveChapter(ids);
-  const progress = useScrollProgress();
   const { slug, close } = useWorkHash();
 
   useEffect(() => {
@@ -52,7 +51,7 @@ export function Story() {
         sheet={sheet + 1}
         total={CHAPTERS.length}
       />
-      <SiteNav active={active} progress={progress} />
+      <SiteNav active={active} />
       <ChapterRail active={active} />
       <main>
         <Prologue />

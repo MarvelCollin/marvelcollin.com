@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { FaGithub } from 'react-icons/fa6';
-import { createScope, createTimeline, stagger, utils } from 'animejs';
+import { createScope, createTimeline, stagger } from 'animejs';
 import { CHAPTERS } from '../chapters';
-import { EASE_OUT, MEDIA, failOpen } from '../../lib/motion';
+import { EASE_OUT, FADE_UP, MEDIA } from '../../lib/motion';
 
 const COUNT = CHAPTERS.length - 1;
 const PARTS = '[data-part="kicker"], [data-part="title"], [data-part="intro"], [data-part="meta"], [data-part="cta"], [data-part="cue"]';
@@ -13,32 +13,19 @@ export function Prologue() {
   useEffect(() => {
     const el = root.current;
     if (!el) return;
-    let cancel = () => {};
 
     const scope = createScope({ root: root as never, mediaQueries: MEDIA }).add((self) => {
+      if (self?.matches.reduceMotion) return;
       const parts = Array.from(el.querySelectorAll(PARTS));
       if (parts.length === 0) return;
-      const show = () => utils.set(parts, { opacity: 1, y: 0 });
 
-      if (self?.matches.reduceMotion) {
-        show();
-        return;
-      }
-
-      utils.set(parts, { opacity: 0, y: 24 });
       createTimeline({ defaults: { ease: EASE_OUT, duration: 880 } }).add(parts, {
-        opacity: 1,
-        y: 0,
+        ...FADE_UP(24),
         delay: stagger(110, { start: 120 }),
       });
-
-      cancel = failOpen(el, parts, show);
     });
 
-    return () => {
-      cancel();
-      scope.revert();
-    };
+    return () => scope.revert();
   }, []);
 
   return (

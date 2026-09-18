@@ -1,7 +1,7 @@
 import { useEffect, useRef, type ReactNode } from 'react';
-import { createScope, createTimeline, onScroll, svg, utils } from 'animejs';
+import { createScope, createTimeline, onScroll, svg } from 'animejs';
 import type { Chapter as ChapterMeta } from '../Interface/IChapter';
-import { EASE_OUT, ENTER, MEDIA, failOpen } from '../lib/motion';
+import { EASE_OUT, ENTER, FADE_UP, MEDIA } from '../lib/motion';
 
 const SHELL = 'relative px-10 max-[900px]:px-[22px]';
 
@@ -11,9 +11,10 @@ export function ChapterMasthead({ meta }: { meta: ChapterMeta }) {
   useEffect(() => {
     const el = root.current;
     if (!el) return;
-    let cancel = () => {};
 
     const scope = createScope({ root: root as never, mediaQueries: MEDIA }).add((self) => {
+      if (self?.matches.reduceMotion) return;
+
       const numeral = el.querySelector('[data-part="numeral"]');
       const rule = el.querySelector('[data-part="rule"]');
       const margin = el.querySelector('[data-part="margin"]');
@@ -21,37 +22,21 @@ export function ChapterMasthead({ meta }: { meta: ChapterMeta }) {
       const dek = el.querySelector('[data-part="dek"]');
       if (!numeral || !rule || !heading || !dek) return;
 
-      const parts = [numeral, margin, heading, dek].filter(Boolean) as Element[];
       const [drawable] = svg.createDrawable(rule as SVGLineElement);
-      const show = () => {
-        utils.set(parts, { opacity: 1, y: 0 });
-        utils.set(drawable, { draw: '0 1' });
-      };
+      const rise = FADE_UP(14);
 
-      if (self?.matches.reduceMotion) {
-        show();
-        return;
-      }
-
-      utils.set(parts, { opacity: 0, y: 14 });
-      utils.set(drawable, { draw: '0 0' });
-
-      const observer = onScroll({ target: el, enter: ENTER, repeat: false });
-
-      createTimeline({ defaults: { ease: EASE_OUT, duration: 640 }, autoplay: observer })
-        .add(numeral, { opacity: 1, y: 0, duration: 520 })
-        .add(drawable, { draw: '0 1', duration: 900, ease: 'inOutQuad' }, '-=380')
-        .add(margin ?? [], { opacity: 1, y: 0, duration: 420 }, '-=500')
-        .add(heading, { opacity: 1, y: 0, duration: 720 }, '-=700')
-        .add(dek, { opacity: 1, y: 0 }, '-=560');
-
-      cancel = failOpen(el, parts, show);
+      createTimeline({
+        defaults: { ease: EASE_OUT, duration: 640 },
+        autoplay: onScroll({ target: el, enter: ENTER, repeat: false }),
+      })
+        .add(numeral, { ...rise, duration: 520 })
+        .add(drawable, { draw: ['0 0', '0 1'], duration: 900, ease: 'inOutQuad' }, '-=380')
+        .add(margin ?? [], { ...rise, duration: 420 }, '-=500')
+        .add(heading, { ...rise, duration: 720 }, '-=700')
+        .add(dek, { ...rise }, '-=560');
     });
 
-    return () => {
-      cancel();
-      scope.revert();
-    };
+    return () => scope.revert();
   }, []);
 
   return (

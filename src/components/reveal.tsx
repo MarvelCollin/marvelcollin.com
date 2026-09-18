@@ -1,6 +1,6 @@
 import { useEffect, useRef, type ReactNode } from 'react';
-import { animate, createScope, onScroll, utils } from 'animejs';
-import { EASE_OUT, ENTER, MEDIA, failOpen } from '../lib/motion';
+import { animate, createScope, onScroll } from 'animejs';
+import { EASE_OUT, ENTER, FADE_UP, MEDIA } from '../lib/motion';
 
 export function Reveal({
   children,
@@ -20,27 +20,19 @@ export function Reveal({
   useEffect(() => {
     const el = root.current;
     if (!el) return;
-    let cancel = () => {};
 
     const scope = createScope({ root: root as never, mediaQueries: MEDIA }).add((self) => {
       if (self?.matches.reduceMotion) return;
-      utils.set(el, { opacity: 0, y: 20 });
-      const observer = onScroll({ target: el, enter: ENTER, repeat: false });
       animate(el, {
-        opacity: 1,
-        y: 0,
+        ...FADE_UP(20),
         duration: 700,
         delay,
         ease: EASE_OUT,
-        autoplay: observer,
+        autoplay: onScroll({ target: el, enter: ENTER, repeat: false }),
       });
-      cancel = failOpen(el, [el], () => utils.set(el, { opacity: 1, y: 0 }));
     });
 
-    return () => {
-      cancel();
-      scope.revert();
-    };
+    return () => scope.revert();
   }, [delay]);
 
   return (

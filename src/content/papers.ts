@@ -1,4 +1,4 @@
-import type { Paper } from '../types';
+import type { Paper } from '../types/content';
 
 export const PAPERS: Paper[] = [
   {

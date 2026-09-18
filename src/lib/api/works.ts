@@ -1,6 +1,6 @@
 import { supabase, TABLES } from '../supabase';
-import type { Project } from '../../Interface/IProject';
-import type { WorkRow } from '../../Interface/IWorkRow';
+import type { Project } from '../../types/content';
+import type { WorkRow } from '../../types/rows';
 import { guard } from './internal';
 
 export type WorkInput = Omit<Project, 'id'>;

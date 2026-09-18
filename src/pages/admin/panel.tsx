@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useContent } from '../../content/use-content';
 import { ToastHost } from './toast';
-import { WorksSection } from './works-section';
-import { SkillsSection } from './skills-section';
-import { ExperienceSection } from './experience-section';
-import { EducationSection } from './education-section';
-import { RecognitionSection } from './recognition-section';
+import { WorksSection } from './sections/works';
+import { SkillsSection } from './sections/skills';
+import { ExperienceSection } from './sections/experience';
+import { EducationSection } from './sections/education';
+import { RecognitionSection } from './sections/recognition';
 
 type Tab = 'works' | 'skills' | 'experience' | 'education' | 'recognition';
 

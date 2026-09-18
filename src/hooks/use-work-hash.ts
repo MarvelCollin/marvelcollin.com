@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { slugFromHash } from '../utils/work-link';
+import { slugFromHash } from '../lib/work-link';
 
 export function useWorkHash() {
   const [slug, setSlug] = useState(() => slugFromHash(location.hash));

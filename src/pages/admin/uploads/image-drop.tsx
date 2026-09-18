@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { UploadModal } from './upload-modal';
-import { SmartImage } from '../../../components/smart-image';
+import { SmartImage } from '../../../components/ui/smart-image';
 
 export function ImageDrop({ label, value, onChange }: { label: string; value: string; onChange: (url: string) => void }) {
   const [open, setOpen] = useState(false);

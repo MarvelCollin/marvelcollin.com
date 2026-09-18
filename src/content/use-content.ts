@@ -1,7 +1,6 @@
 import { useContext } from 'react';
-import type { Project } from '../Interface/IProject';
-import type { ContentState } from '../Interface/IContentState';
-import { ContentContext } from './content-context';
+import type { Project, ContentState } from '../types/content';
+import { ContentContext } from './context';
 
 export function useContent(): ContentState {
   const ctx = useContext(ContentContext);

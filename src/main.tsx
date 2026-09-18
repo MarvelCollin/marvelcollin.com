@@ -1,9 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './app';
-import { ContentProvider } from './components/content-provider';
-import { initNavInterception } from './utils/nav';
-import { legacyAnchor } from './utils/work-link';
+import { ContentProvider } from './content/provider';
+import { initNavInterception } from './lib/nav';
+import { legacyAnchor } from './lib/work-link';
 
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 

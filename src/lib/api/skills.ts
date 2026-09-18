@@ -1,13 +1,12 @@
 import { supabase, TABLES } from '../supabase';
-import type { Skill } from '../../Interface/ISkill';
-import type { SkillRow } from '../../Interface/ISkillRow';
+import type { Skill } from '../../types/content';
 import { guard, nextSort } from './internal';
 
 export type SkillInput = Omit<Skill, 'id' | 'sort'>;
 
 export async function fetchSkills(): Promise<Skill[]> {
   const { data, error } = await supabase.from(TABLES.skills).select('*').order('sort', { ascending: true });
-  return guard(data as SkillRow[] | null, error);
+  return guard(data as Skill[] | null, error);
 }
 
 export async function createSkill(input: SkillInput): Promise<void> {

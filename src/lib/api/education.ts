@@ -1,5 +1,5 @@
 import { supabase, TABLES } from '../supabase';
-import type { Education } from '../../Interface/IEducation';
+import type { Education } from '../../types/content';
 import { guard, nextSort } from './internal';
 
 export type EducationInput = Omit<Education, 'id' | 'sort'>;

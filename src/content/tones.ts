@@ -1,4 +1,4 @@
-import type { Tone } from '../Interface/ITone';
+import type { Tone } from '../types/content';
 
 export const TONES: Record<string, Tone> = {
   warm:       { glow: 'rgba(212,178,72,.55)',  tint: 'rgba(212,178,72,.18)',  pos: '68% 38%' },

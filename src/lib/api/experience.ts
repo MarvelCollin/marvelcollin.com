@@ -1,6 +1,6 @@
 import { supabase, TABLES } from '../supabase';
-import type { HistoryItem } from '../../Interface/IHistoryItem';
-import type { ExperienceRow } from '../../Interface/IExperienceRow';
+import type { HistoryItem } from '../../types/content';
+import type { ExperienceRow } from '../../types/rows';
 import { guard, nextSort } from './internal';
 
 export type ExperienceInput = Omit<HistoryItem, 'id' | 'sort'>;

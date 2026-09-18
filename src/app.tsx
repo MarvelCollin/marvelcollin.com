@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { useRoute } from './hooks/use-route';
-import { ContentError } from './components/content-error';
-import { Skel } from './components/skeleton';
+import { ContentError } from './components/ui/content-error';
+import { Skel } from './components/ui/skeleton';
 import { Story } from './pages/story';
 
 const Admin = lazy(() => import('./pages/admin').then((m) => ({ default: m.Admin })));

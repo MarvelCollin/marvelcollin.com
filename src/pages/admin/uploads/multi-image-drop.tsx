@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { UploadModal } from './upload-modal';
-import { SmartImage } from '../../../components/smart-image';
+import { SmartImage } from '../../../components/ui/smart-image';
 
 export function MultiImageDrop({ label, value, onChange }: { label: string; value: string[]; onChange: (v: string[]) => void }) {
   const [open, setOpen] = useState(false);

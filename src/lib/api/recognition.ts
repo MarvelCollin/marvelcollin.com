@@ -1,6 +1,6 @@
 import { supabase, TABLES } from '../supabase';
-import type { Award } from '../../Interface/IAward';
-import type { RecognitionRow } from '../../Interface/IRecognitionRow';
+import type { Award } from '../../types/content';
+import type { RecognitionRow } from '../../types/rows';
 import { guard, nextSort } from './internal';
 
 export type RecognitionInput = Omit<Award, 'id' | 'sort'>;

@@ -45,7 +45,7 @@ export function ChapterMasthead({ meta }: { meta: ChapterMeta }) {
         .add(heading, { opacity: 1, y: 0, duration: 720 }, '-=700')
         .add(dek, { opacity: 1, y: 0 }, '-=560');
 
-      cancel = failOpen(el, heading, show);
+      cancel = failOpen(el, parts, show);
     });
 
     return () => {

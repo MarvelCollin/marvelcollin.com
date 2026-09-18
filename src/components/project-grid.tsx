@@ -49,7 +49,7 @@ export function ProjectGrid({ works, loading }: { works: Project[]; loading: boo
         delay: stagger(60),
       });
 
-      cancel = failOpen(el, cards[0], show);
+      cancel = failOpen(el, cards, show);
     });
 
     return () => {

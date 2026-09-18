@@ -34,7 +34,7 @@ export function Reveal({
         ease: EASE_OUT,
         autoplay: observer,
       });
-      cancel = failOpen(el, el, () => utils.set(el, { opacity: 1, y: 0 }));
+      cancel = failOpen(el, [el], () => utils.set(el, { opacity: 1, y: 0 }));
     });
 
     return () => {

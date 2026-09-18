@@ -32,7 +32,7 @@ export function Prologue() {
         delay: stagger(110, { start: 120 }),
       });
 
-      cancel = failOpen(el, parts[0], show);
+      cancel = failOpen(el, parts, show);
     });
 
     return () => {

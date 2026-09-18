@@ -83,9 +83,6 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
       <ClipDefs />
       <div aria-hidden="true" className="ov-enter fixed inset-0 bg-[var(--scrim)] backdrop-blur-[7px]" />
       <div data-sheet className="sticky top-0 z-[70] flex cursor-auto items-center justify-between gap-6 px-10 py-5 max-[900px]:px-[22px]">
-        <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
-          {p ? p.num + ' · ' + p.year : 'Project'}
-        </span>
         <button
           type="button"
           onClick={onClose}
@@ -94,6 +91,9 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
           <span className="inline-block transition-transform group-hover:-translate-x-1">←</span>
           Back to the board
         </button>
+        <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
+          {p ? p.num + ' · ' + p.year : 'Project'}
+        </span>
       </div>
 
       {!p && (

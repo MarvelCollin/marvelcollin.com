@@ -160,7 +160,7 @@ export function SkillBalls({ skills }: { skills: Skill[] }) {
   return (
     <div
       ref={boxRef}
-      className="relative h-[500px] w-full cursor-grab overflow-hidden rounded-2xl border border-line bg-bg max-[560px]:h-[400px]"
+      className="relative h-[500px] w-full cursor-grab overflow-hidden rounded-2xl border border-line bg-[var(--band)] max-[560px]:h-[400px]"
       style={{ touchAction: 'none' }}
     >
       <div ref={measureRef} aria-hidden className="pointer-events-none absolute -left-[9999px] top-0 opacity-0">

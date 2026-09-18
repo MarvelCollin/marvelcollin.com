@@ -1,9 +1,10 @@
 import { useRef } from 'react';
 import { FaGithub } from 'react-icons/fa6';
 import { createTimeline, stagger } from 'animejs';
-import { CHAPTERS } from '../chapters';
-import { EASE_OUT, FADE_UP } from '../../../lib/motion';
-import { useMotion } from '../../../hooks/use-motion';
+import { CHAPTERS } from '../../chapters';
+import { EASE_OUT, FADE_UP } from '../../../../lib/motion';
+import { useMotion } from '../../../../hooks/use-motion'
+import { Portrait } from './portrait';;
 
 const COUNT = CHAPTERS.length - 1;
 const SPEC: [string, string][] = [
@@ -12,7 +13,7 @@ const SPEC: [string, string][] = [
   ['Stack', 'Go · .NET Core · TypeScript · Linux'],
   ['Open to', 'Freelance and full time'],
 ];
-const PARTS = '[data-part="kicker"], [data-part="title"], [data-part="intro"], [data-part="meta"], [data-part="cta"], [data-part="cue"]';
+const PARTS = '[data-part="kicker"], [data-part="portrait"], [data-part="title"], [data-part="intro"], [data-part="meta"], [data-part="cta"], [data-part="cue"]';
 
 export function Prologue() {
   const root = useRef<HTMLElement>(null);
@@ -35,14 +36,18 @@ export function Prologue() {
       className="relative flex min-h-[94vh] flex-col justify-center px-10 pt-[120px] pb-16 max-[900px]:min-h-[86vh] max-[900px]:px-[22px] max-[900px]:pt-[96px]"
     >
       <div className="mx-auto w-full max-w-[1280px]">
-        <div data-part="kicker" className="flex items-center gap-4">
-          <span className="h-px w-10 bg-accent" />
-          <span className="font-mono text-[12px] uppercase tracking-[0.22em] text-accent-2">Prologue</span>
+        <div className="flex items-end justify-between gap-10 max-[560px]:gap-4">
+          <div>
+            <div data-part="kicker" className="flex items-center gap-4">
+              <span className="h-px w-10 bg-accent" />
+              <span className="font-mono text-[12px] uppercase tracking-[0.22em] text-accent-2">Prologue</span>
+            </div>
+            <h1 data-part="title" className="mt-10 font-display text-[clamp(56px,10vw,148px)] font-semibold leading-[0.92] tracking-[-0.015em] max-[900px]:mt-7">
+              Marvel<br />Collin.
+            </h1>
+          </div>
+          <Portrait />
         </div>
-
-        <h1 data-part="title" className="mt-10 font-display text-[clamp(56px,10vw,148px)] font-semibold leading-[0.92] tracking-[-0.015em] max-[900px]:mt-7">
-          Marvel<br />Collin.
-        </h1>
 
         <div className="mt-12 flex items-start justify-between gap-16 max-[900px]:flex-col max-[900px]:gap-8">
           <p data-part="intro" className="max-w-[46ch] text-[17px] leading-[1.7] text-fg-dim">

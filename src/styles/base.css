@@ -241,8 +241,22 @@ nav.top .right .here {
 .ov-enter {
   animation: ov-in 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+@keyframes copy-in {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+[data-copy] {
+  animation: copy-in 0.62s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
 @media (prefers-reduced-motion: reduce) {
-  .ov-enter {
+  .ov-enter,
+  [data-copy] {
     animation: none;
   }
 }

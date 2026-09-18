@@ -1,10 +1,10 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
-import { animate, createScope, stagger } from 'animejs';
+import { animate, createScope } from 'animejs';
 import { useContent, findWork, workIndex } from '../content/use-content';
 import { useModal } from '../hooks/use-modal';
 import { workHref } from '../utils/work-link';
 import { flipFrom, takeFlipOrigin } from '../lib/flip';
-import { EASE_OUT, MEDIA } from '../lib/motion';
+import { MEDIA } from '../lib/motion';
 import { Thumbnail } from './thumbnail';
 import { Gallery } from './gallery';
 import { Lightbox } from './lightbox';
@@ -50,15 +50,9 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
         });
       }
 
-      if (copy.length) {
-        animate(copy, {
-          opacity: [0, 1],
-          x: [28, 0],
-          duration: 620,
-          delay: stagger(70, { start: origin ? 220 : 60 }),
-          ease: EASE_OUT,
-        });
-      }
+      copy.forEach((el, i) => {
+        (el as HTMLElement).style.animationDelay = `${(origin ? 220 : 60) + i * 70}ms`;
+      });
     });
 
     return () => scope.revert();

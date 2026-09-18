@@ -3,10 +3,11 @@ import { animate, createScope } from 'animejs';
 import { useContent, findWork, workIndex } from '../content/use-content';
 import { useModal } from '../hooks/use-modal';
 import { workHref } from '../utils/work-link';
+import { img } from '../lib/img';
 import { flipFrom, takeFlipOrigin } from '../lib/flip';
 import { MEDIA } from '../lib/motion';
 import { Thumbnail } from './thumbnail';
-import { Gallery } from './gallery';
+import { SmartImage } from './smart-image';
 import { Lightbox } from './lightbox';
 import { Clip } from './clip';
 import { ClipDefs } from './clip-defs';
@@ -82,16 +83,14 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
       role="dialog"
       aria-modal="true"
       aria-label={p ? p.name : 'Project'}
-      className="fixed inset-0 z-[90] overflow-y-auto overscroll-contain outline-none"
+      onClick={(e) => {
+        if (!(e.target as HTMLElement).closest('[data-sheet]')) onClose();
+      }}
+      className="fixed inset-0 z-[90] cursor-zoom-out overflow-y-auto overscroll-contain outline-none"
     >
       <ClipDefs />
-      <button
-        type="button"
-        aria-label="Put the photo back"
-        onClick={onClose}
-        className="ov-enter fixed inset-0 cursor-zoom-out bg-[var(--scrim)] backdrop-blur-[7px]"
-      />
-      <div className="sticky top-0 z-[70] flex items-center justify-between gap-6 px-10 py-5 max-[900px]:px-[22px]">
+      <div aria-hidden="true" className="ov-enter fixed inset-0 bg-[var(--scrim)] backdrop-blur-[7px]" />
+      <div data-sheet className="sticky top-0 z-[70] flex cursor-auto items-center justify-between gap-6 px-10 py-5 max-[900px]:px-[22px]">
         <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
           {p ? p.num + ' · ' + p.year : 'Project'}
         </span>
@@ -126,7 +125,7 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
       {p && (
         <>
           <section className="relative -mt-[76px] flex min-h-[100svh] items-center px-10 pb-16 pt-[96px] max-[900px]:px-[22px] max-[900px]:pb-12">
-            <div className="mx-auto grid w-full max-w-[1240px] grid-cols-[1.05fr_0.95fr] items-center gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-12">
+            <div data-sheet className="mx-auto grid w-full max-w-[1240px] cursor-auto grid-cols-[1.05fr_0.95fr] items-center gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-12">
               <div className="relative">
                 <div data-hero className="relative mx-auto w-full max-w-[480px] origin-top">
                   <Clip className="absolute left-[24%] top-[-16px] z-20 h-[40px] w-[20px] -translate-x-1/2 drop-shadow-[0_3px_5px_rgba(0,0,0,0.5)]" />
@@ -164,11 +163,32 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
                     </a>
                   </div>
                 )}
+
+                {galleryImages.length > 0 && (
+                  <div data-copy className="mt-10">
+                    <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
+                      {heroImages.length} frames
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                      {galleryImages.map((src, j) => (
+                        <button
+                          key={src}
+                          type="button"
+                          onClick={() => setHeroIndex(j + 1)}
+                          aria-label={'View frame ' + (j + 2) + ' of ' + p.name}
+                          className="h-[62px] w-[82px] shrink-0 cursor-zoom-in overflow-hidden rounded-sm border border-line bg-bg-2 transition-colors hover:border-accent"
+                        >
+                          <SmartImage src={img(src, 320)} alt="" className="h-full w-full object-cover" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </section>
 
-          <div className="relative rounded-t-xl border-t border-line bg-bg pb-px">
+          <div data-sheet className="relative cursor-auto rounded-t-xl border-t border-line bg-bg pb-px">
           <section className="px-10 py-10 max-[900px]:px-[22px] max-[900px]:py-8">
             <div className="mx-auto flex max-w-[1240px] flex-wrap gap-x-12 gap-y-4 text-[14px] max-[560px]:flex-col max-[560px]:gap-3">
               <div><span className="mr-2 font-mono text-[11px] uppercase tracking-[0.06em] text-muted">Client</span> <span className="text-fg">{p.client}</span></div>
@@ -187,7 +207,6 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
             </section>
           )}
 
-          <Gallery images={galleryImages} captions={galleryCaptions} name={p.name} />
 
           <section className="border-t border-line px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
             <div className="mx-auto grid max-w-[900px] grid-cols-2 gap-12 max-[900px]:grid-cols-1 max-[900px]:gap-8">

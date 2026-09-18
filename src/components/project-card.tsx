@@ -2,12 +2,14 @@ import { memo } from 'react';
 import type { Project } from '../Interface/IProject';
 import { CARD_ASPECT, CARD_ROT } from '../lib/card-layout';
 import { workHref } from '../utils/work-link';
+import { setFlipOrigin } from '../lib/flip';
 import { Thumbnail } from './thumbnail';
 
 export const ProjectCard = memo(function ProjectCard({ p, index }: { p: Project; index: number }) {
   return (
     <a
       data-card
+      onClick={(e) => setFlipOrigin(e.currentTarget)}
       href={workHref(p.slug)}
       className={
         'group relative block origin-center transition-transform duration-300 ease-out hover:z-20 hover:rotate-0 hover:-translate-y-1 ' +

@@ -20,6 +20,7 @@
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --nav-bg: rgba(14, 14, 18, 0.86);
+  --scrim: rgba(8, 8, 11, 0.76);
 }
 html[data-theme="light"] {
   --bg: #f2eee4;
@@ -40,6 +41,7 @@ html[data-theme="light"] {
   --glow: rgba(195, 58, 34, 0.1);
   --dot: rgba(23, 21, 18, 0.05);
   --nav-bg: rgba(242, 238, 228, 0.86);
+  --scrim: rgba(226, 220, 206, 0.82);
 }
 * {
   box-sizing: border-box;
@@ -231,11 +233,9 @@ nav.top .right .here {
 @keyframes ov-in {
   from {
     opacity: 0;
-    transform: translateY(18px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 .ov-enter {

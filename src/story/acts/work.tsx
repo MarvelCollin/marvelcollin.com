@@ -4,6 +4,7 @@ import { Thumbnail } from '../../components/thumbnail';
 import { Reveal } from '../../components/reveal';
 import { ProjectGrid } from '../../components/project-grid';
 import { workHref } from '../../utils/work-link';
+import { setFlipOrigin } from '../../lib/flip';
 
 export function Work() {
   const { works, loading } = useContent();
@@ -52,6 +53,7 @@ export function Work() {
 
             <a
               className="group relative block origin-center -rotate-1 transition-transform duration-300 ease-out hover:rotate-0 hover:scale-[1.015]"
+              onClick={(e) => setFlipOrigin(e.currentTarget)}
               href={workHref(feature.slug)}
             >
               <span className="pointer-events-none absolute -top-4 left-1/2 z-10 h-8 w-36 -translate-x-1/2 -rotate-2 bg-tape shadow-[0_1px_5px_rgba(0,0,0,0.35)]" />

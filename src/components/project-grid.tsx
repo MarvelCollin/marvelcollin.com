@@ -35,7 +35,7 @@ export function ProjectGrid({ works, loading }: { works: Project[]; loading: boo
         autoplay: onScroll({ target: el, enter: ENTER, repeat: false }),
       }).add(cards, {
         ...FADE_UP(26),
-        scale: [0.97, 1],
+        scale: [0.97, 1] as [number, number],
         duration: 760,
         ease: EASE_OUT,
         delay: stagger(60),

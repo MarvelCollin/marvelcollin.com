@@ -8,6 +8,6 @@ export const EASE_OUT = 'out(3)';
 export const ENTER = { target: 'top', container: 'bottom-=60' };
 
 export const FADE_UP = (distance = 20) => ({
-  opacity: [0, 1] as [number, number],
+  opacity: 1,
   y: [distance, 0] as [number, number],
 });

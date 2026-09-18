@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ReactNode } from 'react';
-import { createScope, createTimeline, onScroll, svg } from 'animejs';
+import { createScope, createTimeline, onScroll, svg, utils } from 'animejs';
 import type { Chapter as ChapterMeta } from '../Interface/IChapter';
 import { EASE_OUT, ENTER, FADE_UP, MEDIA } from '../lib/motion';
 
@@ -24,16 +24,18 @@ export function ChapterMasthead({ meta }: { meta: ChapterMeta }) {
 
       const [drawable] = svg.createDrawable(rule as SVGLineElement);
       const rise = FADE_UP(14);
+      utils.set(drawable, { draw: '0 0' });
 
       createTimeline({
         defaults: { ease: EASE_OUT, duration: 640 },
         autoplay: onScroll({ target: el, enter: ENTER, repeat: false }),
       })
-        .add(numeral, { ...rise, duration: 520 })
-        .add(drawable, { draw: ['0 0', '0 1'], duration: 900, ease: 'inOutQuad' }, '-=380')
-        .add(margin ?? [], { ...rise, duration: 420 }, '-=500')
-        .add(heading, { ...rise, duration: 720 }, '-=700')
-        .add(dek, { ...rise }, '-=560');
+        .add(numeral, { ...rise, duration: 520 }, 0)
+        .add(rule, { opacity: 1, duration: 1 }, 140)
+        .add(drawable, { draw: '0 1', duration: 900, ease: 'inOutQuad' }, 140)
+        .add(margin ?? [], { ...rise, duration: 420 }, 300)
+        .add(heading, { ...rise, duration: 720 }, 360)
+        .add(dek, { ...rise, duration: 640 }, 520);
     });
 
     return () => scope.revert();

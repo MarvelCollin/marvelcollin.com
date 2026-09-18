@@ -36,7 +36,7 @@ export function Reveal({
   }, [delay]);
 
   return (
-    <Tag ref={root as never} id={id} className={className}>
+    <Tag ref={root as never} data-reveal id={id} className={className}>
       {children}
     </Tag>
   );

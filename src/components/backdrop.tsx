@@ -1,8 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { MEDIA } from '../lib/motion';
+import { strokeTerrain, traceTerrain, type Contours } from '../lib/terrain';
 
-const FINE = 34;
-const COARSE = 170;
+const TRAVEL = 320;
+
+function tone(name: string) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
 
 export function Backdrop({
   numeral,
@@ -15,29 +19,49 @@ export function Backdrop({
   sheet: number;
   total: number;
 }) {
-  const fine = useRef<HTMLDivElement>(null);
-  const coarse = useRef<HTMLDivElement>(null);
+  const terrain = useRef<HTMLDivElement>(null);
+  const base = useRef<HTMLCanvasElement>(null);
+  const lit = useRef<HTMLCanvasElement>(null);
   const numeralRef = useRef<HTMLSpanElement>(null);
-  const pointer = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
-    if (matchMedia(MEDIA.reduceMotion).matches) return;
-
+    const wrap = terrain.current;
+    if (!wrap || !base.current || !lit.current) return;
+    const baseCanvas = base.current;
+    const litCanvas = lit.current;
+    const still = matchMedia(MEDIA.reduceMotion).matches;
+    const pointer = { x: 0, y: 0 };
+    let contours: Contours | null = null;
+    let width = 0;
+    let height = 0;
+    let offset = 0;
     let frame = 0;
+    let retrace = 0;
+
+    const stroke = () => {
+      if (!contours) return;
+      strokeTerrain(baseCanvas, contours, width, height, tone('--contour'), tone('--contour-index'));
+      strokeTerrain(litCanvas, contours, width, height, tone('--contour-crest'), tone('--contour-crest'));
+    };
+
+    const trace = () => {
+      width = window.innerWidth;
+      height = window.innerHeight + TRAVEL;
+      contours = traceTerrain(width, height);
+      stroke();
+    };
+
     const paint = () => {
       frame = 0;
-      const y = window.scrollY;
-      const { x: px, y: py } = pointer.current;
-      if (fine.current) {
-        fine.current.style.transform = `translate3d(${px * 6}px, ${(-y * 0.05) % FINE + py * 6}px, 0)`;
-      }
-      if (coarse.current) {
-        coarse.current.style.transform = `translate3d(${px * 14}px, ${(-y * 0.14) % COARSE + py * 14}px, 0)`;
-      }
+      if (still) return;
+      const reach = document.documentElement.scrollHeight - window.innerHeight;
+      const ratio = reach <= 0 ? 0 : Math.min(1, Math.max(0, window.scrollY / reach));
+      offset = ratio * TRAVEL;
+      wrap.style.transform = `translate3d(0, ${-offset}px, 0)`;
+      wrap.style.setProperty('--lx', `${pointer.x}px`);
+      wrap.style.setProperty('--ly', `${pointer.y + offset}px`);
       if (numeralRef.current) {
-        const reach = document.documentElement.scrollHeight - window.innerHeight;
-        const travel = reach <= 0 ? 0 : (window.scrollY / reach - 0.5) * -120;
-        numeralRef.current.style.transform = `translate3d(${px * 26}px, ${travel + py * 20}px, 0)`;
+        numeralRef.current.style.transform = `translate3d(0, ${(ratio - 0.5) * -120}px, 0)`;
       }
     };
 
@@ -45,31 +69,54 @@ export function Backdrop({
       if (!frame) frame = requestAnimationFrame(paint);
     };
 
+    const onResize = () => {
+      clearTimeout(retrace);
+      retrace = window.setTimeout(() => {
+        if (window.innerWidth !== width || window.innerHeight + TRAVEL > height) trace();
+        schedule();
+      }, 180);
+    };
+
     const onPointer = (e: PointerEvent) => {
       if (e.pointerType !== 'mouse') return;
-      pointer.current = {
-        x: e.clientX / window.innerWidth - 0.5,
-        y: e.clientY / window.innerHeight - 0.5,
-      };
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+      wrap.dataset.lamp = 'on';
       schedule();
     };
 
+    const onLeave = () => {
+      delete wrap.dataset.lamp;
+    };
+
+    const theme = new MutationObserver(stroke);
+    theme.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+    trace();
     paint();
-    window.addEventListener('scroll', schedule, { passive: true });
-    window.addEventListener('resize', schedule);
-    window.addEventListener('pointermove', onPointer, { passive: true });
+    window.addEventListener('resize', onResize);
+    if (!still) {
+      window.addEventListener('scroll', schedule, { passive: true });
+      window.addEventListener('pointermove', onPointer, { passive: true });
+      document.documentElement.addEventListener('pointerleave', onLeave);
+    }
     return () => {
       if (frame) cancelAnimationFrame(frame);
+      clearTimeout(retrace);
+      theme.disconnect();
+      window.removeEventListener('resize', onResize);
       window.removeEventListener('scroll', schedule);
-      window.removeEventListener('resize', schedule);
       window.removeEventListener('pointermove', onPointer);
+      document.documentElement.removeEventListener('pointerleave', onLeave);
     };
   }, []);
 
   return (
     <div className="drafting" aria-hidden="true">
-      <div ref={fine} className="drafting-grid drafting-fine" />
-      <div ref={coarse} className="drafting-grid drafting-coarse" />
+      <div ref={terrain} className="drafting-terrain">
+        <canvas ref={base} />
+        <canvas ref={lit} className="drafting-lamp" />
+      </div>
       <span ref={numeralRef} key={numeral} className="drafting-numeral">
         {numeral}
       </span>

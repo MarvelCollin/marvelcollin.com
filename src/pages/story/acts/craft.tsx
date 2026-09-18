@@ -2,7 +2,7 @@ import { lazy, Suspense, useMemo, useState } from 'react';
 import { useContent } from '../../../content/use-content';
 import { Skel } from '../../../components/ui/skeleton';
 
-const SkillBalls = lazy(() => import('../skill-balls').then((m) => ({ default: m.SkillBalls })));
+const SkillBalls = lazy(() => import('../skill-board').then((m) => ({ default: m.SkillBalls })));
 
 const WEB_KEYS = ['typescript', 'javascript', 'react', 'next', 'nuxt', 'vue', 'angular', 'svelte', 'node', 'express', 'nest', 'tailwind', '.net', 'c#', 'php', 'laravel', 'go', 'java', 'kotlin', 'html', 'css', 'graphql', 'rest', 'supabase', 'prisma', 'firebase', 'mongodb', 'sqlite', 'redis', 'sql'];
 const AI_KEYS = ['python', 'tensorflow', 'pytorch', 'r language', 'machine learning', 'deep learning', 'nlp', 'data', 'scikit', 'pandas', 'numpy', 'opencv', 'keras'];

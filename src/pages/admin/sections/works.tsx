@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { useContent } from '../../../content/use-content';
 import { TONE_NAMES } from '../../../content/tones';
-import { createWork, updateWork, deleteWork } from '../../../lib/api/works';
+import { works as api } from '../../../lib/api/works';
 import type { WorkInput } from '../../../lib/api/works';
 import type { Project } from '../../../types/content';
 import type { WorkForm } from '../../../types/forms';
@@ -55,8 +55,8 @@ export function WorksSection() {
     setBusy(true); setErr('');
     try {
       const input = formToWork(form);
-      if (editId) await updateWork(editId, input);
-      else await createWork(input);
+      if (editId) await api.update(editId, input);
+      else await api.create(input);
       await refresh();
       toast(editId ? 'Project updated' : 'Project created');
       reset();
@@ -71,7 +71,7 @@ export function WorksSection() {
     if (!confirm('Delete this project?')) return;
     setBusy(true); setErr('');
     try {
-      await deleteWork(id);
+      await api.remove(id);
       await refresh();
       toast('Project deleted');
       if (editId === id) reset();

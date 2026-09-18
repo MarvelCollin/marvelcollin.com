@@ -1,7 +1,7 @@
-import { supabase, TABLES } from '../supabase';
+import { TABLES } from '../supabase';
 import type { Project } from '../../types/content';
 import type { WorkRow } from '../../types/rows';
-import { guard } from './internal';
+import { table } from './table';
 
 export type WorkInput = Omit<Project, 'id'>;
 
@@ -50,22 +50,9 @@ function workToRow(w: WorkInput) {
   };
 }
 
-export async function fetchWorks(): Promise<Project[]> {
-  const { data, error } = await supabase.from(TABLES.works).select('*').order('num', { ascending: true });
-  return guard(data as WorkRow[] | null, error).map(rowToWork);
-}
-
-export async function createWork(input: WorkInput): Promise<void> {
-  const { error } = await supabase.from(TABLES.works).insert(workToRow(input));
-  if (error) throw new Error(error.message);
-}
-
-export async function updateWork(id: string, input: WorkInput): Promise<void> {
-  const { error } = await supabase.from(TABLES.works).update(workToRow(input)).eq('id', id);
-  if (error) throw new Error(error.message);
-}
-
-export async function deleteWork(id: string): Promise<void> {
-  const { error } = await supabase.from(TABLES.works).delete().eq('id', id);
-  if (error) throw new Error(error.message);
-}
+export const works = table<Project, WorkInput, WorkRow>({
+  name: TABLES.works,
+  order: 'num',
+  fromRow: rowToWork,
+  toRow: workToRow,
+});

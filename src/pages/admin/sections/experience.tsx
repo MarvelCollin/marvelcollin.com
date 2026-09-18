@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { useContent } from '../../../content/use-content';
-import { createExperience, updateExperience, deleteExperience } from '../../../lib/api/experience';
+import { experience as api } from '../../../lib/api/experience';
 import type { ExperienceInput } from '../../../lib/api/experience';
 import type { ExpForm } from '../../../types/forms';
 import { useToast } from '../lib/toast-context';
@@ -25,8 +25,8 @@ export function ExperienceSection() {
     setBusy(true); setErr('');
     try {
       const input: ExperienceInput = { yr: form.yr.trim(), role: form.role.trim(), where: form.where.trim(), note: form.note.trim() };
-      if (editId) await updateExperience(editId, input);
-      else await createExperience(input);
+      if (editId) await api.update(editId, input);
+      else await api.create(input);
       await refresh();
       toast(editId ? 'Experience updated' : 'Experience created');
       reset();
@@ -41,7 +41,7 @@ export function ExperienceSection() {
     if (!confirm('Delete this experience?')) return;
     setBusy(true); setErr('');
     try {
-      await deleteExperience(id);
+      await api.remove(id);
       await refresh();
       toast('Experience deleted');
       if (editId === id) reset();

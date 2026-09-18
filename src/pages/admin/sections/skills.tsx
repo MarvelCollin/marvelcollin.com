@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { useContent } from '../../../content/use-content';
-import { createSkill, updateSkill, deleteSkill } from '../../../lib/api/skills';
+import { skills as api } from '../../../lib/api/skills';
 import type { SkillInput } from '../../../lib/api/skills';
 import type { SkillForm } from '../../../types/forms';
 import { useToast } from '../lib/toast-context';
@@ -25,8 +25,8 @@ export function SkillsSection() {
     setBusy(true); setErr('');
     try {
       const input: SkillInput = { name: form.name.trim(), opinion: form.opinion.trim() };
-      if (editId) await updateSkill(editId, input);
-      else await createSkill(input);
+      if (editId) await api.update(editId, input);
+      else await api.create(input);
       await refresh();
       toast(editId ? 'Skill updated' : 'Skill created');
       reset();
@@ -41,7 +41,7 @@ export function SkillsSection() {
     if (!confirm('Delete this skill?')) return;
     setBusy(true); setErr('');
     try {
-      await deleteSkill(id);
+      await api.remove(id);
       await refresh();
       toast('Skill deleted');
       if (editId === id) reset();

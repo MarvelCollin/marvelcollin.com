@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { useContent } from '../../../content/use-content';
-import { createEducation, updateEducation, deleteEducation } from '../../../lib/api/education';
+import { education as api } from '../../../lib/api/education';
 import type { EducationInput } from '../../../lib/api/education';
 import type { EduForm } from '../../../types/forms';
 import { useToast } from '../lib/toast-context';
@@ -25,8 +25,8 @@ export function EducationSection() {
     setBusy(true); setErr('');
     try {
       const input: EducationInput = { yr: form.yr.trim(), degree: form.degree.trim(), school: form.school.trim(), note: form.note.trim() };
-      if (editId) await updateEducation(editId, input);
-      else await createEducation(input);
+      if (editId) await api.update(editId, input);
+      else await api.create(input);
       await refresh();
       toast(editId ? 'Education updated' : 'Education created');
       reset();
@@ -41,7 +41,7 @@ export function EducationSection() {
     if (!confirm('Delete this education entry?')) return;
     setBusy(true); setErr('');
     try {
-      await deleteEducation(id);
+      await api.remove(id);
       await refresh();
       toast('Education deleted');
       if (editId === id) reset();

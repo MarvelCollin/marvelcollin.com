@@ -34,7 +34,7 @@ export function Prologue() {
       id="prologue"
       data-chapter="prologue"
       aria-label="Prologue"
-      className="safelight relative flex min-h-[94vh] flex-col justify-center px-10 pt-[120px] pb-16 max-[900px]:min-h-[86vh] max-[900px]:px-[22px] max-[900px]:pt-[96px]"
+      className="relative flex min-h-[94vh] flex-col justify-center px-10 pt-[120px] pb-16 max-[900px]:min-h-[86vh] max-[900px]:px-[22px] max-[900px]:pt-[96px]"
     >
       <div className="mx-auto w-full max-w-[1280px]">
         <div data-part="kicker" className="flex items-center gap-4">
@@ -59,7 +59,7 @@ export function Prologue() {
 
         <a
           data-part="cta"
-          className="group mt-12 flex w-fit items-center gap-3 rounded-lg border border-accent bg-accent px-6 py-4 font-mono text-[14px] font-medium uppercase tracking-[0.08em] text-accent-ink shadow-[0_10px_28px_-22px_var(--accent)] transition-transform duration-300 hover:-translate-y-0.5 max-[560px]:w-full max-[560px]:justify-center"
+          className="group mt-12 flex w-fit items-center gap-3 rounded-lg border border-accent bg-accent px-6 py-4 font-mono text-[14px] font-medium uppercase tracking-[0.08em] text-accent-ink transition-transform duration-300 hover:-translate-y-0.5 max-[560px]:w-full max-[560px]:justify-center"
           href="https://github.com/MarvelCollin"
           target="_blank"
           rel="noreferrer"

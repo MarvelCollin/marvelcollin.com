@@ -246,21 +246,6 @@ nav.top .right .here {
     animation: none;
   }
 }
-.safelight {
-  position: relative;
-  isolation: isolate;
-}
-.safelight::before {
-  content: "";
-  position: absolute;
-  left: -8%;
-  right: -8%;
-  top: -22%;
-  height: 620px;
-  z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(52% 58% at 26% 34%, var(--glow), transparent 72%);
-}
 main {
   position: relative;
 }

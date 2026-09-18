@@ -174,7 +174,7 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
             </div>
           </section>
 
-          <div className="relative rounded-t-3xl border-t border-line bg-bg pb-px">
+          <div className="relative rounded-t-xl border-t border-line bg-bg pb-px">
           <section className="px-10 py-10 max-[900px]:px-[22px] max-[900px]:py-8">
             <div className="mx-auto flex max-w-[1240px] flex-wrap gap-x-12 gap-y-4 text-[14px] max-[560px]:flex-col max-[560px]:gap-3">
               <div><span className="mr-2 font-mono text-[11px] uppercase tracking-[0.06em] text-muted">Client</span> <span className="text-fg">{p.client}</span></div>

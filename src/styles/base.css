@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "Mate Journal";
+  src: url("/fonts/mate-journal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 :root {
   --bg: #0a141a;
   --bg-2: #0f1e27;
@@ -24,8 +31,8 @@
   --contour: rgba(121, 182, 196, 0.11);
   --contour-index: rgba(121, 182, 196, 0.24);
   --contour-crest: rgba(224, 163, 63, 0.7);
-  --font: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --font: "Mate Journal", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Mate Journal", "Inter", system-ui, sans-serif;
   --font-mono: "Spline Sans Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --band: rgba(16, 43, 56, 0.4);
   --vignette: rgba(2, 8, 12, 0.55);

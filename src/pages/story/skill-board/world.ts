@@ -36,7 +36,7 @@ function drop(names: string[], w: number) {
 export function createWorld(box: HTMLElement, names: string[]) {
   const w = box.clientWidth;
   const h = box.clientHeight;
-  const engine = Matter.Engine.create({ gravity: { x: 0, y: 1.2, scale: 0.001 } });
+  const engine = Matter.Engine.create({ gravity: { x: 0, y: 1.2, scale: 0.001 }, enableSleeping: true });
   const edges = walls(w, h);
 
   const bodies = drop(names, w);

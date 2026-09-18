@@ -19,10 +19,20 @@
   display: block;
 }
 .drafting-lamp {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 520px;
+  height: 520px;
+  overflow: hidden;
   opacity: 0;
   transition: opacity 0.5s ease;
-  -webkit-mask-image: radial-gradient(260px circle at var(--lx, -999px) var(--ly, -999px), #000 0%, rgba(0, 0, 0, 0.35) 45%, transparent 100%);
-  mask-image: radial-gradient(260px circle at var(--lx, -999px) var(--ly, -999px), #000 0%, rgba(0, 0, 0, 0.35) 45%, transparent 100%);
+  will-change: transform;
+  -webkit-mask-image: radial-gradient(circle closest-side, #000 0%, rgba(0, 0, 0, 0.35) 45%, transparent 100%);
+  mask-image: radial-gradient(circle closest-side, #000 0%, rgba(0, 0, 0, 0.35) 45%, transparent 100%);
+}
+.drafting-lamp canvas {
+  will-change: transform;
 }
 .drafting-terrain[data-lamp="on"] .drafting-lamp {
   opacity: 1;

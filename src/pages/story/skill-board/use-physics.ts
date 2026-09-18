@@ -4,8 +4,9 @@ import Matter from 'matter-js';
 import { createWorld } from './world';
 import { TILE } from './shape';
 
-function paint(bodies: Matter.Body[], nodes: Map<string, HTMLDivElement>) {
+function paint(bodies: Matter.Body[], nodes: Map<string, HTMLDivElement>, all: boolean) {
   for (const b of bodies) {
+    if (b.isSleeping && !all) continue;
     const el = nodes.get(b.label);
     if (el) el.style.transform = `translate(${b.position.x - TILE.w / 2}px, ${b.position.y - TILE.h / 2}px) rotate(${b.angle}rad)`;
   }
@@ -32,8 +33,10 @@ export function usePhysics(box: RefObject<HTMLDivElement | null>, names: string[
     let running = false;
     let frame = 0;
 
+    let first = true;
     const sync = () => {
-      paint(world.bodies, nodes.current);
+      paint(world.bodies, nodes.current, first);
+      first = false;
       if (running) frame = requestAnimationFrame(sync);
     };
 

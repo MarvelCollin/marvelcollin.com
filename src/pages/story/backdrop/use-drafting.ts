@@ -1,12 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { MEDIA } from '../../../lib/motion';
 import { listen, onFrame, scrollRatio } from '../../../lib/dom';
+import { onIdle } from '../../../hooks/use-idle';
 import { strokeTerrain, traceTerrain } from './terrain';
 import type { Contours } from './terrain';
 
 const TRAVEL = 320;
 const NUMERAL_TRAVEL = 120;
 const RETRACE_DELAY = 180;
+const LAMP = 260;
 
 const tone = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
@@ -14,13 +16,15 @@ export function useDrafting() {
   const terrain = useRef<HTMLDivElement>(null);
   const base = useRef<HTMLCanvasElement>(null);
   const lit = useRef<HTMLCanvasElement>(null);
+  const lamp = useRef<HTMLDivElement>(null);
   const numeral = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const wrap = terrain.current;
     const baseCanvas = base.current;
     const litCanvas = lit.current;
-    if (!wrap || !baseCanvas || !litCanvas) return;
+    const lampBox = lamp.current;
+    if (!wrap || !baseCanvas || !litCanvas || !lampBox) return;
 
     const still = matchMedia(MEDIA.reduceMotion).matches;
     const pointer = { x: 0, y: 0 };
@@ -43,8 +47,10 @@ export function useDrafting() {
       const ratio = scrollRatio();
       const offset = ratio * TRAVEL;
       wrap.style.transform = `translate3d(0, ${-offset}px, 0)`;
-      wrap.style.setProperty('--lx', `${pointer.x}px`);
-      wrap.style.setProperty('--ly', `${pointer.y + offset}px`);
+      const x = pointer.x - LAMP;
+      const y = pointer.y + offset - LAMP;
+      lampBox.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      litCanvas.style.transform = `translate3d(${-x}px, ${-y}px, 0)`;
       if (numeral.current) numeral.current.style.transform = `translate3d(0, ${(ratio - 0.5) * -NUMERAL_TRAVEL}px, 0)`;
     });
 
@@ -65,7 +71,7 @@ export function useDrafting() {
       frame.schedule();
     };
 
-    trace();
+    onIdle(trace, { timeout: 400 });
     const offs = [listen(window, 'resize', onResize)];
     if (!still) {
       frame.schedule();
@@ -83,5 +89,5 @@ export function useDrafting() {
     };
   }, []);
 
-  return { terrain, base, lit, numeral };
+  return { terrain, base, lit, lamp, numeral };
 }

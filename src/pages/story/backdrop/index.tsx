@@ -9,7 +9,9 @@ export function Backdrop({ numeral, label, sheet, total }: { numeral: string; la
     <div className="drafting" aria-hidden="true">
       <div ref={refs.terrain} className="drafting-terrain">
         <canvas ref={refs.base} />
-        <canvas ref={refs.lit} className="drafting-lamp" />
+        <div ref={refs.lamp} className="drafting-lamp">
+          <canvas ref={refs.lit} />
+        </div>
       </div>
       <span ref={refs.numeral} key={numeral} className="drafting-numeral">
         {numeral}

@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useRef } from 'react';
-import { createScope, createTimeline, onScroll, stagger } from 'animejs';
+import { useMemo, useRef } from 'react';
+import { createTimeline, onScroll, stagger } from 'animejs';
 import type { Project } from '../../types/content';
 import { useColumnCount } from '../../hooks/use-column-count';
 import { CARD_ASPECT } from '../../lib/card-layout';
-import { EASE_OUT, ENTER, FADE_UP, MEDIA } from '../../lib/motion';
+import { EASE_OUT, ENTER, FADE_UP } from '../../lib/motion';
+import { useMotion } from '../../hooks/use-motion';
 import { ProjectCard } from './card';
 import { CardSkeleton } from '../ui/skeleton';
 
@@ -22,28 +23,21 @@ export function ProjectGrid({ works, loading }: { works: Project[]; loading: boo
 
   const count = works.length;
 
-  useEffect(() => {
-    const el = root.current;
-    if (!el || count === 0) return;
-
-    const scope = createScope({ root: root as never, mediaQueries: MEDIA }).add((self) => {
-      if (self?.matches.reduceMotion) return;
+  useMotion(
+    root,
+    (el) => {
       const cards = Array.from(el.querySelectorAll('[data-card]'));
       if (cards.length === 0) return;
-
-      createTimeline({
-        autoplay: onScroll({ target: el, enter: ENTER, repeat: false }),
-      }).add(cards, {
+      createTimeline({ autoplay: onScroll({ target: el, enter: ENTER, repeat: false }) }).add(cards, {
         ...FADE_UP(26),
         scale: [0.97, 1] as [number, number],
         duration: 760,
         ease: EASE_OUT,
         delay: stagger(60),
       });
-    });
-
-    return () => scope.revert();
-  }, [count, cols]);
+    },
+    `${count}:${cols}`,
+  );
 
   return (
     <div ref={root} className={BOARD_CLASS}>

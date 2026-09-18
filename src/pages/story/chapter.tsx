@@ -1,45 +1,36 @@
-import { useEffect, useRef, type ReactNode } from 'react';
-import { createScope, createTimeline, onScroll, svg, utils } from 'animejs';
+import { useRef, type ReactNode } from 'react';
+import { createTimeline, onScroll, svg, utils } from 'animejs';
 import type { Chapter as ChapterMeta } from '../../types/content';
-import { EASE_OUT, ENTER, FADE_UP, MEDIA } from '../../lib/motion';
+import { EASE_OUT, ENTER, FADE_UP } from '../../lib/motion';
+import { useMotion } from '../../hooks/use-motion';
 
 const SHELL = 'relative px-10 max-[900px]:px-[22px]';
+
+function animateMasthead(el: HTMLElement) {
+  const part = (name: string) => el.querySelector(`[data-part="${name}"]`);
+  const [numeral, rule, margin, heading, dek] = ['numeral', 'rule', 'margin', 'heading', 'dek'].map(part);
+  if (!numeral || !rule || !heading || !dek) return;
+
+  const [drawable] = svg.createDrawable(rule as SVGLineElement);
+  const rise = FADE_UP(14);
+  utils.set(drawable, { draw: '0 0' });
+
+  createTimeline({
+    defaults: { ease: EASE_OUT, duration: 640 },
+    autoplay: onScroll({ target: el, enter: ENTER, repeat: false }),
+  })
+    .add(numeral, { ...rise, duration: 520 }, 0)
+    .add(rule, { opacity: 1, duration: 1 }, 140)
+    .add(drawable, { draw: '0 1', duration: 900, ease: 'inOutQuad' }, 140)
+    .add(margin ?? [], { ...rise, duration: 420 }, 300)
+    .add(heading, { ...rise, duration: 720 }, 360)
+    .add(dek, { ...rise, duration: 640 }, 520);
+}
 
 export function ChapterMasthead({ meta }: { meta: ChapterMeta }) {
   const root = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const el = root.current;
-    if (!el) return;
-
-    const scope = createScope({ root: root as never, mediaQueries: MEDIA }).add((self) => {
-      if (self?.matches.reduceMotion) return;
-
-      const numeral = el.querySelector('[data-part="numeral"]');
-      const rule = el.querySelector('[data-part="rule"]');
-      const margin = el.querySelector('[data-part="margin"]');
-      const heading = el.querySelector('[data-part="heading"]');
-      const dek = el.querySelector('[data-part="dek"]');
-      if (!numeral || !rule || !heading || !dek) return;
-
-      const [drawable] = svg.createDrawable(rule as SVGLineElement);
-      const rise = FADE_UP(14);
-      utils.set(drawable, { draw: '0 0' });
-
-      createTimeline({
-        defaults: { ease: EASE_OUT, duration: 640 },
-        autoplay: onScroll({ target: el, enter: ENTER, repeat: false }),
-      })
-        .add(numeral, { ...rise, duration: 520 }, 0)
-        .add(rule, { opacity: 1, duration: 1 }, 140)
-        .add(drawable, { draw: '0 1', duration: 900, ease: 'inOutQuad' }, 140)
-        .add(margin ?? [], { ...rise, duration: 420 }, 300)
-        .add(heading, { ...rise, duration: 720 }, 360)
-        .add(dek, { ...rise, duration: 640 }, 520);
-    });
-
-    return () => scope.revert();
-  }, []);
+  useMotion(root, animateMasthead);
 
   return (
     <div ref={root} className="mx-auto max-w-[1280px]">

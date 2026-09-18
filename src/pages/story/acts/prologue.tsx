@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { FaGithub } from 'react-icons/fa6';
-import { createScope, createTimeline, stagger } from 'animejs';
+import { createTimeline, stagger } from 'animejs';
 import { CHAPTERS } from '../chapters';
-import { EASE_OUT, FADE_UP, MEDIA } from '../../../lib/motion';
+import { EASE_OUT, FADE_UP } from '../../../lib/motion';
+import { useMotion } from '../../../hooks/use-motion';
 
 const COUNT = CHAPTERS.length - 1;
 const SPEC: [string, string][] = [
@@ -16,23 +17,14 @@ const PARTS = '[data-part="kicker"], [data-part="title"], [data-part="intro"], [
 export function Prologue() {
   const root = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const el = root.current;
-    if (!el) return;
-
-    const scope = createScope({ root: root as never, mediaQueries: MEDIA }).add((self) => {
-      if (self?.matches.reduceMotion) return;
-      const parts = Array.from(el.querySelectorAll(PARTS));
-      if (parts.length === 0) return;
-
-      createTimeline({ defaults: { ease: EASE_OUT, duration: 880 } }).add(parts, {
-        ...FADE_UP(24),
-        delay: stagger(110, { start: 120 }),
-      });
+  useMotion(root, (el) => {
+    const parts = Array.from(el.querySelectorAll(PARTS));
+    if (parts.length === 0) return;
+    createTimeline({ defaults: { ease: EASE_OUT, duration: 880 } }).add(parts, {
+      ...FADE_UP(24),
+      delay: stagger(110, { start: 120 }),
     });
-
-    return () => scope.revert();
-  }, []);
+  });
 
   return (
     <section

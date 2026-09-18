@@ -1,5 +1,6 @@
 import { useContent } from '../../../content/use-content';
 import { TONE_NAMES } from '../../../content/tones';
+import { TAG_KEYS } from '../../../content/tags';
 import { works as api } from '../../../lib/api/works';
 import type { WorkInput } from '../../../lib/api/works';
 import type { Project } from '../../../types/content';
@@ -13,10 +14,8 @@ import { SelectField } from '../fields/select-field';
 import { ImageDrop } from '../uploads/image-drop';
 import { MultiImageDrop } from '../uploads/multi-image-drop';
 
-const TAGS = ['freelance', 'product', 'personal'];
-
 const EMPTY: WorkForm = {
-  slug: '', num: '', name: '', year: '', role: '', stack: '', client: '', tag: 'freelance',
+  slug: '', num: '', name: '', year: '', role: '', stack: '', client: '', tag: TAG_KEYS[0],
   desc: '', brief: '', body: '', result: '', tone: 'warm', stills: '', cover: '', images: '', repo: '',
 };
 
@@ -71,7 +70,7 @@ export function WorksSection() {
       </div>
       <div className="row2">
         <TextField label="Client" value={form.client} onChange={set('client')} />
-        <SelectField label="Tag" value={form.tag} onChange={set('tag')} options={TAGS} />
+        <SelectField label="Tag" value={form.tag} onChange={set('tag')} options={TAG_KEYS} />
       </div>
       <TextField label="Desc" value={form.desc} onChange={set('desc')} />
       <TextField label="Brief" value={form.brief} onChange={set('brief')} />

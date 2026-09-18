@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import { CHAPTERS, NAV_CHAPTERS } from '../chapters';
 import { useProgressBar } from './use-progress-bar';
 import { useNavMark } from './use-nav-mark';
+import { useNavTarget } from './use-nav-target';
 
 const ITEMS = CHAPTERS.filter((c) => NAV_CHAPTERS.includes(c.id));
 
@@ -21,8 +21,7 @@ function hideOnSmall(id: string, i: number) {
 
 export function SiteNav({ active }: { active: string }) {
   const bar = useProgressBar();
-  const [hover, setHover] = useState<string | null>(null);
-  const current = hover ?? nearestNavItem(active);
+  const { current, enter, leave, pin } = useNavTarget(nearestNavItem(active));
   const { wrap, mark } = useNavMark(current);
 
   return (
@@ -30,7 +29,7 @@ export function SiteNav({ active }: { active: string }) {
       <a href="#prologue" className="brand">
         Marvel Collin
       </a>
-      <div ref={wrap} className="nav-links" onPointerLeave={() => setHover(null)}>
+      <div ref={wrap} className="nav-links" onPointerLeave={leave}>
         <ul>
           {ITEMS.map((c, i) => (
             <li key={c.id} className={hideOnSmall(c.id, i)}>
@@ -38,9 +37,10 @@ export function SiteNav({ active }: { active: string }) {
                 href={'#' + c.id}
                 data-id={c.id}
                 className={current === c.id ? 'active' : undefined}
-                onPointerEnter={() => setHover(c.id)}
-                onFocus={() => setHover(c.id)}
-                onBlur={() => setHover(null)}
+                onPointerEnter={() => enter(c.id)}
+                onClick={() => pin(c.id)}
+                onFocus={(e) => e.currentTarget.matches(':focus-visible') && enter(c.id)}
+                onBlur={leave}
               >
                 {c.label}
               </a>

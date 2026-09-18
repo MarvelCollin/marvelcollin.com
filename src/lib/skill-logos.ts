@@ -1,11 +1,6 @@
-import type { IconType } from 'react-icons';
-import { TbBrain, TbCube3dSphere, TbMicrophone } from 'react-icons/tb';
-
-export type Glyph = { src: string } | { Icon: IconType; color: string };
+export type Glyph = { src: string } | { text: string };
 
 const FILES = import.meta.glob('../assets/skills/*.svg', { query: '?no-inline', import: 'default', eager: true }) as Record<string, string>;
-
-const file = (name: string) => FILES[`../assets/skills/${name}.svg`];
 
 const LOGOS: [string, string][] = [
   ['typescript', 'typescript'],
@@ -13,10 +8,10 @@ const LOGOS: [string, string][] = [
   ['react', 'react'],
   ['angular', 'angular'],
   ['svelte', 'svelte'],
-  ['vue', 'vuejs'],
-  ['node', 'nodejs'],
-  ['tailwind', 'tailwindcss'],
-  ['.net', 'dotnetcore'],
+  ['vue', 'vue'],
+  ['node', 'node'],
+  ['tailwind', 'tailwind'],
+  ['.net', 'dotnet'],
   ['c#', 'csharp'],
   ['php', 'php'],
   ['laravel', 'laravel'],
@@ -62,9 +57,9 @@ const LOGOS: [string, string][] = [
   ['mcp', 'mcp'],
   ['tauri', 'tauri'],
   ['electron', 'electron'],
-  ['vite', 'vitejs'],
+  ['vite', 'vite'],
   ['socket', 'socketio'],
-  ['cypress', 'cypressio'],
+  ['cypress', 'cypress'],
   ['shadcn', 'shadcn'],
   ['android', 'android'],
   ['labview', 'labview'],
@@ -73,26 +68,25 @@ const LOGOS: [string, string][] = [
 
 const EXACT: Record<string, string> = { c: 'c', r: 'r', go: 'go' };
 
-const GENERIC: [string, IconType, string][] = [
-  ['3d printing', TbCube3dSphere, '#ff6b35'],
-  ['llm', TbBrain, '#c792ea'],
-  ['speech', TbMicrophone, '#7ec8e3'],
+const MONOGRAMS: [string, string][] = [
+  ['3d printing', '3D'],
+  ['llm', 'LLM'],
+  ['speech', 'ASR'],
 ];
 
-function longest<T extends [string, ...unknown[]]>(lower: string, entries: T[]): T | null {
-  let best: T | null = null;
+function longest(lower: string, entries: [string, string][]) {
+  let best: [string, string] | null = null;
   for (const entry of entries) {
     if (lower.includes(entry[0]) && (!best || entry[0].length > best[0].length)) best = entry;
   }
-  return best;
+  return best?.[1] ?? null;
 }
 
-export function skillGlyph(name: string): Glyph | null {
+const src = (file: string) => FILES[`../assets/skills/${file}.svg`];
+
+export function skillGlyph(name: string): Glyph {
   const lower = name.trim().toLowerCase();
-  const exact = EXACT[lower];
-  if (exact) return { src: file(exact) };
-  const logo = longest(lower, LOGOS);
-  if (logo) return { src: file(logo[1]) };
-  const generic = longest(lower, GENERIC);
-  return generic ? { Icon: generic[1], color: generic[2] } : null;
+  const file = EXACT[lower] ?? longest(lower, LOGOS);
+  if (file && src(file)) return { src: src(file) };
+  return { text: longest(lower, MONOGRAMS) ?? name.slice(0, 2).toUpperCase() };
 }

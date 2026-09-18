@@ -1,51 +1,26 @@
-import type { CSSProperties } from 'react';
 import type { Glyph } from '../../../lib/skill-logos';
-import { ICON } from './shape';
-import type { Shape } from './shape';
-import type { Nodes } from './use-physics';
+import { TILE_H, TILE_W } from './shape';
 
-const FALLBACK = '#8a8378';
-const LABEL = '#a9b6b8';
+const LOGO = 34;
 
-function track<T extends HTMLElement>(map: Map<string, T>, key: string) {
-  return (el: T | null) => {
-    if (el) map.set(key, el);
-    else map.delete(key);
-  };
-}
+const short = (name: string) => (name.length > 11 ? name.slice(0, 10) + '…' : name);
 
-const short = (name: string) => (name.length > 12 ? name.slice(0, 10) + '..' : name);
-
-function Mark({ name, glyph, shape }: { name: string; glyph?: Glyph; shape: Shape }) {
-  const place: CSSProperties = { position: 'absolute', left: shape.w / 2 - shape.cx, top: shape.h / 2 - shape.cy };
-
-  if (glyph && 'src' in glyph) {
-    return <img src={glyph.src} alt="" draggable={false} width={ICON} height={ICON} style={{ ...place, objectFit: 'contain' }} />;
-  }
-  if (glyph) {
-    return <glyph.Icon size={ICON} style={{ ...place, color: glyph.color }} />;
-  }
+export function Piece({ name, glyph, onMount }: { name: string; glyph: Glyph; onMount: (el: HTMLDivElement | null) => void }) {
   return (
     <div
-      className="flex h-full w-full items-center justify-center rounded-lg border text-[13px] font-semibold uppercase"
-      style={{ borderColor: FALLBACK + '55', backgroundColor: FALLBACK + '14', color: FALLBACK }}
+      ref={onMount}
+      title={name}
+      className="absolute left-0 top-0 flex flex-col items-center justify-between rounded-[10px] bg-paper px-1 pb-1.5 pt-2.5 shadow-[0_8px_18px_-8px_rgba(0,0,0,0.75)]"
+      style={{ width: TILE_W, height: TILE_H, willChange: 'transform' }}
     >
-      {name.slice(0, 2)}
-    </div>
-  );
-}
-
-export function Piece({ name, glyph, shape, nodes }: { name: string; glyph?: Glyph; shape: Shape; nodes: Nodes }) {
-  return (
-    <div ref={track(nodes.piece, name)} className="absolute left-0 top-0" style={{ width: shape.w, height: shape.h, willChange: 'transform' }}>
-      <Mark name={name} glyph={glyph} shape={shape} />
-      <span
-        ref={track(nodes.label, name)}
-        className="absolute left-1/2 whitespace-nowrap text-[8px] font-semibold uppercase tracking-wider"
-        style={{ color: LABEL, top: shape.h + 4, transform: 'translateX(-50%)' }}
-      >
-        {short(name)}
-      </span>
+      <div className="flex flex-1 items-center justify-center">
+        {'src' in glyph ? (
+          <img src={glyph.src} alt="" draggable={false} className="pointer-events-none select-none object-contain" style={{ width: LOGO, height: LOGO }} />
+        ) : (
+          <span className="font-mono text-[15px] font-semibold tracking-[0.04em] text-paper-ink">{glyph.text}</span>
+        )}
+      </div>
+      <span className="w-full truncate text-center font-mono text-[8px] uppercase leading-none tracking-[0.06em] text-paper-dim">{short(name)}</span>
     </div>
   );
 }

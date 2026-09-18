@@ -1,41 +1,39 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { RefObject } from 'react';
 import Matter from 'matter-js';
 import { createWorld } from './world';
-import type { Shape } from './shape';
+import { TILE } from './shape';
 
-export interface Nodes {
-  piece: Map<string, HTMLDivElement>;
-  label: Map<string, HTMLSpanElement>;
-}
-
-function paint(bodies: Matter.Body[], shapes: Map<string, Shape>, nodes: Nodes) {
+function paint(bodies: Matter.Body[], nodes: Map<string, HTMLDivElement>) {
   for (const b of bodies) {
-    const el = nodes.piece.get(b.label);
-    const s = shapes.get(b.label);
-    if (!el || !s) continue;
-    el.style.transform = `translate(${b.position.x - s.w / 2}px, ${b.position.y - s.h / 2}px) rotate(${b.angle}rad)`;
-    const label = nodes.label.get(b.label);
-    if (label) label.style.transform = `translateX(-50%) rotate(${-b.angle}rad)`;
+    const el = nodes.get(b.label);
+    if (el) el.style.transform = `translate(${b.position.x - TILE.w / 2}px, ${b.position.y - TILE.h / 2}px) rotate(${b.angle}rad)`;
   }
 }
 
-export function usePhysics(box: RefObject<HTMLDivElement | null>, names: string[], shapes: Map<string, Shape>) {
-  const nodes = useRef<Nodes>({ piece: new Map(), label: new Map() });
+export function usePhysics(box: RefObject<HTMLDivElement | null>, names: string[]) {
+  const nodes = useRef(new Map<string, HTMLDivElement>());
   const [ready, setReady] = useState(false);
-  const measured = names.length > 0 && names.every((n) => shapes.has(n));
+
+  const mount = useCallback(
+    (name: string) => (el: HTMLDivElement | null) => {
+      if (el) nodes.current.set(name, el);
+      else nodes.current.delete(name);
+    },
+    [],
+  );
 
   useEffect(() => {
     const el = box.current;
-    if (!el || !measured) return;
+    if (!el || names.length === 0) return;
 
-    const world = createWorld(el, names, shapes);
+    const world = createWorld(el, names);
     const runner = Matter.Runner.create();
     let running = false;
     let frame = 0;
 
     const sync = () => {
-      paint(world.bodies, shapes, nodes.current);
+      paint(world.bodies, nodes.current);
       if (running) frame = requestAnimationFrame(sync);
     };
 
@@ -65,7 +63,7 @@ export function usePhysics(box: RefObject<HTMLDivElement | null>, names: string[
       ro.disconnect();
       world.destroy();
     };
-  }, [box, names, shapes, measured]);
+  }, [box, names]);
 
-  return { nodes, ready };
+  return { mount, ready };
 }

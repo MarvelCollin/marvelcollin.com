@@ -1,6 +1,5 @@
 import Matter from 'matter-js';
-import { ICON } from './shape';
-import type { Shape } from './shape';
+import { TILE } from './shape';
 
 const WALL = 60;
 
@@ -14,17 +13,16 @@ function walls(w: number, h: number) {
   };
 }
 
-function drop(names: string[], shapes: Map<string, Shape>, w: number) {
+function drop(names: string[], w: number) {
   const perRow = Math.ceil(Math.sqrt(names.length));
-  const spacing = Math.min((w - 100) / perRow, ICON * 1.7);
+  const spacing = Math.min((w - 100) / perRow, TILE.w * 1.4);
   const startX = (w - (perRow - 1) * spacing) / 2;
   const jitter = (n: number) => (Math.random() - 0.5) * n;
 
   return names.map((name, i) => {
-    const s = shapes.get(name)!;
     const row = Math.floor(i / perRow);
-    return Matter.Bodies.rectangle(startX + (i % perRow) * spacing + jitter(8), -60 - row * ICON * 1.9 + jitter(15), s.w, s.h, {
-      chamfer: { radius: Math.min(s.w, s.h) * 0.14 },
+    return Matter.Bodies.rectangle(startX + (i % perRow) * spacing + jitter(8), -60 - row * TILE.h * 1.4 + jitter(15), TILE.w, TILE.h, {
+      chamfer: { radius: 10 },
       angle: jitter(0.5),
       restitution: 0.25,
       friction: 0.2,
@@ -35,13 +33,13 @@ function drop(names: string[], shapes: Map<string, Shape>, w: number) {
   });
 }
 
-export function createWorld(box: HTMLElement, names: string[], shapes: Map<string, Shape>) {
+export function createWorld(box: HTMLElement, names: string[]) {
   const w = box.clientWidth;
   const h = box.clientHeight;
   const engine = Matter.Engine.create({ gravity: { x: 0, y: 1.2, scale: 0.001 } });
   const edges = walls(w, h);
 
-  const bodies = drop(names, shapes, w);
+  const bodies = drop(names, w);
   const mouse = Matter.MouseConstraint.create(engine, {
     mouse: Matter.Mouse.create(box),
     constraint: { stiffness: 0.2, render: { visible: false } },

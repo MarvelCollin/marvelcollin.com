@@ -14,7 +14,8 @@
     "db:seed": "node scripts/db.mjs seed",
     "db:link": "supabase link --project-ref llpbcorikvgizzbkadny",
     "db:push": "supabase db push",
-    "db:reset": "supabase db reset"
+    "db:reset": "supabase db reset",
+    "logos": "node scripts/skill-logos.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.1",
@@ -26,16 +27,20 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
+    "@iconify-json/logos": "^1.2.14",
+    "@iconify/utils": "^3.1.7",
     "@tailwindcss/vite": "^4.3.1",
     "@types/matter-js": "^0.20.2",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^6.0.5",
+    "devicon": "^2.17.0",
     "eslint": "^9.25.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
     "pg": "^8.21.0",
+    "simple-icons": "^16.31.0",
     "supabase": "^2.106.0",
     "tailwindcss": "^4.3.1",
     "typescript": "~5.8.3",

@@ -3,7 +3,7 @@ import type { PointerEvent as ReactPointerEvent } from 'react';
 import { img } from '../../lib/img';
 import { useModal } from '../../hooks/use-modal';
 import { useDismiss } from '../../hooks/use-dismiss';
-import { SmartImage } from '../ui/smart-image';
+import { SmartImage } from './smart-image';
 
 const ARROW = 'absolute top-1/2 z-[3] flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-[rgba(233,227,214,0.12)] text-[22px] text-fg transition-colors hover:bg-[rgba(233,227,214,0.24)]';
 

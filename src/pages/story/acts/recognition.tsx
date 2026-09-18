@@ -3,7 +3,7 @@ import { useContent } from '../../../content/use-content';
 import { img } from '../../../lib/img';
 import { Reveal } from '../../../components/ui/reveal';
 import { SmartImage } from '../../../components/ui/smart-image';
-import { Lightbox } from '../../../components/project/lightbox';
+import { Lightbox } from '../../../components/ui/lightbox';
 
 export function Recognition() {
   const { recognition } = useContent();

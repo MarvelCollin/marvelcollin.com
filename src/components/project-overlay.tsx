@@ -4,11 +4,9 @@ import { useContent, findWork, workIndex } from '../content/use-content';
 import { useModal } from '../hooks/use-modal';
 import { useDismiss } from '../hooks/use-dismiss';
 import { workHref } from '../utils/work-link';
-import { img } from '../lib/img';
 import { flipFrom, takeFlipOrigin } from '../lib/flip';
 import { MEDIA } from '../lib/motion';
-import { Thumbnail } from './thumbnail';
-import { SmartImage } from './smart-image';
+import { FrameCarousel, FrameStrip } from './frame-carousel';
 import { Lightbox } from './lightbox';
 import { Clip } from './clip';
 import { ClipDefs } from './clip-defs';
@@ -21,14 +19,31 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
   const boxRef = useModal<HTMLDivElement>(onClose);
   const dismiss = useDismiss<HTMLDivElement>(onClose, '[data-sheet]');
   const [heroIndex, setHeroIndex] = useState<number | null>(null);
+  const [slide, setSlide] = useState(0);
   const p = findWork(works, slug);
+  const galleryImages = p ? (p.images ?? []).filter((src) => src && src !== p.cover) : [];
+  const galleryCaptions = p ? galleryImages.map((_, i) => p.stills[i] ?? '') : [];
+  const heroImages = p ? ([p.cover, ...galleryImages].filter(Boolean) as string[]) : [];
 
   useEffect(() => {
     setHeroIndex(null);
+    setSlide(0);
     boxRef.current?.scrollTo(0, 0);
   }, [slug, boxRef]);
 
   const openSlug = p?.slug ?? null;
+  const frames = heroImages.length;
+  const lightboxOpen = heroIndex !== null;
+
+  useEffect(() => {
+    if (frames < 2 || lightboxOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight') setSlide((i) => (i + 1) % frames);
+      else if (e.key === 'ArrowLeft') setSlide((i) => (i - 1 + frames) % frames);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [frames, lightboxOpen]);
 
   useLayoutEffect(() => {
     const box = boxRef.current;
@@ -64,9 +79,6 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
   const idx = p ? workIndex(works, slug) : -1;
   const prev = idx > 0 ? works[idx - 1] : null;
   const next = idx >= 0 && idx < works.length - 1 ? works[idx + 1] : null;
-  const galleryImages = p ? (p.images ?? []).filter((src) => src && src !== p.cover) : [];
-  const galleryCaptions = p ? galleryImages.map((_, i) => p.stills[i] ?? '') : [];
-  const heroImages = p ? ([p.cover, ...galleryImages].filter(Boolean) as string[]) : [];
   const heroCaptions = p ? [p.name, ...galleryCaptions] : [];
   const repo = p && p.repo && /^https?:\/\//i.test(p.repo) ? p.repo : null;
 
@@ -122,18 +134,10 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
                 <div data-hero className="relative mx-auto w-full max-w-[480px] origin-top will-change-transform">
                   <Clip className="absolute left-[24%] top-[-16px] z-20 h-[40px] w-[20px] -translate-x-1/2 drop-shadow-[0_3px_5px_rgba(0,0,0,0.5)]" />
                   <Clip className="absolute left-[76%] top-[-16px] z-20 h-[40px] w-[20px] -translate-x-1/2 drop-shadow-[0_3px_5px_rgba(0,0,0,0.5)]" />
-                  <button
-                    type="button"
-                    disabled={heroImages.length === 0}
-                    onClick={() => setHeroIndex(0)}
-                    aria-label={'View ' + p.name + ' image full size'}
-                    className="block w-full bg-paper p-[16px] text-left shadow-[0_34px_70px_-24px_rgba(0,0,0,0.85)] transition-transform duration-300 ease-out enabled:cursor-zoom-in enabled:hover:-translate-y-1 max-[560px]:p-3"
-                  >
-                    <div className="relative aspect-[4/3] overflow-hidden bg-bg-2">
-                      <Thumbnail p={p} />
-                    </div>
-                    <div className="px-1 pt-3 text-center text-[18px] font-medium leading-tight text-paper-ink">{p.name}</div>
-                  </button>
+                  <FrameCarousel p={p} images={heroImages} slide={slide} onSlide={setSlide} onOpen={setHeroIndex} />
+                </div>
+                <div data-copy>
+                  <FrameStrip name={p.name} images={heroImages} slide={slide} onSlide={setSlide} />
                 </div>
               </div>
 
@@ -156,26 +160,6 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
                   </div>
                 )}
 
-                {galleryImages.length > 0 && (
-                  <div data-copy className="mt-10">
-                    <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
-                      {heroImages.length} frames
-                    </p>
-                    <div className="flex flex-wrap gap-3">
-                      {galleryImages.map((src, j) => (
-                        <button
-                          key={src}
-                          type="button"
-                          onClick={() => setHeroIndex(j + 1)}
-                          aria-label={'View frame ' + (j + 2) + ' of ' + p.name}
-                          className="h-[62px] w-[82px] shrink-0 cursor-zoom-in overflow-hidden rounded-sm border border-line bg-bg-2 transition-colors hover:border-accent"
-                        >
-                          <SmartImage src={img(src, 320)} alt="" className="h-full w-full object-cover" />
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           </section>
@@ -229,7 +213,11 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
               name={p.name}
               index={heroIndex}
               onClose={() => setHeroIndex(null)}
-              onNav={(d) => setHeroIndex((i) => ((i ?? 0) + d + heroImages.length) % heroImages.length)}
+              onNav={(d) => {
+                const to = ((heroIndex ?? 0) + d + heroImages.length) % heroImages.length;
+                setHeroIndex(to);
+                setSlide(to);
+              }}
             />
           )}
         </>

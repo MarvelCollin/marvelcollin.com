@@ -58,7 +58,7 @@ export const SmartImage = memo(function SmartImage({
           }}
         />
       )}
-      <span className="sm-skel" style={{ opacity: state === 'load' ? 1 : 0 }} aria-hidden="true" />
+      <span className={'sm-skel' + (state === 'load' ? '' : ' is-done')} style={{ opacity: state === 'load' ? 1 : 0 }} aria-hidden="true" />
       {state === 'fail' && (
         <span className="sm-fail" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">

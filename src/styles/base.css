@@ -473,8 +473,16 @@ main {
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
   pointer-events: none;
   background-color: var(--bg-3);
+  transition: opacity 0.4s ease 0.12s;
+}
+.sm-skel::after,
+.skel-block::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   background-image: linear-gradient(
     100deg,
     transparent 20%,
@@ -483,12 +491,14 @@ main {
     rgba(232, 228, 220, 0.07) 58%,
     transparent 80%
   );
-  background-size: 220% 100%;
-  background-repeat: no-repeat;
+  transform: translateX(-100%);
   animation: sm-shimmer 1.5s ease-in-out infinite;
-  transition: opacity 0.4s ease 0.12s;
 }
-html[data-theme="light"] .sm-skel {
+.sm-skel.is-done::after {
+  animation: none;
+}
+html[data-theme="light"] .sm-skel::after,
+html[data-theme="light"] .skel-block::after {
   background-image: linear-gradient(
     100deg,
     transparent 20%,
@@ -514,34 +524,13 @@ html[data-theme="light"] .sm-skel {
   overflow: hidden;
   border-radius: 8px;
   background-color: var(--bg-3);
-  background-image: linear-gradient(
-    100deg,
-    transparent 20%,
-    rgba(232, 228, 220, 0.07) 42%,
-    rgba(232, 228, 220, 0.14) 50%,
-    rgba(232, 228, 220, 0.07) 58%,
-    transparent 80%
-  );
-  background-size: 220% 100%;
-  background-repeat: no-repeat;
-  animation: sm-shimmer 1.5s ease-in-out infinite;
-}
-html[data-theme="light"] .skel-block {
-  background-image: linear-gradient(
-    100deg,
-    transparent 20%,
-    rgba(28, 25, 23, 0.04) 42%,
-    rgba(28, 25, 23, 0.09) 50%,
-    rgba(28, 25, 23, 0.04) 58%,
-    transparent 80%
-  );
 }
 @keyframes sm-shimmer {
   0% {
-    background-position: 180% 0;
+    transform: translateX(-100%);
   }
   100% {
-    background-position: -80% 0;
+    transform: translateX(100%);
   }
 }
 @keyframes lb-fade {
@@ -573,8 +562,8 @@ html[data-theme="light"] .skel-block {
   .lb-pop {
     animation: none;
   }
-  .sm-skel,
-  .skel-block {
+  .sm-skel::after,
+  .skel-block::after {
     animation: none;
   }
 }

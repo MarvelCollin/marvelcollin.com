@@ -18,16 +18,16 @@ export const ProjectCard = memo(function ProjectCard({ p, index }: { p: Project;
       <div className="bg-[#e9e3d6] p-[14px] shadow-[0_18px_40px_-16px_rgba(0,0,0,0.7)] transition-shadow duration-300 group-hover:shadow-[0_34px_64px_-18px_rgba(0,0,0,0.85)]">
         <div className={'relative overflow-hidden bg-bg-2 ' + CARD_ASPECT[index % CARD_ASPECT.length]}>
           <Thumbnail p={p} />
-          <span className="absolute left-2 top-2 z-[2] font-sans text-[10px] uppercase tracking-[0.12em] text-white/85 [text-shadow:0_1px_4px_rgba(0,0,0,0.6)]">
+          <span className="absolute left-2 top-2 z-[2] font-mono text-[10px] uppercase tracking-[0.12em] text-white/85 [text-shadow:0_1px_4px_rgba(0,0,0,0.6)]">
             {p.num}
           </span>
-          <span className="absolute right-2 top-2 z-[2] font-sans text-[10px] uppercase tracking-[0.12em] text-white/85 [text-shadow:0_1px_4px_rgba(0,0,0,0.6)]">
+          <span className="absolute right-2 top-2 z-[2] font-mono text-[10px] uppercase tracking-[0.12em] text-white/85 [text-shadow:0_1px_4px_rgba(0,0,0,0.6)]">
             {p.tag}
           </span>
         </div>
         <div className="px-1 pt-3 text-center">
           <div className="text-[16px] font-medium leading-tight text-[#2a2620]">{p.name}</div>
-          <div className="mt-1 font-sans text-[10px] uppercase tracking-[0.14em] text-[#8a7f6a]">
+          <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[#8a7f6a]">
             {p.stack} · {p.year}
           </div>
         </div>

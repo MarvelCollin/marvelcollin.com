@@ -21,7 +21,7 @@ export function Origin() {
         <dl className="mt-10 space-y-3 text-[15px]">
           {FACTS.map((f) => (
             <div key={f.term} className="flex items-baseline gap-4 border-b border-line pb-3">
-              <dt className="w-[92px] shrink-0 font-sans text-[11px] uppercase tracking-[0.12em] text-muted">{f.term}</dt>
+              <dt className="w-[92px] shrink-0 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">{f.term}</dt>
               <dd className="text-fg">{f.detail}</dd>
             </div>
           ))}
@@ -34,7 +34,7 @@ export function Origin() {
       </Reveal>
 
       <Reveal delay={120}>
-        <p className="mb-8 text-[13px] uppercase tracking-[0.1em] text-accent-2">Education</p>
+        <p className="mb-8 font-mono text-[13px] uppercase tracking-[0.1em] text-accent-2">Education</p>
         {loading && education.length === 0 && <EntrySkeleton count={2} />}
         <div className="space-y-10">
           {education.map((e) => (

@@ -26,13 +26,13 @@ export function Prologue() {
       }
 
       utils.set(parts, { opacity: 0, y: 24 });
-      const tl = createTimeline({ defaults: { ease: EASE_OUT, duration: 880 } }).add(parts, {
+      createTimeline({ defaults: { ease: EASE_OUT, duration: 880 } }).add(parts, {
         opacity: 1,
         y: 0,
         delay: stagger(110, { start: 120 }),
       });
 
-      cancel = failOpen(() => tl.began, show);
+      cancel = failOpen(el, parts[0], show);
     });
 
     return () => {
@@ -52,10 +52,10 @@ export function Prologue() {
       <div className="mx-auto w-full max-w-[1280px]">
         <div data-part="kicker" className="flex items-center gap-4">
           <span className="h-px w-10 bg-accent" />
-          <span className="font-sans text-[12px] uppercase tracking-[0.22em] text-accent-2">Prologue</span>
+          <span className="font-mono text-[12px] uppercase tracking-[0.22em] text-accent-2">Prologue</span>
         </div>
 
-        <h1 data-part="title" className="mt-10 font-sans text-[clamp(56px,10vw,148px)] font-semibold leading-[0.92] tracking-[-0.04em] max-[900px]:mt-7">
+        <h1 data-part="title" className="mt-10 font-display text-[clamp(56px,10vw,148px)] font-semibold leading-[0.92] tracking-[-0.015em] max-[900px]:mt-7">
           Marvel<br />Collin.
         </h1>
 
@@ -72,7 +72,7 @@ export function Prologue() {
 
         <a
           data-part="cta"
-          className="group mt-12 flex w-fit items-center gap-3 rounded-xl border border-accent bg-accent px-6 py-4 font-sans text-[15px] font-medium tracking-[0.01em] text-accent-ink shadow-[0_16px_38px_-18px_var(--accent)] transition-transform duration-300 hover:-translate-y-0.5 max-[560px]:w-full max-[560px]:justify-center"
+          className="group mt-12 flex w-fit items-center gap-3 rounded-lg border border-accent bg-accent px-6 py-4 font-mono text-[14px] font-medium uppercase tracking-[0.08em] text-accent-ink shadow-[0_10px_28px_-22px_var(--accent)] transition-transform duration-300 hover:-translate-y-0.5 max-[560px]:w-full max-[560px]:justify-center"
           href="https://github.com/MarvelCollin"
           target="_blank"
           rel="noreferrer"
@@ -85,7 +85,7 @@ export function Prologue() {
         <a
           data-part="cue"
           href="#origin"
-          className="group mt-16 flex w-fit items-center gap-4 text-[12px] uppercase tracking-[0.18em] text-muted transition-colors hover:text-fg max-[900px]:mt-12"
+          className="group mt-16 flex w-fit items-center gap-4 font-mono text-[12px] uppercase tracking-[0.18em] text-muted transition-colors hover:text-fg max-[900px]:mt-12"
         >
           <span className="tabular-nums">{COUNT} chapters</span>
           <span className="h-px w-12 bg-line transition-all duration-300 group-hover:w-20 group-hover:bg-accent" />

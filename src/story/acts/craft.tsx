@@ -39,7 +39,7 @@ export function Craft() {
   return (
     <div>
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-        <p className="text-[13px] uppercase tracking-[0.1em] text-accent-2">{counts.all} tools</p>
+        <p className="font-mono text-[13px] uppercase tracking-[0.1em] text-accent-2">{counts.all} tools</p>
         <div className="flex flex-wrap gap-2">
           {filters.map((f) => (
             <button

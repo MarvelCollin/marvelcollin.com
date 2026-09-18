@@ -10,7 +10,7 @@ import { ClipDefs } from './clip-defs';
 import { Skel } from './skeleton';
 
 const BOARD = 'bg-[radial-gradient(var(--dot)_1px,transparent_1px)] [background-size:24px_24px]';
-const JUMP = 'inline-block text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-accent-soft max-[560px]:text-[22px]';
+const JUMP = 'inline-block font-display text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg transition-colors group-hover:text-accent-soft max-[560px]:text-[22px]';
 
 export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () => void }) {
   const { works, loading } = useContent();
@@ -51,13 +51,13 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
     >
       <ClipDefs />
       <div className="sticky top-0 z-[70] flex items-center justify-between gap-6 border-b border-line bg-[var(--nav-bg)] px-10 py-4 backdrop-blur-[12px] max-[900px]:px-[22px]">
-        <span className="font-sans text-[11px] uppercase tracking-[0.16em] text-muted">
+        <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
           {p ? p.num + ' · ' + p.year : 'Project'}
         </span>
         <button
           type="button"
           onClick={onClose}
-          className="group flex h-11 cursor-pointer items-center gap-3 font-sans text-[11px] uppercase tracking-[0.12em] text-fg-dim transition-colors hover:text-fg"
+          className="group flex h-11 cursor-pointer items-center gap-3 font-mono text-[11px] uppercase tracking-[0.12em] text-fg-dim transition-colors hover:text-fg"
         >
           <span className="inline-block transition-transform group-hover:-translate-x-1">←</span>
           Back to the story
@@ -87,15 +87,15 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
           <section className={'relative px-10 pb-20 pt-16 max-[900px]:px-[22px] max-[900px]:pb-12 ' + BOARD}>
             <div className="mx-auto grid max-w-[1320px] grid-cols-[1.04fr_0.96fr] items-center gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-12">
               <div className="max-[900px]:order-2">
-                <p className="mb-5 text-[13px] uppercase tracking-[0.1em] text-accent-2">{p.tag}</p>
-                <h2 className="font-sans text-[clamp(52px,7.4vw,108px)] font-bold leading-[0.94] tracking-[-0.03em] text-fg">{p.name}</h2>
+                <p className="mb-5 font-mono text-[13px] uppercase tracking-[0.1em] text-accent-2">{p.tag}</p>
+                <h2 className="font-display text-[clamp(52px,7.4vw,108px)] font-bold leading-[0.94] tracking-[-0.015em] text-fg">{p.name}</h2>
                 <p className="mt-6 max-w-[42ch] text-[clamp(18px,2vw,24px)] font-light leading-[1.4] text-fg-dim">
                   <b className="font-normal text-fg">{p.brief}</b>
                 </p>
                 {repo && (
                   <div className="mt-9 flex flex-wrap gap-3.5">
                     <a
-                      className="rounded-lg border border-line bg-bg-2 px-[18px] py-2.5 font-sans text-[13px] tracking-[0.04em] text-fg transition-colors hover:border-accent hover:text-accent"
+                      className="rounded-lg border border-line bg-bg-2 px-[18px] py-2.5 font-mono text-[13px] tracking-[0.04em] text-fg transition-colors hover:border-accent hover:text-accent"
                       href={repo}
                       target="_blank"
                       rel="noreferrer"
@@ -132,17 +132,17 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
 
           <section className="bg-bg-2 px-10 py-10 max-[900px]:px-[22px] max-[900px]:py-8">
             <div className="mx-auto flex max-w-[1320px] flex-wrap gap-x-12 gap-y-4 text-[14px] max-[560px]:flex-col max-[560px]:gap-3">
-              <div><span className="mr-2 text-[11px] uppercase tracking-[0.06em] text-muted">Client</span> <span className="text-fg">{p.client}</span></div>
-              <div><span className="mr-2 text-[11px] uppercase tracking-[0.06em] text-muted">Role</span> <span className="text-fg">{p.role}</span></div>
-              <div><span className="mr-2 text-[11px] uppercase tracking-[0.06em] text-muted">Stack</span> <span className="text-fg">{p.stack}</span></div>
-              <div><span className="mr-2 text-[11px] uppercase tracking-[0.06em] text-muted">Year</span> <span className="text-fg">{String(p.year)}</span></div>
+              <div><span className="mr-2 font-mono text-[11px] uppercase tracking-[0.06em] text-muted">Client</span> <span className="text-fg">{p.client}</span></div>
+              <div><span className="mr-2 font-mono text-[11px] uppercase tracking-[0.06em] text-muted">Role</span> <span className="text-fg">{p.role}</span></div>
+              <div><span className="mr-2 font-mono text-[11px] uppercase tracking-[0.06em] text-muted">Stack</span> <span className="text-fg">{p.stack}</span></div>
+              <div><span className="mr-2 font-mono text-[11px] uppercase tracking-[0.06em] text-muted">Year</span> <span className="text-fg">{String(p.year)}</span></div>
             </div>
           </section>
 
           {p.body[0] && (
             <section className="px-10 py-24 max-[900px]:px-[22px] max-[900px]:py-14">
               <div className="mx-auto max-w-[720px]">
-                <p className="mb-6 text-[11px] uppercase tracking-[0.13em] text-accent-2">Context</p>
+                <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.13em] text-accent-2">Context</p>
                 <p className="text-[clamp(18px,2.2vw,26px)] leading-[1.6] text-fg">{p.body[0]}</p>
               </div>
             </section>
@@ -153,7 +153,7 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
           <section className="bg-bg-2 px-10 py-20 max-[900px]:px-[22px] max-[900px]:py-14">
             <div className="mx-auto grid max-w-[900px] grid-cols-2 gap-12 max-[900px]:grid-cols-1 max-[900px]:gap-8">
               <div className="group">
-                <span className="mb-3 block text-[11px] uppercase tracking-[0.11em] text-accent-2">{prev ? '← Previous' : '← Back'}</span>
+                <span className="mb-3 block font-mono text-[11px] uppercase tracking-[0.11em] text-accent-2">{prev ? '← Previous' : '← Back'}</span>
                 {prev ? (
                   <a className={JUMP} href={workHref(prev.slug)}>{prev.name}</a>
                 ) : (
@@ -161,7 +161,7 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
                 )}
               </div>
               <div className="group text-right max-[900px]:text-left">
-                <span className="mb-3 block text-[11px] uppercase tracking-[0.11em] text-accent-2">{next ? 'Next →' : '→ Back'}</span>
+                <span className="mb-3 block font-mono text-[11px] uppercase tracking-[0.11em] text-accent-2">{next ? 'Next →' : '→ Back'}</span>
                 {next ? (
                   <a className={JUMP} href={workHref(next.slug)}>{next.name}</a>
                 ) : (

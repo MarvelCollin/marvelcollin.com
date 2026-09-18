@@ -1,43 +1,45 @@
 :root {
-  --bg: #0c0b09;
-  --bg-2: #0f1319;
-  --bg-3: #171c25;
-  --highlight: #141821;
-  --fg: #e8e4dc;
-  --fg-dim: #8f887c;
-  --muted: #857f73;
-  --line: #262a31;
-  --line-soft: rgba(232, 228, 220, 0.05);
-  --accent: #e6a441;
-  --accent-soft: #dda04a;
-  --accent-ink: #12100b;
-  --accent-2: #82abe0;
-  --accent-2-deep: #3a5f96;
-  --tape: rgba(230, 164, 65, 0.34);
-  --glow: rgba(230, 164, 65, 0.13);
-  --dot: rgba(255, 248, 230, 0.025);
-  --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --nav-bg: rgba(12, 11, 9, 0.85);
+  --bg: #0e0e12;
+  --bg-2: #15151c;
+  --bg-3: #1d1d26;
+  --highlight: #191922;
+  --fg: #ece7dc;
+  --fg-dim: #9a958a;
+  --muted: #8b867c;
+  --line: #272730;
+  --line-soft: rgba(236, 231, 220, 0.05);
+  --accent: #f0523c;
+  --accent-soft: #ef6d59;
+  --accent-ink: #14100e;
+  --accent-2: #93a7c6;
+  --accent-2-deep: #44587a;
+  --tape: rgba(240, 82, 60, 0.3);
+  --glow: rgba(240, 82, 60, 0.12);
+  --dot: rgba(255, 245, 235, 0.03);
+  --font: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --nav-bg: rgba(14, 14, 18, 0.86);
 }
 html[data-theme="light"] {
-  --bg: #f8f5f0;
-  --bg-2: #e9edf3;
-  --bg-3: #dbe1ea;
-  --highlight: #eef1f6;
-  --fg: #1c1917;
-  --fg-dim: #6d6862;
-  --muted: #6f6b65;
-  --line: #d9dce2;
-  --line-soft: rgba(28, 25, 23, 0.05);
-  --accent: #99610c;
-  --accent-soft: #9a5f0c;
-  --accent-ink: #fff8ec;
-  --accent-2: #2f5b96;
-  --accent-2-deep: #24476f;
-  --tape: rgba(180, 112, 15, 0.26);
-  --glow: rgba(180, 112, 15, 0.1);
-  --dot: rgba(0, 0, 0, 0.04);
-  --nav-bg: rgba(248, 245, 240, 0.85);
+  --bg: #f2eee4;
+  --bg-2: #e7e2d5;
+  --bg-3: #dad4c4;
+  --highlight: #ece7da;
+  --fg: #171512;
+  --fg-dim: #5b564d;
+  --muted: #6b665c;
+  --line: #d2cbba;
+  --line-soft: rgba(23, 21, 18, 0.06);
+  --accent: #c33a22;
+  --accent-soft: #b2341e;
+  --accent-ink: #fbf7ee;
+  --accent-2: #3a5578;
+  --accent-2-deep: #2a3f5c;
+  --tape: rgba(195, 58, 34, 0.24);
+  --glow: rgba(195, 58, 34, 0.1);
+  --dot: rgba(23, 21, 18, 0.05);
+  --nav-bg: rgba(242, 238, 228, 0.86);
 }
 * {
   box-sizing: border-box;
@@ -64,6 +66,12 @@ html {
 body {
   font-weight: 400;
   letter-spacing: 0;
+}
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 12, "WONK" 1;
 }
 body::after {
   content: "";
@@ -116,9 +124,17 @@ nav.top {
   -webkit-backdrop-filter: blur(12px);
 }
 nav.top .brand {
-  font-weight: 500;
-  font-size: 16px;
-  letter-spacing: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+}
+nav.top ul,
+.theme-toggle {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 .nav-progress {
   position: absolute;

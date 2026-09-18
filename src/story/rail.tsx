@@ -17,7 +17,7 @@ export function ChapterRail({ active }: { active: string }) {
           style={{ height: reached + '%' }}
         />
         <span className="absolute bottom-0 right-full top-0 mr-3 flex items-center [writing-mode:vertical-rl]">
-          <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-fg-dim">
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-fg-dim">
             {CHAPTERS[index].label}
           </span>
         </span>

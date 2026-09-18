@@ -2,7 +2,7 @@ export function Epilogue() {
   return (
     <div className="max-w-[1280px]">
       <a
-        className="block font-sans text-[clamp(28px,5.5vw,64px)] font-semibold leading-[1.05] tracking-[-0.03em] text-fg transition-colors duration-300 hover:text-accent-soft"
+        className="block font-display text-[clamp(28px,5.5vw,64px)] font-semibold leading-[1.05] tracking-[-0.012em] text-fg transition-colors duration-300 hover:text-accent-soft"
         href="mailto:marvelcollin7@gmail.com"
       >
         marvelcollin7@gmail.com

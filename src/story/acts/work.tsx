@@ -38,8 +38,8 @@ export function Work() {
         <Reveal className="mb-24 max-[900px]:mb-16">
           <div className="grid grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] items-center gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10">
             <div>
-              <p className="text-[13px] uppercase tracking-[0.1em] text-accent-2">Featured</p>
-              <h3 className="mt-4 font-sans text-[clamp(28px,3.6vw,46px)] font-semibold leading-[1.08] tracking-[-0.025em]">{feature.name}</h3>
+              <p className="font-mono text-[13px] uppercase tracking-[0.1em] text-accent-2">Featured</p>
+              <h3 className="mt-4 font-display text-[clamp(28px,3.6vw,46px)] font-semibold leading-[1.08] tracking-[-0.012em]">{feature.name}</h3>
               <p className="mt-4 max-w-[46ch] text-[17px] leading-[1.6] text-fg-dim">{feature.body[0]}</p>
               <a
                 href={workHref(feature.slug)}
@@ -58,13 +58,13 @@ export function Work() {
               <div className="bg-[#e9e3d6] p-[18px] shadow-[0_24px_56px_-18px_rgba(0,0,0,0.75)] transition-shadow duration-300 group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.85)]">
                 <div className="relative aspect-[16/9] overflow-hidden bg-bg-2 after:absolute after:inset-0 after:z-[1] after:content-[''] after:bg-[linear-gradient(to_top,rgba(20,18,14,0.45),transparent_40%),linear-gradient(to_bottom,rgba(20,18,14,0.3),transparent_28%)]">
                   <Thumbnail p={feature} />
-                  <span className="absolute left-6 top-5 z-[2] font-sans text-[11px] uppercase tracking-[0.11em] text-[rgba(247,244,234,0.85)] [text-shadow:0_1px_8px_rgba(0,0,0,0.4)]">
+                  <span className="absolute left-6 top-5 z-[2] font-mono text-[11px] uppercase tracking-[0.11em] text-[rgba(247,244,234,0.85)] [text-shadow:0_1px_8px_rgba(0,0,0,0.4)]">
                     {feature.name} · {feature.year}
                   </span>
                 </div>
                 <div className="px-1 pt-4 text-center">
                   <div className="text-[20px] font-medium leading-tight text-[#2a2620]">{feature.name}</div>
-                  <div className="mt-1 font-sans text-[10px] uppercase tracking-[0.14em] text-[#8a7f6a]">
+                  <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[#8a7f6a]">
                     {feature.stack} · {feature.year}
                   </div>
                 </div>
@@ -75,7 +75,7 @@ export function Work() {
       )}
 
       <div className="mb-10 flex flex-wrap items-end justify-between gap-4 border-t border-line pt-10">
-        <p className="text-[13px] uppercase tracking-[0.1em] text-accent-2">All projects</p>
+        <p className="font-mono text-[13px] uppercase tracking-[0.1em] text-accent-2">All projects</p>
         <div className="flex flex-wrap gap-2">
           {filters.map((f) => (
             <button
@@ -101,7 +101,7 @@ export function Work() {
         {byYear.map(([year, items]) => (
           <div key={year}>
             <div className="mb-6 flex items-baseline gap-4 border-b border-line pb-3">
-              <h3 className="font-sans text-[26px] font-semibold tabular-nums tracking-[-0.02em] max-[560px]:text-[22px]">{year}</h3>
+              <h3 className="font-display text-[26px] font-semibold tabular-nums tracking-[-0.01em] max-[560px]:text-[22px]">{year}</h3>
               <span className="text-[13px] text-muted">
                 {items.length} {items.length === 1 ? 'project' : 'projects'}
               </span>

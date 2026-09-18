@@ -23,16 +23,19 @@ async function loadAll(): Promise<Data> {
   return { works: w, skills: s, experience: e, recognition: r, education: ed };
 }
 
+const initial = loadAll();
+initial.catch(() => undefined);
+
 export function ContentProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<Data>(EMPTY);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const refresh = useCallback(async () => {
+  const run = useCallback(async (pending: Promise<Data>) => {
     setLoading(true);
     setError(null);
     try {
-      setData(await loadAll());
+      setData(await pending);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load content');
     } finally {
@@ -40,9 +43,11 @@ export function ContentProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const refresh = useCallback(() => run(loadAll()), [run]);
+
   useEffect(() => {
-    refresh();
-  }, [refresh]);
+    run(initial);
+  }, [run]);
 
   const value = useMemo(() => ({ ...data, loading, error, refresh }), [data, loading, error, refresh]);
 

@@ -22,9 +22,7 @@ function check(error: { message: string } | null) {
 const client = async () => (await import('../supabase')).supabase;
 
 async function fetchRows<R>(name: string, order: string): Promise<R[]> {
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/${name}?select=*&order=${order}.asc`, {
-    headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` },
-  });
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${name}?select=*&order=${order}.asc&apikey=${SUPABASE_KEY}`);
   if (!res.ok) throw new Error(`Failed to load ${name} (${res.status})`);
   return res.json();
 }

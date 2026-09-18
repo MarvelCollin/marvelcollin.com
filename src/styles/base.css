@@ -30,7 +30,7 @@
   --band: rgba(16, 43, 56, 0.4);
   --vignette: rgba(2, 8, 12, 0.55);
   --nav-bg: rgba(10, 20, 26, 0.94);
-  --scrim: rgba(5, 12, 17, 0.9);
+  --scrim: rgba(5, 12, 17, 0.96);
 }
 html[data-theme="light"] {
   --bg: #e3e7e3;
@@ -61,7 +61,7 @@ html[data-theme="light"] {
   --band: rgba(208, 217, 212, 0.55);
   --vignette: rgba(84, 99, 96, 0.3);
   --nav-bg: rgba(227, 231, 227, 0.95);
-  --scrim: rgba(205, 213, 209, 0.93);
+  --scrim: rgba(205, 213, 209, 0.97);
 }
 * {
   box-sizing: border-box;

@@ -30,14 +30,10 @@ export function Recognition() {
                 type="button"
                 onClick={() => setZoom(shotIndex)}
                 aria-label={'View ' + a.name + ' full size'}
-                className="mt-4 block w-fit max-w-[520px] cursor-zoom-in overflow-hidden rounded-lg border border-line bg-bg-2 transition-colors hover:border-accent"
+                className="relative mt-4 block aspect-[4/3] w-full max-w-[460px] cursor-zoom-in overflow-hidden rounded-lg border border-line bg-bg-2 transition-colors hover:border-accent"
               >
-                <SmartImage
-                  src={img(a.image, 1000)}
-                  alt={a.name}
-                  className="h-auto max-h-[340px] w-auto max-w-full object-contain"
-                  skelStyle={{ width: 'min(320px, 100%)', aspectRatio: '4 / 3' }}
-                />
+                <img src={img(a.image, 200)} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full scale-110 object-cover opacity-50 blur-xl" />
+                <SmartImage fill src={img(a.image, 1000)} alt={a.name} className="object-contain" />
               </button>
             )}
           </Reveal>

@@ -22,7 +22,7 @@ function drop(names: string[], w: number) {
   return names.map((name, i) => {
     const row = Math.floor(i / perRow);
     return Matter.Bodies.rectangle(startX + (i % perRow) * spacing + jitter(8), -60 - row * TILE.h * 1.4 + jitter(15), TILE.w, TILE.h, {
-      chamfer: { radius: 10 },
+      chamfer: { radius: 14 },
       angle: jitter(0.5),
       restitution: 0.25,
       friction: 0.2,

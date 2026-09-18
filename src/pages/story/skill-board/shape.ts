@@ -1,5 +1,5 @@
-export const TILE_W = 66;
-export const TILE_H = 78;
+export const TILE_W = 70;
+export const TILE_H = 74;
 
 export interface Shape {
   w: number;

@@ -1,4 +1,6 @@
-export type Glyph = { src: string } | { text: string };
+export type Tone = 'invert' | 'halo';
+
+export type Glyph = { src: string; tone?: Tone } | { text: string };
 
 const FILES = import.meta.glob('../assets/skills/*.svg', { query: '?no-inline', import: 'default', eager: true }) as Record<string, string>;
 
@@ -68,6 +70,18 @@ const LOGOS: [string, string][] = [
 
 const EXACT: Record<string, string> = { c: 'c', r: 'r', go: 'go' };
 
+const ON_DARK: Record<string, Tone> = {
+  github: 'invert',
+  vercel: 'invert',
+  rust: 'invert',
+  threejs: 'invert',
+  unity: 'invert',
+  shadcn: 'invert',
+  mcp: 'invert',
+  pandas: 'halo',
+  bootstrap: 'halo',
+};
+
 const MONOGRAMS: [string, string][] = [
   ['3d printing', '3D'],
   ['llm', 'LLM'],
@@ -87,6 +101,6 @@ const src = (file: string) => FILES[`../assets/skills/${file}.svg`];
 export function skillGlyph(name: string): Glyph {
   const lower = name.trim().toLowerCase();
   const file = EXACT[lower] ?? longest(lower, LOGOS);
-  if (file && src(file)) return { src: src(file) };
+  if (file && src(file)) return { src: src(file), tone: ON_DARK[file] };
   return { text: longest(lower, MONOGRAMS) ?? name.slice(0, 2).toUpperCase() };
 }

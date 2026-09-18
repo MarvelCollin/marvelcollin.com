@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "@fontsource/spline-sans-mono/latin-400.css";
+@import "@fontsource/spline-sans-mono/latin-500.css";
 @import "./tokens.css" layer(base);
 @import "./base.css" layer(base);
 @import "./backdrop.css" layer(base);

@@ -250,15 +250,6 @@ nav.top ul {
   transform-origin: left;
   will-change: transform;
 }
-nav.top .brand .sep {
-  color: var(--muted);
-  margin: 0 6px;
-  font-weight: 300;
-}
-nav.top .brand .role {
-  color: var(--muted);
-  font-weight: 300;
-}
 nav.top ul {
   list-style: none;
   display: flex;
@@ -310,14 +301,6 @@ nav.top li a.active {
   .nav-mark[data-ready] i {
     transition: none;
   }
-}
-nav.top .right {
-  color: var(--fg-dim);
-  font-size: 13px;
-  font-weight: 300;
-}
-nav.top .right .here {
-  color: var(--fg);
 }
 .skip-link {
   position: fixed;
@@ -396,45 +379,6 @@ main {
   padding: 140px 40px 80px;
   max-width: 1320px;
   margin: 0 auto;
-}
-.pt-overlay {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 200;
-  background: var(--bg);
-}
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 22px;
-  border: 1px solid var(--fg);
-  border-radius: 8px;
-  color: var(--fg);
-  background: transparent;
-  font-family: inherit;
-  font-size: 14px;
-  letter-spacing: 0;
-  cursor: pointer;
-  transition:
-    background 0.25s,
-    color 0.25s,
-    border-color 0.25s;
-}
-.btn:hover {
-  background: var(--fg);
-  color: var(--bg);
-}
-.btn.primary {
-  background: var(--accent);
-  color: var(--accent-ink);
-  border-color: var(--accent);
-}
-.btn.primary:hover {
-  background: var(--fg);
-  color: var(--bg);
-  border-color: var(--fg);
 }
 .sm-img {
   position: relative;

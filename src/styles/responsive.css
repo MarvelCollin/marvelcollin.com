@@ -8,10 +8,6 @@
     align-items: center;
     column-gap: 14px;
   }
-  nav.top .brand .sep,
-  nav.top .brand .role {
-    display: none;
-  }
   nav.top ul {
     gap: 16px;
     font-size: 13px;
@@ -28,12 +24,6 @@
   }
   nav.top ul {
     white-space: nowrap;
-  }
-  nav.top li a::after {
-    bottom: 3px;
-  }
-  nav.top .right {
-    display: none;
   }
   .page {
     padding-left: 22px;

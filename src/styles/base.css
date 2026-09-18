@@ -269,29 +269,47 @@ nav.top li a {
   color: var(--fg-dim);
   transition: color 0.25s;
 }
-nav.top li a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -7px;
-  height: 2px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease;
-}
-nav.top li a:hover {
-  color: var(--fg);
-}
-nav.top li a:hover::after {
-  transform: scaleX(1);
-}
+nav.top li a:hover,
 nav.top li a.active {
   color: var(--fg);
 }
-nav.top li a.active::after {
-  transform: scaleX(1);
+.nav-links {
+  position: relative;
+}
+.nav-mark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.nav-mark i {
+  position: absolute;
+  top: var(--y, 0);
+  left: 0;
+  width: 7px;
+  height: var(--h, 0);
+  border: 1px solid var(--accent);
+  transform: translate3d(var(--x, 0), 0, 0);
+}
+.nav-mark i:first-child {
+  border-right: 0;
+}
+.nav-mark i:last-child {
+  border-left: 0;
+  transform: translate3d(calc(var(--x, 0px) + var(--w, 0px) - 7px), 0, 0);
+}
+.nav-mark[data-ready] i {
+  transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.5, 1);
+}
+.nav-mark[data-ready] i:last-child {
+  transition-delay: 0.05s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-mark[data-ready] i {
+    transition: none;
+  }
 }
 nav.top .right {
   color: var(--fg-dim);

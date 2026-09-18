@@ -81,7 +81,7 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
       className="fixed inset-0 z-[90] cursor-zoom-out overflow-y-auto overscroll-contain outline-none"
     >
       <ClipDefs />
-      <div aria-hidden="true" className="ov-enter fixed inset-0 bg-[var(--scrim)] backdrop-blur-[7px]" />
+      <div aria-hidden="true" className="ov-enter fixed inset-0 bg-[var(--scrim)]" />
       <div data-sheet className="sticky top-0 z-[70] flex cursor-auto items-center justify-between gap-6 px-10 py-5 max-[900px]:px-[22px]">
         <button
           type="button"
@@ -119,7 +119,7 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
           <section className="relative -mt-[76px] flex min-h-[100svh] items-center px-10 pb-16 pt-[96px] max-[900px]:px-[22px] max-[900px]:pb-12">
             <div data-sheet className="mx-auto grid w-full max-w-[1240px] cursor-auto grid-cols-[1.05fr_0.95fr] items-center gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-12">
               <div className="relative">
-                <div data-hero className="relative mx-auto w-full max-w-[480px] origin-top">
+                <div data-hero className="relative mx-auto w-full max-w-[480px] origin-top will-change-transform">
                   <Clip className="absolute left-[24%] top-[-16px] z-20 h-[40px] w-[20px] -translate-x-1/2 drop-shadow-[0_3px_5px_rgba(0,0,0,0.5)]" />
                   <Clip className="absolute left-[76%] top-[-16px] z-20 h-[40px] w-[20px] -translate-x-1/2 drop-shadow-[0_3px_5px_rgba(0,0,0,0.5)]" />
                   <button

@@ -78,7 +78,7 @@ export function Backdrop({
     };
 
     const onPointer = (e: PointerEvent) => {
-      if (e.pointerType !== 'mouse') return;
+      if (e.pointerType !== 'mouse' || document.body.style.overflow === 'hidden') return;
       pointer.x = e.clientX;
       pointer.y = e.clientY;
       wrap.dataset.lamp = 'on';

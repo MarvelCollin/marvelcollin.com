@@ -28,7 +28,7 @@ export function EntrySkeleton({ count = 3 }: { count?: number }) {
 
 export function CardSkeleton({ aspect }: { aspect: string }) {
   return (
-    <div className="bg-[#e9e3d6] p-[14px] shadow-[0_18px_40px_-16px_rgba(0,0,0,0.7)]" aria-hidden="true">
+    <div className="bg-paper p-[14px] shadow-[0_18px_40px_-16px_rgba(0,0,0,0.7)]" aria-hidden="true">
       <div className={'relative overflow-hidden bg-bg-2 ' + aspect}>
         <Skel className="absolute inset-0 rounded-none" />
       </div>

@@ -1,56 +1,75 @@
 :root {
-  --bg: #0e0e12;
-  --bg-2: #15151c;
-  --bg-3: #1d1d26;
-  --highlight: #191922;
-  --fg: #ece7dc;
-  --fg-dim: #9a958a;
-  --muted: #8b867c;
-  --line: #272730;
-  --line-soft: rgba(236, 231, 220, 0.05);
-  --accent: #f0523c;
-  --accent-soft: #ef6d59;
-  --accent-ink: #14100e;
-  --accent-2: #93a7c6;
-  --accent-2-deep: #44587a;
-  --tape: rgba(240, 82, 60, 0.3);
-  --glow: rgba(240, 82, 60, 0.12);
-  --dot: rgba(255, 245, 235, 0.03);
+  --bg: #0a141a;
+  --bg-2: #0f1e27;
+  --bg-3: #162b36;
+  --highlight: #132531;
+  --fg: #dfe8e6;
+  --fg-dim: #97a9ad;
+  --muted: #7c9095;
+  --line: #213a47;
+  --line-soft: rgba(223, 232, 230, 0.06);
+  --accent: #e0a33f;
+  --accent-soft: #f0bb63;
+  --accent-ink: #0a141a;
+  --accent-2: #79b6c4;
+  --accent-2-deep: #3d7e8e;
+  --tape: rgba(224, 163, 63, 0.26);
+  --glow: rgba(224, 163, 63, 0.1);
+  --dot: rgba(190, 225, 235, 0.05);
+  --paper: #dce3e0;
+  --paper-ink: #16252b;
+  --paper-dim: #6f8085;
+  --rule: rgba(121, 182, 196, 0.16);
+  --rule-strong: rgba(121, 182, 196, 0.26);
   --font: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --nav-bg: rgba(14, 14, 18, 0.86);
-  --scrim: rgba(8, 8, 11, 0.76);
+  --font-display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --font-mono: "Spline Sans Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --band: rgba(16, 43, 56, 0.4);
+  --vignette: rgba(2, 8, 12, 0.55);
+  --nav-bg: rgba(10, 20, 26, 0.84);
+  --scrim: rgba(5, 12, 17, 0.78);
 }
 html[data-theme="light"] {
-  --bg: #f2eee4;
-  --bg-2: #e7e2d5;
-  --bg-3: #dad4c4;
-  --highlight: #ece7da;
-  --fg: #171512;
-  --fg-dim: #5b564d;
-  --muted: #6b665c;
-  --line: #d2cbba;
-  --line-soft: rgba(23, 21, 18, 0.06);
-  --accent: #c33a22;
-  --accent-soft: #b2341e;
-  --accent-ink: #fbf7ee;
-  --accent-2: #3a5578;
-  --accent-2-deep: #2a3f5c;
-  --tape: rgba(195, 58, 34, 0.24);
-  --glow: rgba(195, 58, 34, 0.1);
-  --dot: rgba(23, 21, 18, 0.05);
-  --nav-bg: rgba(242, 238, 228, 0.86);
-  --scrim: rgba(226, 220, 206, 0.82);
+  --bg: #e3e7e3;
+  --bg-2: #d8ded9;
+  --bg-3: #c9d2cd;
+  --highlight: #dde3de;
+  --fg: #101c21;
+  --fg-dim: #4a5a5e;
+  --muted: #55676a;
+  --line: #bdc7c2;
+  --line-soft: rgba(16, 28, 33, 0.07);
+  --accent: #8a5c16;
+  --accent-soft: #6e480f;
+  --accent-ink: #f4f6f2;
+  --accent-2: #2c6272;
+  --accent-2-deep: #1d4a58;
+  --tape: rgba(138, 92, 22, 0.22);
+  --glow: rgba(138, 92, 22, 0.08);
+  --dot: rgba(16, 28, 33, 0.06);
+  --paper: #f1f3ef;
+  --paper-ink: #16252b;
+  --paper-dim: #6f8085;
+  --rule: rgba(44, 98, 114, 0.18);
+  --rule-strong: rgba(44, 98, 114, 0.3);
+  --band: rgba(208, 217, 212, 0.55);
+  --vignette: rgba(84, 99, 96, 0.3);
+  --nav-bg: rgba(227, 231, 227, 0.86);
+  --scrim: rgba(205, 213, 209, 0.84);
 }
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+html {
+  background: var(--bg);
+}
+body {
+  background: transparent;
+}
 html,
 body {
-  background: var(--bg);
   color: var(--fg);
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;
@@ -71,9 +90,14 @@ body {
 }
 h1,
 h2,
-h3 {
+h3,
+.font-display {
   font-family: var(--font-display);
-  font-variation-settings: "SOFT" 12, "WONK" 1;
+  font-stretch: 112%;
+  font-feature-settings: "ss01";
+}
+.font-mono {
+  font-stretch: normal;
 }
 body::after {
   content: "";
@@ -87,6 +111,99 @@ body::after {
 a {
   color: inherit;
   text-decoration: none;
+}
+.drafting {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--bg);
+}
+.drafting-grid {
+  position: absolute;
+  inset: -30%;
+  will-change: transform;
+}
+.drafting-fine {
+  background-image:
+    linear-gradient(to right, var(--line-soft) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line-soft) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+.drafting-coarse {
+  background-image:
+    linear-gradient(to right, var(--rule) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
+  background-size: 170px 170px;
+}
+.drafting-numeral {
+  position: absolute;
+  right: 3vw;
+  bottom: 6vh;
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: clamp(200px, 32vw, 460px);
+  line-height: 0.76;
+  letter-spacing: -0.05em;
+  color: var(--fg);
+  opacity: 0.045;
+  will-change: transform;
+  transition: opacity 0.6s ease;
+}
+.drafting-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(130% 95% at 50% 10%, transparent 42%, var(--vignette) 100%);
+}
+.sheet-marks {
+  position: absolute;
+  inset: 22px;
+  background-image:
+    linear-gradient(var(--rule-strong), var(--rule-strong)),
+    linear-gradient(var(--rule-strong), var(--rule-strong)),
+    linear-gradient(var(--rule-strong), var(--rule-strong)),
+    linear-gradient(var(--rule-strong), var(--rule-strong));
+  background-repeat: no-repeat;
+  background-size:
+    26px 1px,
+    1px 26px,
+    26px 1px,
+    1px 26px;
+  background-position:
+    left top,
+    left top,
+    right bottom,
+    right bottom;
+}
+.sheet-block {
+  position: absolute;
+  right: 34px;
+  bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  opacity: 0.75;
+}
+.sheet-block .sheet-rule {
+  width: 16px;
+  height: 1px;
+  background: var(--line);
+}
+.sheet-block .sheet-now {
+  color: var(--accent);
+}
+@media (max-width: 1100px) {
+  .sheet-block,
+  .sheet-marks {
+    display: none;
+  }
 }
 ::selection {
   background: var(--accent);
@@ -281,6 +398,13 @@ nav.top .right .here {
 }
 main {
   position: relative;
+}
+.chapter-band {
+  background: var(--band);
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 .page {
   padding: 140px 40px 80px;

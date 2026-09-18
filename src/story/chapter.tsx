@@ -89,7 +89,7 @@ export function Chapter({ meta, children }: { meta: ChapterMeta; children: React
       id={meta.id}
       data-chapter={meta.id}
       aria-label={meta.label}
-      className={SHELL + ' py-28 max-[900px]:py-16 ' + (meta.band ? 'bg-bg-2' : '')}
+      className={SHELL + ' py-28 max-[900px]:py-16 ' + (meta.band ? 'chapter-band' : '')}
     >
       <ChapterMasthead meta={meta} />
       <div className="mx-auto mt-16 max-w-[1280px] max-[900px]:mt-10">{children}</div>

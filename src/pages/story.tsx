@@ -12,6 +12,7 @@ import { Research } from '../story/acts/research';
 import { Recognition } from '../story/acts/recognition';
 import { Epilogue } from '../story/acts/epilogue';
 import { ProjectOverlay } from '../components/project-overlay';
+import { Backdrop } from '../components/backdrop';
 import { useActiveChapter, useScrollProgress } from '../hooks/use-story-progress';
 import { useWorkHash } from '../hooks/use-work-hash';
 
@@ -40,9 +41,18 @@ export function Story() {
     if (el) requestAnimationFrame(() => el.scrollIntoView({ behavior: 'instant' }));
   }, []);
 
+  const sheet = Math.max(0, CHAPTERS.findIndex((c) => c.id === active));
+
   return (
     <>
       <a href="#origin" className="skip-link">Skip to the story</a>
+      <Backdrop
+        numeral={CHAPTERS[sheet].numeral}
+        label={CHAPTERS[sheet].label}
+        sheet={sheet + 1}
+        total={CHAPTERS.length}
+        progress={progress}
+      />
       <SiteNav active={active} progress={progress} />
       <ChapterRail active={active} />
       <main>

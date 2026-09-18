@@ -80,7 +80,7 @@ export function Lightbox({
         </>
       )}
       <div key={index} data-frame className="lb-pop relative z-[2] cursor-auto">
-        <div className="bg-[#e9e3d6] p-[18px] shadow-[0_40px_90px_-24px_rgba(0,0,0,0.9)] max-[560px]:p-3">
+        <div className="bg-paper p-[18px] shadow-[0_40px_90px_-24px_rgba(0,0,0,0.9)] max-[560px]:p-3">
           <div className="relative overflow-hidden bg-bg-2">
             <SmartImage
               eager
@@ -90,11 +90,11 @@ export function Lightbox({
               skelStyle={{ width: 'min(70vw, 720px)', height: 'min(52vh, 480px)' }}
             />
           </div>
-          <div className="px-1 pt-3 text-center text-[16px] font-medium leading-tight text-[#2a2620]">{caption || name}</div>
+          <div className="px-1 pt-3 text-center text-[16px] font-medium leading-tight text-paper-ink">{caption || name}</div>
         </div>
         <button
           type="button"
-          className="absolute -right-3 -top-3 z-[3] flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-[#e9e3d6] text-[20px] leading-none text-[#2a2620] shadow-[0_6px_16px_-4px_rgba(0,0,0,0.6)] transition-transform hover:scale-110"
+          className="absolute -right-3 -top-3 z-[3] flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-paper text-[20px] leading-none text-paper-ink shadow-[0_6px_16px_-4px_rgba(0,0,0,0.6)] transition-transform hover:scale-110"
           onClick={onClose}
           aria-label="Close"
         >

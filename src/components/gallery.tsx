@@ -55,7 +55,7 @@ export function Gallery({ images, captions, name }: { images: string[]; captions
               >
                 <Clip className="absolute left-1/2 top-[-19px] z-20 h-[36px] w-[18px] -translate-x-1/2 drop-shadow-[0_3px_4px_rgba(0,0,0,0.45)]" />
                 <span
-                  className="block bg-[#e9e3d6] p-2 shadow-[0_16px_28px_-14px_rgba(0,0,0,0.78)] transition-shadow duration-300 group-hover/thumb:shadow-[0_28px_48px_-16px_rgba(0,0,0,0.85)]"
+                  className="block bg-paper p-2 shadow-[0_16px_28px_-14px_rgba(0,0,0,0.78)] transition-shadow duration-300 group-hover/thumb:shadow-[0_28px_48px_-16px_rgba(0,0,0,0.85)]"
                   style={{ width: FRAME_W }}
                 >
                   <span className="relative block aspect-[4/3] overflow-hidden bg-bg-2">

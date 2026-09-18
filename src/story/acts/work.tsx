@@ -57,7 +57,7 @@ export function Work() {
               href={workHref(feature.slug)}
             >
               <span className="pointer-events-none absolute -top-4 left-1/2 z-10 h-8 w-36 -translate-x-1/2 -rotate-2 bg-tape shadow-[0_1px_5px_rgba(0,0,0,0.35)]" />
-              <div className="bg-[#e9e3d6] p-[18px] shadow-[0_24px_56px_-18px_rgba(0,0,0,0.75)] transition-shadow duration-300 group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.85)]">
+              <div className="bg-paper p-[18px] shadow-[0_24px_56px_-18px_rgba(0,0,0,0.75)] transition-shadow duration-300 group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.85)]">
                 <div className="relative aspect-[16/9] overflow-hidden bg-bg-2 after:absolute after:inset-0 after:z-[1] after:content-[''] after:bg-[linear-gradient(to_top,rgba(20,18,14,0.45),transparent_40%),linear-gradient(to_bottom,rgba(20,18,14,0.3),transparent_28%)]">
                   <Thumbnail p={feature} />
                   <span className="absolute left-6 top-5 z-[2] font-mono text-[11px] uppercase tracking-[0.11em] text-[rgba(247,244,234,0.85)] [text-shadow:0_1px_8px_rgba(0,0,0,0.4)]">
@@ -65,8 +65,8 @@ export function Work() {
                   </span>
                 </div>
                 <div className="px-1 pt-4 text-center">
-                  <div className="text-[20px] font-medium leading-tight text-[#2a2620]">{feature.name}</div>
-                  <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[#8a7f6a]">
+                  <div className="text-[20px] font-medium leading-tight text-paper-ink">{feature.name}</div>
+                  <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-paper-dim">
                     {feature.stack} · {feature.year}
                   </div>
                 </div>

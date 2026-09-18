@@ -18,6 +18,9 @@
   --color-accent-2: var(--accent-2);
   --color-accent-2-deep: var(--accent-2-deep);
   --color-tape: var(--tape);
+  --color-paper: var(--paper);
+  --color-paper-ink: var(--paper-ink);
+  --color-paper-dim: var(--paper-dim);
   --font-sans: var(--font);
   --font-display: var(--font-display);
   --font-mono: var(--font-mono);

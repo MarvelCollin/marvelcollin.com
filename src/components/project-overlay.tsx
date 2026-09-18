@@ -127,12 +127,12 @@ export function ProjectOverlay({ slug, onClose }: { slug: string; onClose: () =>
                     disabled={heroImages.length === 0}
                     onClick={() => setHeroIndex(0)}
                     aria-label={'View ' + p.name + ' image full size'}
-                    className="block w-full bg-[#e9e3d6] p-[16px] text-left shadow-[0_34px_70px_-24px_rgba(0,0,0,0.85)] transition-transform duration-300 ease-out enabled:cursor-zoom-in enabled:hover:-translate-y-1 max-[560px]:p-3"
+                    className="block w-full bg-paper p-[16px] text-left shadow-[0_34px_70px_-24px_rgba(0,0,0,0.85)] transition-transform duration-300 ease-out enabled:cursor-zoom-in enabled:hover:-translate-y-1 max-[560px]:p-3"
                   >
                     <div className="relative aspect-[4/3] overflow-hidden bg-bg-2">
                       <Thumbnail p={p} />
                     </div>
-                    <div className="px-1 pt-3 text-center text-[18px] font-medium leading-tight text-[#2a2620]">{p.name}</div>
+                    <div className="px-1 pt-3 text-center text-[18px] font-medium leading-tight text-paper-ink">{p.name}</div>
                   </button>
                 </div>
               </div>

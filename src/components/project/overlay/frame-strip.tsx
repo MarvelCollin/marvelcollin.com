@@ -39,7 +39,7 @@ export function FrameStrip({
             >
               {on && <span className="pointer-events-none absolute -top-2 left-1/2 z-10 h-3 w-10 -translate-x-1/2 -rotate-2 bg-tape" />}
               <span className="relative block aspect-[4/3] overflow-hidden bg-bg-2">
-                <SmartImage fill src={img(src, 320)} alt="" className="object-cover" />
+                <SmartImage fill src={img(src, 400)} alt="" className="object-cover" />
               </span>
             </button>
           );

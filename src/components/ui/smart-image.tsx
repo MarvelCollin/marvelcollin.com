@@ -5,20 +5,22 @@ type State = 'load' | 'ok' | 'fail';
 
 export const SmartImage = memo(function SmartImage({
   src,
+  srcSet,
+  sizes,
   alt,
   className = '',
   wrapClassName = '',
-  style,
   wrapStyle,
   skelStyle,
   fill = false,
   eager = false,
 }: {
   src?: string;
+  srcSet?: string;
+  sizes?: string;
   alt: string;
   className?: string;
   wrapClassName?: string;
-  style?: CSSProperties;
   wrapStyle?: CSSProperties;
   skelStyle?: CSSProperties;
   fill?: boolean;
@@ -44,6 +46,8 @@ export const SmartImage = memo(function SmartImage({
         <img
           ref={ref}
           src={src}
+          srcSet={srcSet}
+          sizes={srcSet ? sizes : undefined}
           alt={alt}
           loading={eager ? 'eager' : 'lazy'}
           decoding="async"
@@ -51,7 +55,6 @@ export const SmartImage = memo(function SmartImage({
           onError={() => setState('fail')}
           className={(fill ? 'absolute inset-0 h-full w-full ' : '') + className}
           style={{
-            ...style,
             opacity: done ? 1 : 0,
             transform: done ? 'scale(1)' : 'scale(1.015)',
             transition: 'opacity .45s ease, transform .6s ease',

@@ -15,7 +15,8 @@
     "db:link": "supabase link --project-ref llpbcorikvgizzbkadny",
     "db:push": "supabase db push",
     "db:reset": "supabase db reset",
-    "logos": "node scripts/skill-logos.mjs"
+    "logos": "node scripts/skill-logos.mjs",
+    "images": "node scripts/images.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.1",
@@ -40,6 +41,7 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
     "pg": "^8.21.0",
+    "sharp": "^0.35.4",
     "simple-icons": "^16.31.0",
     "supabase": "^2.106.0",
     "tailwindcss": "^4.3.1",

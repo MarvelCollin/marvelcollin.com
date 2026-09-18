@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
-import { img } from '../../lib/img';
+import { responsive } from '../../lib/img';
 import { useModal } from '../../hooks/use-modal';
 import { useDismiss } from '../../hooks/use-dismiss';
 import { SmartImage } from './smart-image';
@@ -84,7 +84,7 @@ export function Lightbox({
           <div className="relative overflow-hidden bg-bg-2">
             <SmartImage
               eager
-              src={img(images[index], 1600)}
+              {...responsive(images[index], '92vw', 1600)}
               alt={caption || name}
               className="block max-h-[78vh] max-w-[86vw] object-contain"
               skelStyle={{ width: 'min(70vw, 720px)', height: 'min(52vh, 480px)' }}

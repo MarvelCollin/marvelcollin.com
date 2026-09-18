@@ -17,7 +17,7 @@ function Print({ p }: { p: Project }) {
       <span className="pointer-events-none absolute -top-4 left-1/2 z-10 h-8 w-36 -translate-x-1/2 -rotate-2 bg-tape shadow-[0_1px_5px_rgba(0,0,0,0.35)]" />
       <div className="bg-paper p-[18px] shadow-[0_24px_56px_-18px_rgba(0,0,0,0.75)] transition-shadow duration-300 group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.85)]">
         <div className={'relative aspect-[16/9] overflow-hidden bg-bg-2 ' + SHADE}>
-          <Thumbnail p={p} />
+          <Thumbnail p={p} sizes="(max-width: 900px) 92vw, 680px" />
           <span className="absolute left-6 top-5 z-[2] font-mono text-[11px] uppercase tracking-[0.11em] text-[rgba(247,244,234,0.85)] [text-shadow:0_1px_8px_rgba(0,0,0,0.4)]">
             {p.name} · {p.year}
           </span>

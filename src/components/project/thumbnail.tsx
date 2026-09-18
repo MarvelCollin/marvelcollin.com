@@ -1,12 +1,14 @@
 import { memo } from 'react';
 import type { Project } from '../../types/content';
 import { TONES } from '../../content/tones';
-import { img } from '../../lib/img';
+import { responsive } from '../../lib/img';
 import { SmartImage } from '../ui/smart-image';
 
-export const Thumbnail = memo(function Thumbnail({ p }: { p: Project }) {
+const CARD = '(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 380px';
+
+export const Thumbnail = memo(function Thumbnail({ p, sizes = CARD }: { p: Project; sizes?: string }) {
   if (p.cover) {
-    return <SmartImage fill src={img(p.cover)} alt={p.name} className="object-cover object-center" />;
+    return <SmartImage fill {...responsive(p.cover, sizes)} alt={p.name} className="object-cover object-center" />;
   }
   const tone = TONES[p.tone] || TONES['warm'];
   return (

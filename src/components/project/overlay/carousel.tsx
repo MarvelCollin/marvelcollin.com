@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import type { Project } from '../../../types/content';
-import { img } from '../../../lib/img';
+import { responsive } from '../../../lib/img';
 import { SmartImage } from '../../ui/smart-image';
 import { Thumbnail } from '../thumbnail';
 
@@ -9,6 +9,7 @@ const ARROW =
   'absolute top-1/2 z-[3] flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-[rgba(10,20,26,0.72)] text-[18px] text-fg opacity-0 transition-opacity duration-200 hover:bg-[rgba(10,20,26,0.9)] focus-visible:opacity-100 group-hover/frame:opacity-100 max-[900px]:opacity-100';
 
 const SWIPE = 40;
+const SIZES = '(max-width: 900px) 92vw, 450px';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -46,7 +47,7 @@ function Track({ p, images, slide }: { p: Project; images: string[]; slide: numb
           <SmartImage
             fill
             eager={Math.abs(i - slide) <= 1}
-            src={img(src)}
+            {...responsive(src, SIZES)}
             alt={i === 0 ? p.name : ''}
             className="object-cover object-center"
           />

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useContent } from '../../../content/use-content';
-import { img } from '../../../lib/img';
+import { img, responsive } from '../../../lib/img';
 import { Reveal } from '../../../components/ui/reveal';
 import { SmartImage } from '../../../components/ui/smart-image';
 import { Lightbox } from '../../../components/ui/lightbox';
@@ -32,8 +32,8 @@ export function Recognition() {
                 aria-label={'View ' + a.name + ' full size'}
                 className="relative mt-4 block aspect-[4/3] w-full max-w-[460px] cursor-zoom-in overflow-hidden rounded-lg border border-line bg-bg-2 transition-colors hover:border-accent"
               >
-                <img src={img(a.image, 200)} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full scale-110 object-cover opacity-50 blur-xl" />
-                <SmartImage fill src={img(a.image, 1000)} alt={a.name} className="object-contain" />
+                <img src={img(a.image, 400)} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full scale-110 object-cover opacity-50 blur-xl" />
+                <SmartImage fill {...responsive(a.image, '(max-width: 560px) 92vw, 460px')} alt={a.name} className="object-contain" />
               </button>
             )}
           </Reveal>

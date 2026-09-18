@@ -1,0 +1,118 @@
+{
+  "/shots/claudecron-1.webp": {
+    "base": "/img/shots/claudecron-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/constellation-1.webp": {
+    "base": "/img/shots/constellation-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/itel-1.webp": {
+    "base": "/img/shots/itel-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/itel-2.webp": {
+    "base": "/img/shots/itel-2",
+    "widths": [
+      400,
+      800,
+      1440
+    ]
+  },
+  "/shots/model-quantization-1.png": {
+    "base": "/img/shots/model-quantization-1",
+    "widths": [
+      400,
+      800,
+      1012
+    ]
+  },
+  "/shots/model-quantization-2.png": {
+    "base": "/img/shots/model-quantization-2",
+    "widths": [
+      400,
+      800,
+      1241
+    ]
+  },
+  "/shots/overleaf-claude-mcp-1.webp": {
+    "base": "/img/shots/overleaf-claude-mcp-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/overleaf-claude-mcp-2.webp": {
+    "base": "/img/shots/overleaf-claude-mcp-2",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/overleaf-claude-mcp-3.webp": {
+    "base": "/img/shots/overleaf-claude-mcp-3",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/polaris-1.png": {
+    "base": "/img/shots/polaris-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/uxskills-1.webp": {
+    "base": "/img/shots/uxskills-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/certs/medallion-1.jpg": {
+    "base": "/img/certs/medallion-1",
+    "widths": [
+      400,
+      723
+    ]
+  },
+  "/logos/educate.jpg": {
+    "base": "/img/logos/educate",
+    "widths": [
+      400,
+      447
+    ]
+  },
+  "/logos/satu.png": {
+    "base": "/img/logos/satu",
+    "widths": [
+      400,
+      468
+    ]
+  },
+  "/me/portrait.webp": {
+    "base": "/img/me/portrait",
+    "widths": [
+      400,
+      640
+    ]
+  }
+}

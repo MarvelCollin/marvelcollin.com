@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export function useActiveChapter(ids: string[]): string {
+export function useActiveChapter(ids: string[], key: unknown = null): string {
   const [active, setActive] = useState(ids[0] ?? '');
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export function useActiveChapter(ids: string[]): string {
 
     sections.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, [ids]);
+  }, [ids, key]);
 
   return active;
 }

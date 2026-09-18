@@ -29,11 +29,49 @@
     copy-in 0.62s cubic-bezier(0.16, 1, 0.3, 1) both,
     reveal-safety 0s linear 4s forwards;
 }
-.js-motion [data-reveal],
-.js-motion [data-card],
-.js-motion [data-part] {
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 var(--rise, 20px);
+    scale: var(--from-scale, 1);
+  }
+}
+@keyframes draw {
+  from {
+    scale: 0 1;
+  }
+}
+[data-part="rule"] {
+  transform-box: fill-box;
+  transform-origin: left center;
+}
+.js-motion [data-reveal]:not([data-in]),
+.js-motion [data-group]:not([data-in]) :is([data-part], [data-card]) {
   opacity: 0;
   animation: reveal-safety 0s linear 4s forwards;
+}
+.js-motion [data-reveal][data-in],
+.js-motion [data-group][data-in] :is([data-part], [data-card]) {
+  animation: rise 0.72s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0ms) backwards;
+}
+.js-motion #prologue [data-part] {
+  --rise: 24px;
+  animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0ms) backwards;
+}
+.js-motion #prologue :is([data-part="title"], [data-part="intro"]) {
+  animation-name: settle;
+}
+@keyframes settle {
+  from {
+    translate: 0 var(--rise, 20px);
+  }
+}
+.js-motion [data-group][data-in] [data-card] {
+  --rise: 26px;
+  --from-scale: 0.97;
+}
+.js-motion [data-group][data-in] [data-part="rule"] {
+  animation: draw 0.9s ease-in-out var(--delay, 0ms) backwards;
 }
 @media (prefers-reduced-motion: reduce) {
   .ov-enter,
@@ -41,9 +79,9 @@
     animation: none;
   }
   .js-motion [data-reveal],
-  .js-motion [data-card],
-  .js-motion [data-part] {
+  .js-motion #prologue [data-part],
+  .js-motion [data-group] :is([data-part], [data-card]) {
     opacity: 1;
-    animation: none;
+    animation: none !important;
   }
 }

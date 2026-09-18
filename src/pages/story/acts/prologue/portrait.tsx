@@ -1,4 +1,5 @@
 import { responsive } from '../../../../lib/img';
+import { delay } from '../../../../lib/motion';
 
 const PHOTO = '/me/portrait.webp';
 
@@ -6,6 +7,7 @@ export function Portrait() {
   return (
     <figure
       data-part="portrait"
+      style={delay(200)}
       className="relative w-[250px] shrink-0 rotate-[2.5deg] transition-transform duration-500 ease-out hover:rotate-0 max-[900px]:w-[170px] max-[560px]:w-[118px]"
     >
       <span className="pointer-events-none absolute -top-3 left-1/2 z-10 h-6 w-24 -translate-x-1/2 -rotate-3 bg-tape shadow-[0_1px_5px_rgba(0,0,0,0.35)] max-[560px]:h-4 max-[560px]:w-14" />

@@ -1,32 +1,28 @@
+import { useLayoutEffect } from 'react';
 import type { RefObject } from 'react';
-import { animate } from 'animejs';
 import { flipFrom, takeFlipOrigin } from '../../../lib/flip';
-import { useLayoutMotion } from '../../../hooks/use-motion';
+import { MEDIA } from '../../../lib/motion';
+
+const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
 
 export function useFlipIn(boxRef: RefObject<HTMLDivElement | null>, key: string | null) {
-  useLayoutMotion(
-    boxRef,
-    (box) => {
-      if (!key) return;
-      const hero = box.querySelector<HTMLElement>('[data-hero]');
-      const origin = takeFlipOrigin();
+  useLayoutEffect(() => {
+    const box = boxRef.current;
+    if (!box || !key) return;
+    const origin = takeFlipOrigin();
+    const still = matchMedia(MEDIA.reduceMotion).matches;
+    const hero = box.querySelector<HTMLElement>('[data-hero]');
 
-      if (hero && origin) {
-        const from = flipFrom(origin, hero.getBoundingClientRect());
-        animate(hero, {
-          x: [from.x, 0],
-          y: [from.y, 0],
-          scale: [from.scale, 1],
-          rotate: [from.rotate, 0],
-          duration: 820,
-          ease: 'out(4)',
-        });
-      }
+    box.querySelectorAll<HTMLElement>('[data-copy]').forEach((el, i) => {
+      el.style.animationDelay = `${(origin ? 220 : 60) + i * 70}ms`;
+    });
 
-      box.querySelectorAll<HTMLElement>('[data-copy]').forEach((el, i) => {
-        el.style.animationDelay = `${(origin ? 220 : 60) + i * 70}ms`;
-      });
-    },
-    key,
-  );
+    if (still || !hero || !origin) return;
+    const from = flipFrom(origin, hero.getBoundingClientRect());
+    const flight = hero.animate(
+      [{ transform: `translate(${from.x}px, ${from.y}px) scale(${from.scale}) rotate(${from.rotate}deg)` }, { transform: 'none' }],
+      { duration: 820, easing: EASE },
+    );
+    return () => flight.cancel();
+  }, [boxRef, key]);
 }

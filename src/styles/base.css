@@ -90,6 +90,10 @@ a {
 main {
   position: relative;
 }
+.chapter {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1100px;
+}
 .chapter-band {
   background: var(--band);
   border-top: 1px solid var(--line-soft);

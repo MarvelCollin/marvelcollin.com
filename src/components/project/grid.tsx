@@ -1,10 +1,8 @@
 import { useMemo, useRef } from 'react';
-import { createTimeline, onScroll, stagger } from 'animejs';
 import type { Project } from '../../types/content';
 import { useColumnCount } from '../../hooks/use-column-count';
 import { CARD_ASPECT } from '../../lib/card-layout';
-import { EASE_OUT, ENTER, FADE_UP } from '../../lib/motion';
-import { useMotion } from '../../hooks/use-motion';
+import { useReveal } from '../../hooks/use-reveal';
 import { ProjectCard } from './card';
 import { CardSkeleton } from '../ui/skeleton';
 
@@ -23,24 +21,10 @@ export function ProjectGrid({ works, loading }: { works: Project[]; loading: boo
 
   const count = works.length;
 
-  useMotion(
-    root,
-    (el) => {
-      const cards = Array.from(el.querySelectorAll('[data-card]'));
-      if (cards.length === 0) return;
-      createTimeline({ autoplay: onScroll({ target: el, enter: ENTER, repeat: false }) }).add(cards, {
-        ...FADE_UP(26),
-        scale: [0.97, 1] as [number, number],
-        duration: 760,
-        ease: EASE_OUT,
-        delay: stagger(60),
-      });
-    },
-    `${count}:${cols}`,
-  );
+  useReveal(root, `${count}:${cols}`);
 
   return (
-    <div ref={root} className={BOARD_CLASS}>
+    <div ref={root} data-group className={BOARD_CLASS}>
       <div className="flex gap-7 sm:gap-9">
         {loading && works.length === 0
           ? Array.from({ length: cols }, (_, ci) => (

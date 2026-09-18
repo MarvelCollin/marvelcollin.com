@@ -3,12 +3,14 @@ import type { Project } from '../../types/content';
 import { CARD_ASPECT, CARD_ROT } from '../../lib/card-layout';
 import { workHref } from '../../lib/work-link';
 import { setFlipOrigin } from '../../lib/flip';
+import { delay } from '../../lib/motion';
 import { Thumbnail } from './thumbnail';
 
 export const ProjectCard = memo(function ProjectCard({ p, index }: { p: Project; index: number }) {
   return (
     <a
       data-card
+      style={delay(Math.min(index, 8) * 60)}
       onClick={(e) => setFlipOrigin(e.currentTarget)}
       href={workHref(p.slug)}
       className={

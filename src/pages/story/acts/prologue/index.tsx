@@ -1,10 +1,7 @@
-import { useRef } from 'react';
 import { FaGithub } from 'react-icons/fa6';
-import { createTimeline, stagger } from 'animejs';
 import { CHAPTERS } from '../../chapters';
-import { EASE_OUT, FADE_UP } from '../../../../lib/motion';
-import { useMotion } from '../../../../hooks/use-motion'
-import { Portrait } from './portrait';;
+import { delay } from '../../../../lib/motion';
+import { Portrait } from './portrait';
 
 const COUNT = CHAPTERS.length - 1;
 const SPEC: [string, string][] = [
@@ -13,23 +10,11 @@ const SPEC: [string, string][] = [
   ['Stack', 'Go · .NET Core · TypeScript · Linux'],
   ['Open to', 'Freelance and full time'],
 ];
-const PARTS = '[data-part="kicker"], [data-part="portrait"], [data-part="title"], [data-part="intro"], [data-part="meta"], [data-part="cta"], [data-part="cue"]';
+const step = (i: number) => delay(60 + i * 70);
 
 export function Prologue() {
-  const root = useRef<HTMLElement>(null);
-
-  useMotion(root, (el) => {
-    const parts = Array.from(el.querySelectorAll(PARTS));
-    if (parts.length === 0) return;
-    createTimeline({ defaults: { ease: EASE_OUT, duration: 880 } }).add(parts, {
-      ...FADE_UP(24),
-      delay: stagger(110, { start: 120 }),
-    });
-  });
-
   return (
     <section
-      ref={root as never}
       id="prologue"
       data-chapter="prologue"
       aria-label="Prologue"
@@ -38,11 +23,11 @@ export function Prologue() {
       <div className="mx-auto w-full max-w-[1280px]">
         <div className="flex items-end justify-between gap-10 max-[560px]:gap-4">
           <div>
-            <div data-part="kicker" className="flex items-center gap-4">
+            <div data-part="kicker" style={step(0)} className="flex items-center gap-4">
               <span className="h-px w-10 bg-accent" />
               <span className="font-mono text-[12px] uppercase tracking-[0.22em] text-accent-2">Prologue</span>
             </div>
-            <h1 data-part="title" className="mt-10 font-display text-[clamp(56px,10vw,148px)] font-semibold leading-[0.92] tracking-[-0.015em] max-[900px]:mt-7">
+            <h1 data-part="title" style={step(1)} className="mt-10 font-display text-[clamp(56px,10vw,148px)] font-semibold leading-[0.92] tracking-[-0.015em] max-[900px]:mt-7">
               Marvel<br />Collin.
             </h1>
           </div>
@@ -50,10 +35,10 @@ export function Prologue() {
         </div>
 
         <div className="mt-12 flex items-start justify-between gap-16 max-[900px]:flex-col max-[900px]:gap-8">
-          <p data-part="intro" className="max-w-[46ch] text-[17px] leading-[1.7] text-fg-dim">
+          <p data-part="intro" style={step(3)} className="max-w-[46ch] text-[17px] leading-[1.7] text-fg-dim">
             Fullstack engineer and R&D staff at BINUS University. I build internal platforms in Go, .NET Core, and TypeScript, run the Linux servers under them, and take freelance work out of Singapore and Jakarta.
           </p>
-          <dl data-part="meta" className="w-[320px] shrink-0 border-t border-line max-[900px]:w-full">
+          <dl data-part="meta" style={step(4)} className="w-[320px] shrink-0 border-t border-line max-[900px]:w-full">
             {SPEC.map(([key, value]) => (
               <div key={key} className="grid grid-cols-[76px_1fr] gap-5 border-b border-line py-2.5">
                 <dt className="font-mono text-[10px] uppercase leading-[2] tracking-[0.16em] text-muted">{key}</dt>
@@ -69,7 +54,7 @@ export function Prologue() {
           </dl>
         </div>
 
-        <div data-part="cta" className="mt-12 flex flex-wrap items-center gap-4">
+        <div data-part="cta" style={step(5)} className="mt-12 flex flex-wrap items-center gap-4">
           <a
             className="group flex items-center gap-3 rounded-lg border border-accent bg-accent px-6 py-4 font-mono text-[13px] font-medium uppercase tracking-[0.1em] text-accent-ink transition-transform duration-300 hover:-translate-y-0.5 max-[560px]:w-full max-[560px]:justify-center"
             href="#work"
@@ -90,6 +75,7 @@ export function Prologue() {
 
         <a
           data-part="cue"
+          style={step(6)}
           href="#origin"
           className="group mt-16 flex w-fit items-center gap-4 font-mono text-[12px] uppercase tracking-[0.18em] text-muted transition-colors hover:text-fg max-[900px]:mt-12"
         >

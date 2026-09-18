@@ -3,12 +3,14 @@ import { useContent } from '../../../content/use-content';
 import { SKILL_GROUPS, skillGroup } from '../../../content/skill-groups';
 import { Chips } from '../../../components/ui/chips';
 import { Skel } from '../../../components/ui/skeleton';
+import { useNear } from '../../../hooks/use-near';
 
 const SkillBalls = lazy(() => import('../skill-board').then((m) => ({ default: m.SkillBalls })));
 
 export function Craft() {
   const { skills } = useContent();
   const [group, setGroup] = useState('all');
+  const board = useNear<HTMLDivElement>();
 
   const grouped = useMemo(() => skills.map((s) => ({ ...s, group: skillGroup(s.name) })), [skills]);
 
@@ -28,9 +30,15 @@ export function Craft() {
         <p className="font-mono text-[13px] uppercase tracking-[0.1em] text-accent-2">{grouped.length} tools</p>
         <Chips chips={chips} value={group} onChange={setGroup} />
       </div>
-      <Suspense fallback={<Skel className="block h-[420px] w-full rounded-lg" />}>
-        <SkillBalls skills={shown} />
-      </Suspense>
+      <div ref={board.ref}>
+        {board.near ? (
+          <Suspense fallback={<Skel className="block h-[520px] w-full rounded-2xl" />}>
+            <SkillBalls skills={shown} />
+          </Suspense>
+        ) : (
+          <Skel className="block h-[520px] w-full rounded-2xl max-[560px]:h-[440px]" />
+        )}
+      </div>
     </div>
   );
 }

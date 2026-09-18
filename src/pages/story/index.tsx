@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { lazy, Suspense, useEffect, useMemo } from 'react';
 import { CHAPTERS } from './chapters';
 import { Chapter } from './chapter';
 import { SiteNav } from './nav';
@@ -11,10 +11,13 @@ import { Work } from './acts/work';
 import { Research } from './acts/research';
 import { Recognition } from './acts/recognition';
 import { Epilogue } from './acts/epilogue';
-import { ProjectOverlay } from '../../components/project/overlay';
 import { Backdrop } from './backdrop';
-import { useActiveChapter } from '../../hooks/use-story-progress';
+import { useActiveChapter } from '../../hooks/use-active-chapter';
+import { useIdle } from '../../hooks/use-idle';
 import { useWorkHash } from '../../hooks/use-work-hash';
+
+const loadOverlay = () => import('../../components/project/overlay');
+const ProjectOverlay = lazy(() => loadOverlay().then((m) => ({ default: m.ProjectOverlay })));
 
 const META = Object.fromEntries(CHAPTERS.map((c) => [c.id, c]));
 
@@ -30,15 +33,18 @@ const ACTS = [
 
 export function Story() {
   const ids = useMemo(() => CHAPTERS.map((c) => c.id), []);
-  const active = useActiveChapter(ids);
+  const rest = useIdle(location.hash.length > 1);
+  const active = useActiveChapter(ids, rest);
   const { slug, close } = useWorkHash();
 
   useEffect(() => {
+    if (!rest) return;
+    loadOverlay();
     const id = location.hash.slice(1);
     if (!id || id.startsWith('/')) return;
     const el = document.getElementById(id);
     if (el) requestAnimationFrame(() => el.scrollIntoView({ behavior: 'instant' }));
-  }, []);
+  }, [rest]);
 
   const sheet = Math.max(0, CHAPTERS.findIndex((c) => c.id === active));
 
@@ -55,13 +61,18 @@ export function Story() {
       <ChapterRail active={active} />
       <main>
         <Prologue />
-        {ACTS.map((act) => (
-          <Chapter key={act.id} meta={META[act.id]}>
-            {act.body}
-          </Chapter>
-        ))}
+        {rest &&
+          ACTS.map((act) => (
+            <Chapter key={act.id} meta={META[act.id]}>
+              {act.body}
+            </Chapter>
+          ))}
       </main>
-      {slug && <ProjectOverlay slug={slug} onClose={close} />}
+      {slug && (
+        <Suspense fallback={null}>
+          <ProjectOverlay slug={slug} onClose={close} />
+        </Suspense>
+      )}
     </>
   );
 }

@@ -1,7 +1,6 @@
 import { useRef, type ReactNode } from 'react';
-import { animate, onScroll } from 'animejs';
-import { EASE_OUT, ENTER, FADE_UP } from '../../lib/motion';
-import { useMotion } from '../../hooks/use-motion';
+import { delay as wait } from '../../lib/motion';
+import { useReveal } from '../../hooks/use-reveal';
 
 export function Reveal({
   children,
@@ -17,23 +16,10 @@ export function Reveal({
   id?: string;
 }) {
   const root = useRef<HTMLElement>(null);
-
-  useMotion(
-    root,
-    (el) => {
-      animate(el, {
-        ...FADE_UP(20),
-        duration: 700,
-        delay,
-        ease: EASE_OUT,
-        autoplay: onScroll({ target: el, enter: ENTER, repeat: false }),
-      });
-    },
-    delay,
-  );
+  useReveal(root);
 
   return (
-    <Tag ref={root as never} data-reveal id={id} className={className}>
+    <Tag ref={root as never} data-reveal id={id} className={className} style={wait(delay)}>
       {children}
     </Tag>
   );

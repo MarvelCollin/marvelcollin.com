@@ -5,6 +5,12 @@ import { CHAPTERS } from '../chapters';
 import { EASE_OUT, FADE_UP, MEDIA } from '../../lib/motion';
 
 const COUNT = CHAPTERS.length - 1;
+const SPEC: [string, string][] = [
+  ['Role', 'Fullstack engineer, R&D staff at BINUS University'],
+  ['Base', 'Jakarta, Indonesia · GMT+7'],
+  ['Stack', 'Go · .NET Core · TypeScript · Linux'],
+  ['Open to', 'Freelance and full time'],
+];
 const PARTS = '[data-part="kicker"], [data-part="title"], [data-part="intro"], [data-part="meta"], [data-part="cta"], [data-part="cue"]';
 
 export function Prologue() {
@@ -50,11 +56,20 @@ export function Prologue() {
           <p data-part="intro" className="max-w-[46ch] text-[17px] leading-[1.7] text-fg-dim">
             Fullstack engineer and R&D staff at BINUS University. I build internal platforms in Go, .NET Core, and TypeScript, run the Linux servers under them, and take freelance work out of Singapore and Jakarta.
           </p>
-          <div data-part="meta" className="shrink-0 text-right text-[14px] leading-[1.8] text-fg-dim max-[900px]:text-left">
-            <p>Fullstack Engineer</p>
-            <p>Jakarta, Indonesia</p>
-            <a className="mt-2 inline-block text-accent-soft transition-colors hover:text-fg" href="mailto:marvelcollin7@gmail.com">marvelcollin7@gmail.com</a>
-          </div>
+          <dl data-part="meta" className="w-[320px] shrink-0 border-t border-line max-[900px]:w-full">
+            {SPEC.map(([key, value]) => (
+              <div key={key} className="grid grid-cols-[76px_1fr] gap-5 border-b border-line py-2.5">
+                <dt className="font-mono text-[10px] uppercase leading-[2] tracking-[0.16em] text-muted">{key}</dt>
+                <dd className="text-[14px] leading-[1.5] text-fg-dim">{value}</dd>
+              </div>
+            ))}
+            <div className="grid grid-cols-[76px_1fr] gap-5 border-b border-line py-2.5">
+              <dt className="font-mono text-[10px] uppercase leading-[2] tracking-[0.16em] text-muted">Mail</dt>
+              <dd className="text-[14px] leading-[1.5]">
+                <a className="text-accent-soft transition-colors hover:text-fg" href="mailto:marvelcollin7@gmail.com">marvelcollin7@gmail.com</a>
+              </dd>
+            </div>
+          </dl>
         </div>
 
         <a

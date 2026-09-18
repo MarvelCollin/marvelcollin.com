@@ -9,13 +9,11 @@ export function Backdrop({
   label,
   sheet,
   total,
-  progress,
 }: {
   numeral: string;
   label: string;
   sheet: number;
   total: number;
-  progress: number;
 }) {
   const fine = useRef<HTMLDivElement>(null);
   const coarse = useRef<HTMLDivElement>(null);
@@ -78,15 +76,11 @@ export function Backdrop({
       <div className="drafting-vignette" />
       <div className="sheet-marks" />
       <div className="sheet-block">
-        <span>marvelcollin.com</span>
-        <span className="sheet-rule" />
         <span>
           sheet {String(sheet).padStart(2, '0')} / {String(total).padStart(2, '0')}
         </span>
         <span className="sheet-rule" />
         <span className="sheet-now">{label}</span>
-        <span className="sheet-rule" />
-        <span>{Math.round(progress * 100)}%</span>
       </div>
     </div>
   );

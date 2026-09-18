@@ -51,7 +51,6 @@ export function Story() {
         label={CHAPTERS[sheet].label}
         sheet={sheet + 1}
         total={CHAPTERS.length}
-        progress={progress}
       />
       <SiteNav active={active} progress={progress} />
       <ChapterRail active={active} />

@@ -5,6 +5,8 @@ const ITEMS = NAV_CHAPTERS.map((id) => CHAPTERS.find((c) => c.id === id)).filter
   (c): c is (typeof CHAPTERS)[number] => c !== undefined,
 );
 
+const SMALL = ['work', 'epilogue'];
+
 const NEAREST = CHAPTERS.reduce<Record<string, string>>((map, c) => {
   const order = CHAPTERS.map((x) => x.id);
   const upto = order.slice(0, order.indexOf(c.id) + 1).reverse();
@@ -43,7 +45,7 @@ export function SiteNav({ active, progress }: { active: string; progress: number
       </a>
       <ul>
         {ITEMS.map((c, i) => (
-          <li key={c.id} className={i < 2 ? 'max-[700px]:hidden' : undefined}>
+          <li key={c.id} className={i < 2 ? 'max-[700px]:hidden' : SMALL.includes(c.id) ? undefined : 'max-[560px]:hidden'}>
             <a href={'#' + c.id} className={highlight === c.id ? 'active' : undefined}>
               {c.label}
             </a>

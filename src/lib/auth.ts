@@ -1,11 +1,12 @@
 import { supabase } from './supabase';
 
-const AUTH_ID = 'admin@portfolio.local';
+const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL ?? 'admin@portfolio.local';
 
 export async function login(password: string): Promise<{ ok: boolean; error?: string }> {
-  const { error } = await supabase.auth.signInWithPassword({ email: AUTH_ID, password });
-  if (error) return { ok: false, error: 'Incorrect password.' };
-  return { ok: true };
+  const { error } = await supabase.auth.signInWithPassword({ email: ADMIN_EMAIL, password });
+  if (!error) return { ok: true };
+  const wrongPassword = /invalid login credentials/i.test(error.message);
+  return { ok: false, error: wrongPassword ? 'Incorrect password.' : error.message };
 }
 
 export async function isAuthed(): Promise<boolean> {

@@ -15,7 +15,7 @@ import { ImageDrop } from './uploads/image-drop';
 import { MultiImageDrop } from './uploads/multi-image-drop';
 
 const emptyWork: WorkForm = {
-  slug: '', num: '', name: '', year: '', role: '', stack: '', client: '', tag: 'client',
+  slug: '', num: '', name: '', year: '', role: '', stack: '', client: '', tag: 'freelance',
   desc: '', brief: '', body: '', result: '', tone: 'warm', stills: '', cover: '', images: '',
   repo: '',
 };
@@ -100,7 +100,7 @@ export function WorksSection() {
         </div>
         <div className="row2">
           <TextField label="Client" value={form.client} onChange={set('client')} />
-          <SelectField label="Tag" value={form.tag} onChange={set('tag')} options={['client', 'product', 'personal']} />
+          <SelectField label="Tag" value={form.tag} onChange={set('tag')} options={['freelance', 'product', 'personal']} />
         </div>
         <TextField label="Desc" value={form.desc} onChange={set('desc')} />
         <TextField label="Brief" value={form.brief} onChange={set('brief')} />

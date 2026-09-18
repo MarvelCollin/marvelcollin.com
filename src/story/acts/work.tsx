@@ -28,7 +28,7 @@ export function Work() {
 
   const filters = [
     { key: 'all', label: `All (${works.length})` },
-    { key: 'client', label: `Client (${works.filter((p) => p.tag === 'client').length})` },
+    { key: 'freelance', label: `Freelance (${works.filter((p) => p.tag === 'freelance').length})` },
     { key: 'product', label: `Product (${works.filter((p) => p.tag === 'product').length})` },
     { key: 'personal', label: `Personal (${works.filter((p) => p.tag === 'personal').length})` },
   ];

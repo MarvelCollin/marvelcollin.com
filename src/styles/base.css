@@ -6,6 +6,7 @@
   font-display: swap;
 }
 :root {
+  color-scheme: dark;
   --bg: #0a141a;
   --bg-2: #0f1e27;
   --bg-3: #162b36;
@@ -38,37 +39,6 @@
   --vignette: rgba(2, 8, 12, 0.55);
   --nav-bg: rgba(10, 20, 26, 0.94);
   --scrim: rgba(5, 12, 17, 0.96);
-}
-html[data-theme="light"] {
-  --bg: #e3e7e3;
-  --bg-2: #d8ded9;
-  --bg-3: #c9d2cd;
-  --highlight: #dde3de;
-  --fg: #101c21;
-  --fg-dim: #4a5a5e;
-  --muted: #485a5d;
-  --line: #bdc7c2;
-  --line-soft: rgba(16, 28, 33, 0.07);
-  --accent: #7a5010;
-  --accent-soft: #6e480f;
-  --accent-ink: #f4f6f2;
-  --accent-2: #2c6272;
-  --accent-2-deep: #1d4a58;
-  --tape: rgba(122, 80, 16, 0.22);
-  --glow: rgba(138, 92, 22, 0.08);
-  --dot: rgba(16, 28, 33, 0.06);
-  --paper: #f1f3ef;
-  --paper-ink: #16252b;
-  --paper-dim: #54646a;
-  --rule: rgba(44, 98, 114, 0.18);
-  --rule-strong: rgba(44, 98, 114, 0.3);
-  --contour: rgba(44, 98, 114, 0.14);
-  --contour-index: rgba(44, 98, 114, 0.3);
-  --contour-crest: rgba(122, 80, 16, 0.6);
-  --band: rgba(208, 217, 212, 0.55);
-  --vignette: rgba(84, 99, 96, 0.3);
-  --nav-bg: rgba(227, 231, 227, 0.95);
-  --scrim: rgba(205, 213, 209, 0.97);
 }
 * {
   box-sizing: border-box;
@@ -263,8 +233,7 @@ nav.top .brand {
   font-size: 18px;
   letter-spacing: -0.01em;
 }
-nav.top ul,
-.theme-toggle {
+nav.top ul {
   font-family: var(--font-mono);
   font-size: 12px;
   text-transform: uppercase;
@@ -331,20 +300,6 @@ nav.top .right {
 }
 nav.top .right .here {
   color: var(--fg);
-}
-.theme-toggle {
-  background: none;
-  border: none;
-  color: var(--fg-dim);
-  font-size: 13px;
-  font-weight: 300;
-  cursor: pointer;
-  padding: 0;
-  font-family: var(--font);
-  transition: color 0.25s;
-}
-.theme-toggle:hover {
-  color: var(--accent);
 }
 .skip-link {
   position: fixed;
@@ -503,17 +458,6 @@ main {
 }
 .sm-skel.is-done::after {
   animation: none;
-}
-html[data-theme="light"] .sm-skel::after,
-html[data-theme="light"] .skel-block::after {
-  background-image: linear-gradient(
-    100deg,
-    transparent 20%,
-    rgba(28, 25, 23, 0.04) 42%,
-    rgba(28, 25, 23, 0.09) 50%,
-    rgba(28, 25, 23, 0.04) 58%,
-    transparent 80%
-  );
 }
 .sm-fail {
   position: absolute;

@@ -89,9 +89,6 @@ export function Backdrop({
       delete wrap.dataset.lamp;
     };
 
-    const theme = new MutationObserver(stroke);
-    theme.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-
     trace();
     paint();
     window.addEventListener('resize', onResize);
@@ -103,7 +100,6 @@ export function Backdrop({
     return () => {
       if (frame) cancelAnimationFrame(frame);
       clearTimeout(retrace);
-      theme.disconnect();
       window.removeEventListener('resize', onResize);
       window.removeEventListener('scroll', schedule);
       window.removeEventListener('pointermove', onPointer);

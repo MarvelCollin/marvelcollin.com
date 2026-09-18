@@ -16,8 +16,7 @@
     gap: 16px;
     font-size: 13px;
   }
-  nav.top li a,
-  nav.top .theme-toggle {
+  nav.top li a {
     display: inline-block;
     padding: 13px 4px;
     line-height: 18px;
@@ -55,9 +54,6 @@
   }
   nav.top ul {
     gap: 13px;
-    font-size: 12px;
-  }
-  .theme-toggle {
     font-size: 12px;
   }
   .adm-form .row2 {

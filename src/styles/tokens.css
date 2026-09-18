@@ -1,0 +1,42 @@
+@font-face {
+  font-family: "Mate Journal";
+  src: url("/fonts/mate-journal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  color-scheme: dark;
+  --bg: #0a141a;
+  --bg-2: #0f1e27;
+  --bg-3: #162b36;
+  --highlight: #132531;
+  --fg: #dfe8e6;
+  --fg-dim: #97a9ad;
+  --muted: #869b9f;
+  --line: #213a47;
+  --line-soft: rgba(223, 232, 230, 0.06);
+  --accent: #e0a33f;
+  --accent-soft: #f0bb63;
+  --accent-ink: #0a141a;
+  --accent-2: #79b6c4;
+  --accent-2-deep: #3d7e8e;
+  --tape: rgba(224, 163, 63, 0.26);
+  --glow: rgba(224, 163, 63, 0.1);
+  --dot: rgba(190, 225, 235, 0.05);
+  --paper: #dce3e0;
+  --paper-ink: #16252b;
+  --paper-dim: #54646a;
+  --rule: rgba(121, 182, 196, 0.16);
+  --rule-strong: rgba(121, 182, 196, 0.26);
+  --contour: rgba(121, 182, 196, 0.11);
+  --contour-index: rgba(121, 182, 196, 0.24);
+  --contour-crest: rgba(224, 163, 63, 0.7);
+  --font: "Mate Journal", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Mate Journal", "Inter", system-ui, sans-serif;
+  --font-mono: "Spline Sans Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --band: rgba(16, 43, 56, 0.4);
+  --vignette: rgba(2, 8, 12, 0.55);
+  --nav-bg: rgba(10, 20, 26, 0.94);
+  --scrim: rgba(5, 12, 17, 0.96);
+}

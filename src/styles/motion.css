@@ -1,0 +1,49 @@
+@keyframes ov-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.ov-enter {
+  animation: ov-in 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes copy-in {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes reveal-safety {
+  to {
+    opacity: 1;
+  }
+}
+[data-copy] {
+  animation:
+    copy-in 0.62s cubic-bezier(0.16, 1, 0.3, 1) both,
+    reveal-safety 0s linear 4s forwards;
+}
+.js-motion [data-reveal],
+.js-motion [data-card],
+.js-motion [data-part] {
+  opacity: 0;
+  animation: reveal-safety 0s linear 4s forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ov-enter,
+  [data-copy] {
+    animation: none;
+  }
+  .js-motion [data-reveal],
+  .js-motion [data-card],
+  .js-motion [data-part] {
+    opacity: 1;
+    animation: none;
+  }
+}

@@ -1,5 +1,10 @@
 @import "tailwindcss";
+@import "./tokens.css" layer(base);
 @import "./base.css" layer(base);
+@import "./backdrop.css" layer(base);
+@import "./nav.css" layer(base);
+@import "./motion.css" layer(base);
+@import "./media.css" layer(base);
 @import "./admin.css" layer(base);
 @import "./responsive.css" layer(base);
 

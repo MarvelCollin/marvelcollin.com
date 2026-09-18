@@ -1,17 +1,31 @@
 import { useEffect, useRef } from 'react';
+import { lockScroll } from '../lib/scroll-lock';
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
+const layers: object[] = [];
 
-export function useModal<T extends HTMLElement>() {
+export function useModal<T extends HTMLElement>(onClose?: () => void) {
   const ref = useRef<T>(null);
+  const close = useRef(onClose);
+  close.current = onClose;
 
   useEffect(() => {
+    const layer = {};
+    layers.push(layer);
     const opener = document.activeElement as HTMLElement | null;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    const release = lockScroll();
     ref.current?.focus();
 
     const onKey = (e: KeyboardEvent) => {
+      if (layers[layers.length - 1] !== layer) return;
+
+      if (e.key === 'Escape') {
+        if (!close.current) return;
+        e.stopPropagation();
+        close.current();
+        return;
+      }
+
       if (e.key !== 'Tab') return;
       const box = ref.current;
       if (!box) return;
@@ -32,7 +46,8 @@ export function useModal<T extends HTMLElement>() {
     document.addEventListener('keydown', onKey);
     return () => {
       document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = previousOverflow;
+      layers.splice(layers.indexOf(layer), 1);
+      release();
       opener?.focus();
     };
   }, []);

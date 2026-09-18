@@ -17,7 +17,7 @@ export const ProjectCard = memo(function ProjectCard({ p, index }: { p: Project;
       }
     >
       <span className="pointer-events-none absolute -top-3 left-1/2 z-10 h-6 w-24 -translate-x-1/2 -rotate-2 bg-tape shadow-[0_1px_5px_rgba(0,0,0,0.35)]" />
-      <div className="bg-paper p-[14px] shadow-[0_18px_40px_-16px_rgba(0,0,0,0.7)] transition-shadow duration-300 group-hover:shadow-[0_34px_64px_-18px_rgba(0,0,0,0.85)]">
+      <div className="relative bg-paper p-[14px] shadow-[0_18px_40px_-16px_rgba(0,0,0,0.7)] after:pointer-events-none after:absolute after:inset-0 after:opacity-0 after:shadow-[0_34px_64px_-18px_rgba(0,0,0,0.85)] after:transition-opacity after:duration-300 group-hover:after:opacity-100">
         <div className={'relative overflow-hidden bg-bg-2 ' + CARD_ASPECT[index % CARD_ASPECT.length]}>
           <Thumbnail p={p} />
           <span className="absolute left-2 top-2 z-[2] font-mono text-[10px] uppercase tracking-[0.12em] text-white/85 [text-shadow:0_1px_4px_rgba(0,0,0,0.6)]">

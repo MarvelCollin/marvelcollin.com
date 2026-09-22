@@ -3,9 +3,9 @@ export function Epilogue() {
     <div className="max-w-[1280px]">
       <a
         className="block font-display text-[clamp(28px,5.5vw,64px)] font-semibold leading-[1.05] tracking-[-0.012em] text-fg transition-colors duration-300 hover:text-accent-soft"
-        href="mailto:marvelcollin7@gmail.com"
+        href="mailto:marvelcollin7@outlook.com"
       >
-        marvelcollin7@gmail.com
+        marvelcollin7@outlook.com
       </a>
       <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 text-[15px]">
         <a className="text-accent-soft transition-colors hover:text-fg" href="https://github.com/MarvelCollin" target="_blank" rel="noreferrer">GitHub</a>

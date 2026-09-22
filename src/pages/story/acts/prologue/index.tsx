@@ -48,7 +48,7 @@ export function Prologue() {
             <div className="grid grid-cols-[76px_1fr] gap-5 border-b border-line py-2.5">
               <dt className="font-mono text-[10px] uppercase leading-[2] tracking-[0.16em] text-muted">Mail</dt>
               <dd className="text-[14px] leading-[1.5]">
-                <a className="text-accent-soft transition-colors hover:text-fg" href="mailto:marvelcollin7@gmail.com">marvelcollin7@gmail.com</a>
+                <a className="text-accent-soft transition-colors hover:text-fg" href="mailto:marvelcollin7@outlook.com">marvelcollin7@outlook.com</a>
               </dd>
             </div>
           </dl>

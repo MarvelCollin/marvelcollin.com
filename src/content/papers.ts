@@ -11,5 +11,14 @@ export const PAPERS: Paper[] = [
     repo: 'https://github.com/Wenfuuu/model-quantization-sentiment-analysis',
     tags: ['NLP', 'Quantization', 'Sentiment Analysis', 'XAI', 'ICCSCI'],
   },
+  {
+    slug: 'distillation-quantization-competitive-programming',
+    title: 'Efficient Reasoning for Competitive Programming: Precision Limits of Knowledge Distillation and Post-Training Quantization of Large Language Models',
+    year: '2026',
+    authors: ['Marvel Collin', 'Bertrand Geraldo Tjahyadi', 'Helena Aurelia Sanjaya', 'Prof. Derwin Suhartono'],
+    summary: 'Distills a DeepSeek-R1-Distill-Qwen-7B teacher into a 1.5B student on unit-test-verified LeetCode reasoning traces, then tests whether the distillation gain survives post-training quantization. The gain holds at INT8 but not at 4 bits, and weight-space measurements of kurtosis, tail mass and quantization error explain why. Under review at IEEE Access.',
+    repo: 'https://github.com/MarvelCollin/knowledge-distillation-quantization',
+    tags: ['LLM', 'Knowledge Distillation', 'Quantization', 'Reasoning', 'IEEE Access'],
+  },
 ];
   

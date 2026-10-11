@@ -59,7 +59,7 @@ export interface Paper {
   year: string;
   authors: string[];
   summary: string;
-  url: string;
+  url?: string;
   repo: string;
   tags: string[];
 }

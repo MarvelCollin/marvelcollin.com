@@ -9,7 +9,7 @@ export function Research() {
           <article className="group relative rounded-xl border border-line p-8 transition-all duration-200 hover:border-accent/50 hover:bg-bg max-[560px]:p-5">
             <span className="text-[13px] tabular-nums text-muted">{p.year}</span>
             <h3 className="mt-2 text-[20px] font-medium leading-[1.3] transition-colors group-hover:text-fg">
-              <a href={p.url} target="_blank" rel="noopener noreferrer" className="after:absolute after:inset-0 after:rounded-xl">
+              <a href={p.url ?? p.repo} target="_blank" rel="noopener noreferrer" className="after:absolute after:inset-0 after:rounded-xl">
                 {p.title}
               </a>
             </h3>
@@ -20,10 +20,12 @@ export function Research() {
                 <span key={t} className="rounded-full border border-accent-2/25 bg-accent-2/8 px-3 py-1 text-[11px] tracking-[0.04em] text-accent-2">{t}</span>
               ))}
               <span className="ml-auto flex items-center gap-5 text-[13px]">
-                <a href={p.repo} target="_blank" rel="noopener noreferrer" className="relative z-10 text-muted transition-colors hover:text-fg">
-                  Code ↗
-                </a>
-                <span className="text-accent-soft transition-colors group-hover:text-fg max-[900px]:hidden">Read paper →</span>
+                {p.url && (
+                  <a href={p.repo} target="_blank" rel="noopener noreferrer" className="relative z-10 text-muted transition-colors hover:text-fg">
+                    Code ↗
+                  </a>
+                )}
+                <span className="text-accent-soft transition-colors group-hover:text-fg max-[900px]:hidden">{p.url ? 'Read paper →' : 'View repo →'}</span>
               </span>
             </div>
           </article>

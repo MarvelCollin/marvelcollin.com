@@ -16,7 +16,7 @@ import { MultiImageDrop } from '../uploads/multi-image-drop';
 
 const EMPTY: WorkForm = {
   slug: '', num: '', name: '', year: '', role: '', stack: '', client: '', tag: TAG_KEYS[0],
-  desc: '', brief: '', body: '', result: '', tone: 'warm', stills: '', cover: '', images: '', repo: '',
+  desc: '', brief: '', body: '', result: '', tone: 'warm', stills: '', cover: '', images: '', repo: '', live: '',
 };
 
 function toForm(p: Project): WorkForm {
@@ -27,6 +27,7 @@ function toForm(p: Project): WorkForm {
     cover: p.cover ?? '',
     images: unlines(p.images ?? []),
     repo: p.repo ?? '',
+    live: p.live ?? '',
   };
 }
 
@@ -39,6 +40,7 @@ function toInput(form: WorkForm): WorkInput {
     images: lines(f.images),
     cover: f.cover || undefined,
     repo: f.repo || undefined,
+    live: f.live || undefined,
   };
 }
 
@@ -78,6 +80,7 @@ export function WorksSection() {
       <TextField label="Result" value={form.result} onChange={set('result')} />
       <SelectField label="Tone" value={form.tone} onChange={set('tone')} options={TONE_NAMES} />
       <TextField label="Repo link" value={form.repo} onChange={set('repo')} />
+        <TextField label="Live link" value={form.live} onChange={set('live')} />
       <ImageDrop label="Cover" value={form.cover} onChange={set('cover')} />
       <AreaField label="Stills" hint="(one per line)" value={form.stills} onChange={set('stills')} />
       <MultiImageDrop label="Images" value={lines(form.images)} onChange={(arr) => set('images')(arr.join('\n'))} />

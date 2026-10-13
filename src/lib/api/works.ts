@@ -25,6 +25,7 @@ function rowToWork(r: WorkRow): Project {
     cover: r.cover ?? undefined,
     images: r.images ?? undefined,
     repo: r.repo ?? undefined,
+    live: r.live ?? undefined,
   };
 }
 
@@ -47,6 +48,7 @@ function workToRow(w: WorkInput) {
     cover: w.cover ?? null,
     images: w.images ?? null,
     repo: w.repo ?? null,
+    live: w.live ?? null,
   };
 }
 

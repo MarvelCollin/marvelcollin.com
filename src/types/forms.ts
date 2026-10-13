@@ -16,6 +16,7 @@ export interface WorkForm {
   cover: string;
   images: string;
   repo: string;
+  live: string;
 }
 
 export interface SkillForm {

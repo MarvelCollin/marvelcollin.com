@@ -17,6 +17,7 @@ export interface Project {
   cover?: string;
   images?: string[];
   repo?: string;
+  live?: string;
 }
 
 export interface Skill {

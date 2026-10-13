@@ -17,6 +17,7 @@ export interface WorkRow {
   cover: string | null;
   images: string[] | null;
   repo: string | null;
+  live: string | null;
 }
 
 export interface ExperienceRow {

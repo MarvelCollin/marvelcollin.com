@@ -33,6 +33,7 @@ function RepoMeta({ stats }: { stats: RepoStats }) {
 
 function Copy({ p }: { p: Project }) {
   const repo = safeLink(p.repo);
+  const live = safeLink(p.live);
   const stats = useRepoStats(repo);
   const paper = paperFor(p);
 
@@ -47,16 +48,30 @@ function Copy({ p }: { p: Project }) {
       <p data-copy className="mt-6 max-w-[38ch] text-[clamp(18px,1.8vw,22px)] font-light leading-[1.45] text-fg">
         {p.brief}
       </p>
-      {repo && (
+      {(repo || live) && (
         <div data-copy className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
-          <a
-            className="rounded-lg border border-line bg-bg-2 px-[18px] py-2.5 font-mono text-[13px] tracking-[0.04em] text-fg transition-colors hover:border-accent hover:text-accent"
-            href={repo}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Repository →
-          </a>
+          <div className="flex flex-wrap gap-3">
+            {live && (
+              <a
+                className="rounded-lg border border-accent/60 bg-accent/10 px-[18px] py-2.5 font-mono text-[13px] tracking-[0.04em] text-accent-soft transition-colors hover:bg-accent hover:text-accent-ink"
+                href={live}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Live site ↗
+              </a>
+            )}
+            {repo && (
+              <a
+                className="rounded-lg border border-line bg-bg-2 px-[18px] py-2.5 font-mono text-[13px] tracking-[0.04em] text-fg transition-colors hover:border-accent hover:text-accent"
+                href={repo}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Repository →
+              </a>
+            )}
+          </div>
           {stats && <RepoMeta stats={stats} />}
         </div>
       )}

@@ -4,6 +4,10 @@ import { useRepoStats } from '../../../hooks/use-repo-stats';
 import { ago, compact, type RepoStats } from '../../../lib/api/github';
 import { jumpTo, paperAnchor, paperFor } from '../../../lib/papers';
 import { clientOf } from '../../../lib/client';
+import { employment } from '../../../lib/employment';
+import { orgLogo } from '../../../lib/org-logo';
+import { useRoleOf } from '../../../hooks/use-role-of';
+import { OrgMark } from '../../ui/org-mark';
 import { Clip } from '../../ui/clip';
 import { FrameCarousel } from './carousel';
 import { FrameStrip } from './frame-strip';
@@ -38,6 +42,8 @@ function Copy({ p }: { p: Project }) {
   const stats = useRepoStats(repo);
   const paper = paperFor(p);
   const client = clientOf(p);
+  const built = useRoleOf(p.slug);
+  const { title: builtTitle, kind: builtKind } = employment(built?.role ?? '');
 
   return (
     <div>
@@ -77,6 +83,32 @@ function Copy({ p }: { p: Project }) {
           </div>
           {stats && <RepoMeta stats={stats} />}
         </div>
+      )}
+      {built && (
+        <a
+          data-copy
+          href={'#role-' + built.id}
+          onClick={(e) => {
+            e.preventDefault();
+            jumpTo('role-' + built.id);
+          }}
+          className="group mt-8 flex max-w-[52ch] items-center gap-4 rounded-lg border border-line bg-bg-2/60 p-4 transition-colors hover:border-accent/50"
+        >
+          <OrgMark logo={orgLogo(built.where)} />
+          <span className="min-w-0">
+            <span className="block font-mono text-[11px] uppercase tracking-[0.12em] text-accent-2">
+              Built during{builtKind && <span className="text-fg-dim"> · {builtKind}</span>}
+            </span>
+            <span className="mt-1 block text-[15px] leading-[1.4] text-fg">{builtTitle}</span>
+            <span className="block text-[13px] leading-[1.4] text-fg-dim">
+              {built.org}
+              {built.place && ', ' + built.place}
+            </span>
+          </span>
+          <span aria-hidden="true" className="ml-auto shrink-0 text-accent-soft transition-transform group-hover:translate-x-0.5">
+            →
+          </span>
+        </a>
       )}
       {paper && (
         <a

@@ -1,5 +1,6 @@
 export const WORK_TAGS = [
   { key: 'freelance', label: 'Freelance' },
+  { key: 'internship', label: 'Internship' },
   { key: 'product', label: 'Product' },
   { key: 'personal', label: 'Personal' },
 ];

@@ -67,3 +67,12 @@ export function schoolAwards(schools: Education[], awards: Award[], claimed: Set
   }
   return out;
 }
+
+export function roleOf(lanes: Lane[], related: Map<string, Related>, slug: string): { lane: Lane; id: string } | null {
+  for (const [id, r] of related) {
+    if (!r.works.some((w) => w.slug === slug)) continue;
+    const lane = lanes.find((l) => l.items.some((i) => i.id === id));
+    if (lane) return { lane, id };
+  }
+  return null;
+}

@@ -100,7 +100,7 @@ export function Post({
 
       <ol className={'space-y-6 pl-6 ' + (wide ? 'max-[900px]:mt-6' : 'mt-6')}>
         {lane.items.map((j, k) => (
-          <li key={j.id} className="relative">
+          <li key={j.id} id={'role-' + j.id} className="relative">
             <Node live={isLive(j)} />
             {k < lane.items.length - 1 && (
               <span

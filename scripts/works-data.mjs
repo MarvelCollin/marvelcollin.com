@@ -206,7 +206,7 @@ export const WORKS = [
     role: 'Fullstack',
     stack: 'React 19 · Go · Gin · MySQL',
     client: 'Enrichment Program, BINUS University',
-    tag: 'product',
+    tag: 'internship',
     description: 'a consultation tracker for internship supervisors',
     brief: 'Supervisors log intern problems and follow each one to a fix.',
     body: [
@@ -229,7 +229,7 @@ export const WORKS = [
     role: 'Fullstack',
     stack: 'React 19 · Express · Socket.IO · Prisma · MySQL',
     client: 'Enrichment Program, BINUS University',
-    tag: 'product',
+    tag: 'internship',
     description: 'a clock in system for interns with a rotating code and a location check',
     brief: 'Interns clock in with a code that changes every ten seconds.',
     body: [
@@ -256,7 +256,7 @@ export const WORKS = [
     role: 'Fullstack',
     stack: 'React Router · Laravel 12 · MySQL',
     client: 'Enrichment Program, BINUS University',
-    tag: 'product',
+    tag: 'internship',
     description: 'a career tracking and bootcamp platform for Enrichment students',
     brief: 'Student career records and bootcamps in one place.',
     body: [
@@ -279,7 +279,7 @@ export const WORKS = [
     role: 'Fullstack',
     stack: 'React · Ant Design · Laravel 13 · MySQL',
     client: 'Enrichment Program, BINUS University',
-    tag: 'product',
+    tag: 'internship',
     description: 'an internship reporting system for the School of Computer Science',
     brief: 'Internship paperwork from the learning plan to the final report.',
     body: [

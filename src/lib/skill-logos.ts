@@ -66,6 +66,14 @@ const LOGOS: [string, string][] = [
   ['android', 'android'],
   ['labview', 'labview'],
   ['bootstrap', 'bootstrap'],
+  ['html', 'html'],
+  ['css', 'css'],
+  ['sass', 'sass'],
+  ['scss', 'sass'],
+  ['next.js', 'nextjs'],
+  ['nextjs', 'nextjs'],
+  ['prisma', 'prisma'],
+  ['express', 'express'],
 ];
 
 const EXACT: Record<string, string> = { c: 'c', r: 'r', go: 'go' };
@@ -78,6 +86,9 @@ const ON_DARK: Record<string, Tone> = {
   unity: 'invert',
   shadcn: 'invert',
   mcp: 'invert',
+  nextjs: 'invert',
+  prisma: 'invert',
+  express: 'invert',
   pandas: 'halo',
   bootstrap: 'halo',
 };

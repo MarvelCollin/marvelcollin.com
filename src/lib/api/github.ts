@@ -3,12 +3,13 @@ export interface RepoStats {
   forks: number;
   language: string | null;
   pushedAt: string;
+  languages?: Record<string, number>;
 }
 
 type Stats = Record<string, RepoStats>;
 
 const REPO = /^https?:\/\/(?:www\.)?github\.com\/([\w.-]+)\/([\w.-]+?)(?:\.git)?\/?$/i;
-const KEY = 'gh-stats';
+const KEY = 'gh-stats-v2';
 const TTL = 24 * 60 * 60 * 1000;
 
 function restore(): { at: number; data: Stats } {
@@ -37,7 +38,9 @@ let snapshot: Stats = saved.data;
 let loading: Promise<void> | null = null;
 
 function publish(next: Stats) {
-  snapshot = { ...snapshot, ...next };
+  const merged = { ...snapshot };
+  for (const [slug, stats] of Object.entries(next)) merged[slug] = { ...stats, languages: stats.languages ?? snapshot[slug]?.languages };
+  snapshot = merged;
   persist();
   listeners.forEach((l) => l());
 }

@@ -8,6 +8,7 @@ interface RepoStats {
   forks: number;
   language: string | null;
   pushedAt: string;
+  languages?: Record<string, number>;
 }
 
 interface GitHubRepo {
@@ -64,16 +65,24 @@ async function collect(list: string[]): Promise<Stats> {
   const stats: Stats = Object.fromEntries((found?.items ?? []).map(entry));
   const missing = list.filter((r) => !stats[r]);
   const rest = await Promise.all(missing.map((r) => github<GitHubRepo>(`/repos/${r}`)));
-  return Object.assign(stats, Object.fromEntries(rest.filter((r) => r !== null).map(entry)));
+  Object.assign(stats, Object.fromEntries(rest.filter((r) => r !== null).map(entry)));
+  await Promise.all(
+    Object.entries(stats).map(async ([repo, s]) => {
+      const languages = await github<Record<string, number>>(`/repos/${repo}/languages`);
+      if (languages) s.languages = languages;
+    }),
+  );
+  return stats;
 }
 
 export async function GET(): Promise<Response> {
   try {
     const list = await repos();
     const stats = await collect(list);
-    const got = Object.keys(stats).length;
-    if (list.length && !got) throw new Error('GitHub unavailable');
-    const ttl = got >= list.length ? DAY : DAY / 24;
+    const got = Object.values(stats);
+    if (list.length && !got.length) throw new Error('GitHub unavailable');
+    const complete = got.length >= list.length && got.every((s) => s.languages);
+    const ttl = complete ? DAY : DAY / 24;
     return Response.json(stats, {
       headers: { 'cache-control': `public, max-age=0, s-maxage=${ttl}, stale-while-revalidate=${DAY * 7}` },
     });

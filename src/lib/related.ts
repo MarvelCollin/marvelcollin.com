@@ -17,18 +17,26 @@ function shared(lane: Lane, k: number, [from, to]: [number, number]): number {
   return s ? Math.max(0, Math.min(s.to, to) - Math.max(s.from, from) + 1) : 0;
 }
 
-function place(lanes: Lane[], org: string, when: string): string | null {
+function better(a: number[], b: number[]): boolean {
+  for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return a[i] > b[i];
+  return false;
+}
+
+function place(lanes: Lane[], org: string, when: string, name = ''): string | null {
   const range = years(when);
   const text = org.toLowerCase();
+  const title = name.trim().toLowerCase();
   let pick: string | null = null;
-  let rank: [number, number] = [-1, -1];
+  let rank = [-1, -1, -1];
   for (const lane of lanes) {
     if (!text.includes(lane.name.toLowerCase())) continue;
     for (let k = 0; k < lane.items.length; k++) {
       const months = range ? shared(lane, k, range) : 1;
       if (!months) continue;
-      if (lane.name.length > rank[0] || (lane.name.length === rank[0] && months > rank[1])) {
-        rank = [lane.name.length, months];
+      const named = title && lane.items[k].role.toLowerCase().includes(title) ? 1 : 0;
+      const next = [lane.name.length, named, months];
+      if (better(next, rank)) {
+        rank = next;
         pick = lane.items[k].id;
       }
     }
@@ -48,7 +56,7 @@ export function relate(lanes: Lane[], awards: Award[], works: Project[]): Map<st
     if (id) slot(id).awards.push(a);
   }
   for (const w of works) {
-    const id = place(lanes, w.client, w.year);
+    const id = place(lanes, w.client, w.year, w.name);
     if (id) slot(id).works.push(w);
   }
   return out;

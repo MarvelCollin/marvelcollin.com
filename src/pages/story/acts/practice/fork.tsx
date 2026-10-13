@@ -28,8 +28,8 @@ export function Fork({
   onHot: Hover;
   related: Map<string, Related>;
 }) {
-  const n = lanes.length;
-  const col = `(100% - ${(n - 1) * GAP}px) / ${n}`;
+  const cols = Math.min(lanes.length, 2);
+  const col = `(100% - ${(cols - 1) * GAP}px) / ${cols}`;
   const center = (i: number) => `calc(${col} * ${i + 0.5} + ${i * GAP}px)`;
 
   return (
@@ -44,13 +44,13 @@ export function Fork({
       <div aria-hidden="true" className="relative h-9 max-[760px]:hidden">
         <span data-grow="down" style={delay(120)} className="absolute left-1/2 top-0 h-3 w-px bg-accent/55" />
         <span data-grow="mid" style={{ left: center(0), right: center(0), ...delay(280) }} className="absolute top-3 h-px bg-accent/55" />
-        {lanes.map((l, i) => (
+        {lanes.slice(0, cols).map((l, i) => (
           <span key={l.key} data-grow="down" style={{ left: center(i), ...delay(520) }} className="absolute bottom-0 top-3 w-px bg-accent/55" />
         ))}
       </div>
 
       <div
-        style={{ '--lanes': n } as CSSProperties}
+        style={{ '--lanes': cols } as CSSProperties}
         className="grid grid-cols-[repeat(var(--lanes),minmax(0,1fr))] gap-6 max-[760px]:mt-4 max-[760px]:grid-cols-1 max-[760px]:border-l-[3px] max-[760px]:border-double max-[760px]:border-accent/55 max-[760px]:pl-4"
       >
         {lanes.map((l) => (

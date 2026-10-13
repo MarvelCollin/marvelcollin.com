@@ -28,7 +28,7 @@ const KIND: Record<Employment, string> = {
   'Full-time': 'border-accent/45 text-accent',
   'Part-time': 'border-accent-2/45 text-accent-2',
   Internship: 'border-dashed border-fg-dim/50 text-fg-dim',
-  Freelance: 'border-line text-fg-dim',
+  Freelance: 'border-fg/35 text-fg',
   Contract: 'border-line text-fg-dim',
 };
 

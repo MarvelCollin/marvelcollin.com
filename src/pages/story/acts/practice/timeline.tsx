@@ -64,7 +64,12 @@ export function Timeline({ blocks, hot, onHot }: { blocks: Block[]; hot: string 
         </div>
 
         {lanes.map((l, i) => {
-          const band = bands.get(l.key);
+          const own = l.spans.filter((s): s is Span => s !== null);
+          const overlap = bands.get(l.key);
+          const band =
+            overlap && own.length
+              ? { ...overlap, from: Math.max(overlap.from, Math.min(...own.map((s) => s.from))), to: Math.min(overlap.to, Math.max(...own.map((s) => s.to))) }
+              : null;
           const lit = hot === l.key;
           return (
             <div
@@ -77,7 +82,7 @@ export function Timeline({ blocks, hot, onHot }: { blocks: Block[]; hot: string 
                 {years.map((m) => (
                   <span key={m} className="absolute inset-y-0 w-px bg-line/70" style={{ left: pct(m) }} />
                 ))}
-                {band && (
+                {band && band.from <= band.to && (
                   <span
                     data-grow="pop"
                     style={{ left: pct(band.from), width: size(band), ...delay(900) }}

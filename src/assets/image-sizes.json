@@ -261,6 +261,12 @@
       447
     ]
   },
+  "/logos/itel.png": {
+    "base": "/img/logos/itel",
+    "widths": [
+      256
+    ]
+  },
   "/logos/sahabat-sentarum.png": {
     "base": "/img/logos/sahabat-sentarum",
     "widths": [

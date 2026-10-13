@@ -4,6 +4,7 @@ const ORGS: Record<string, string> = {
   satu: '/logos/satu.png',
   'e-ducate': '/logos/educate.jpg',
   'sahabat sentarum': '/logos/sahabat-sentarum.png',
+  itel: '/logos/itel.png',
 };
 
 export function orgLogo(name: string): string | null {

@@ -10,6 +10,7 @@ import { compact } from '../../lib/api/github';
 import { techIcons } from '../../lib/languages';
 import { TechIcon } from '../ui/tech-icon';
 import { clientOf } from '../../lib/client';
+import { orgLogo } from '../../lib/org-logo';
 import { Thumbnail } from './thumbnail';
 
 export const ProjectCard = memo(function ProjectCard({ p, index }: { p: Project; index: number }) {
@@ -50,7 +51,11 @@ export const ProjectCard = memo(function ProjectCard({ p, index }: { p: Project;
           <div className="text-[16px] font-medium leading-tight text-paper-ink">{p.name}</div>
           {client && (
             <div className="mt-1 flex items-center justify-center gap-1.5 text-[12px] leading-tight text-paper-dim">
-              <FaBriefcase size={10} aria-hidden="true" className="shrink-0 opacity-70" />
+              {orgLogo(client) ? (
+                <img src={orgLogo(client)!} alt="" className="h-3.5 w-3.5 shrink-0 object-contain" />
+              ) : (
+                <FaBriefcase size={10} aria-hidden="true" className="shrink-0 opacity-70" />
+              )}
               <span className="truncate">{client}</span>
             </div>
           )}

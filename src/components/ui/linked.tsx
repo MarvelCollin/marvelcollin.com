@@ -34,13 +34,16 @@ export function AwardChip({ award }: { award: Award }) {
   );
 }
 
-export function WorkChip({ work, context }: { work: Project; context?: string }) {
+export function WorkChip({ work, context, logo }: { work: Project; context?: string; logo?: string | null }) {
   return (
     <li>
       <a href={workHref(work.slug)} onClick={(e) => setFlipOrigin(e.currentTarget)} className={CHIP}>
         <Thumb src={work.cover} fallback={<FaFolderOpen size={14} className="text-accent-2" aria-hidden="true" />} />
         <span className="min-w-0">
-          <span className={EYEBROW + ' text-accent-2'}>Project · {context || work.year}</span>
+          <span className={EYEBROW + ' flex items-center gap-1.5 text-accent-2'}>
+            {logo && <img src={logo} alt="" className="h-3.5 w-3.5 shrink-0 rounded-sm bg-white object-contain p-px" />}
+            Project · {context || work.year}
+          </span>
           <span className="block text-[14px] leading-[1.35] text-fg">
             {work.name}
             <span aria-hidden="true" className="ml-1.5 inline-block text-muted transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-accent-soft">

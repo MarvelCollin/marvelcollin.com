@@ -56,7 +56,7 @@ export function relate(lanes: Lane[], awards: Award[], works: Project[]): Map<st
     if (id) slot(id).awards.push(a);
   }
   for (const w of works) {
-    const id = place(lanes, w.client, w.year, w.name);
+    const id = place(lanes, `${w.client} · ${w.tag}`, w.year, w.name);
     if (id) slot(id).works.push(w);
   }
   return out;

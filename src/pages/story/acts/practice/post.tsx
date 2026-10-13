@@ -59,7 +59,12 @@ function Linked({ related, org, place }: { related: Related; org: string; place:
         <AwardChip key={a.id} award={a} />
       ))}
       {related.works.map((w) => (
-        <WorkChip key={w.slug} work={w} context={context(w.client).toLowerCase() === place.toLowerCase() ? undefined : context(w.client)} />
+        <WorkChip
+          key={w.slug}
+          work={w}
+          logo={orgLogo(w.client) === orgLogo(`${org} ${place}`) ? null : orgLogo(w.client)}
+          context={context(w.client).toLowerCase() === place.toLowerCase() ? undefined : context(w.client)}
+        />
       ))}
     </LinkedList>
   );

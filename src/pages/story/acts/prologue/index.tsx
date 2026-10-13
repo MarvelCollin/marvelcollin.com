@@ -1,4 +1,5 @@
-import { FaGithub } from 'react-icons/fa6';
+import { FaFileLines, FaGithub } from 'react-icons/fa6';
+import { CvButton } from '../../../../components/ui/cv-viewer';
 import { CHAPTERS } from '../../chapters';
 import { delay } from '../../../../lib/motion';
 import { Portrait } from './portrait';
@@ -71,6 +72,10 @@ export function Prologue() {
             <FaGithub size={18} />
             GitHub profile
           </a>
+          <CvButton className="flex cursor-pointer items-center gap-3 rounded-lg border border-line px-6 py-4 font-mono text-[13px] uppercase tracking-[0.1em] text-fg-dim transition-colors hover:border-accent hover:text-fg max-[560px]:w-full max-[560px]:justify-center">
+            <FaFileLines size={16} aria-hidden="true" />
+            View CV
+          </CvButton>
         </div>
 
         <a

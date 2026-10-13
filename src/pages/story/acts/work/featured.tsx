@@ -1,4 +1,7 @@
+import { FaStar } from 'react-icons/fa6';
 import type { Project } from '../../../../types/content';
+import { useRepoStats } from '../../../../hooks/use-repo-stats';
+import { compact } from '../../../../lib/api/github';
 import { Thumbnail } from '../../../../components/project/thumbnail';
 import { Reveal } from '../../../../components/ui/reveal';
 import { workHref } from '../../../../lib/work-link';
@@ -34,6 +37,8 @@ function Print({ p }: { p: Project }) {
 }
 
 export function FeaturedWork({ p }: { p: Project }) {
+  const stats = useRepoStats(p.repo);
+
   return (
     <Reveal className="mb-24 max-[900px]:mb-16">
       <div className="grid grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] items-center gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10">
@@ -41,10 +46,23 @@ export function FeaturedWork({ p }: { p: Project }) {
           <p className="font-mono text-[13px] uppercase tracking-[0.1em] text-accent-2">Featured</p>
           <h3 className="mt-4 font-display text-[clamp(28px,3.6vw,46px)] font-semibold leading-[1.08] tracking-[-0.012em]">{p.name}</h3>
           <p className="mt-4 max-w-[46ch] text-[17px] leading-[1.6] text-fg-dim">{p.body[0]}</p>
-          <a href={workHref(p.slug)} className="group mt-8 inline-flex items-center gap-3 text-[14px] text-accent-soft transition-colors hover:text-fg">
-            Open case
-            <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
-          </a>
+          <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
+            <a href={workHref(p.slug)} className="group inline-flex items-center gap-3 text-[14px] text-accent-soft transition-colors hover:text-fg">
+              Open case
+              <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+            </a>
+            {!!stats?.stars && (
+              <a
+                href={p.repo}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 font-mono text-[12px] tabular-nums tracking-[0.04em] text-fg-dim transition-colors hover:text-fg"
+              >
+                <FaStar size={12} className="text-accent" aria-hidden="true" />
+                {compact(stats.stars)} {stats.stars === 1 ? 'star' : 'stars'} on GitHub
+              </a>
+            )}
+          </div>
         </div>
         <Print p={p} />
       </div>

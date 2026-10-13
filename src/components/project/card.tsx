@@ -1,12 +1,17 @@
 import { memo } from 'react';
+import { FaStar } from 'react-icons/fa6';
 import type { Project } from '../../types/content';
 import { CARD_ASPECT, CARD_ROT } from '../../lib/card-layout';
 import { workHref } from '../../lib/work-link';
 import { setFlipOrigin } from '../../lib/flip';
 import { delay } from '../../lib/motion';
+import { useRepoStats } from '../../hooks/use-repo-stats';
+import { compact } from '../../lib/api/github';
 import { Thumbnail } from './thumbnail';
 
 export const ProjectCard = memo(function ProjectCard({ p, index }: { p: Project; index: number }) {
+  const stats = useRepoStats(p.repo);
+
   return (
     <a
       data-card
@@ -28,6 +33,13 @@ export const ProjectCard = memo(function ProjectCard({ p, index }: { p: Project;
           <span className="absolute right-2 top-2 z-[2] font-mono text-[10px] uppercase tracking-[0.12em] text-white/85 [text-shadow:0_1px_4px_rgba(0,0,0,0.6)]">
             {p.tag}
           </span>
+          {!!stats?.stars && (
+            <span className="absolute bottom-2 right-2 z-[2] flex items-center gap-1 rounded-full bg-black/50 px-2 py-0.5 font-mono text-[10px] tabular-nums tracking-[0.06em] text-white/90 backdrop-blur-sm">
+              <FaStar size={9} className="text-accent" aria-hidden="true" />
+              {compact(stats.stars)}
+              <span className="sr-only"> GitHub stars</span>
+            </span>
+          )}
         </div>
         <div className="px-1 pt-3 text-center">
           <div className="text-[16px] font-medium leading-tight text-paper-ink">{p.name}</div>

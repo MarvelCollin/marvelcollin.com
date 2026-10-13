@@ -1,4 +1,7 @@
+import { FaCodeFork, FaStar } from 'react-icons/fa6';
 import type { Project } from '../../../types/content';
+import { useRepoStats } from '../../../hooks/use-repo-stats';
+import { ago, compact, type RepoStats } from '../../../lib/api/github';
 import { Clip } from '../../ui/clip';
 import { FrameCarousel } from './carousel';
 import { FrameStrip } from './frame-strip';
@@ -8,8 +11,28 @@ const CLIP = 'absolute top-[-16px] z-20 h-[40px] w-[20px] -translate-x-1/2 drop-
 
 const safeLink = (url?: string) => (url && /^https?:\/\//i.test(url) ? url : null);
 
+function RepoMeta({ stats }: { stats: RepoStats }) {
+  const updated = ago(stats.pushedAt);
+  return (
+    <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[12px] tabular-nums tracking-[0.04em] text-fg-dim">
+      <li className="flex items-center gap-1.5">
+        <FaStar size={12} className="text-accent" aria-hidden="true" />
+        <span className="text-fg">{compact(stats.stars)}</span> {stats.stars === 1 ? 'star' : 'stars'}
+      </li>
+      {stats.forks > 0 && (
+        <li className="flex items-center gap-1.5">
+          <FaCodeFork size={11} className="text-accent-2" aria-hidden="true" />
+          <span className="text-fg">{compact(stats.forks)}</span> {stats.forks === 1 ? 'fork' : 'forks'}
+        </li>
+      )}
+      {updated && <li>Updated {updated}</li>}
+    </ul>
+  );
+}
+
 function Copy({ p }: { p: Project }) {
   const repo = safeLink(p.repo);
+  const stats = useRepoStats(repo);
 
   return (
     <div>
@@ -23,7 +46,7 @@ function Copy({ p }: { p: Project }) {
         {p.brief}
       </p>
       {repo && (
-        <div data-copy className="mt-9 flex flex-wrap gap-3.5">
+        <div data-copy className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
           <a
             className="rounded-lg border border-line bg-bg-2 px-[18px] py-2.5 font-mono text-[13px] tracking-[0.04em] text-fg transition-colors hover:border-accent hover:text-accent"
             href={repo}
@@ -32,6 +55,7 @@ function Copy({ p }: { p: Project }) {
           >
             Repository →
           </a>
+          {stats && <RepoMeta stats={stats} />}
         </div>
       )}
     </div>

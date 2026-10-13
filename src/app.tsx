@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { useRoute } from './hooks/use-route';
 import { ContentError } from './components/ui/content-error';
 import { Skel } from './components/ui/skeleton';
@@ -28,6 +29,7 @@ function App() {
         <Story />
       )}
       <ContentError />
+      <Analytics />
     </>
   );
 }

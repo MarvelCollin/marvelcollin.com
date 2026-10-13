@@ -1,14 +1,10 @@
-import type { ReactNode } from 'react';
-import { FaAward, FaFolderOpen } from 'react-icons/fa6';
 import { delay } from '../../../../lib/motion';
-import { img } from '../../../../lib/img';
-import { workHref } from '../../../../lib/work-link';
-import { setFlipOrigin } from '../../../../lib/flip';
 import type { Related } from '../../../../lib/related';
 import { employment, type Employment } from '../../../../lib/employment';
 import { orgLogo } from '../../../../lib/org-logo';
 import { isLive, type Lane } from '../../../../lib/tenure';
 import { OrgMark } from '../../../../components/ui/org-mark';
+import { AwardChip, LinkedList, WorkChip } from '../../../../components/ui/linked';
 import { hoverProps, type Hover } from './hover';
 
 export function Pulse({ className = '' }: { className?: string }) {
@@ -51,17 +47,6 @@ function Role({ role, yr }: { role: string; yr: string }) {
   );
 }
 
-const CHIP = 'group flex items-center gap-3 rounded-lg border border-line bg-bg/70 py-1.5 pl-1.5 pr-4 transition-colors duration-200 hover:border-accent/50';
-const EYEBROW = 'block font-mono text-[10px] uppercase tracking-[0.12em]';
-
-function Thumb({ src, fallback }: { src?: string; fallback: ReactNode }) {
-  return (
-    <span className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-md border border-line bg-bg-2">
-      {src ? <img src={img(src, 400)} alt="" loading="lazy" className="h-full w-full object-cover" /> : fallback}
-    </span>
-  );
-}
-
 function Linked({ related, org }: { related: Related; org: string }) {
   const context = (client: string) =>
     client
@@ -69,35 +54,14 @@ function Linked({ related, org }: { related: Related; org: string }) {
       .replace(/^[\s·,-]+|[\s·,-]+$/g, '');
 
   return (
-    <ul className="mt-4 flex flex-wrap gap-2.5">
+    <LinkedList>
       {related.awards.map((a) => (
-        <li key={a.id}>
-          <a href="#recognition" className={CHIP}>
-            <Thumb src={a.image} fallback={<FaAward size={15} className="text-accent" aria-hidden="true" />} />
-            <span className="min-w-0">
-              <span className={EYEBROW + ' text-accent'}>Award · {a.yr}</span>
-              <span className="block text-[14px] leading-[1.35] text-fg">{a.name}</span>
-            </span>
-          </a>
-        </li>
+        <AwardChip key={a.id} award={a} />
       ))}
       {related.works.map((w) => (
-        <li key={w.slug}>
-          <a href={workHref(w.slug)} onClick={(e) => setFlipOrigin(e.currentTarget)} className={CHIP}>
-            <Thumb src={w.cover} fallback={<FaFolderOpen size={14} className="text-accent-2" aria-hidden="true" />} />
-            <span className="min-w-0">
-              <span className={EYEBROW + ' text-accent-2'}>Project · {context(w.client) || w.year}</span>
-              <span className="block text-[14px] leading-[1.35] text-fg">
-                {w.name}
-                <span aria-hidden="true" className="ml-1.5 inline-block text-muted transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-accent-soft">
-                  →
-                </span>
-              </span>
-            </span>
-          </a>
-        </li>
+        <WorkChip key={w.slug} work={w} context={context(w.client)} />
       ))}
-    </ul>
+    </LinkedList>
   );
 }
 

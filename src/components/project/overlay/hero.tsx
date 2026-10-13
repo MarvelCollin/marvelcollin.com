@@ -2,6 +2,7 @@ import { FaCodeFork, FaStar } from 'react-icons/fa6';
 import type { Project } from '../../../types/content';
 import { useRepoStats } from '../../../hooks/use-repo-stats';
 import { ago, compact, type RepoStats } from '../../../lib/api/github';
+import { jumpTo, paperAnchor, paperFor } from '../../../lib/papers';
 import { Clip } from '../../ui/clip';
 import { FrameCarousel } from './carousel';
 import { FrameStrip } from './frame-strip';
@@ -33,6 +34,7 @@ function RepoMeta({ stats }: { stats: RepoStats }) {
 function Copy({ p }: { p: Project }) {
   const repo = safeLink(p.repo);
   const stats = useRepoStats(repo);
+  const paper = paperFor(p);
 
   return (
     <div>
@@ -57,6 +59,23 @@ function Copy({ p }: { p: Project }) {
           </a>
           {stats && <RepoMeta stats={stats} />}
         </div>
+      )}
+      {paper && (
+        <a
+          data-copy
+          href={'#' + paperAnchor(paper)}
+          onClick={(e) => {
+            e.preventDefault();
+            jumpTo(paperAnchor(paper));
+          }}
+          className="group mt-8 block max-w-[52ch] rounded-lg border border-line bg-bg-2/60 p-5 transition-colors hover:border-accent/50"
+        >
+          <span className="block font-mono text-[11px] uppercase tracking-[0.12em] text-accent-2">Research paper · {paper.year}</span>
+          <span className="mt-2 block text-[15px] leading-[1.5] text-fg">{paper.title}</span>
+          <span className="mt-3 block text-[13px] text-accent-soft transition-colors group-hover:text-fg">
+            Read it in Research <span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+          </span>
+        </a>
       )}
     </div>
   );

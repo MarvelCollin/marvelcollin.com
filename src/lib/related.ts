@@ -1,5 +1,5 @@
-import type { Award, Project } from '../types/content';
-import type { Lane } from './tenure';
+import type { Award, Education, Project } from '../types/content';
+import { span, type Lane } from './tenure';
 
 export interface Related {
   awards: Award[];
@@ -50,6 +50,20 @@ export function relate(lanes: Lane[], awards: Award[], works: Project[]): Map<st
   for (const w of works) {
     const id = place(lanes, w.client, w.year);
     if (id) slot(id).works.push(w);
+  }
+  return out;
+}
+
+export function schoolAwards(schools: Education[], awards: Award[], claimed: Set<string>): Map<string, Award[]> {
+  const out = new Map<string, Award[]>();
+  for (const a of awards) {
+    const range = years(a.yr);
+    if (claimed.has(a.id) || !range) continue;
+    const school = schools.find((e) => {
+      const s = span(e.yr);
+      return s !== null && s.from <= range[1] && s.to >= range[0];
+    });
+    if (school) out.set(school.id, [...(out.get(school.id) ?? []), a]);
   }
   return out;
 }

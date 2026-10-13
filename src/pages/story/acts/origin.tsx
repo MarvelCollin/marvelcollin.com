@@ -1,6 +1,10 @@
+import { useMemo } from 'react';
 import { useContent } from '../../../content/use-content';
 import { orgLogo } from '../../../lib/org-logo';
+import { chronicle } from '../../../lib/tenure';
+import { relate, schoolAwards } from '../../../lib/related';
 import { OrgMark } from '../../../components/ui/org-mark';
+import { AwardChip, LinkedList } from '../../../components/ui/linked';
 import { Reveal } from '../../../components/ui/reveal';
 import { EntrySkeleton } from '../../../components/ui/skeleton';
 
@@ -10,7 +14,12 @@ const FACTS = [
 ];
 
 export function Origin() {
-  const { education, loading } = useContent();
+  const { education, experience, recognition, works, loading } = useContent();
+  const awards = useMemo(() => {
+    const lanes = chronicle(experience).flatMap((b) => (b.kind === 'solo' ? [b.lane] : b.lanes));
+    const claimed = new Set([...relate(lanes, recognition, works).values()].flatMap((r) => r.awards.map((a) => a.id)));
+    return schoolAwards(education, recognition, claimed);
+  }, [education, experience, recognition, works]);
 
   return (
     <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-20 max-[1100px]:grid-cols-1 max-[1100px]:gap-14">
@@ -47,6 +56,13 @@ export function Origin() {
                 </div>
               </div>
               {e.note && <p className="mt-3 max-w-[54ch] pl-[60px] text-[15px] leading-[1.6] text-fg-dim max-[900px]:pl-0">{e.note}</p>}
+              {awards.has(e.id) && (
+                <LinkedList className="mt-4 pl-[60px] max-[900px]:pl-0">
+                  {awards.get(e.id)!.map((a) => (
+                    <AwardChip key={a.id} award={a} />
+                  ))}
+                </LinkedList>
+              )}
             </div>
           ))}
         </div>

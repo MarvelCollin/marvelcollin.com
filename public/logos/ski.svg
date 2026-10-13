@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+<defs>
+<linearGradient id="b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f8ef0"/><stop offset="1" stop-color="#1449ae"/></linearGradient>
+</defs>
+<path d="M30 14H226V128C226 186 182 220 128 244C74 220 30 186 30 128Z" fill="#ffffff" stroke="#9aa3ad" stroke-width="4"/>
+<path d="M40 58H216V128C216 180 177 210 128 232C79 210 40 180 40 128Z" fill="url(#b)"/>
+<text x="128" y="46" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="21" font-weight="700" fill="#1f2328" textLength="176" lengthAdjust="spacingAndGlyphs">SEKOLAH KRISTEN</text>
+<text x="128" y="94" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="25" font-weight="700" fill="#ffffff" textLength="128" lengthAdjust="spacingAndGlyphs">IMMANUEL</text>
+<path d="M128 132C112 120 88 118 66 122V178C88 174 112 176 128 188C144 176 168 174 190 178V122C168 118 144 120 128 132Z" fill="#ffffff" stroke="#1f2328" stroke-width="5" stroke-linejoin="round"/>
+<path d="M128 132V188" stroke="#1f2328" stroke-width="3"/>
+<path d="M123 104H133V190H123ZM102 136H154V146H102Z" fill="#e0262b"/>
+</svg>

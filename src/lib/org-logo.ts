@@ -1,6 +1,6 @@
 const ORGS: Record<string, string> = {
-  binus: 'https://www.google.com/s2/favicons?domain=binus.ac.id&sz=128',
-  immanuel: 'https://www.google.com/s2/favicons?domain=ski.sch.id&sz=128',
+  binus: '/logos/binus.svg',
+  immanuel: '/logos/ski.svg',
   satu: '/logos/satu.png',
   'e-ducate': '/logos/educate.jpg',
 };

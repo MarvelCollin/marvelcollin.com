@@ -87,14 +87,23 @@ export const WORKS = [
   },
   {
     slug: 'claudedeck',
-    cover: '/shots/claudecron-1.webp',
-    images: ['/shots/claudecron-1.webp'],
+    cover: '/shots/claudedeck-0.png',
+    images: ['/shots/claudedeck-0.png', '/shots/claudecron-1.webp'],
     repo: 'https://github.com/MarvelCollin/ClaudeDeck',
+    stills: ['Terminal menu'],
+    description: 'a local control panel that swaps Claude accounts and schedules background Claude runs',
+    brief: 'Switch Claude accounts, run them side by side, and see how much of each plan is left.',
+    body: [
+      'ClaudeDeck keeps one Claude Desktop and swaps the signed in account in place, so Claude Desktop and Claude Code always sit on the same login. It saves the session files each account produces after sign in and restores them on demand. Nothing is decrypted, no password is typed and nothing leaves the machine.',
+      'Accounts can also run side by side. Each one gets its own Claude Desktop profile, seeded from its saved session so it opens already signed in, and on Windows ClaudeDeck takes over the claude:// sign in link so a login started in one window finishes in that window. Every account shows how much of its five hour and weekly limits is left, read from Claude Desktop\'s own usage history without spending a token.',
+      'A scheduler starts background Claude runs through the Windows task scheduler or launchd. It ships on npm as claudedeck or cdeck, with a browser panel on 127.0.0.1 that needs a per run session token and stops ten seconds after its tab closes, plus a terminal menu that does the same things.',
+    ],
   },
   {
     slug: 'knowledge-distillation',
-    cover: 'https://raw.githubusercontent.com/MarvelCollin/knowledge-distillation-quantization/main/figures/fig1_methods_ceiling.png',
+    cover: '/shots/knowledge-distillation-0.png',
     images: [
+      '/shots/knowledge-distillation-0.png',
       'https://raw.githubusercontent.com/MarvelCollin/knowledge-distillation-quantization/main/figures/fig1_methods_ceiling.png',
       'https://raw.githubusercontent.com/MarvelCollin/knowledge-distillation-quantization/main/figures/fig2_gap_study.png',
       'https://raw.githubusercontent.com/MarvelCollin/knowledge-distillation-quantization/main/figures/fig3_quantization.png',
@@ -102,6 +111,13 @@ export const WORKS = [
       'https://raw.githubusercontent.com/MarvelCollin/knowledge-distillation-quantization/main/figures/fig5_failure_mixture.png',
     ],
     repo: 'https://github.com/MarvelCollin/knowledge-distillation-quantization',
+    stills: [
+      'Every KD method meets the same ceiling',
+      'Teacher and student gap',
+      'INT8 versus INT4',
+      'Why INT4 fails',
+      'Failure mix',
+    ],
   },
   {
     slug: 'adobe-premiere-mcp',
@@ -167,9 +183,13 @@ export const WORKS = [
     ],
     result: 'Accepted at ICCSCI 2025',
     tone: 'navy',
-    stills: ['LIME comparison', 'Attribution shift', 'Variants'],
-    cover: '/shots/model-quantization-1.png',
-    images: ['/shots/model-quantization-1.png', '/shots/model-quantization-2.png'],
+    stills: ['LIME comparison', 'Attribution shift'],
+    cover: '/shots/model-quantization-0.png',
+    images: [
+      '/shots/model-quantization-0.png',
+      '/shots/model-quantization-1.png',
+      '/shots/model-quantization-2.png',
+    ],
     repo: 'https://github.com/Wenfuuu/model-quantization-sentiment-analysis',
   },
   {

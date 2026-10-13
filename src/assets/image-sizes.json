@@ -71,6 +71,14 @@
       1600
     ]
   },
+  "/shots/claudedeck-0.png": {
+    "base": "/img/shots/claudedeck-0",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
   "/shots/constellation-1.webp": {
     "base": "/img/shots/constellation-1",
     "widths": [
@@ -143,6 +151,14 @@
       1440
     ]
   },
+  "/shots/knowledge-distillation-0.png": {
+    "base": "/img/shots/knowledge-distillation-0",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
   "/shots/learning-plan-1.png": {
     "base": "/img/shots/learning-plan-1",
     "widths": [
@@ -161,6 +177,14 @@
   },
   "/shots/learning-plan-3.png": {
     "base": "/img/shots/learning-plan-3",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/model-quantization-0.png": {
+    "base": "/img/shots/model-quantization-0",
     "widths": [
       400,
       800,

@@ -2,7 +2,7 @@ export const WORKS = [
   {
     slug: 'overleaf-claude-mcp',
     name: 'Overleaf Claude MCP',
-    year: '2026',
+    year: 'Aug 2026',
     role: 'Developer',
     stack: 'TypeScript · Node · MCP · Playwright',
     client: 'Personal',
@@ -52,7 +52,7 @@ export const WORKS = [
   {
     slug: 'agent-skills',
     name: 'Agent Skills',
-    year: '2026',
+    year: 'Jul 2026 to present',
     role: 'Solo',
     stack: 'Claude Code plugin · Markdown · Bash',
     client: 'Personal',
@@ -80,12 +80,14 @@ export const WORKS = [
   {
     slug: 'pomolab',
     repo: 'https://github.com/MarvelCollin/Pomolab',
+    year: 'Sep 2025 to Jan 2026',
   },
   {
     slug: 'constellation',
     cover: '/shots/constellation-1.webp',
     images: ['/shots/constellation-1.webp'],
     repo: 'https://github.com/MarvelCollin/Constellation',
+    year: 'May 2026 to Aug 2026',
   },
   {
     slug: 'claudedeck',
@@ -100,6 +102,7 @@ export const WORKS = [
       'Accounts can also run side by side. Each one gets its own Claude Desktop profile, seeded from its saved session so it opens already signed in, and on Windows ClaudeDeck takes over the claude:// sign in link so a login started in one window finishes in that window. Every account shows how much of its five hour and weekly limits is left, read from Claude Desktop\'s own usage history without spending a token.',
       'A scheduler starts background Claude runs through the Windows task scheduler or launchd. It ships on npm as claudedeck or cdeck, with a browser panel on 127.0.0.1 that needs a per run session token and stops ten seconds after its tab closes, plus a terminal menu that does the same things.',
     ],
+    year: 'Jun 2026 to Sep 2026',
   },
   {
     slug: 'knowledge-distillation',
@@ -120,11 +123,12 @@ export const WORKS = [
       'Why INT4 fails',
       'Failure mix',
     ],
+    year: 'Apr 2026 to Sep 2026',
   },
   {
     slug: 'adobe-premiere-mcp',
     name: 'Adobe Premiere MCP',
-    year: '2026',
+    year: 'Aug 2026',
     role: 'Solo',
     stack: 'TypeScript · Node · MCP · CEP',
     client: 'Personal',
@@ -170,7 +174,7 @@ export const WORKS = [
   {
     slug: 'model-quantization',
     name: 'Quantization and Explainability',
-    year: '2026',
+    year: 'Feb 2026 to Jun 2026',
     role: 'Solo · Research',
     stack: 'Python · PyTorch · IndoBERT · LIME · SHAP',
     client: 'ICCSCI 2025',
@@ -261,11 +265,11 @@ export const WORKS = [
     ],
     result: 'In daily use by Enrichment interns',
     tone: 'navy',
-    stills: ['Attendance records', 'Excel recaps'],
-    cover: '/shots/attendance-management-1.png',
+    stills: ['Admin dashboard', 'Excel recaps'],
+    cover: '/shots/attendance-management-2.png',
     images: [
-      '/shots/attendance-management-1.png',
       '/shots/attendance-management-2.png',
+      '/shots/attendance-management-1.png',
       '/shots/attendance-management-3.png',
     ],
     repo: null,

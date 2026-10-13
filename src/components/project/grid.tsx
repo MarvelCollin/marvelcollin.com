@@ -8,7 +8,7 @@ import { CardSkeleton } from '../ui/skeleton';
 
 const SKELETON_ROWS = 2;
 const BOARD_CLASS = 'rounded-sm bg-[radial-gradient(var(--dot)_1px,transparent_1px)] [background-size:22px_22px] px-2 py-8 sm:px-6';
-const COLUMN_CLASS = 'flex flex-1 flex-col gap-10';
+const COLUMN_CLASS = 'flex min-w-0 flex-1 flex-col gap-10';
 
 export function ProjectGrid({ works, loading }: { works: Project[]; loading: boolean }) {
   const cols = useColumnCount();

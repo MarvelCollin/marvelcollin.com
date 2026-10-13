@@ -3,6 +3,7 @@ import type { Project } from '../../../types/content';
 import { useRepoStats } from '../../../hooks/use-repo-stats';
 import { ago, compact, type RepoStats } from '../../../lib/api/github';
 import { jumpTo, paperAnchor, paperFor } from '../../../lib/papers';
+import { clientOf } from '../../../lib/client';
 import { Clip } from '../../ui/clip';
 import { FrameCarousel } from './carousel';
 import { FrameStrip } from './frame-strip';
@@ -36,11 +37,13 @@ function Copy({ p }: { p: Project }) {
   const live = safeLink(p.live);
   const stats = useRepoStats(repo);
   const paper = paperFor(p);
+  const client = clientOf(p);
 
   return (
     <div>
       <p data-copy className="mb-5 font-mono text-[13px] uppercase tracking-[0.1em] text-accent-2">
         {p.tag}
+        {client && <span className="text-fg-dim"> · {client}</span>}
       </p>
       <h2 data-copy className="font-display text-[clamp(44px,5.6vw,84px)] font-bold leading-[0.96] tracking-[-0.015em] text-fg">
         {p.name}

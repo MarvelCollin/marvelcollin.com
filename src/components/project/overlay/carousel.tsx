@@ -9,7 +9,7 @@ const ARROW =
   'absolute top-1/2 z-[3] flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-[rgba(10,20,26,0.72)] text-[18px] text-fg opacity-0 transition-opacity duration-200 hover:bg-[rgba(10,20,26,0.9)] focus-visible:opacity-100 group-hover/frame:opacity-100 max-[900px]:opacity-100';
 
 const SWIPE = 40;
-const SIZES = '(max-width: 900px) 92vw, 450px';
+const SIZES = '(max-width: 900px) 112vw, 560px';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 

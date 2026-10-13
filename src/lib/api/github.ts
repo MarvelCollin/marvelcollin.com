@@ -9,7 +9,7 @@ type Stats = Record<string, RepoStats>;
 
 const REPO = /^https?:\/\/(?:www\.)?github\.com\/([\w.-]+)\/([\w.-]+?)(?:\.git)?\/?$/i;
 const KEY = 'gh-stats';
-const TTL = 60 * 60 * 1000;
+const TTL = 24 * 60 * 60 * 1000;
 
 function restore(): { at: number; data: Stats } {
   const empty = { at: 0, data: {} };
@@ -33,9 +33,8 @@ function persist() {
 const saved = restore();
 const fresh = Date.now() - saved.at < TTL;
 const listeners = new Set<() => void>();
-const direct = new Set<string>();
 let snapshot: Stats = saved.data;
-let fromApi: Promise<boolean> | null = null;
+let loading: Promise<void> | null = null;
 
 function publish(next: Stats) {
   snapshot = { ...snapshot, ...next };
@@ -43,27 +42,12 @@ function publish(next: Stats) {
   listeners.forEach((l) => l());
 }
 
-async function loadApi(): Promise<boolean> {
+async function load() {
   try {
     const res = await fetch('/api/github');
-    if (!res.ok || !res.headers.get('content-type')?.includes('application/json')) return false;
-    publish(await res.json());
-    return true;
+    if (res.ok && res.headers.get('content-type')?.includes('application/json')) publish(await res.json());
   } catch {
-    return false;
-  }
-}
-
-async function loadDirect(slug: string) {
-  if (direct.has(slug)) return;
-  direct.add(slug);
-  try {
-    const res = await fetch(`https://api.github.com/repos/${slug}`, { headers: { accept: 'application/vnd.github+json' } });
-    if (!res.ok) return;
-    const r = await res.json();
-    publish({ [slug]: { stars: r.stargazers_count, forks: r.forks_count, language: r.language, pushedAt: r.pushed_at } });
-  } catch {
-    direct.delete(slug);
+    loading = null;
   }
 }
 
@@ -85,10 +69,7 @@ export function subscribeRepoStats(listener: () => void) {
 
 export function requestRepoStats(slug: string) {
   if (fresh && snapshot[slug]) return;
-  fromApi ??= loadApi();
-  fromApi.then((ok) => {
-    if (!ok || !snapshot[slug]) loadDirect(slug);
-  });
+  loading ??= load();
 }
 
 const COMPACT = new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 });

@@ -1,6 +1,7 @@
 const WORKS = 'portofolio_kolin_works';
 const REPO = /^https?:\/\/(?:www\.)?github\.com\/([\w.-]+)\/([\w.-]+?)(?:\.git)?\/?$/i;
 const TIMEOUT = 8000;
+const DAY = 86400;
 
 interface RepoStats {
   stars: number;
@@ -9,9 +10,39 @@ interface RepoStats {
   pushedAt: string;
 }
 
+interface GitHubRepo {
+  full_name: string;
+  stargazers_count: number;
+  forks_count: number;
+  language: string | null;
+  pushed_at: string;
+}
+
+type Stats = Record<string, RepoStats>;
+
+const HEADERS: Record<string, string> = {
+  accept: 'application/vnd.github+json',
+  'user-agent': 'marvelcollin.com',
+  'x-github-api-version': '2022-11-28',
+  ...(process.env.GITHUB_TOKEN ? { authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}),
+};
+
 function slug(url: string | null): string | null {
   const m = url?.trim().match(REPO);
   return m ? `${m[1]}/${m[2]}`.toLowerCase() : null;
+}
+
+function entry(r: GitHubRepo): [string, RepoStats] {
+  return [r.full_name.toLowerCase(), { stars: r.stargazers_count, forks: r.forks_count, language: r.language, pushedAt: r.pushed_at }];
+}
+
+async function github<T>(path: string): Promise<T | null> {
+  try {
+    const res = await fetch(`https://api.github.com${path}`, { headers: HEADERS, signal: AbortSignal.timeout(TIMEOUT) });
+    return res.ok ? ((await res.json()) as T) : null;
+  } catch {
+    return null;
+  }
 }
 
 async function repos(): Promise<string[]> {
@@ -27,31 +58,24 @@ async function repos(): Promise<string[]> {
   return [...new Set(rows.map((r) => slug(r.repo)).filter((s): s is string => s !== null))];
 }
 
-async function stats(repo: string): Promise<[string, RepoStats] | null> {
-  const headers: Record<string, string> = {
-    accept: 'application/vnd.github+json',
-    'user-agent': 'marvelcollin.com',
-    'x-github-api-version': '2022-11-28',
-  };
-  if (process.env.GITHUB_TOKEN) headers.authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
-  try {
-    const res = await fetch(`https://api.github.com/repos/${repo}`, { headers, signal: AbortSignal.timeout(TIMEOUT) });
-    if (!res.ok) return null;
-    const r = (await res.json()) as { stargazers_count: number; forks_count: number; language: string | null; pushed_at: string };
-    return [repo, { stars: r.stargazers_count, forks: r.forks_count, language: r.language, pushedAt: r.pushed_at }];
-  } catch {
-    return null;
-  }
+async function collect(list: string[]): Promise<Stats> {
+  const q = [...list.map((r) => `repo:${r}`), 'fork:true'].join(' ');
+  const found = await github<{ items?: GitHubRepo[] }>(`/search/repositories?per_page=100&q=${encodeURIComponent(q)}`);
+  const stats: Stats = Object.fromEntries((found?.items ?? []).map(entry));
+  const missing = list.filter((r) => !stats[r]);
+  const rest = await Promise.all(missing.map((r) => github<GitHubRepo>(`/repos/${r}`)));
+  return Object.assign(stats, Object.fromEntries(rest.filter((r) => r !== null).map(entry)));
 }
 
 export async function GET(): Promise<Response> {
   try {
     const list = await repos();
-    const found = (await Promise.all(list.map(stats))).filter((s) => s !== null);
-    if (list.length && !found.length) throw new Error('GitHub unavailable');
-    const ttl = found.length === list.length ? 3600 : 300;
-    return Response.json(Object.fromEntries(found), {
-      headers: { 'cache-control': `public, max-age=0, s-maxage=${ttl}, stale-while-revalidate=86400` },
+    const stats = await collect(list);
+    const got = Object.keys(stats).length;
+    if (list.length && !got) throw new Error('GitHub unavailable');
+    const ttl = got >= list.length ? DAY : DAY / 24;
+    return Response.json(stats, {
+      headers: { 'cache-control': `public, max-age=0, s-maxage=${ttl}, stale-while-revalidate=${DAY * 7}` },
     });
   } catch {
     return Response.json({}, { status: 502, headers: { 'cache-control': 'no-store' } });

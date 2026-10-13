@@ -4,12 +4,13 @@ import { useContent, findWork } from '../../../../content/use-content';
 import { ProjectGrid } from '../../../../components/project/grid';
 import { FeaturedWork } from './featured';
 import { WorkFilters } from './filters';
+import { yearOf } from '../../../../lib/period';
 
 const FEATURED = 'tetrimosuv';
 
 function groupByYear(works: Project[]): [string, Project[]][] {
   const map = new Map<string, Project[]>();
-  for (const p of works) map.set(p.year, [...(map.get(p.year) ?? []), p]);
+  for (const p of works) map.set(yearOf(p.year), [...(map.get(yearOf(p.year)) ?? []), p]);
   return [...map.entries()].sort((a, b) => b[0].localeCompare(a[0]));
 }
 

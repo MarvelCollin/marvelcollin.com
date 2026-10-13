@@ -10,6 +10,7 @@ import { compact } from '../../lib/api/github';
 import { techIcons } from '../../lib/languages';
 import { TechIcon } from '../ui/tech-icon';
 import { clientOf } from '../../lib/client';
+import { shortPeriod } from '../../lib/period';
 import { orgLogo } from '../../lib/org-logo';
 import { Thumbnail } from './thumbnail';
 
@@ -69,7 +70,7 @@ export const ProjectCard = memo(function ProjectCard({ p, index }: { p: Project;
             </div>
           )}
           <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-paper-dim">
-            {p.stack} · {p.year}
+            {p.stack} · {shortPeriod(p.year)}
           </div>
         </div>
       </div>

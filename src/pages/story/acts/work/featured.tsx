@@ -2,6 +2,7 @@ import { FaStar } from 'react-icons/fa6';
 import type { Project } from '../../../../types/content';
 import { useRepoStats } from '../../../../hooks/use-repo-stats';
 import { compact } from '../../../../lib/api/github';
+import { shortPeriod } from '../../../../lib/period';
 import { Thumbnail } from '../../../../components/project/thumbnail';
 import { Reveal } from '../../../../components/ui/reveal';
 import { workHref } from '../../../../lib/work-link';
@@ -22,13 +23,13 @@ function Print({ p }: { p: Project }) {
         <div className={'relative aspect-[16/9] overflow-hidden bg-bg-2 ' + SHADE}>
           <Thumbnail p={p} sizes="(max-width: 900px) 92vw, 680px" />
           <span className="absolute left-6 top-5 z-[2] font-mono text-[11px] uppercase tracking-[0.11em] text-[rgba(247,244,234,0.85)] [text-shadow:0_1px_8px_rgba(0,0,0,0.4)]">
-            {p.name} · {p.year}
+            {p.name} · {shortPeriod(p.year)}
           </span>
         </div>
         <div className="px-1 pt-4 text-center">
           <div className="text-[20px] font-medium leading-tight text-paper-ink">{p.name}</div>
           <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-paper-dim">
-            {p.stack} · {p.year}
+            {p.stack} · {shortPeriod(p.year)}
           </div>
         </div>
       </div>

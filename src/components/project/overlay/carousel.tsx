@@ -9,7 +9,7 @@ const ARROW =
   'absolute top-1/2 z-[3] flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-[rgba(10,20,26,0.72)] text-[18px] text-fg opacity-0 transition-opacity duration-200 hover:bg-[rgba(10,20,26,0.9)] focus-visible:opacity-100 group-hover/frame:opacity-100 max-[900px]:opacity-100';
 
 const SWIPE = 40;
-const SIZES = '(max-width: 900px) 112vw, 560px';
+const SIZES = '(max-width: 1100px) 100vw, 760px';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -75,7 +75,7 @@ export function FrameCarousel({
 
   return (
     <div className="bg-paper p-[16px] shadow-[0_34px_70px_-24px_rgba(0,0,0,0.85)] max-[560px]:p-3">
-      <div className="group/frame relative aspect-[4/3] overflow-hidden bg-bg-2">
+      <div className="group/frame relative aspect-[16/10] overflow-hidden bg-bg-2">
         {images.length === 0 ? (
           <Thumbnail p={p} />
         ) : (

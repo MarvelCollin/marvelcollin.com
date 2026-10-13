@@ -30,7 +30,7 @@ export const WORKS = [
   {
     slug: 'itel',
     name: 'NRX',
-    year: '2026',
+    year: 'Apr 2026 to Jul 2026',
     role: 'Fullstack',
     stack: 'Next.js · React 19 · Go · PostgreSQL',
     client: 'ITEL, Singapore',
@@ -74,6 +74,8 @@ export const WORKS = [
   {
     slug: 'misvord',
     repo: 'https://github.com/MarvelCollin/MisVord',
+    client: 'Software Laboratory Center',
+    year: 'Apr 2025 to Aug 2025',
   },
   {
     slug: 'pomolab',
@@ -145,7 +147,7 @@ export const WORKS = [
   {
     slug: 'polaris',
     name: 'Polaris',
-    year: '2026',
+    year: 'Aug 2026 to Oct 2026',
     role: 'Solo',
     stack: 'Tauri 2 · React 19 · TypeScript · SQLite',
     client: 'Sahabat Sentarum, Pontianak, Indonesia',
@@ -195,7 +197,7 @@ export const WORKS = [
   {
     slug: 'hiring-system',
     name: 'Hiring System',
-    year: '2026',
+    year: 'Aug 2026 to present',
     role: 'Fullstack',
     stack: 'Next.js · React 19 · ASP.NET Core · PostgreSQL · Redis',
     client: 'ITEL, Singapore',
@@ -222,7 +224,7 @@ export const WORKS = [
   {
     slug: 'enrichnotes',
     name: 'EnrichNotes',
-    year: '2026',
+    year: 'Sep 2026 to Oct 2026',
     role: 'Fullstack',
     stack: 'React 19 · Go · Gin · MySQL',
     client: 'Enrichment Program, BINUS University',
@@ -245,7 +247,7 @@ export const WORKS = [
   {
     slug: 'attendance-management',
     name: 'Attendance Management',
-    year: '2026',
+    year: 'Mar 2026 to Oct 2026',
     role: 'Fullstack',
     stack: 'React 19 · Express · Socket.IO · Prisma · MySQL',
     client: 'Enrichment Program, BINUS University',
@@ -272,7 +274,7 @@ export const WORKS = [
   {
     slug: 'career-link',
     name: 'CareerLink',
-    year: '2026',
+    year: 'Mar 2026 to Jun 2026',
     role: 'Fullstack',
     stack: 'React Router · Laravel 12 · MySQL',
     client: 'Enrichment Program, BINUS University',
@@ -295,7 +297,7 @@ export const WORKS = [
   {
     slug: 'learning-plan',
     name: 'Learning Plan',
-    year: '2026',
+    year: 'Sep 2026 to Oct 2026',
     role: 'Fullstack',
     stack: 'React · Ant Design · Laravel 13 · MySQL',
     client: 'Enrichment Program, BINUS University',

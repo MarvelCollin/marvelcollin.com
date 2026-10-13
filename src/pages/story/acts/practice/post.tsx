@@ -70,6 +70,24 @@ function Linked({ related, org, place }: { related: Related; org: string; place:
   );
 }
 
+function LogoStack({ logos }: { logos: string[] }) {
+  const shown = logos.slice(0, 3);
+  const step = shown.length > 1 ? 16 / (shown.length - 1) : 8;
+  return (
+    <div className="relative h-11 w-11 shrink-0" aria-hidden="true">
+      {shown.map((src, i) => (
+        <span
+          key={src}
+          className="absolute flex h-7 w-7 items-center justify-center overflow-hidden rounded-full border-2 border-bg bg-white p-0.5"
+          style={{ left: i * step, top: i * step }}
+        >
+          <img src={src} alt="" className="h-full w-full object-contain" />
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export function Post({
   lane,
   hot,
@@ -83,6 +101,16 @@ export function Post({
   related: Map<string, Related>;
   wide?: boolean;
 }) {
+  const mark = orgLogo(lane.items[0].where);
+  const clients = [
+    ...new Set(
+      lane.items
+        .flatMap((i) => related.get(i.id)?.works ?? [])
+        .map((w) => orgLogo(w.client))
+        .filter((l): l is string => l !== null),
+    ),
+  ];
+
   return (
     <article
       {...hoverProps(lane.key, onHot)}
@@ -93,7 +121,7 @@ export function Post({
       }
     >
       <header className="flex items-center gap-4 self-start">
-        <OrgMark logo={orgLogo(lane.items[0].where)} />
+        {mark || !clients.length ? <OrgMark logo={mark} /> : <LogoStack logos={clients} />}
         <div className="min-w-0">
           <h3 className="text-[18px] font-medium leading-[1.3]">{lane.name}</h3>
           <p className="mt-0.5 text-[14px] leading-[1.45] text-fg-dim">

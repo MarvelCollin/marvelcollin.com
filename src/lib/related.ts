@@ -23,7 +23,8 @@ function better(a: number[], b: number[]): boolean {
 }
 
 function place(lanes: Lane[], org: string, when: string, name = ''): string | null {
-  const range = years(when);
+  const exact = span(when);
+  const range: [number, number] | null = exact ? [exact.from, exact.to] : years(when);
   const text = org.toLowerCase();
   const title = name.trim().toLowerCase();
   let pick: string | null = null;
@@ -59,6 +60,8 @@ export function relate(lanes: Lane[], awards: Award[], works: Project[]): Map<st
     const id = place(lanes, `${w.client} · ${w.tag}`, w.year, w.name);
     if (id) slot(id).works.push(w);
   }
+  const end = (w: Project) => span(w.year)?.to ?? 0;
+  for (const r of out.values()) r.works.sort((a, b) => end(b) - end(a));
   return out;
 }
 

@@ -1,4 +1,44 @@
 {
+  "/shots/adobe-premiere-mcp-1.png": {
+    "base": "/img/shots/adobe-premiere-mcp-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/agent-skills-1.png": {
+    "base": "/img/shots/agent-skills-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/attendance-management-1.png": {
+    "base": "/img/shots/attendance-management-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/attendance-management-2.png": {
+    "base": "/img/shots/attendance-management-2",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/attendance-management-3.png": {
+    "base": "/img/shots/attendance-management-3",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
   "/shots/claudecron-1.webp": {
     "base": "/img/shots/claudecron-1",
     "widths": [
@@ -9,6 +49,54 @@
   },
   "/shots/constellation-1.webp": {
     "base": "/img/shots/constellation-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/enrichnotes-1.png": {
+    "base": "/img/shots/enrichnotes-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/enrichnotes-2.png": {
+    "base": "/img/shots/enrichnotes-2",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/enrichnotes-3.png": {
+    "base": "/img/shots/enrichnotes-3",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/hiring-system-1.png": {
+    "base": "/img/shots/hiring-system-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/hiring-system-2.png": {
+    "base": "/img/shots/hiring-system-2",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/hiring-system-3.png": {
+    "base": "/img/shots/hiring-system-3",
     "widths": [
       400,
       800,
@@ -47,6 +135,14 @@
       1241
     ]
   },
+  "/shots/overleaf-claude-mcp-0.png": {
+    "base": "/img/shots/overleaf-claude-mcp-0",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
   "/shots/overleaf-claude-mcp-1.webp": {
     "base": "/img/shots/overleaf-claude-mcp-1",
     "widths": [
@@ -73,14 +169,6 @@
   },
   "/shots/polaris-1.png": {
     "base": "/img/shots/polaris-1",
-    "widths": [
-      400,
-      800,
-      1600
-    ]
-  },
-  "/shots/uxskills-1.webp": {
-    "base": "/img/shots/uxskills-1",
     "widths": [
       400,
       800,

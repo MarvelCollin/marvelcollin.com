@@ -39,6 +39,30 @@
       1600
     ]
   },
+  "/shots/career-link-1.png": {
+    "base": "/img/shots/career-link-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/career-link-2.png": {
+    "base": "/img/shots/career-link-2",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/career-link-3.png": {
+    "base": "/img/shots/career-link-3",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
   "/shots/claudecron-1.webp": {
     "base": "/img/shots/claudecron-1",
     "widths": [
@@ -117,6 +141,30 @@
       400,
       800,
       1440
+    ]
+  },
+  "/shots/learning-plan-1.png": {
+    "base": "/img/shots/learning-plan-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/learning-plan-2.png": {
+    "base": "/img/shots/learning-plan-2",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/learning-plan-3.png": {
+    "base": "/img/shots/learning-plan-3",
+    "widths": [
+      400,
+      800,
+      1600
     ]
   },
   "/shots/model-quantization-1.png": {

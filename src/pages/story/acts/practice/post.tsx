@@ -47,7 +47,7 @@ function Role({ role, yr }: { role: string; yr: string }) {
   );
 }
 
-function Linked({ related, org }: { related: Related; org: string }) {
+function Linked({ related, org, place }: { related: Related; org: string; place: string }) {
   const context = (client: string) =>
     client
       .replace(new RegExp(org.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'), '')
@@ -59,7 +59,7 @@ function Linked({ related, org }: { related: Related; org: string }) {
         <AwardChip key={a.id} award={a} />
       ))}
       {related.works.map((w) => (
-        <WorkChip key={w.slug} work={w} context={context(w.client)} />
+        <WorkChip key={w.slug} work={w} context={context(w.client).toLowerCase() === place.toLowerCase() ? undefined : context(w.client)} />
       ))}
     </LinkedList>
   );
@@ -112,7 +112,7 @@ export function Post({
             )}
             <Role role={j.role} yr={j.yr} />
             {j.note && <p className="mt-2 max-w-[62ch] text-[15px] leading-[1.65] text-fg-dim">{j.note}</p>}
-            {related.has(j.id) && <Linked related={related.get(j.id)!} org={lane.name} />}
+            {related.has(j.id) && <Linked related={related.get(j.id)!} org={lane.name} place={lane.place} />}
           </li>
         ))}
       </ol>

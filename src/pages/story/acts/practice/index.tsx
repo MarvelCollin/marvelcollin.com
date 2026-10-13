@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useContent } from '../../../../content/use-content';
 import { chronicle } from '../../../../lib/tenure';
+import { relate } from '../../../../lib/related';
 import { Reveal } from '../../../../components/ui/reveal';
 import { EntrySkeleton } from '../../../../components/ui/skeleton';
 import { Timeline } from './timeline';
@@ -8,8 +9,12 @@ import { Fork } from './fork';
 import { Post } from './post';
 
 export function Practice() {
-  const { experience, loading } = useContent();
+  const { experience, recognition, works, loading } = useContent();
   const blocks = useMemo(() => chronicle(experience), [experience]);
+  const related = useMemo(
+    () => relate(blocks.flatMap((b) => (b.kind === 'solo' ? [b.lane] : b.lanes)), recognition, works),
+    [blocks, recognition, works],
+  );
   const [hot, setHot] = useState<string | null>(null);
 
   return (
@@ -24,9 +29,9 @@ export function Practice() {
         {blocks.map((b, i) => (
           <Reveal key={b.kind === 'solo' ? b.lane.key : b.lanes[0].key} delay={Math.min(i, 4) * 60}>
             {b.kind === 'solo' ? (
-              <Post lane={b.lane} hot={hot === b.lane.key} onHot={setHot} wide />
+              <Post lane={b.lane} hot={hot === b.lane.key} onHot={setHot} related={related} wide />
             ) : (
-              <Fork lanes={b.lanes} window={b.window} hot={hot} onHot={setHot} />
+              <Fork lanes={b.lanes} window={b.window} hot={hot} onHot={setHot} related={related} />
             )}
           </Reveal>
         ))}

@@ -27,7 +27,7 @@ export function ExperienceSection() {
   return (
     <Editor editor={editor} heading="Experience" rows={rows}>
       <TextField label="Year" value={form.yr} onChange={set('yr')} />
-      <TextField label="Role" value={form.role} onChange={set('role')} />
+      <TextField label="Role (end with · Full-time, · Part-time or · Internship)" value={form.role} onChange={set('role')} />
       <TextField label="Where" value={form.where} onChange={set('where')} />
       <AreaField label="Note" value={form.note} onChange={set('note')} />
     </Editor>

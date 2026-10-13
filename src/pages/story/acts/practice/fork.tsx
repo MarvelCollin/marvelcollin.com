@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 import { delay } from '../../../../lib/motion';
 import { label, type Lane, type Span } from '../../../../lib/tenure';
+import type { Related } from '../../../../lib/related';
 import { Post } from './post';
 import type { Hover } from './hover';
 
@@ -14,7 +15,19 @@ export function ParallelGlyph({ className = '' }: { className?: string }) {
   );
 }
 
-export function Fork({ lanes, window, hot, onHot }: { lanes: Lane[]; window: Span; hot: string | null; onHot: Hover }) {
+export function Fork({
+  lanes,
+  window,
+  hot,
+  onHot,
+  related,
+}: {
+  lanes: Lane[];
+  window: Span;
+  hot: string | null;
+  onHot: Hover;
+  related: Map<string, Related>;
+}) {
   const n = lanes.length;
   const col = `(100% - ${(n - 1) * GAP}px) / ${n}`;
   const center = (i: number) => `calc(${col} * ${i + 0.5} + ${i * GAP}px)`;
@@ -41,7 +54,7 @@ export function Fork({ lanes, window, hot, onHot }: { lanes: Lane[]; window: Spa
         className="grid grid-cols-[repeat(var(--lanes),minmax(0,1fr))] gap-6 max-[760px]:mt-4 max-[760px]:grid-cols-1 max-[760px]:border-l-[3px] max-[760px]:border-double max-[760px]:border-accent/55 max-[760px]:pl-4"
       >
         {lanes.map((l) => (
-          <Post key={l.key} lane={l} hot={hot === l.key} onHot={onHot} />
+          <Post key={l.key} lane={l} hot={hot === l.key} onHot={onHot} related={related} />
         ))}
       </div>
     </div>

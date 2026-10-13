@@ -1,4 +1,11 @@
+import type { ReactNode } from 'react';
+import { FaAward, FaFolderOpen } from 'react-icons/fa6';
 import { delay } from '../../../../lib/motion';
+import { img } from '../../../../lib/img';
+import { workHref } from '../../../../lib/work-link';
+import { setFlipOrigin } from '../../../../lib/flip';
+import type { Related } from '../../../../lib/related';
+import { employment, type Employment } from '../../../../lib/employment';
 import { orgLogo } from '../../../../lib/org-logo';
 import { isLive, type Lane } from '../../../../lib/tenure';
 import { OrgMark } from '../../../../components/ui/org-mark';
@@ -21,7 +28,92 @@ function Node({ live }: { live: boolean }) {
   );
 }
 
-export function Post({ lane, hot, onHot, wide = false }: { lane: Lane; hot: boolean; onHot: Hover; wide?: boolean }) {
+const KIND: Record<Employment, string> = {
+  'Full-time': 'border-accent/45 text-accent',
+  'Part-time': 'border-accent-2/45 text-accent-2',
+  Internship: 'border-dashed border-fg-dim/50 text-fg-dim',
+  Freelance: 'border-line text-fg-dim',
+  Contract: 'border-line text-fg-dim',
+};
+
+function Role({ role, yr }: { role: string; yr: string }) {
+  const { title, kind } = employment(role);
+  return (
+    <>
+      <h4 className="text-[16px] font-medium leading-[1.3]">{title}</h4>
+      <p className="mt-1.5 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[13px] tabular-nums text-muted">
+        {kind && (
+          <span className={'rounded-[4px] border px-1.5 font-mono text-[10px] uppercase leading-[18px] tracking-[0.12em] ' + KIND[kind]}>{kind}</span>
+        )}
+        <span>{yr}</span>
+      </p>
+    </>
+  );
+}
+
+const CHIP = 'group flex items-center gap-3 rounded-lg border border-line bg-bg/70 py-1.5 pl-1.5 pr-4 transition-colors duration-200 hover:border-accent/50';
+const EYEBROW = 'block font-mono text-[10px] uppercase tracking-[0.12em]';
+
+function Thumb({ src, fallback }: { src?: string; fallback: ReactNode }) {
+  return (
+    <span className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-md border border-line bg-bg-2">
+      {src ? <img src={img(src, 400)} alt="" loading="lazy" className="h-full w-full object-cover" /> : fallback}
+    </span>
+  );
+}
+
+function Linked({ related, org }: { related: Related; org: string }) {
+  const context = (client: string) =>
+    client
+      .replace(new RegExp(org.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'), '')
+      .replace(/^[\s·,-]+|[\s·,-]+$/g, '');
+
+  return (
+    <ul className="mt-4 flex flex-wrap gap-2.5">
+      {related.awards.map((a) => (
+        <li key={a.id}>
+          <a href="#recognition" className={CHIP}>
+            <Thumb src={a.image} fallback={<FaAward size={15} className="text-accent" aria-hidden="true" />} />
+            <span className="min-w-0">
+              <span className={EYEBROW + ' text-accent'}>Award · {a.yr}</span>
+              <span className="block text-[14px] leading-[1.35] text-fg">{a.name}</span>
+            </span>
+          </a>
+        </li>
+      ))}
+      {related.works.map((w) => (
+        <li key={w.slug}>
+          <a href={workHref(w.slug)} onClick={(e) => setFlipOrigin(e.currentTarget)} className={CHIP}>
+            <Thumb src={w.cover} fallback={<FaFolderOpen size={14} className="text-accent-2" aria-hidden="true" />} />
+            <span className="min-w-0">
+              <span className={EYEBROW + ' text-accent-2'}>Project · {context(w.client) || w.year}</span>
+              <span className="block text-[14px] leading-[1.35] text-fg">
+                {w.name}
+                <span aria-hidden="true" className="ml-1.5 inline-block text-muted transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-accent-soft">
+                  →
+                </span>
+              </span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export function Post({
+  lane,
+  hot,
+  onHot,
+  related,
+  wide = false,
+}: {
+  lane: Lane;
+  hot: boolean;
+  onHot: Hover;
+  related: Map<string, Related>;
+  wide?: boolean;
+}) {
   return (
     <article
       {...hoverProps(lane.key, onHot)}
@@ -54,9 +146,9 @@ export function Post({ lane, hot, onHot, wide = false }: { lane: Lane; hot: bool
                 className="absolute -bottom-[31px] -left-[21px] top-[14px] w-px bg-line"
               />
             )}
-            <h4 className="text-[16px] font-medium leading-[1.3]">{j.role}</h4>
-            <p className="mt-0.5 text-[13px] tabular-nums text-muted">{j.yr}</p>
+            <Role role={j.role} yr={j.yr} />
             {j.note && <p className="mt-2 max-w-[62ch] text-[15px] leading-[1.65] text-fg-dim">{j.note}</p>}
+            {related.has(j.id) && <Linked related={related.get(j.id)!} org={lane.name} />}
           </li>
         ))}
       </ol>

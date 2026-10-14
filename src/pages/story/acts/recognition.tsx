@@ -14,12 +14,12 @@ export function Recognition() {
   const captions = useMemo(() => shots.map((a) => `${a.name} · ${a.where}`), [shots]);
 
   return (
-    <div className="max-w-[900px] space-y-8">
+    <div className="mx-auto max-w-[900px] space-y-12">
       {recognition.map((a, i) => {
         const shotIndex = a.image ? shots.findIndex((s) => s.id === a.id) : -1;
         return (
-          <Reveal key={a.id} delay={Math.min(i, 5) * 60}>
-            <div className="flex items-baseline gap-4 max-[560px]:flex-col max-[560px]:gap-1">
+          <Reveal key={a.id} delay={Math.min(i, 5) * 60} className="text-center">
+            <div className="flex flex-wrap items-baseline justify-center gap-x-4 gap-y-1 max-[560px]:flex-col max-[560px]:items-center">
               <span className="shrink-0 text-[13px] tabular-nums text-muted">{a.yr}</span>
               <span className="text-[16px] font-medium">{a.name}</span>
               <span className="text-[14px] text-fg-dim max-[560px]:hidden">· {a.where}</span>
@@ -30,7 +30,7 @@ export function Recognition() {
                 type="button"
                 onClick={() => setZoom(shotIndex)}
                 aria-label={'View ' + a.name + ' full size'}
-                className="relative mt-4 block aspect-[4/3] w-full max-w-[460px] cursor-zoom-in overflow-hidden rounded-lg border border-line bg-bg-2 transition-colors hover:border-accent"
+                className="relative mx-auto mt-4 block aspect-[4/3] w-full max-w-[460px] cursor-zoom-in overflow-hidden rounded-lg border border-line bg-bg-2 transition-colors hover:border-accent"
               >
                 <img src={img(a.image, 400)} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full scale-110 object-cover opacity-50 blur-xl" />
                 <SmartImage fill {...responsive(a.image, '(max-width: 560px) 92vw, 460px')} alt={a.name} className="object-contain" />

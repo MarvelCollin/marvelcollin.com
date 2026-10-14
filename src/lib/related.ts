@@ -60,8 +60,11 @@ export function relate(lanes: Lane[], awards: Award[], works: Project[]): Map<st
     const id = place(lanes, `${w.client} · ${w.tag}`, w.year, w.name);
     if (id) slot(id).works.push(w);
   }
-  const end = (w: Project) => span(w.year)?.to ?? 0;
-  for (const r of out.values()) r.works.sort((a, b) => end(b) - end(a));
+  const order = (w: Project) => {
+    const s = span(w.year);
+    return [s?.from ?? 0, s?.to ?? 0, /present|now/i.test(w.year) ? 1 : 0];
+  };
+  for (const r of out.values()) r.works.sort((a, b) => (better(order(a), order(b)) ? 1 : better(order(b), order(a)) ? -1 : 0));
   return out;
 }
 

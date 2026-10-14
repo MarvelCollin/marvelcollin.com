@@ -11,6 +11,6 @@ const KINDS: [RegExp, Employment][] = [
 export function employment(role: string): { title: string; kind: Employment | null } {
   const parts = role.split(' · ');
   const last = parts[parts.length - 1].trim();
-  const kind = parts.length > 1 ? (KINDS.find(([re]) => re.test(last))?.[1] ?? null) : null;
+  const kind = KINDS.find(([re]) => re.test(last))?.[1] ?? null;
   return { title: kind ? parts.slice(0, -1).join(' · ') : role, kind };
 }

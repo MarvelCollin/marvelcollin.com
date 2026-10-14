@@ -36,8 +36,8 @@ function Role({ role, yr }: { role: string; yr: string }) {
   const { title, kind } = employment(role);
   return (
     <>
-      <h4 className="text-[16px] font-medium leading-[1.3]">{title}</h4>
-      <p className="mt-1.5 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[13px] tabular-nums text-muted">
+      {title && <h4 className="text-[16px] font-medium leading-[1.3]">{title}</h4>}
+      <p className={(title ? 'mt-1.5 ' : '') + 'flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[13px] tabular-nums text-muted'}>
         {kind && (
           <span className={'rounded-[4px] border px-1.5 font-mono text-[10px] uppercase leading-[18px] tracking-[0.12em] ' + KIND[kind]}>{kind}</span>
         )}

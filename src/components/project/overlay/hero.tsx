@@ -122,7 +122,7 @@ function Copy({ p }: { p: Project }) {
             <span className="block font-mono text-[11px] uppercase tracking-[0.12em] text-accent-2">
               Built during{builtKind && <span className="text-fg-dim"> · {builtKind}</span>}
             </span>
-            <span className="mt-1 block text-[15px] leading-[1.4] text-fg">{builtTitle}</span>
+            {builtTitle && <span className="mt-1 block text-[15px] leading-[1.4] text-fg">{builtTitle}</span>}
             <span className="block text-[13px] leading-[1.4] text-fg-dim">
               {built.org}
               {built.place && ', ' + built.place}

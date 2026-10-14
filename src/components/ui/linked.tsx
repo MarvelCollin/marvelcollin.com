@@ -5,6 +5,7 @@ import { img } from '../../lib/img';
 import { workHref } from '../../lib/work-link';
 import { setFlipOrigin } from '../../lib/flip';
 import { shortPeriod } from '../../lib/period';
+import { WORK_TYPES } from '../../content/work-types';
 
 const CHIP = 'group flex items-center gap-3 rounded-lg border border-line bg-bg/70 py-1.5 pl-1.5 pr-4 transition-colors duration-200 hover:border-accent/50';
 const EYEBROW = 'block font-mono text-[10px] uppercase tracking-[0.12em]';
@@ -54,6 +55,7 @@ export function WorkChip({ work, context, logo }: { work: Project; context?: str
               →
             </span>
           </span>
+          {WORK_TYPES[work.slug] && <span className="mt-0.5 block text-[12px] leading-[1.35] text-fg-dim">{WORK_TYPES[work.slug]}</span>}
           <span className="mt-0.5 block font-mono text-[11px] tabular-nums tracking-[0.04em] text-muted">{shortPeriod(work.year)}</span>
         </span>
       </a>

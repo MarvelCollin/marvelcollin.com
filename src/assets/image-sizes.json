@@ -7,8 +7,24 @@
       1600
     ]
   },
+  "/shots/adobe-premiere-mcp-2.png": {
+    "base": "/img/shots/adobe-premiere-mcp-2",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
   "/shots/agent-skills-1.png": {
     "base": "/img/shots/agent-skills-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/agent-skills-2.png": {
+    "base": "/img/shots/agent-skills-2",
     "widths": [
       400,
       800,
@@ -73,6 +89,14 @@
   },
   "/shots/claudedeck-0.png": {
     "base": "/img/shots/claudedeck-0",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/claudedeck-1.png": {
+    "base": "/img/shots/claudedeck-1",
     "widths": [
       400,
       800,
@@ -191,20 +215,20 @@
       1600
     ]
   },
-  "/shots/model-quantization-1.png": {
-    "base": "/img/shots/model-quantization-1",
-    "widths": [
-      400,
-      800,
-      1012
-    ]
-  },
   "/shots/model-quantization-2.png": {
     "base": "/img/shots/model-quantization-2",
     "widths": [
       400,
       800,
       1241
+    ]
+  },
+  "/shots/model-quantization-3.png": {
+    "base": "/img/shots/model-quantization-3",
+    "widths": [
+      400,
+      800,
+      1600
     ]
   },
   "/shots/overleaf-claude-mcp-0.png": {

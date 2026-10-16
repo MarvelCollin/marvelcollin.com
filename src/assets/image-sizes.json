@@ -15,6 +15,14 @@
       1600
     ]
   },
+  "/shots/adobe-premiere-mcp-flow.png": {
+    "base": "/img/shots/adobe-premiere-mcp-flow",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
   "/shots/agent-skills-1.png": {
     "base": "/img/shots/agent-skills-1",
     "widths": [
@@ -25,6 +33,14 @@
   },
   "/shots/agent-skills-2.png": {
     "base": "/img/shots/agent-skills-2",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/agent-skills-flow.png": {
+    "base": "/img/shots/agent-skills-flow",
     "widths": [
       400,
       800,
@@ -97,6 +113,14 @@
   },
   "/shots/claudedeck-1.png": {
     "base": "/img/shots/claudedeck-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/claudedeck-flow.png": {
+    "base": "/img/shots/claudedeck-flow",
     "widths": [
       400,
       800,
@@ -183,6 +207,14 @@
       1600
     ]
   },
+  "/shots/knowledge-distillation-flow.png": {
+    "base": "/img/shots/knowledge-distillation-flow",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
   "/shots/learning-plan-1.png": {
     "base": "/img/shots/learning-plan-1",
     "widths": [
@@ -231,6 +263,14 @@
       1600
     ]
   },
+  "/shots/model-quantization-flow.png": {
+    "base": "/img/shots/model-quantization-flow",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
   "/shots/overleaf-claude-mcp-0.png": {
     "base": "/img/shots/overleaf-claude-mcp-0",
     "widths": [
@@ -257,6 +297,14 @@
   },
   "/shots/overleaf-claude-mcp-3.webp": {
     "base": "/img/shots/overleaf-claude-mcp-3",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/overleaf-claude-mcp-flow.png": {
+    "base": "/img/shots/overleaf-claude-mcp-flow",
     "widths": [
       400,
       800,

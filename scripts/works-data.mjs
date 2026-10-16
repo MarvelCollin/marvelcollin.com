@@ -173,11 +173,11 @@ export const WORKS = [
   },
   {
     slug: 'owl-eyewear',
-    name: 'Owl',
+    name: 'Owl Eyewear Smart Glasses',
     year: 'Aug 2026 to present',
     role: 'Solo',
     stack: 'Kotlin · Jetpack Compose · Swift · SwiftUI · Gemini',
-    client: 'Owl Eyewear',
+    client: 'Owl Eyewear, Jakarta, Indonesia',
     tag: 'freelance',
     description: 'the Android and iOS companion app for Owl Eyewear AI glasses',
     brief: 'Pair the glasses, pull every capture off them and ask the assistant what you see.',

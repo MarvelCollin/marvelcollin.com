@@ -6,12 +6,32 @@ import { Portrait } from './portrait';
 
 const COUNT = CHAPTERS.length - 1;
 const SPEC: [string, string][] = [
-  ['Role', 'Fullstack engineer, R&D staff at BINUS University'],
+  ['Focus', 'Fullstack engineering · AI · DevOps'],
   ['Base', 'Jakarta, Indonesia · GMT+7'],
   ['Stack', 'Go · .NET Core · TypeScript · Linux'],
   ['Open to', 'Freelance and full time'],
 ];
-const step = (i: number) => delay(60 + i * 70);
+const ROLES: { kind: string; title: string; where: string; work: string }[] = [
+  {
+    kind: 'Full-time',
+    title: 'Fullstack Engineer · R&D Staff',
+    where: 'Software Laboratory Center, BINUS University',
+    work: 'Fullstack engineering · DevOps',
+  },
+  {
+    kind: 'Internship',
+    title: 'Software Engineer',
+    where: 'Enrichment Program, BINUS University',
+    work: 'Fullstack engineering · DevOps',
+  },
+  {
+    kind: 'Freelance',
+    title: 'Fullstack and mobile apps',
+    where: 'ITEL, Singapore · Owl Eyewear, Jakarta · Sahabat Sentarum, Pontianak',
+    work: 'Fullstack engineering · AI · Mobile',
+  },
+];
+const step =(i: number) => delay(60 + i * 70);
 
 export function Prologue() {
   return (
@@ -36,9 +56,18 @@ export function Prologue() {
         </div>
 
         <div className="mt-12 flex items-start justify-between gap-16 max-[900px]:flex-col max-[900px]:gap-8">
-          <p data-part="intro" style={step(3)} className="max-w-[46ch] text-[17px] leading-[1.7] text-fg-dim">
-            Fullstack engineer and R&D staff at BINUS University. I build internal platforms in Go, .NET Core, and TypeScript, run the Linux servers under them, and take freelance work out of Singapore and Jakarta.
-          </p>
+          <ul data-part="intro" style={step(3)} className="w-full max-w-[560px] border-t border-line">
+            {ROLES.map((r) => (
+              <li key={r.kind} className="grid grid-cols-[96px_1fr] gap-5 border-b border-line py-4 max-[560px]:grid-cols-1 max-[560px]:gap-1.5">
+                <span className="font-mono text-[11px] uppercase leading-[2.1] tracking-[0.16em] text-accent-2">{r.kind}</span>
+                <div>
+                  <p className="text-[16px] leading-[1.45] text-fg">{r.title}</p>
+                  <p className="mt-1 text-[14px] leading-[1.5] text-fg-dim">{r.where}</p>
+                  <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">{r.work}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
           <dl data-part="meta" style={step(4)} className="w-[320px] shrink-0 border-t border-line max-[900px]:w-full">
             {SPEC.map(([key, value]) => (
               <div key={key} className="grid grid-cols-[76px_1fr] gap-5 border-b border-line py-2.5">

@@ -239,6 +239,38 @@
       1600
     ]
   },
+  "/shots/owl-eyewear-1.png": {
+    "base": "/img/shots/owl-eyewear-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/owl-eyewear-2.png": {
+    "base": "/img/shots/owl-eyewear-2",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/owl-eyewear-3.png": {
+    "base": "/img/shots/owl-eyewear-3",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/owl-eyewear-4.png": {
+    "base": "/img/shots/owl-eyewear-4",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
   "/shots/polaris-1.png": {
     "base": "/img/shots/polaris-1",
     "widths": [
@@ -263,6 +295,12 @@
   },
   "/logos/itel.png": {
     "base": "/img/logos/itel",
+    "widths": [
+      256
+    ]
+  },
+  "/logos/owl.png": {
+    "base": "/img/logos/owl",
     "widths": [
       256
     ]

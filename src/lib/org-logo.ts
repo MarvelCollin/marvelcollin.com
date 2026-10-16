@@ -5,6 +5,7 @@ const ORGS: Record<string, string> = {
   'e-ducate': '/logos/educate.jpg',
   'sahabat sentarum': '/logos/sahabat-sentarum.png',
   itel: '/logos/itel.png',
+  'owl eyewear': '/logos/owl.png',
 };
 
 export function orgLogo(name: string): string | null {

@@ -38,6 +38,10 @@
       "destination": "https://pantau-plum.vercel.app/pantau/"
     },
     {
+      "source": "/pantau/",
+      "destination": "https://pantau-plum.vercel.app/pantau/"
+    },
+    {
       "source": "/pantau/:path*",
       "destination": "https://pantau-plum.vercel.app/pantau/:path*"
     },

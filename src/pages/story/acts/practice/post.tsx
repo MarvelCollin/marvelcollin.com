@@ -8,7 +8,7 @@ import { AwardChip, LinkedList, WorkChip } from '../../../../components/ui/linke
 import { hoverProps, type Hover } from './hover';
 import { yearsOnly } from '../../../../lib/period';
 
-export function Pulse({ className = '' }: { className?: string }) {
+function Pulse({ className = '' }: { className?: string }) {
   return (
     <>
       <span className={'absolute inset-0 animate-ping rounded-full bg-accent/60 [animation-duration:2.4s] motion-reduce:hidden ' + className} />

@@ -3,7 +3,7 @@ import type { HistoryItem } from '../types/content';
 const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 const TODAY = new Date();
 
-export const NOW = TODAY.getFullYear() * 12 + TODAY.getMonth();
+const NOW = TODAY.getFullYear() * 12 + TODAY.getMonth();
 
 export interface Span {
   from: number;

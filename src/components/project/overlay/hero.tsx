@@ -11,6 +11,7 @@ import { OrgMark } from '../../ui/org-mark';
 import { Clip } from '../../ui/clip';
 import { FrameCarousel } from './carousel';
 import { FrameStrip } from './frame-strip';
+import { workPeriod } from '../../../lib/period';
 import type { useFrames } from './use-frames';
 
 const CLIP = 'absolute top-[-16px] z-20 h-[40px] w-[20px] -translate-x-1/2 drop-shadow-[0_3px_5px_rgba(0,0,0,0.5)]';
@@ -77,7 +78,7 @@ function Copy({ p }: { p: Project }) {
         )}
         <span>
           <span className={META}>When</span>
-          <span className="block text-[15px] leading-[1.4] text-fg">{p.year}</span>
+          <span className="block text-[15px] leading-[1.4] text-fg">{workPeriod(p.year, p.tag)}</span>
         </span>
       </div>
       {(repo || live) && (

@@ -9,7 +9,7 @@ import { Skel } from '../../ui/skeleton';
 import { ProjectHero } from './hero';
 import { ProjectDetails } from './details';
 import { useFrames } from './use-frames';
-import { shortPeriod } from '../../../lib/period';
+import { workPeriod } from '../../../lib/period';
 import { useFlipIn } from './use-flip-in';
 
 function TopBar({ p, onClose }: { p?: Project; onClose: () => void }) {
@@ -23,7 +23,7 @@ function TopBar({ p, onClose }: { p?: Project; onClose: () => void }) {
         <span className="inline-block transition-transform group-hover:-translate-x-1">←</span>
         Back to the board
       </button>
-      <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">{p ? p.num + ' · ' + shortPeriod(p.year) : 'Project'}</span>
+      <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">{p ? p.num + ' · ' + workPeriod(p.year, p.tag, true) : 'Project'}</span>
     </div>
   );
 }

@@ -10,7 +10,7 @@ import { compact } from '../../lib/api/github';
 import { techIcons } from '../../lib/languages';
 import { TechIcon } from '../ui/tech-icon';
 import { clientOf } from '../../lib/client';
-import { shortPeriod } from '../../lib/period';
+import { workPeriod } from '../../lib/period';
 import { orgLogo } from '../../lib/org-logo';
 import { employment } from '../../lib/employment';
 import { WORK_TAGS } from '../../content/tags';
@@ -82,7 +82,7 @@ export const ProjectCard = memo(function ProjectCard({ p, index }: { p: Project;
             <li className={CHIP + TYPE[p.tag]}>{type}</li>
             <li className={CHIP + ' bg-paper-ink/[0.08] text-paper-ink'}>
               <FaRegCalendar size={9} aria-hidden="true" />
-              {shortPeriod(p.year)}
+              {workPeriod(p.year, p.tag, true)}
             </li>
             {relation && (
               <li className={CHIP + ' min-w-0 max-w-full bg-paper-ink/[0.08] text-paper-ink'} title={relation}>

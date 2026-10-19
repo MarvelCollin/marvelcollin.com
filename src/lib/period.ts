@@ -18,3 +18,17 @@ export function shortPeriod(period: string): string {
   if (sy !== ey) return `${start} to ${end}`;
   return sm === em ? end : `${sm} to ${em} ${ey}`;
 }
+
+export function yearsOnly(period: string): string {
+  const years = (period.match(/\b(?:19|20)\d{2}\b/g) ?? []).map(Number);
+  if (!years.length) return period;
+  if (/present|now/i.test(period)) years.push(new Date().getFullYear());
+  const first = Math.min(...years);
+  const last = Math.max(...years);
+  return first === last ? String(first) : `${first} to ${last}`;
+}
+
+export function workPeriod(period: string, tag?: string | null, short = false): string {
+  if (tag === 'freelance') return yearsOnly(period);
+  return short ? shortPeriod(period) : period;
+}

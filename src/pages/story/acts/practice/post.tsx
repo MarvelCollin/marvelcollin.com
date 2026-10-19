@@ -6,6 +6,7 @@ import { isLive, type Lane } from '../../../../lib/tenure';
 import { OrgMark } from '../../../../components/ui/org-mark';
 import { AwardChip, LinkedList, WorkChip } from '../../../../components/ui/linked';
 import { hoverProps, type Hover } from './hover';
+import { yearsOnly } from '../../../../lib/period';
 
 export function Pulse({ className = '' }: { className?: string }) {
   return (
@@ -41,7 +42,7 @@ function Role({ role, yr }: { role: string; yr: string }) {
         {kind && (
           <span className={'rounded-[4px] border px-1.5 font-mono text-[10px] uppercase leading-[18px] tracking-[0.12em] ' + KIND[kind]}>{kind}</span>
         )}
-        <span>{yr}</span>
+        <span>{kind === 'Freelance' ? yearsOnly(yr) : yr}</span>
       </p>
     </>
   );
@@ -126,7 +127,9 @@ export function Post({
           <h3 className="text-[18px] font-medium leading-[1.3]">{lane.name}</h3>
           <p className="mt-0.5 text-[14px] leading-[1.45] text-fg-dim">
             {lane.place && <span className="block">{lane.place}</span>}
-            <span className="tabular-nums">{lane.tenure}</span>
+            <span className="tabular-nums">
+              {lane.items.every((i) => employment(i.role).kind === 'Freelance') ? yearsOnly(lane.tenure) : lane.tenure}
+            </span>
           </p>
         </div>
       </header>

@@ -8,6 +8,7 @@ import { orgLogo } from '../../../lib/org-logo';
 import { useRepoStats } from '../../../hooks/use-repo-stats';
 import { percent, shares } from '../../../lib/languages';
 import { skillGlyph } from '../../../lib/skill-logos';
+import { workPeriod } from '../../../lib/period';
 import { TechIcon } from '../../ui/tech-icon';
 
 const JUMP =
@@ -83,7 +84,7 @@ function Sheet({ p }: { p: Project }) {
             <span>{client ?? 'Personal project'}</span>
           </span>
         </Row>
-        <Row label="When">{p.year}</Row>
+        <Row label="When">{workPeriod(p.year, p.tag)}</Row>
         <Row label="Role">{p.role}</Row>
         <Row label="Type">{type}</Row>
         <Row label="Built with">

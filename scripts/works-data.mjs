@@ -1,5 +1,33 @@
 export const WORKS = [
   {
+    slug: 'pantau',
+    name: 'Pantau',
+    year: 'Oct 2026',
+    role: 'Developer',
+    stack: 'React · TypeScript · MapLibre · Hono · Vercel',
+    client: 'Personal',
+    tag: 'personal',
+    description: 'a live map of Indonesia built only from free public data',
+    brief: 'Flights, volcanoes, earthquakes, fires, floods and live cameras across Indonesia on one map.',
+    body: [
+      'Pantau puts flights, ships, satellites, BMKG earthquakes, MAGMA volcano alert levels, NASA fire hotspots, PetaBencana flood reports, rain radar and 194 public cameras on one map. Search a flight number, an airline or a city like Jakarta to see every flight going there, with its route, how far along it is and when it should land. Tap a volcano for the latest six hourly MAGMA report, or tap any empty spot for the weather there.',
+      'Everything runs on the free Vercel plan. One Hono function in Singapore fetches each source once, attaches routes from the open standing data set, and caches the result on the CDN with stale while revalidate, so most visitors never reach the function. Radar, weather and satellite orbits are fetched straight from the browser, video plays from the camera operators directly, and below zoom 5 the base map is a bundled Natural Earth outline, so the first view loads without a single map tile.',
+      'Mobile Lighthouse went from 37 to 66 and desktop from 72 to 97 after those changes, with accessibility, best practices and SEO at 100. The logo, an eye whose upper lid is a volcano peak, was drawn for it, since pantau means to watch over.',
+    ],
+    result: '194 live cameras',
+    tone: 'ocean',
+    stills: [
+      'How the free plan stays fast',
+      'A flight with its route and landing time',
+      'Merapi with the latest MAGMA report',
+      'A live camera on Malioboro',
+    ],
+    cover: '/shots/pantau-1.png',
+    images: ['/shots/pantau-1.png', '/shots/pantau-flow.png', '/shots/pantau-2.png', '/shots/pantau-3.png', '/shots/pantau-4.png'],
+    repo: 'https://github.com/MarvelCollin/Pantau',
+    live: 'https://marvelcollin.com/pantau/',
+  },
+  {
     slug: 'overleaf-claude-mcp',
     name: 'Overleaf Claude MCP',
     year: 'Aug 2026',

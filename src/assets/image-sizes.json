@@ -343,6 +343,46 @@
       1600
     ]
   },
+  "/shots/pantau-1.png": {
+    "base": "/img/shots/pantau-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/pantau-2.png": {
+    "base": "/img/shots/pantau-2",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/pantau-3.png": {
+    "base": "/img/shots/pantau-3",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/pantau-4.png": {
+    "base": "/img/shots/pantau-4",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/pantau-flow.png": {
+    "base": "/img/shots/pantau-flow",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
   "/shots/polaris-1.png": {
     "base": "/img/shots/polaris-1",
     "widths": [

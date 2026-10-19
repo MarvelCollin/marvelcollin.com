@@ -5,7 +5,6 @@ import { relate } from '../../../../lib/related';
 import { Reveal } from '../../../../components/ui/reveal';
 import { EntrySkeleton } from '../../../../components/ui/skeleton';
 import { Timeline } from './timeline';
-import { Fork } from './fork';
 import { Post } from './post';
 
 export function Practice() {
@@ -31,7 +30,11 @@ export function Practice() {
             {b.kind === 'solo' ? (
               <Post lane={b.lane} hot={hot === b.lane.key} onHot={setHot} related={related} wide />
             ) : (
-              <Fork lanes={b.lanes} window={b.window} hot={hot} onHot={setHot} related={related} />
+              <div className="space-y-16 max-[900px]:space-y-12">
+                {b.lanes.map((l) => (
+                  <Post key={l.key} lane={l} hot={hot === l.key} onHot={setHot} related={related} wide />
+                ))}
+              </div>
             )}
           </Reveal>
         ))}

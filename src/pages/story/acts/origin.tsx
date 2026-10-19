@@ -16,7 +16,7 @@ const FACTS = [
 export function Origin() {
   const { education, experience, recognition, works, loading } = useContent();
   const awards = useMemo(() => {
-    const lanes = chronicle(experience).flatMap((b) => (b.kind === 'solo' ? [b.lane] : b.lanes));
+    const lanes = chronicle(experience);
     const claimed = new Set([...relate(lanes, recognition, works).values()].flatMap((r) => r.awards.map((a) => a.id)));
     return schoolAwards(education, recognition, claimed);
   }, [education, experience, recognition, works]);

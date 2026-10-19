@@ -1,7 +1,6 @@
 import type { HistoryItem } from '../types/content';
 
 const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
-const MIN_SHARED_MONTHS = 3;
 const TODAY = new Date();
 
 export const NOW = TODAY.getFullYear() * 12 + TODAY.getMonth();
@@ -21,8 +20,6 @@ export interface Lane {
   spans: (Span | null)[];
   tenure: string;
 }
-
-export type Block = { kind: 'solo'; lane: Lane } | { kind: 'parallel'; lanes: Lane[]; window: Span };
 
 function month(text: string, edge: number): number | null {
   const t = text.toLowerCase();
@@ -51,24 +48,6 @@ function merge(spans: Span[]): Span {
   return { from: first.from, to: last.to, start: first.start, end: last.end };
 }
 
-function together(x: Span, y: Span): Span | null {
-  const late = y.from > x.from ? y : x;
-  const early = y.to < x.to ? y : x;
-  if (early.to - late.from + 1 < MIN_SHARED_MONTHS) return null;
-  return { from: late.from, to: early.to, start: late.start, end: early.end };
-}
-
-function shared(a: Lane, b: Lane): Span[] {
-  const out: Span[] = [];
-  for (const x of a.spans) {
-    for (const y of b.spans) {
-      const t = x && y ? together(x, y) : null;
-      if (t) out.push(t);
-    }
-  }
-  return out;
-}
-
 function parts(where: string): [string, string] {
   for (const sep of [' · ', ', ']) {
     const i = where.indexOf(sep);
@@ -92,30 +71,12 @@ export function isLive(item: HistoryItem): boolean {
   return /\bpresent\s*$/i.test(item.yr);
 }
 
-export function chronicle(items: HistoryItem[]): Block[] {
+export function chronicle(items: HistoryItem[]): Lane[] {
   const groups: HistoryItem[][] = [];
   for (const item of items) {
     const last = groups[groups.length - 1];
     if (last && last[0].where === item.where) last.push(item);
     else groups.push([item]);
   }
-
-  const blocks: Block[] = [];
-  let run: Lane[] = [];
-  let overlap: Span[] = [];
-  const flush = () => {
-    if (run.length === 1) blocks.push({ kind: 'solo', lane: run[0] });
-    else if (run.length > 1) blocks.push({ kind: 'parallel', lanes: run, window: merge(overlap) });
-    run = [];
-    overlap = [];
-  };
-
-  for (const next of groups.map(lane)) {
-    const found = run.flatMap((r) => shared(r, next));
-    if (run.length && !found.length) flush();
-    overlap.push(...found);
-    run.push(next);
-  }
-  flush();
-  return blocks;
+  return groups.map(lane);
 }

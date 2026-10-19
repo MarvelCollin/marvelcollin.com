@@ -1,13 +1,11 @@
 import { delay } from '../../../../lib/motion';
-import { NOW, isLive, type Block, type Span } from '../../../../lib/tenure';
+import { NOW, isLive, type Lane, type Span } from '../../../../lib/tenure';
 import { Pulse } from './post';
 import { hoverProps, type Hover } from './hover';
 
 const ROW = 'grid grid-cols-[200px_minmax(0,1fr)] items-center gap-x-6 max-[640px]:grid-cols-1 max-[640px]:gap-y-1.5';
 
-export function Timeline({ blocks, hot, onHot }: { blocks: Block[]; hot: string | null; onHot: Hover }) {
-  const lanes = blocks.flatMap((b) => (b.kind === 'solo' ? [b.lane] : b.lanes));
-
+export function Timeline({ lanes, hot, onHot }: { lanes: Lane[]; hot: string | null; onHot: Hover }) {
   const known = lanes.flatMap((l) => l.spans).filter((s): s is Span => s !== null);
   if (!known.length) return null;
 

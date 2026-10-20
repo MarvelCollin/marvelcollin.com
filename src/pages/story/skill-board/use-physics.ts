@@ -4,22 +4,32 @@ import Matter from 'matter-js';
 import { createWorld } from './world';
 import { TILE } from './shape';
 
+function place(el: HTMLDivElement, b: Matter.Body) {
+  el.style.transform = `translate(${b.position.x - TILE.w / 2}px, ${b.position.y - TILE.h / 2}px) rotate(${b.angle}rad)`;
+}
+
 function paint(bodies: Matter.Body[], nodes: Map<string, HTMLDivElement>, all: boolean) {
   for (const b of bodies) {
     if (b.isSleeping && !all) continue;
     const el = nodes.get(b.label);
-    if (el) el.style.transform = `translate(${b.position.x - TILE.w / 2}px, ${b.position.y - TILE.h / 2}px) rotate(${b.angle}rad)`;
+    if (el) place(el, b);
   }
 }
 
 export function usePhysics(box: RefObject<HTMLDivElement | null>, names: string[]) {
   const nodes = useRef(new Map<string, HTMLDivElement>());
+  const bodies = useRef(new Map<string, Matter.Body>());
   const [ready, setReady] = useState(false);
 
   const mount = useCallback(
     (name: string) => (el: HTMLDivElement | null) => {
-      if (el) nodes.current.set(name, el);
-      else nodes.current.delete(name);
+      if (!el) {
+        nodes.current.delete(name);
+        return;
+      }
+      nodes.current.set(name, el);
+      const b = bodies.current.get(name);
+      if (b) place(el, b);
     },
     [],
   );
@@ -29,20 +39,20 @@ export function usePhysics(box: RefObject<HTMLDivElement | null>, names: string[
     if (!el || names.length === 0) return;
 
     const world = createWorld(el, names);
+    bodies.current = new Map(world.bodies.map((b) => [b.label, b]));
     const runner = Matter.Runner.create();
     let running = false;
     let frame = 0;
 
-    let first = true;
     const sync = () => {
-      paint(world.bodies, nodes.current, first);
-      first = false;
+      paint(world.bodies, nodes.current, false);
       if (running) frame = requestAnimationFrame(sync);
     };
 
     const start = () => {
       if (running) return;
       running = true;
+      paint(world.bodies, nodes.current, true);
       Matter.Runner.run(runner, world.engine);
       frame = requestAnimationFrame(sync);
     };
@@ -58,6 +68,7 @@ export function usePhysics(box: RefObject<HTMLDivElement | null>, names: string[
     const ro = new ResizeObserver(world.resize);
     io.observe(el);
     ro.observe(el);
+    start();
     setReady(true);
 
     return () => {
@@ -65,6 +76,7 @@ export function usePhysics(box: RefObject<HTMLDivElement | null>, names: string[
       io.disconnect();
       ro.disconnect();
       world.destroy();
+      bodies.current = new Map();
     };
   }, [box, names]);
 

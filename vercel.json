@@ -46,6 +46,18 @@
       "destination": "https://pantau-plum.vercel.app/pantau/:path*"
     },
     {
+      "source": "/quizlingo",
+      "destination": "https://quizlingo-coral.vercel.app/quizlingo/"
+    },
+    {
+      "source": "/quizlingo/",
+      "destination": "https://quizlingo-coral.vercel.app/quizlingo/"
+    },
+    {
+      "source": "/quizlingo/:path*",
+      "destination": "https://quizlingo-coral.vercel.app/quizlingo/:path*"
+    },
+    {
       "source": "/((?!api/).*)",
       "destination": "/index.html"
     }

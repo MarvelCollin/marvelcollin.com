@@ -39,6 +39,10 @@
 .sm-skel.is-done::after {
   animation: none;
 }
+.sm-skel[data-off]::after,
+.skel-block[data-off]::after {
+  animation-play-state: paused;
+}
 .sm-fail {
   position: absolute;
   inset: 0;

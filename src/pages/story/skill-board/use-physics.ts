@@ -42,11 +42,13 @@ export function usePhysics(box: RefObject<HTMLDivElement | null>, names: string[
     bodies.current = new Map(world.bodies.map((b) => [b.label, b]));
     const runner = Matter.Runner.create();
     let running = false;
+    let visible = true;
     let frame = 0;
 
     const sync = () => {
       paint(world.bodies, nodes.current, false);
-      if (running) frame = requestAnimationFrame(sync);
+      if (world.settled()) stop();
+      else if (running) frame = requestAnimationFrame(sync);
     };
 
     const start = () => {
@@ -64,15 +66,26 @@ export function usePhysics(box: RefObject<HTMLDivElement | null>, names: string[
       cancelAnimationFrame(frame);
     };
 
-    const io = new IntersectionObserver(([entry]) => (entry.isIntersecting ? start() : stop()));
-    const ro = new ResizeObserver(world.resize);
+    const wake = () => visible && start();
+
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) start();
+      else stop();
+    });
+    const ro = new ResizeObserver(() => {
+      world.resize();
+      wake();
+    });
     io.observe(el);
     ro.observe(el);
+    el.addEventListener('pointerdown', wake);
     start();
     setReady(true);
 
     return () => {
       stop();
+      el.removeEventListener('pointerdown', wake);
       io.disconnect();
       ro.disconnect();
       world.destroy();

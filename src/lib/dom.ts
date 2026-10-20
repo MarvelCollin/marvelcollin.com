@@ -1,5 +1,17 @@
+let reach = -1;
+
+function measure() {
+  reach = document.documentElement.scrollHeight - window.innerHeight;
+}
+
+function track() {
+  measure();
+  new ResizeObserver(measure).observe(document.documentElement);
+  window.addEventListener('resize', measure);
+}
+
 export function scrollRatio(): number {
-  const reach = document.documentElement.scrollHeight - window.innerHeight;
+  if (reach < 0) track();
   return reach <= 0 ? 0 : Math.min(1, Math.max(0, window.scrollY / reach));
 }
 

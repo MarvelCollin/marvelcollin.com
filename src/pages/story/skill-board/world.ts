@@ -5,6 +5,23 @@ const WALL = 60;
 
 const SOLID = { isStatic: true, restitution: 0.4 };
 
+type Handlers = Record<'mousemove' | 'mousedown' | 'mouseup' | 'mousewheel', EventListener>;
+
+const BINDINGS: [string, keyof Handlers][] = [
+  ['mousemove', 'mousemove'],
+  ['mousedown', 'mousedown'],
+  ['mouseup', 'mouseup'],
+  ['wheel', 'mousewheel'],
+  ['touchmove', 'mousemove'],
+  ['touchstart', 'mousedown'],
+  ['touchend', 'mouseup'],
+];
+
+function detach(mouse: Matter.Mouse, box: HTMLElement, types: string[]) {
+  const handlers = mouse as unknown as Handlers;
+  for (const [type, key] of BINDINGS) if (types.includes(type)) box.removeEventListener(type, handlers[key]);
+}
+
 function walls(w: number, h: number) {
   return {
     floor: Matter.Bodies.rectangle(w / 2, h + WALL / 2, w * 2, WALL, SOLID),
@@ -40,8 +57,10 @@ export function createWorld(box: HTMLElement, names: string[]) {
   const edges = walls(w, h);
 
   const bodies = drop(names, w);
+  const pointer = Matter.Mouse.create(box);
+  detach(pointer, box, ['wheel']);
   const mouse = Matter.MouseConstraint.create(engine, {
-    mouse: Matter.Mouse.create(box),
+    mouse: pointer,
     constraint: { stiffness: 0.2, render: { visible: false } },
   });
   Matter.Composite.add(engine.world, [...Object.values(edges), ...bodies, mouse]);
@@ -54,10 +73,13 @@ export function createWorld(box: HTMLElement, names: string[]) {
     }
   };
 
+  const settled = () => !mouse.body && bodies.every((b) => b.isSleeping);
+
   const destroy = () => {
+    detach(pointer, box, BINDINGS.map(([type]) => type));
     Matter.Engine.clear(engine);
     Matter.Composite.clear(engine.world, false);
   };
 
-  return { engine, bodies, resize, destroy };
+  return { engine, bodies, resize, settled, destroy };
 }

@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { delay } from '../../../../lib/motion';
 import type { Related } from '../../../../lib/related';
 import { employment, type Employment } from '../../../../lib/employment';
@@ -7,11 +8,14 @@ import { OrgMark } from '../../../../components/ui/org-mark';
 import { AwardChip, LinkedList, WorkChip } from '../../../../components/ui/linked';
 import { hoverProps, type Hover } from './hover';
 import { yearsOnly } from '../../../../lib/period';
+import { useOffscreenPause } from '../../../../hooks/use-offscreen-pause';
 
 function Pulse({ className = '' }: { className?: string }) {
+  const ring = useRef<HTMLSpanElement>(null);
+  useOffscreenPause(ring);
   return (
     <>
-      <span className={'absolute inset-0 animate-ping rounded-full bg-accent/60 [animation-duration:2.4s] motion-reduce:hidden ' + className} />
+      <span ref={ring} className={'absolute inset-0 animate-ping [&[data-off]]:[animation-play-state:paused] rounded-full bg-accent/60 [animation-duration:2.4s] motion-reduce:hidden ' + className} />
       <span className="absolute inset-0 rounded-full bg-accent" />
     </>
   );

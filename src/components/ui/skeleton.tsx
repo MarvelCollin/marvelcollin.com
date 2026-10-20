@@ -1,7 +1,11 @@
+import { useRef } from 'react';
 import type { CSSProperties } from 'react';
+import { useOffscreenPause } from '../../hooks/use-offscreen-pause';
 
 export function Skel({ className = '', style }: { className?: string; style?: CSSProperties }) {
-  return <span className={'skel-block ' + className} style={style} aria-hidden="true" />;
+  const ref = useRef<HTMLSpanElement>(null);
+  useOffscreenPause(ref);
+  return <span ref={ref} className={'skel-block ' + className} style={style} aria-hidden="true" />;
 }
 
 export function EntrySkeleton({ count = 3 }: { count?: number }) {

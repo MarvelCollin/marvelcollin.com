@@ -31,8 +31,6 @@ Images live in the `portofolio-kolin-media` Storage bucket, and screenshots comm
 
 The browser never talks to Supabase. `api/content.ts` reads the five tables with the anon key and returns them as one JSON document with `s-maxage=3600` and a week of `stale-while-revalidate`, so Supabase is hit about once an hour per region no matter the traffic. A change to the data shows up within the hour, or at once after a redeploy. There is no admin panel. Rows are inserted with the seed script below.
 
-Row level security must allow select only. `scripts/lockdown.sql` drops every write policy on the five tables and the media bucket and recreates select only policies. Run it in the Supabase SQL editor, and turn off new signups under Authentication, Sign In / Providers.
-
 ## Running locally
 
 ```bash

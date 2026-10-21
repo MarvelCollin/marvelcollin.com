@@ -48,7 +48,6 @@
 .js-motion [data-reveal]:not([data-in]),
 .js-motion [data-group]:not([data-in]) :is([data-part], [data-card]) {
   opacity: 0;
-  animation: reveal-safety 0s linear 4s forwards;
 }
 .js-motion [data-reveal][data-in],
 .js-motion [data-group][data-in] :is([data-part], [data-card]) {

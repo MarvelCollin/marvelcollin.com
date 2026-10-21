@@ -26,7 +26,7 @@ export function useReveal(ref: RefObject<Element | null>, key: unknown = null) {
       el.setAttribute('data-in', '');
       return;
     }
-    el.removeAttribute('data-in');
+    if (el.hasAttribute('data-in')) return;
     shared().observe(el);
     return () => shared().unobserve(el);
   }, [ref, key]);

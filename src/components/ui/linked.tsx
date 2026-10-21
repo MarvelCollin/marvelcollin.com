@@ -1,10 +1,12 @@
 import type { ReactNode } from 'react';
-import { FaAward, FaFolderOpen } from 'react-icons/fa6';
-import type { Award, Project } from '../../types/content';
+import { FaAward, FaBriefcase, FaFileLines, FaFolderOpen } from 'react-icons/fa6';
+import type { Award, HistoryItem, Paper, Project } from '../../types/content';
+import { employment } from '../../lib/employment';
 import { img } from '../../lib/img';
+import { orgLogo } from '../../lib/org-logo';
+import { jumpTo, paperAnchor } from '../../lib/papers';
 import { workHref } from '../../lib/work-link';
 import { setFlipOrigin } from '../../lib/flip';
-import { workPeriod } from '../../lib/period';
 import { WORK_TYPES } from '../../content/work-types';
 
 const CHIP = 'group flex items-center gap-3 rounded-lg border border-line bg-bg/70 py-1.5 pl-1.5 pr-4 transition-colors duration-200 hover:border-accent/50';
@@ -36,6 +38,64 @@ export function AwardChip({ award }: { award: Award }) {
   );
 }
 
+export function RoleChip({ role }: { role: HistoryItem }) {
+  const { title, kind } = employment(role.role);
+  const logo = orgLogo(role.where);
+  const id = 'role-' + role.id;
+  return (
+    <li>
+      <a
+        href={'#' + id}
+        onClick={(e) => {
+          e.preventDefault();
+          jumpTo(id);
+        }}
+        className={CHIP}
+      >
+        {logo ? (
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-md border border-line bg-white p-1">
+            <img src={logo} alt="" className="h-full w-full object-contain" />
+          </span>
+        ) : (
+          <Thumb fallback={<FaBriefcase size={14} className="text-accent-soft" aria-hidden="true" />} />
+        )}
+        <span className="min-w-0">
+          <span className={EYEBROW + ' text-accent-soft'}>Role{kind && ` · ${kind}`}</span>
+          <span className="block text-[14px] leading-[1.35] text-fg">
+            {title}
+            <span aria-hidden="true" className="ml-1.5 inline-block text-muted transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-accent-soft">
+              →
+            </span>
+          </span>
+          <span className="mt-0.5 block font-mono text-[11px] tabular-nums tracking-[0.04em] text-muted">{role.yr}</span>
+        </span>
+      </a>
+    </li>
+  );
+}
+
+export function PaperChip({ paper }: { paper: Paper }) {
+  const id = paperAnchor(paper);
+  return (
+    <li className="min-w-0 max-w-full">
+      <a
+        href={'#' + id}
+        onClick={(e) => {
+          e.preventDefault();
+          jumpTo(id);
+        }}
+        className={CHIP}
+      >
+        <Thumb src={paper.photos?.[0]} fallback={<FaFileLines size={14} className="text-accent-2" aria-hidden="true" />} />
+        <span className="min-w-0">
+          <span className={EYEBROW + ' text-accent-2'}>Research paper · {paper.year}</span>
+          <span className="line-clamp-2 max-w-[42ch] text-[14px] leading-[1.35] text-fg">{paper.title}</span>
+        </span>
+      </a>
+    </li>
+  );
+}
+
 export function WorkChip({ work, context, logo }: { work: Project; context?: string; logo?: string | null }) {
   return (
     <li>
@@ -56,7 +116,6 @@ export function WorkChip({ work, context, logo }: { work: Project; context?: str
             </span>
           </span>
           {WORK_TYPES[work.slug] && <span className="mt-0.5 block text-[12px] leading-[1.35] text-fg-dim">{WORK_TYPES[work.slug]}</span>}
-          <span className="mt-0.5 block font-mono text-[11px] tabular-nums tracking-[0.04em] text-muted">{workPeriod(work.year, work.tag, true)}</span>
         </span>
       </a>
     </li>

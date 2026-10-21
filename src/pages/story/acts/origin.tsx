@@ -1,10 +1,11 @@
 import { useMemo } from 'react';
+import { PAPERS } from '../../../content/papers';
 import { useContent } from '../../../content/use-content';
 import { orgLogo } from '../../../lib/org-logo';
 import { chronicle } from '../../../lib/tenure';
-import { relate, schoolAwards } from '../../../lib/related';
+import { relate, schoolLinks } from '../../../lib/related';
 import { OrgMark } from '../../../components/ui/org-mark';
-import { AwardChip, LinkedList } from '../../../components/ui/linked';
+import { AwardChip, LinkedList, PaperChip, RoleChip } from '../../../components/ui/linked';
 import { Reveal } from '../../../components/ui/reveal';
 import { EntrySkeleton } from '../../../components/ui/skeleton';
 
@@ -15,10 +16,10 @@ const FACTS = [
 
 export function Origin() {
   const { education, experience, recognition, works, loading } = useContent();
-  const awards = useMemo(() => {
+  const links = useMemo(() => {
     const lanes = chronicle(experience);
     const claimed = new Set([...relate(lanes, recognition, works).values()].flatMap((r) => r.awards.map((a) => a.id)));
-    return schoolAwards(education, recognition, claimed);
+    return schoolLinks(education, experience, recognition, PAPERS, claimed);
   }, [education, experience, recognition, works]);
 
   return (
@@ -56,10 +57,16 @@ export function Origin() {
                 </div>
               </div>
               {e.note && <p className="mt-3 max-w-[54ch] pl-[60px] text-[15px] leading-[1.6] text-fg-dim max-[900px]:pl-0">{e.note}</p>}
-              {awards.has(e.id) && (
+              {links.has(e.id) && (
                 <LinkedList className="mt-4 pl-[60px] max-[900px]:pl-0">
-                  {awards.get(e.id)!.map((a) => (
+                  {links.get(e.id)!.roles.map((r) => (
+                    <RoleChip key={r.id} role={r} />
+                  ))}
+                  {links.get(e.id)!.awards.map((a) => (
                     <AwardChip key={a.id} award={a} />
+                  ))}
+                  {links.get(e.id)!.papers.map((p) => (
+                    <PaperChip key={p.slug} paper={p} />
                   ))}
                 </LinkedList>
               )}

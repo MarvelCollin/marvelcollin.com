@@ -383,6 +383,13 @@
       1600
     ]
   },
+  "/shots/paper-quantization-article.jpg": {
+    "base": "/img/shots/paper-quantization-article",
+    "widths": [
+      400,
+      800
+    ]
+  },
   "/shots/paper-quantization-team.jpg": {
     "base": "/img/shots/paper-quantization-team",
     "widths": [

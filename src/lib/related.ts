@@ -1,4 +1,5 @@
-import type { Award, Education, Project } from '../types/content';
+import type { Award, Education, HistoryItem, Paper, Project } from '../types/content';
+import { employment } from './employment';
 import { span, type Lane } from './tenure';
 
 export interface Related {
@@ -68,16 +69,44 @@ export function relate(lanes: Lane[], awards: Award[], works: Project[]): Map<st
   return out;
 }
 
-export function schoolAwards(schools: Education[], awards: Award[], claimed: Set<string>): Map<string, Award[]> {
-  const out = new Map<string, Award[]>();
-  for (const a of awards) {
-    const range = years(a.yr);
-    if (claimed.has(a.id) || !range) continue;
-    const school = schools.find((e) => {
-      const s = span(e.yr);
-      return s !== null && s.from <= range[1] && s.to >= range[0];
-    });
-    if (school) out.set(school.id, [...(out.get(school.id) ?? []), a]);
+export interface SchoolLinks {
+  roles: HistoryItem[];
+  awards: Award[];
+  papers: Paper[];
+}
+
+function overlaps(a: [number, number], b: [number, number]): boolean {
+  return a[0] <= b[1] && a[1] >= b[0];
+}
+
+export function schoolLinks(
+  schools: Education[],
+  experience: HistoryItem[],
+  awards: Award[],
+  papers: Paper[],
+  claimed: Set<string>,
+): Map<string, SchoolLinks> {
+  const out = new Map<string, SchoolLinks>();
+  for (const e of schools) {
+    const s = span(e.yr);
+    if (!s) continue;
+    const range: [number, number] = [s.from, s.to];
+    const name = e.school.split(' · ')[0].trim().toLowerCase();
+    const links: SchoolLinks = {
+      roles: experience.filter((x) => {
+        const t = span(x.yr);
+        return x.where.toLowerCase().includes(name) && employment(x.role).kind !== 'Part-time' && t !== null && overlaps(range, [t.from, t.to]);
+      }),
+      awards: awards.filter((a) => {
+        const t = years(a.yr);
+        return t !== null && overlaps(range, t) && (!claimed.has(a.id) || a.where.toLowerCase().includes(name));
+      }),
+      papers: papers.filter((p) => {
+        const t = years(p.year);
+        return t !== null && overlaps(range, t);
+      }),
+    };
+    if (links.roles.length || links.awards.length || links.papers.length) out.set(e.id, links);
   }
   return out;
 }

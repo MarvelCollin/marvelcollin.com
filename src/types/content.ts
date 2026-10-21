@@ -63,6 +63,7 @@ export interface Paper {
   url?: string;
   repo: string;
   tags: string[];
+  photo?: string;
 }
 
 export interface Chapter {

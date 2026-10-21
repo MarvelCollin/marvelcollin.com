@@ -383,6 +383,13 @@
       1600
     ]
   },
+  "/shots/paper-quantization-team.jpg": {
+    "base": "/img/shots/paper-quantization-team",
+    "widths": [
+      400,
+      800
+    ]
+  },
   "/shots/polaris-1.png": {
     "base": "/img/shots/polaris-1",
     "widths": [

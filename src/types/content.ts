@@ -54,6 +54,11 @@ export interface Education {
   sort: number;
 }
 
+export interface PaperPhoto {
+  src: string;
+  alt: string;
+}
+
 export interface Paper {
   slug: string;
   title: string;
@@ -63,7 +68,7 @@ export interface Paper {
   url?: string;
   repo: string;
   tags: string[];
-  photos?: string[];
+  photos?: PaperPhoto[];
 }
 
 export interface Chapter {

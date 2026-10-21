@@ -4,7 +4,8 @@ import type { Award, HistoryItem, Paper, Project } from '../../types/content';
 import { employment } from '../../lib/employment';
 import { img } from '../../lib/img';
 import { orgLogo } from '../../lib/org-logo';
-import { jumpTo, paperAnchor } from '../../lib/papers';
+import { jumpTo, paperImages } from '../../lib/papers';
+import { paperHref } from '../../lib/work-link';
 import { workHref } from '../../lib/work-link';
 import { setFlipOrigin } from '../../lib/flip';
 import { WORK_TYPES } from '../../content/work-types';
@@ -74,19 +75,11 @@ export function RoleChip({ role }: { role: HistoryItem }) {
   );
 }
 
-export function PaperChip({ paper }: { paper: Paper }) {
-  const id = paperAnchor(paper);
+export function PaperChip({ paper, work }: { paper: Paper; work?: Project }) {
   return (
     <li className="min-w-0 max-w-full">
-      <a
-        href={'#' + id}
-        onClick={(e) => {
-          e.preventDefault();
-          jumpTo(id);
-        }}
-        className={CHIP}
-      >
-        <Thumb src={paper.photos?.[0]} fallback={<FaFileLines size={14} className="text-accent-2" aria-hidden="true" />} />
+      <a href={paperHref(paper.slug)} className={CHIP}>
+        <Thumb src={paperImages(paper, work)[0]?.src} fallback={<FaFileLines size={14} className="text-accent-2" aria-hidden="true" />} />
         <span className="min-w-0">
           <span className={EYEBROW + ' text-accent-2'}>Research paper · {paper.year}</span>
           <span className="line-clamp-2 max-w-[42ch] text-[14px] leading-[1.35] text-fg">{paper.title}</span>

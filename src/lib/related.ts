@@ -1,6 +1,6 @@
 import type { Award, Education, HistoryItem, Paper, Project } from '../types/content';
 import { employment } from './employment';
-import { span, type Lane } from './tenure';
+import { chronicle, isLive, span, type Lane } from './tenure';
 
 export interface Related {
   awards: Award[];
@@ -87,15 +87,19 @@ export function schoolLinks(
   claimed: Set<string>,
 ): Map<string, SchoolLinks> {
   const out = new Map<string, SchoolLinks>();
+  const lanes = chronicle(experience).filter((l) => l.items.some((i) => employment(i.role).kind !== 'Part-time'));
+  const held = lanes.flatMap((l) => l.items);
   for (const e of schools) {
     const s = span(e.yr);
     if (!s) continue;
     const range: [number, number] = [s.from, s.to];
-    const name = e.school.split(' · ')[0].trim().toLowerCase();
+    const [name, place = ''] = e.school.toLowerCase().split(' · ').map((x) => x.trim());
     const links: SchoolLinks = {
-      roles: experience.filter((x) => {
+      roles: held.filter((x) => {
         const t = span(x.yr);
-        return x.where.toLowerCase().includes(name) && employment(x.role).kind !== 'Part-time' && t !== null && overlaps(range, [t.from, t.to]);
+        const where = x.where.toLowerCase();
+        const career = employment(x.role).kind === 'Full-time' && isLive(x);
+        return (where.includes(name) || (place !== '' && where.includes(place))) && !career && t !== null && overlaps(range, [t.from, t.to]);
       }),
       awards: awards.filter((a) => {
         const t = years(a.yr);

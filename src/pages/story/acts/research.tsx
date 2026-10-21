@@ -1,9 +1,10 @@
 import { PAPERS } from '../../../content/papers';
 import { useContent } from '../../../content/use-content';
-import { img, responsive } from '../../../lib/img';
-import { paperAnchor, workFor } from '../../../lib/papers';
+import { img } from '../../../lib/img';
+import { paperAnchor, paperImages, workFor } from '../../../lib/papers';
 import { workHref } from '../../../lib/work-link';
 import { setFlipOrigin } from '../../../lib/flip';
+import { PaperImages } from '../../../components/ui/paper-images';
 import { Reveal } from '../../../components/ui/reveal';
 
 export function Research() {
@@ -16,19 +17,7 @@ export function Research() {
         return (
         <Reveal key={p.slug} delay={i * 80}>
           <article id={paperAnchor(p)} className="group relative rounded-xl border border-line p-8 text-center transition-all duration-200 hover:border-accent/50 hover:bg-bg max-[560px]:p-5">
-            {p.photos && (
-              <div className="mb-6 grid grid-cols-[3fr_4fr] items-start gap-3 max-[560px]:grid-cols-1">
-                {p.photos.map((src, n) => (
-                  <img
-                    key={src}
-                    {...responsive(src, '(max-width: 560px) 100vw, 480px')}
-                    alt={n === 0 ? `${p.authors.join(', ')} with the published paper` : `${p.title} on ScienceDirect`}
-                    loading="lazy"
-                    className="h-auto w-full rounded-lg border border-line"
-                  />
-                ))}
-              </div>
-            )}
+            <PaperImages images={paperImages(p, work)} sizes="(max-width: 560px) 100vw, 480px" className="mb-6" />
             <span className="text-[13px] tabular-nums text-muted">{p.year}</span>
             <h3 className="mt-2 text-[20px] font-medium leading-[1.3] transition-colors group-hover:text-fg">
               <a href={p.url ?? p.repo} target="_blank" rel="noopener noreferrer" className="after:absolute after:inset-0 after:rounded-xl">

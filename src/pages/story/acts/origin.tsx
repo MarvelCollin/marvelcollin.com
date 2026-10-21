@@ -4,6 +4,7 @@ import { useContent } from '../../../content/use-content';
 import { orgLogo } from '../../../lib/org-logo';
 import { chronicle } from '../../../lib/tenure';
 import { relate, schoolLinks } from '../../../lib/related';
+import { workFor } from '../../../lib/papers';
 import { OrgMark } from '../../../components/ui/org-mark';
 import { AwardChip, LinkedList, PaperChip, RoleChip } from '../../../components/ui/linked';
 import { Reveal } from '../../../components/ui/reveal';
@@ -66,7 +67,7 @@ export function Origin() {
                     <AwardChip key={a.id} award={a} />
                   ))}
                   {links.get(e.id)!.papers.map((p) => (
-                    <PaperChip key={p.slug} paper={p} />
+                    <PaperChip key={p.slug} paper={p} work={workFor(p, works)} />
                   ))}
                 </LinkedList>
               )}

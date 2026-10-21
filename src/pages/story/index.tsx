@@ -14,10 +14,12 @@ import { Epilogue } from './acts/epilogue';
 import { Backdrop } from './backdrop';
 import { useActiveChapter } from '../../hooks/use-active-chapter';
 import { useIdle } from '../../hooks/use-idle';
-import { useWorkHash } from '../../hooks/use-work-hash';
+import { usePaperHash, useWorkHash } from '../../hooks/use-work-hash';
 
 const loadOverlay = () => import('../../components/project/overlay');
 const ProjectOverlay = lazy(() => loadOverlay().then((m) => ({ default: m.ProjectOverlay })));
+const loadPaper = () => import('../../components/paper/overlay');
+const PaperOverlay = lazy(() => loadPaper().then((m) => ({ default: m.PaperOverlay })));
 
 const META = Object.fromEntries(CHAPTERS.map((c) => [c.id, c]));
 
@@ -36,10 +38,12 @@ export function Story() {
   const rest = useIdle(location.hash.length > 1);
   const active = useActiveChapter(ids, rest);
   const { slug, close } = useWorkHash();
+  const paper = usePaperHash();
 
   useEffect(() => {
     if (!rest) return;
     loadOverlay();
+    loadPaper();
     const id = location.hash.slice(1);
     if (!id || id.startsWith('/')) return;
     const el = document.getElementById(id);
@@ -71,6 +75,11 @@ export function Story() {
       {slug && (
         <Suspense fallback={null}>
           <ProjectOverlay slug={slug} onClose={close} />
+        </Suspense>
+      )}
+      {paper.slug && (
+        <Suspense fallback={null}>
+          <PaperOverlay slug={paper.slug} onClose={paper.close} />
         </Suspense>
       )}
     </>

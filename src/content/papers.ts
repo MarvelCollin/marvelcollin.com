@@ -10,7 +10,10 @@ export const PAPERS: Paper[] = [
     url: 'https://www.sciencedirect.com/science/article/pii/S1877050926029649',
     repo: 'https://github.com/Wenfuuu/model-quantization-sentiment-analysis',
     tags: ['NLP', 'Quantization', 'Sentiment Analysis', 'XAI', 'ICCSCI'],
-    photos: ['/shots/paper-quantization-team.jpg', '/shots/paper-quantization-article.jpg'],
+    photos: [
+      { src: '/shots/paper-quantization-team.jpg', alt: 'The authors with their supervisor and the published paper' },
+      { src: '/shots/paper-quantization-article.jpg', alt: 'The paper on ScienceDirect' },
+    ],
   },
   {
     slug: 'distillation-quantization-competitive-programming',

@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { slugFromHash } from '../lib/work-link';
+import { paperSlugFromHash, slugFromHash } from '../lib/work-link';
 
-export function useWorkHash() {
-  const [slug, setSlug] = useState(() => slugFromHash(location.hash));
+function useHashSlug(parse: (hash: string) => string | null) {
+  const [slug, setSlug] = useState(() => parse(location.hash));
   const pushed = useRef(false);
 
   useEffect(() => {
     const onHash = () => {
-      const next = slugFromHash(location.hash);
+      const next = parse(location.hash);
       setSlug((current) => {
         if (!current && next) pushed.current = true;
         if (!next) pushed.current = false;
@@ -16,7 +16,7 @@ export function useWorkHash() {
     };
     window.addEventListener('hashchange', onHash);
     return () => window.removeEventListener('hashchange', onHash);
-  }, []);
+  }, [parse]);
 
   const close = useCallback(() => {
     if (pushed.current) {
@@ -29,3 +29,6 @@ export function useWorkHash() {
 
   return { slug, close };
 }
+
+export const useWorkHash = () => useHashSlug(slugFromHash);
+export const usePaperHash = () => useHashSlug(paperSlugFromHash);

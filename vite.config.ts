@@ -7,18 +7,20 @@ function localApi(): Plugin {
     name: 'local-api',
     configureServer(server) {
       Object.assign(process.env, loadEnv(server.config.mode, process.cwd(), ''))
-      server.middlewares.use('/api/github', async (_req, res) => {
-        try {
-          const { GET } = await server.ssrLoadModule('/api/github.ts')
-          const out: Response = await GET()
-          res.statusCode = out.status
-          out.headers.forEach((value, key) => res.setHeader(key, value))
-          res.end(await out.text())
-        } catch {
-          res.statusCode = 500
-          res.end()
-        }
-      })
+      for (const name of ['github', 'content']) {
+        server.middlewares.use(`/api/${name}`, async (_req, res) => {
+          try {
+            const { GET } = await server.ssrLoadModule(`/api/${name}.ts`)
+            const out: Response = await GET()
+            res.statusCode = out.status
+            out.headers.forEach((value, key) => res.setHeader(key, value))
+            res.end(await out.text())
+          } catch {
+            res.statusCode = 500
+            res.end()
+          }
+        })
+      }
     },
   }
 }

@@ -2,7 +2,7 @@ import { PAPERS } from '../../../content/papers';
 import { useContent } from '../../../content/use-content';
 import { img } from '../../../lib/img';
 import { paperAnchor, paperImages, workFor } from '../../../lib/papers';
-import { workHref } from '../../../lib/work-link';
+import { paperHref, workHref } from '../../../lib/work-link';
 import { setFlipOrigin } from '../../../lib/flip';
 import { PaperImages } from '../../../components/ui/paper-images';
 import { Reveal } from '../../../components/ui/reveal';
@@ -20,7 +20,7 @@ export function Research() {
             <PaperImages images={paperImages(p, work)} sizes="(max-width: 560px) 100vw, 480px" className="mb-6" />
             <span className="text-[13px] tabular-nums text-muted">{p.year}</span>
             <h3 className="mt-2 text-[20px] font-medium leading-[1.3] transition-colors group-hover:text-fg">
-              <a href={p.url ?? p.repo} target="_blank" rel="noopener noreferrer" className="after:absolute after:inset-0 after:rounded-xl">
+              <a href={paperHref(p.slug)} className="after:absolute after:inset-0 after:rounded-xl">
                 {p.title}
               </a>
             </h3>
@@ -30,13 +30,8 @@ export function Research() {
               {p.tags.map((t) => (
                 <span key={t} className="rounded-full border border-accent-2/25 bg-accent-2/8 px-3 py-1 text-[11px] tracking-[0.04em] text-accent-2">{t}</span>
               ))}
-              <span className="flex w-full items-center justify-center gap-5 pt-2 text-[13px]">
-                {p.url && (
-                  <a href={p.repo} target="_blank" rel="noopener noreferrer" className="relative z-10 text-muted transition-colors hover:text-fg">
-                    Code ↗
-                  </a>
-                )}
-                <span className="text-accent-soft transition-colors group-hover:text-fg max-[900px]:hidden">{p.url ? 'Read paper →' : 'View repo →'}</span>
+              <span className="flex w-full items-center justify-center pt-2 text-[13px]">
+                <span className="text-accent-soft transition-colors group-hover:text-fg max-[900px]:hidden">View details →</span>
               </span>
             </div>
             {work && (

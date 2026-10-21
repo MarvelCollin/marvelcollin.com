@@ -9,7 +9,7 @@ if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
 const anchor = legacyAnchor(location.pathname);
 if (anchor) history.replaceState(null, '', '/' + anchor);
-else if (location.pathname !== '/' && location.pathname !== '/admin') history.replaceState(null, '', '/' + location.hash);
+else if (location.pathname !== '/') history.replaceState(null, '', '/' + location.hash);
 
 initNavInterception();
 

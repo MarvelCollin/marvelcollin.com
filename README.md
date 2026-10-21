@@ -1,6 +1,6 @@
 # marvelcollin.com
 
-Personal site and portfolio. React 19 and TypeScript on Vite, styled with Tailwind v4, with all content served from Supabase and edited through a built in admin panel.
+Personal site and portfolio. React 19 and TypeScript on Vite, styled with Tailwind v4, with all content stored in Supabase and served through one edge cached endpoint.
 
 Live at [marvelcollin.com](https://marvelcollin.com).
 
@@ -17,7 +17,7 @@ Live at [marvelcollin.com](https://marvelcollin.com).
 
 ## Content model
 
-Nothing on the site is hardcoded. Five tables back the public pages, mapped in `src/lib/supabase.ts`:
+Nothing on the site is hardcoded. Five tables back the public pages, read by `api/content.ts`:
 
 | Table | Feeds |
 | --- | --- |
@@ -27,9 +27,11 @@ Nothing on the site is hardcoded. Five tables back the public pages, mapped in `
 | `portofolio_kolin_recognition` | Awards and recognition |
 | `portofolio_kolin_education` | Education timeline |
 
-Images live in the `portofolio-kolin-media` Storage bucket. `src/lib/storage.ts` handles upload and public URL resolution; screenshots committed under `public/shots/` are served directly instead.
+Images live in the `portofolio-kolin-media` Storage bucket, and screenshots committed under `public/shots/` are served directly.
 
-Reads go through the anon key and are safe to expose. Writes are gated by row level security, so the admin panel signs in first and the seed script needs a service role key.
+The browser never talks to Supabase. `api/content.ts` reads the five tables with the anon key and returns them as one JSON document with `s-maxage=3600` and a week of `stale-while-revalidate`, so Supabase is hit about once an hour per region no matter the traffic. A change to the data shows up within the hour, or at once after a redeploy. There is no admin panel. Rows are inserted with the seed script below.
+
+Row level security must allow select only. `scripts/lockdown.sql` drops every write policy on the five tables and the media bucket and recreates select only policies. Run it in the Supabase SQL editor, and turn off new signups under Authentication, Sign In / Providers.
 
 ## Running locally
 
@@ -70,7 +72,7 @@ Preview without writing:
 node scripts/works-seed.mjs --dry-run
 ```
 
-Writing needs `SUPABASE_SERVICE_ROLE_KEY` in `.env`, or `ADMIN_PASSWORD` alongside the anon key so the script can sign in as the admin user. Row level security rejects the anon key on its own.
+Writing needs `SUPABASE_SERVICE_ROLE_KEY` in `.env`. Row level security rejects the anon key on its own.
 
 `scripts/db.mjs` is separate and runs raw SQL from `supabase/migrations/` and `supabase/seed.sql` over a direct connection. It needs `SUPABASE_DB_URL`, the session pooler URI from Project Settings then Database. That directory is gitignored, so a fresh clone cannot run it until those files exist.
 
@@ -78,14 +80,11 @@ Writing needs `SUPABASE_SERVICE_ROLE_KEY` in `.env`, or `ADMIN_PASSWORD` alongsi
 
 ```
 src/
-  pages/          home, work, about, research, project-detail, admin/
+  pages/          the story page and its chapters
   components/     gallery, lightbox, project-card, skill-balls, ...
-  content/        content provider and hooks over the Supabase tables
+  content/        content provider and hooks
   lib/
-    api/          per table read and write helpers
-    supabase.ts   client and table name map
-    storage.ts    image upload to the media bucket
-    auth.ts       admin session handling
+    api/          content loader and row mappers
   Interface/      row and view model types
 scripts/          seeding and migration runners
 public/shots/     committed project screenshots
@@ -93,4 +92,4 @@ public/shots/     committed project screenshots
 
 ## Deploying
 
-Vercel builds with `npm run build` and serves `dist/`. Every route rewrites to `index.html` so client side routing works on refresh. Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the Vercel project for both Production and Preview, then redeploy so the build picks them up.
+Vercel builds with `npm run build` and serves `dist/`. Every route rewrites to `index.html` so client side routing works on refresh. Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the Vercel project for both Production and Preview. Only the `api/` functions read them, so they never reach the browser bundle. `vercel.json` sets long lived cache headers on static assets and a Content Security Policy on the page.

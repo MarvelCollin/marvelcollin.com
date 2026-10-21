@@ -15,8 +15,6 @@ loadEnv();
 
 const url = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
 const service = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const anon = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
-const adminPassword = process.env.ADMIN_PASSWORD;
 
 if (!url) {
   console.error('Missing VITE_SUPABASE_URL in .env');
@@ -24,24 +22,12 @@ if (!url) {
 }
 const dryRun = process.argv.includes('--dry-run');
 
-if (!dryRun && !service && !(anon && adminPassword)) {
-  console.error('Need SUPABASE_SERVICE_ROLE_KEY in .env, or ADMIN_PASSWORD alongside VITE_SUPABASE_ANON_KEY.');
-  console.error('Row level security rejects the anon key on its own.');
+if (!service) {
+  console.error('Need SUPABASE_SERVICE_ROLE_KEY in .env. Row level security rejects the anon key.');
   process.exit(1);
 }
 
-const supabase = createClient(url, service || anon, { auth: { persistSession: false } });
-
-if (!service && !dryRun) {
-  const { error } = await supabase.auth.signInWithPassword({
-    email: 'admin@portfolio.local',
-    password: adminPassword,
-  });
-  if (error) {
-    console.error('Admin sign in failed:', error.message);
-    process.exit(1);
-  }
-}
+const supabase = createClient(url, service, { auth: { persistSession: false } });
 
 const TABLE = 'portofolio_kolin_works';
 

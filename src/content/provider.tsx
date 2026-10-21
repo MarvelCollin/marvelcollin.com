@@ -1,29 +1,13 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
-import type { ContentState } from '../types/content';
-import { works } from '../lib/api/works';
-import { skills } from '../lib/api/skills';
-import { experience } from '../lib/api/experience';
-import { recognition } from '../lib/api/recognition';
-import { education } from '../lib/api/education';
+import { loadContent, type ContentData } from '../lib/api/content';
 import { ContentContext } from './context';
 
-type Data = Pick<ContentState, 'works' | 'skills' | 'experience' | 'recognition' | 'education'>;
+type Data = ContentData;
 
 const EMPTY: Data = { works: [], skills: [], experience: [], recognition: [], education: [] };
 
-async function loadAll(): Promise<Data> {
-  const [w, s, e, r, ed] = await Promise.all([
-    works.list(),
-    skills.list(),
-    experience.list(),
-    recognition.list(),
-    education.list(),
-  ]);
-  return { works: w, skills: s, experience: e, recognition: r, education: ed };
-}
-
-const initial = loadAll();
+const initial = loadContent();
 initial.catch(() => undefined);
 
 export function ContentProvider({ children }: { children: ReactNode }) {
@@ -43,7 +27,7 @@ export function ContentProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const refresh = useCallback(() => run(loadAll()), [run]);
+  const refresh = useCallback(() => run(loadContent()), [run]);
 
   useEffect(() => {
     run(initial);

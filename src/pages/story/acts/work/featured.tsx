@@ -52,7 +52,7 @@ export function FeaturedWork({ p }: { p: Project }) {
               Open case
               <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
             </a>
-            {!!stats?.stars && (
+            {!!stats?.stars && /^https?:\/\//i.test(p.repo ?? '') && (
               <a
                 href={p.repo}
                 target="_blank"

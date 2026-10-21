@@ -207,6 +207,38 @@
       1600
     ]
   },
+  "/shots/knowledge-distillation-fig1.png": {
+    "base": "/img/shots/knowledge-distillation-fig1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/knowledge-distillation-fig2.png": {
+    "base": "/img/shots/knowledge-distillation-fig2",
+    "widths": [
+      400,
+      800,
+      1300
+    ]
+  },
+  "/shots/knowledge-distillation-fig4.png": {
+    "base": "/img/shots/knowledge-distillation-fig4",
+    "widths": [
+      400,
+      800,
+      1300
+    ]
+  },
+  "/shots/knowledge-distillation-fig5.png": {
+    "base": "/img/shots/knowledge-distillation-fig5",
+    "widths": [
+      400,
+      800,
+      1500
+    ]
+  },
   "/shots/knowledge-distillation-flow.png": {
     "base": "/img/shots/knowledge-distillation-flow",
     "widths": [
@@ -403,6 +435,69 @@
       400,
       800,
       1600
+    ]
+  },
+  "/shots/tetrimosuv-0.png": {
+    "base": "/img/shots/tetrimosuv-0",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/tetrimosuv-1.png": {
+    "base": "/img/shots/tetrimosuv-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/tetrimosuv-2.png": {
+    "base": "/img/shots/tetrimosuv-2",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/tetrimosuv-3.png": {
+    "base": "/img/shots/tetrimosuv-3",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/tetrimosuv-4.png": {
+    "base": "/img/shots/tetrimosuv-4",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/tetrimosuv-5.png": {
+    "base": "/img/shots/tetrimosuv-5",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/certs/asean-bronze.png": {
+    "base": "/img/certs/asean-bronze",
+    "widths": [
+      400,
+      800,
+      897
+    ]
+  },
+  "/certs/best-assistant.png": {
+    "base": "/img/certs/best-assistant",
+    "widths": [
+      400,
+      446
     ]
   },
   "/certs/medallion-1.jpg": {

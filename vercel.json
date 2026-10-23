@@ -93,6 +93,18 @@
       "destination": "https://quizlingo-coral.vercel.app/quizlingo/:path*"
     },
     {
+      "source": "/sahabatsentarum",
+      "destination": "https://sahabatsentarum-six.vercel.app/sahabatsentarum/"
+    },
+    {
+      "source": "/sahabatsentarum/",
+      "destination": "https://sahabatsentarum-six.vercel.app/sahabatsentarum/"
+    },
+    {
+      "source": "/sahabatsentarum/:path*",
+      "destination": "https://sahabatsentarum-six.vercel.app/sahabatsentarum/:path*"
+    },
+    {
       "source": "/((?!api/).*)",
       "destination": "/index.html"
     }

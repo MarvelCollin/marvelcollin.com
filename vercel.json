@@ -3,7 +3,7 @@
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "ignoreCommand": "git diff --quiet HEAD^ HEAD -- . ':(exclude)*.md' ':(exclude)supabase' ':(exclude)scripts'",
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD -- . ':(exclude)*.md' ':(exclude)supabase' ':(exclude)scripts' ':(exclude).github'",
   "headers": [
     {
       "source": "/(.*)",

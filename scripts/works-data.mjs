@@ -60,7 +60,7 @@ export const WORKS = [
     name: 'NRX',
     year: 'Apr 2026 to Jul 2026',
     role: 'Fullstack',
-    stack: 'Next.js · React 19 · Go · PostgreSQL',
+    stack: 'Next.js · React 19 · Go · Gin · PostgreSQL',
     client: 'ITEL, Singapore',
     tag: 'freelance',
     description: 'an ISO compliance management platform',

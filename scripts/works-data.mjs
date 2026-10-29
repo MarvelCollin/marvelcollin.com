@@ -176,7 +176,7 @@ export const WORKS = [
   },
   {
     slug: 'polaris',
-    name: 'Polaris',
+    name: 'Sahabat Sentarum Internal App',
     year: 'Aug 2026 to Oct 2026',
     role: 'Solo',
     stack: 'React 19 · Go · Gin · Turso',

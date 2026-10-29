@@ -9,6 +9,7 @@
 @import "./media.css" layer(base);
 @import "./admin.css" layer(base);
 @import "./responsive.css" layer(base);
+@import "./cursor.css";
 
 @theme {
   --color-bg: var(--bg);

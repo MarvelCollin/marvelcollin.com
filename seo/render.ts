@@ -1,17 +1,20 @@
 import { PROFILE } from '../src/content/profile';
-import type { Paper, Project } from '../src/types/content';
+import type { Award, Education, HistoryItem, Paper, Project } from '../src/types/content';
 import type { SiteData } from './data';
 
 const SITE = PROFILE.site;
 const PERSON_ID = `${SITE}/#person`;
 const WEBSITE_ID = `${SITE}/#website`;
 const ENTITIES: Record<string, string> = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+const KINDS = /^(full-time|part-time|internship|freelance|contract)$/i;
+export const OG_IMAGE = '/img/og/marvel-collin-1200x630.png';
 
 export interface Page {
   path: string;
   title: string;
   description: string;
   image: string;
+  imageAlt: string;
   type: 'profile' | 'article';
   graph: object[];
   body: string;
@@ -24,6 +27,66 @@ const paperPath = (p: Paper) => `/paper/${p.slug}`;
 const link = (href: string, text: string) => `<a href="${esc(href)}">${esc(text)}</a>`;
 const para = (text: string) => (text ? `<p>${esc(text)}</p>` : '');
 const unique = (items: string[]) => [...new Set(items)];
+const flat = (text: string) => text.replace(/\s+·\s+/g, ', ');
+const sentence = (text: string) => (/[.!?]$/.test(text.trim()) ? text.trim() : `${text.trim()}.`);
+const prose = (...parts: (string | false | undefined)[]) => para(parts.filter((p): p is string => !!p).map(sentence).join(' '));
+
+function list(items: string[]): string {
+  if (items.length < 2) return items.join('');
+  return `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`;
+}
+
+function period(yr: string): { text: string; ongoing: boolean } {
+  const [from, to] = yr.split(/\s+to\s+/);
+  if (!to) return { text: `in ${from}`, ongoing: false };
+  if (/present/i.test(to)) return { text: `since ${from}`, ongoing: true };
+  return { text: `from ${from} to ${to}`, ongoing: false };
+}
+
+const stackList = (stack: string) => list(stack.split('·').map((s) => s.trim()).filter(Boolean));
+
+function roleSentence(e: HistoryItem): string {
+  const parts = e.role.split('·').map((p) => p.trim());
+  const kind = parts.find((p) => KINDS.test(p));
+  const titles = parts.filter((p) => !KINDS.test(p));
+  const when = period(e.yr);
+  const verb = when.ongoing ? 'has worked' : 'worked';
+  const place = e.where !== e.role && !KINDS.test(e.where) ? ` at ${flat(e.where)}` : '';
+  if (!titles.length) return `${PROFILE.name} ${verb} ${(kind ?? 'independently').toLowerCase()}${place} ${when.text}`;
+  return `${PROFILE.name} ${verb} as ${list(titles)}${place} ${when.text}${kind ? `, ${kind.toLowerCase()}` : ''}`;
+}
+
+function roleHeading(e: HistoryItem): string {
+  const titles = e.role.split('·').map((p) => p.trim()).filter((p) => !KINDS.test(p));
+  return titles.length ? `${titles.join(', ')} · ${flat(e.where)}` : flat(e.where);
+}
+
+function workIntro(w: Project): string[] {
+  const client = w.client && w.client !== 'Personal' ? ` for ${flat(w.client)}` : ' as a personal project';
+  const opener = /^(a|an|the)\s/i.test(w.desc)
+    ? `${w.name} is ${w.desc}, built by ${PROFILE.name}${client}`
+    : `${PROFILE.name} built ${w.name}${client}. ${w.brief}`;
+  return [opener, `It was built ${period(w.year).text} with ${stackList(w.stack)}`, `Role: ${flat(w.role)}`];
+}
+
+const outcome = (w: Project) => (w.result ? `Outcome: ${flat(w.result)}` : '');
+
+const paperIntro = (p: Paper) => `${p.title} is a ${p.year} research paper by ${list(p.authors)}`;
+
+function schoolSentence(e: Education): string {
+  const when = period(e.yr);
+  return `${PROFILE.name} ${when.ongoing ? 'studies' : 'studied'} ${e.degree} at ${flat(e.school)} ${when.text}`;
+}
+
+const awardSentence = (a: Award) => `In ${a.yr}, ${PROFILE.name} received the ${flat(a.name)} from ${flat(a.where)}`;
+
+function stats(d: SiteData): string {
+  const first = d.experience.map((e) => e.yr.split(/\s+to\s+/)[0]).at(-1);
+  return (
+    `This site lists ${d.works.length} projects, ${d.papers.length} research papers, ${d.experience.length} roles and ${d.recognition.length} awards` +
+    (first ? `, with work experience going back to ${first}` : '')
+  );
+}
 
 function clip(text: string, max = 160): string {
   const flat = text.replace(/\s+/g, ' ').trim();
@@ -91,14 +154,17 @@ export function homePage(d: SiteData): Page {
     `<main data-seed>`,
     `<header><h1>${esc(PROFILE.name)}</h1>`,
     para(`${PROFILE.jobTitle} · ${PROFILE.city}, ${PROFILE.country}`),
-    para(summary(d)),
     contact(),
     `</header>`,
-    section('Experience', d.experience.map((e) => `<h3>${esc(e.role)}</h3>${para(`${e.where} · ${e.yr}`)}${para(e.note)}`)),
-    section('Projects', d.works.map((w) => `<h3>${link(workPath(w), w.name)}</h3>${para(w.brief)}${para(`${w.year} · ${w.role} · ${w.stack}`)}`)),
-    section('Research', d.papers.map((p) => `<h3>${link(paperPath(p), p.title)}</h3>${para(`${p.authors.join(', ')} · ${p.year}`)}${para(p.summary)}`)),
-    section('Education', d.education.map((e) => `<h3>${esc(e.degree)}</h3>${para(`${e.school} · ${e.yr}`)}${para(e.note)}`)),
-    section('Recognition', d.recognition.map((a) => `<h3>${esc(a.name)}</h3>${para(`${a.where} · ${a.yr}`)}`)),
+    `<section><h2>Who is ${esc(PROFILE.name)}?</h2>`,
+    para(summary(d)),
+    prose(stats(d), `Contact ${PROFILE.name} at ${PROFILE.email}`),
+    `</section>`,
+    section('Experience', d.experience.map((e) => `<h3>${esc(roleHeading(e))}</h3>${prose(roleSentence(e), e.note)}`)),
+    section('Projects', d.works.map((w) => `<h3>${link(workPath(w), w.name)}</h3>${prose(...workIntro(w))}${prose(w.body[0], outcome(w))}`)),
+    section('Research', d.papers.map((p) => `<h3>${link(paperPath(p), p.title)}</h3>${prose(paperIntro(p))}${para(p.summary)}`)),
+    section('Education', d.education.map((e) => `<h3>${esc(e.degree)}</h3>${prose(schoolSentence(e), e.note)}`)),
+    section('Recognition', d.recognition.map((a) => `<h3>${esc(flat(a.name))}</h3>${prose(awardSentence(a))}`)),
     section('Skills', d.skills.map((s) => `<strong>${esc(s.name)}</strong>: ${esc(s.opinion)}`)),
     `</main>`,
   ].join('');
@@ -106,7 +172,8 @@ export function homePage(d: SiteData): Page {
     path: '/',
     title,
     description: clip(summary(d)),
-    image: abs(PROFILE.portrait),
+    image: abs(OG_IMAGE),
+    imageAlt: `${PROFILE.name}, ${PROFILE.jobTitle}`,
     type: 'profile',
     body,
     graph: [
@@ -139,9 +206,10 @@ export function workPage(d: SiteData, w: Project): Page {
     `<main data-seed><article>`,
     `<p>${link('/', PROFILE.name)} / Projects</p>`,
     `<h1>${esc(w.name)}</h1>`,
-    para(w.brief),
+    prose(...workIntro(w)),
     `<dl>${facts.filter(([, v]) => v).map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join('')}</dl>`,
     ...w.body.map(para),
+    prose(outcome(w)),
     links.length ? `<p>${links.join(' · ')}</p>` : '',
     `</article>`,
     `<footer>${para(`Built by ${PROFILE.name}, ${PROFILE.jobTitle.toLowerCase()} in ${PROFILE.city}.`)}${contact()}</footer>`,
@@ -151,7 +219,8 @@ export function workPage(d: SiteData, w: Project): Page {
     path,
     title: `${w.name} · ${PROFILE.name}`,
     description: clip(`${w.name}: ${w.brief} ${w.role}. Built with ${w.stack}.`),
-    image: abs(w.cover ?? PROFILE.portrait),
+    image: abs(w.cover ?? OG_IMAGE),
+    imageAlt: w.cover ? `${w.name} screenshot` : `${PROFILE.name}, ${PROFILE.jobTitle}`,
     type: 'article',
     body,
     graph: [
@@ -183,7 +252,7 @@ export function paperPage(d: SiteData, p: Paper): Page {
     `<main data-seed><article>`,
     `<p>${link('/', PROFILE.name)} / Research</p>`,
     `<h1>${esc(p.title)}</h1>`,
-    para(`${p.authors.join(', ')} · ${p.year}`),
+    prose(paperIntro(p)),
     para(p.summary),
     para(`Topics: ${p.tags.join(', ')}`),
     `<p>${links.join(' · ')}</p>`,
@@ -195,7 +264,8 @@ export function paperPage(d: SiteData, p: Paper): Page {
     path,
     title: `${p.title} · ${PROFILE.name}`,
     description: clip(p.summary),
-    image: abs(p.photos?.[0]?.src ?? PROFILE.portrait),
+    image: abs(p.photos?.[0]?.src ?? OG_IMAGE),
+    imageAlt: p.photos?.[0]?.alt ?? `${PROFILE.name}, ${PROFILE.jobTitle}`,
     type: 'article',
     body,
     graph: [
@@ -224,6 +294,7 @@ const META: [RegExp, (p: Page) => string][] = [
   [/<meta property="og:type" content="[^"]*" \/>/, (p) => `<meta property="og:type" content="${p.type}" />`],
   [/<meta property="og:title" content="[^"]*" \/>/, (p) => `<meta property="og:title" content="${esc(p.title)}" />`],
   [/<meta property="og:description" content="[^"]*" \/>/, (p) => `<meta property="og:description" content="${esc(p.description)}" />`],
+  [/<meta name="twitter:card" content="[^"]*" \/>/, () => `<meta name="twitter:card" content="summary_large_image" />`],
   [/<meta name="twitter:title" content="[^"]*" \/>/, (p) => `<meta name="twitter:title" content="${esc(p.title)}" />`],
   [/<meta name="twitter:description" content="[^"]*" \/>/, (p) => `<meta name="twitter:description" content="${esc(p.description)}" />`],
   [/<div id="app"><\/div>/, (p) => `<div id="app">${p.body}</div>`],
@@ -241,6 +312,8 @@ export function renderHtml(template: string, page: Page): string {
     `<link rel="canonical" href="${esc(url)}" />`,
     `<meta property="og:url" content="${esc(url)}" />`,
     `<meta property="og:image" content="${esc(page.image)}" />`,
+    `<meta property="og:image:alt" content="${esc(page.imageAlt)}" />`,
+    ...(page.image === abs(OG_IMAGE) ? [`<meta property="og:image:width" content="1200" />`, `<meta property="og:image:height" content="630" />`] : []),
     `<meta name="twitter:image" content="${esc(page.image)}" />`,
     `<link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt" />`,
     `<script type="application/ld+json">${graph}</script>`,

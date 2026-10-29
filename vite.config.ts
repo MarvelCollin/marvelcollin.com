@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import { seo } from './seo/plugin'
 
 function localApi(): Plugin {
   return {
@@ -27,5 +28,5 @@ function localApi(): Plugin {
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss(), localApi()],
+  plugins: [react(), tailwindcss(), localApi(), seo()],
 })

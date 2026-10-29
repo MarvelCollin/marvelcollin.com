@@ -1,0 +1,26 @@
+export const PROFILE = {
+  name: 'Marvel Collin',
+  site: 'https://marvelcollin.com',
+  email: 'marvelcollin7@outlook.com',
+  jobTitle: 'Fullstack Software Engineer',
+  employer: 'Software Laboratory Center, BINUS University',
+  school: 'BINUS University',
+  city: 'Jakarta',
+  country: 'Indonesia',
+  countryCode: 'ID',
+  timezone: 'GMT+7',
+  languages: [
+    { code: 'en', label: 'English fluent' },
+    { code: 'id', label: 'Indonesian native' },
+  ],
+  focus: 'fullstack engineering, AI and DevOps',
+  stack: 'Go, .NET Core, TypeScript and Linux',
+  openTo: 'freelance and full time work',
+  portrait: '/img/me/portrait-640.webp',
+  cv: '/cv/marvel-collin-cv.pdf',
+  links: [
+    { label: 'GitHub', href: 'https://github.com/MarvelCollin' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/marvel-collin-0244a21ba/' },
+    { label: 'Instagram', href: 'https://www.instagram.com/marvelcolin_/' },
+  ],
+} as const;

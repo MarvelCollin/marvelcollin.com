@@ -36,6 +36,9 @@ h3,
 .font-mono {
   font-stretch: normal;
 }
+html.js-motion [data-seed] {
+  display: none;
+}
 body::after {
   content: "";
   position: fixed;

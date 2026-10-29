@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+Sitemap: https://marvelcollin.com/sitemap.xml
 Sitemap: https://marvelcollin.com/pantau/sitemap.xml

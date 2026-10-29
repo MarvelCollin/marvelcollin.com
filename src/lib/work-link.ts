@@ -13,6 +13,7 @@ export function slugFromHash(hash: string): string | null {
 
 export function legacyAnchor(pathname: string): string | null {
   if (pathname.startsWith('/work/')) return PREFIX + pathname.slice(6).replace(/\/$/, '');
+  if (pathname.startsWith('/paper/')) return PAPER_PREFIX + pathname.slice(7).replace(/\/$/, '');
   if (pathname === '/work') return '#work';
   if (pathname === '/about') return '#origin';
   if (pathname === '/research') return '#research';

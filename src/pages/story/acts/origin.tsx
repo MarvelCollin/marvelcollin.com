@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { PAPERS } from '../../../content/papers';
+import { PROFILE } from '../../../content/profile';
 import { useContent } from '../../../content/use-content';
 import { orgLogo } from '../../../lib/org-logo';
 import { chronicle } from '../../../lib/tenure';
@@ -11,8 +12,8 @@ import { Reveal } from '../../../components/ui/reveal';
 import { EntrySkeleton } from '../../../components/ui/skeleton';
 
 const FACTS = [
-  { term: 'Based in', detail: 'Jakarta, Indonesia' },
-  { term: 'Languages', detail: 'English fluent, Indonesian native' },
+  { term: 'Based in', detail: `${PROFILE.city}, ${PROFILE.country}` },
+  { term: 'Languages', detail: PROFILE.languages.map((l) => l.label).join(', ') },
 ];
 
 export function Origin() {
@@ -38,9 +39,9 @@ export function Origin() {
           ))}
         </dl>
         <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-[14px] text-fg-dim">
-          <a className="text-accent-soft transition-colors hover:text-fg" href="https://github.com/MarvelCollin" target="_blank" rel="noreferrer">GitHub</a>
-          <a className="text-accent-soft transition-colors hover:text-fg" href="https://www.linkedin.com/in/marvel-collin-0244a21ba/" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a className="text-accent-soft transition-colors hover:text-fg" href="https://www.instagram.com/marvelcolin_/" target="_blank" rel="noreferrer">Instagram</a>
+          {PROFILE.links.map((l) => (
+            <a key={l.label} className="text-accent-soft transition-colors hover:text-fg" href={l.href} target="_blank" rel="noreferrer">{l.label}</a>
+          ))}
         </div>
       </Reveal>
 

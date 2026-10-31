@@ -1,4 +1,5 @@
 import { asset } from './asset';
+import { img } from './img';
 
 const ORGS: Record<string, string> = {
   binus: '/logos/binus.svg',
@@ -10,10 +11,23 @@ const ORGS: Record<string, string> = {
   'owl eyewear': '/logos/owl.png',
 };
 
+const resolve = (url: string) => (url.endsWith('.svg') ? asset(url) : img(url, 128)!);
+
+const LOGOS = Object.entries(ORGS).map(([key, url]) => [key, resolve(url)] as const);
+
 export function orgLogo(name: string): string | null {
   const lower = name.toLowerCase();
-  for (const [key, url] of Object.entries(ORGS)) {
-    if (lower.includes(key)) return asset(url);
+  for (const [key, url] of LOGOS) {
+    if (lower.includes(key)) return url;
   }
   return null;
+}
+
+export function preloadOrgLogos() {
+  if (typeof Image === 'undefined') return;
+  for (const [, url] of LOGOS) {
+    const pic = new Image();
+    pic.decoding = 'async';
+    pic.src = url;
+  }
 }

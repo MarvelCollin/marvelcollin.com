@@ -8,6 +8,7 @@ import { useModal } from '../../../../hooks/use-modal';
 import { freelanceClients, type Client } from '../../../../lib/clients';
 import { setFlipOrigin } from '../../../../lib/flip';
 import { img } from '../../../../lib/img';
+import { preloadOrgLogos } from '../../../../lib/org-logo';
 import { delay } from '../../../../lib/motion';
 import { workHref } from '../../../../lib/work-link';
 import { Skel } from '../../../../components/ui/skeleton';
@@ -16,7 +17,7 @@ function Logo({ client, size }: { client: Client; size: string }) {
   return (
     <span className={'flex shrink-0 items-center justify-center overflow-hidden rounded-md border border-line bg-white p-1.5 ' + size}>
       {client.logo ? (
-        <img src={client.logo} alt="" className="h-full w-full object-contain" />
+        <img src={client.logo} alt="" decoding="async" fetchPriority="high" className="h-full w-full object-contain" />
       ) : (
         <FaBriefcase size={16} className="text-muted" aria-hidden="true" />
       )}
@@ -105,6 +106,8 @@ function ClientModal({ client, onClose }: { client: Client; onClose: () => void 
     </div>
   );
 }
+
+preloadOrgLogos();
 
 const pop = (ms: number) => ({ ...delay(ms), '--from-scale': '0.85' }) as CSSProperties;
 

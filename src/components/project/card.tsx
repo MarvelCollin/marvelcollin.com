@@ -59,7 +59,7 @@ export const ProjectCard = memo(function ProjectCard({ p, index }: { p: Project;
             {p.num}
           </span>
           {!!stats?.stars && (
-            <span className="absolute bottom-2 right-2 z-[2] flex items-center gap-1 rounded-full bg-black/50 px-2 py-0.5 font-mono text-[10px] tabular-nums tracking-[0.06em] text-white/90 backdrop-blur-sm">
+            <span className="absolute bottom-2 right-2 z-[2] flex items-center gap-1 rounded-full bg-black/65 px-2 py-0.5 font-mono text-[10px] tabular-nums tracking-[0.06em] text-white/90">
               <FaStar size={9} className="text-accent" aria-hidden="true" />
               {compact(stats.stars)}
               <span className="sr-only"> GitHub stars</span>

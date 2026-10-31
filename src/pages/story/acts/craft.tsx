@@ -6,10 +6,11 @@ import { Skel } from '../../../components/ui/skeleton';
 import { TechIcon } from '../../../components/ui/tech-icon';
 import { useNear } from '../../../hooks/use-near';
 import { delay } from '../../../lib/motion';
+import { loadBoard } from '../load-board';
 
 const MOST = ['.NET', 'Laravel', 'React', 'Go', 'Docker', 'PostgreSQL', 'Tailwind'];
 
-const SkillBalls = lazy(() => import('../skill-board').then((m) => ({ default: m.SkillBalls })));
+const SkillBalls = lazy(() => loadBoard().then((m) => ({ default: m.SkillBalls })));
 
 export function Craft() {
   const { skills } = useContent();

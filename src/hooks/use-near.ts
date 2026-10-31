@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { startTransition, useEffect, useRef, useState } from 'react';
 
 export function useNear<T extends Element>(margin = '600px') {
   const ref = useRef<T>(null);
@@ -7,7 +7,7 @@ export function useNear<T extends Element>(margin = '600px') {
   useEffect(() => {
     const el = ref.current;
     if (!el || near) return;
-    const io = new IntersectionObserver(([entry]) => entry.isIntersecting && setNear(true), { rootMargin: margin });
+    const io = new IntersectionObserver(([entry]) => entry.isIntersecting && startTransition(() => setNear(true)), { rootMargin: margin });
     io.observe(el);
     return () => io.disconnect();
   }, [margin, near]);

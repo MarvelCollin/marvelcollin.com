@@ -1,18 +1,23 @@
 let reach = -1;
+let top = 0;
 
 function measure() {
   reach = document.documentElement.scrollHeight - window.innerHeight;
 }
 
+// scrollY is read in the scroll event, where layout is still clean. Reading it
+// inside a frame after other code wrote styles forces a full layout.
 function track() {
   measure();
+  top = window.scrollY;
   new ResizeObserver(measure).observe(document.documentElement);
   window.addEventListener('resize', measure);
+  window.addEventListener('scroll', () => (top = window.scrollY), { passive: true });
 }
 
 export function scrollRatio(): number {
   if (reach < 0) track();
-  return reach <= 0 ? 0 : Math.min(1, Math.max(0, window.scrollY / reach));
+  return reach <= 0 ? 0 : Math.min(1, Math.max(0, top / reach));
 }
 
 export function onFrame(task: () => void) {

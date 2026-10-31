@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { MEDIA } from '../../../lib/motion';
 import { listen, onFrame, scrollRatio } from '../../../lib/dom';
 import { onIdle } from '../../../hooks/use-idle';
+import { isScrollLocked } from '../../../lib/scroll-lock';
 import { strokeTerrain, traceTerrain } from './terrain';
 import type { Contours } from './terrain';
 
@@ -64,7 +65,7 @@ export function useDrafting() {
 
     const onPointer = (e: Event) => {
       const { pointerType, clientX, clientY } = e as PointerEvent;
-      if (pointerType !== 'mouse' || document.body.style.overflow === 'hidden') return;
+      if (pointerType !== 'mouse' || isScrollLocked()) return;
       pointer.x = clientX;
       pointer.y = clientY;
       wrap.dataset.lamp = 'on';

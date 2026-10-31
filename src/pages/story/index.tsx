@@ -7,6 +7,7 @@ import { Prologue } from './acts/prologue';
 import { Origin } from './acts/origin';
 import { Practice } from './acts/practice';
 import { Craft } from './acts/craft';
+import { loadBoard } from './load-board';
 import { Work } from './acts/work';
 import { Research } from './acts/research';
 import { Recognition } from './acts/recognition';
@@ -44,6 +45,7 @@ export function Story() {
     if (!rest) return;
     loadOverlay();
     loadPaper();
+    loadBoard();
     const id = location.hash.slice(1);
     if (!id || id.startsWith('/')) return;
     const el = document.getElementById(id);

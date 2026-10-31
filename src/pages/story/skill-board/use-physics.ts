@@ -40,7 +40,8 @@ export function usePhysics(box: RefObject<HTMLDivElement | null>, names: string[
 
     const world = createWorld(el, names);
     bodies.current = new Map(world.bodies.map((b) => [b.label, b]));
-    const runner = Matter.Runner.create();
+    // One step per frame at most, so a slow frame slows the drop instead of piling up work.
+    const runner = Matter.Runner.create({ maxUpdates: 1 });
     let running = false;
     let visible = true;
     let frame = 0;

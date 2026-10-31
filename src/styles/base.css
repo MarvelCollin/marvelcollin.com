@@ -8,6 +8,10 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 96px;
 }
+[aria-modal="true"],
+[aria-modal="true"] * {
+  overscroll-behavior: contain;
+}
 html,
 body {
   color: var(--fg);

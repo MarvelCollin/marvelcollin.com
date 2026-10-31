@@ -1,5 +1,6 @@
 import { FaDownload, FaFileLines } from 'react-icons/fa6';
-import { CV_FILE, CV_PDF, CvButton } from '../../../components/ui/cv-viewer';
+import { CvButton } from '../../../components/ui/cv-viewer';
+import { CV_FILE, CV_PDF } from '../../../lib/cv';
 import { PROFILE } from '../../../content/profile';
 
 const CV = 'flex h-11 cursor-pointer items-center gap-2.5 rounded-lg border px-5 font-mono text-[12px] uppercase tracking-[0.1em] transition-colors';

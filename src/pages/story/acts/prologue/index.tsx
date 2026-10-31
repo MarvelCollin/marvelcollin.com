@@ -29,7 +29,7 @@ const ROLES: { kind: string; title: string; where: string; work: string }[] = [
   {
     kind: 'Freelance',
     title: 'Fullstack and mobile apps',
-    where: 'ITEL, Singapore · Owl Eyewear, Jakarta · Sahabat Sentarum, Pontianak',
+    where: 'ITEL · Owl Eyewear · Sahabat Sentarum',
     work: 'Fullstack engineering · AI · Mobile',
   },
 ];

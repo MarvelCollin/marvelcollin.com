@@ -28,7 +28,7 @@ export function Origin() {
     <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-20 max-[1100px]:grid-cols-1 max-[1100px]:gap-14">
       <Reveal>
         <p className="max-w-[46ch] text-[19px] leading-[1.6] text-fg-dim">
-          Started with Arduino robots on competition tables. Ended up running production servers. The gap between those two is most of what I know.
+          From competition robots to production servers.
         </p>
         <dl className="mt-10 space-y-3 text-[15px]">
           {FACTS.map((f) => (
@@ -46,7 +46,6 @@ export function Origin() {
       </Reveal>
 
       <Reveal delay={120}>
-        <p className="mb-8 font-mono text-[13px] uppercase tracking-[0.1em] text-accent-2">Education</p>
         {loading && education.length === 0 && <EntrySkeleton count={2} />}
         <div className="space-y-10">
           {education.map((e) => (

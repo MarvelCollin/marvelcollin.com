@@ -34,12 +34,9 @@ export function Craft() {
         <p data-part style={delay(80)} className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent-2">
           What I do most
         </p>
-        <p data-part style={delay(140)} className="mt-2 max-w-[60ch] text-[16px] leading-[1.55] text-fg-dim">
-          The stack I reach for first. Most of my client work is built and shipped on these.
-        </p>
-        <ul className="mt-5 flex flex-wrap gap-4">
+        <ul className="mt-4 flex flex-wrap gap-4">
           {MOST.map((name, i) => (
-            <li key={name} data-part style={delay(220 + i * 80)} title={name}>
+            <li key={name} data-part style={delay(140 + i * 70)} title={name}>
               <span className="flex h-16 w-16 items-center justify-center rounded-xl border border-line bg-bg/70 transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-accent/60">
                 <TechIcon name={name} size={34} />
               </span>
@@ -54,10 +51,11 @@ export function Craft() {
           <p data-part style={delay(120)} className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent-2">
             What I can do
           </p>
-          <p data-part style={delay(180)} className="mt-2 max-w-[52ch] text-[16px] leading-[1.55] text-fg-dim">
-            {grouped.length > 0 ? `But I am not tied to one stack. I have shipped with ${grouped.length} tools so far, ` : 'But I am not tied to one stack. '}
-            from AI and mobile to DevOps and hardware, and I pick up what a project needs.
-          </p>
+          {grouped.length > 0 && (
+            <p data-part style={delay(180)} className="mt-2 text-[16px] leading-[1.55] text-fg-dim">
+              {grouped.length} tools across web, AI, mobile, DevOps and hardware.
+            </p>
+          )}
         </div>
         <Chips chips={chips} value={group} onChange={setGroup} />
       </div>

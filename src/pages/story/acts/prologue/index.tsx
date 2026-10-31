@@ -3,6 +3,7 @@ import { CvButton } from '../../../../components/ui/cv-viewer';
 import { CHAPTERS } from '../../chapters';
 import { delay } from '../../../../lib/motion';
 import { PROFILE } from '../../../../content/profile';
+import { Clients } from './clients';
 import { Portrait } from './portrait';
 
 const COUNT = CHAPTERS.length - 1;
@@ -85,7 +86,9 @@ export function Prologue() {
           </dl>
         </div>
 
-        <div data-part="cta" style={step(5)} className="mt-12 flex flex-wrap items-center gap-4">
+        <Clients style={step(5)} />
+
+        <div data-part="cta" style={step(6)} className="mt-12 flex flex-wrap items-center gap-4">
           <a
             className="group flex items-center gap-3 rounded-lg border border-accent bg-accent px-6 py-4 font-mono text-[13px] font-medium uppercase tracking-[0.1em] text-accent-ink transition-transform duration-300 hover:-translate-y-0.5 max-[560px]:w-full max-[560px]:justify-center"
             href="#work"
@@ -110,7 +113,7 @@ export function Prologue() {
 
         <a
           data-part="cue"
-          style={step(6)}
+          style={step(7)}
           href="#origin"
           className="group mt-16 flex w-fit items-center gap-4 font-mono text-[12px] uppercase tracking-[0.18em] text-muted transition-colors hover:text-fg max-[900px]:mt-12"
         >

@@ -7,7 +7,7 @@ import { TechIcon } from '../../../components/ui/tech-icon';
 import { useNear } from '../../../hooks/use-near';
 import { delay } from '../../../lib/motion';
 
-const MOST = ['.NET', 'Laravel', 'React', 'Go', 'Docker'];
+const MOST = ['.NET', 'Laravel', 'React', 'Go', 'Docker', 'PostgreSQL', 'Tailwind'];
 
 const SkillBalls = lazy(() => import('../skill-board').then((m) => ({ default: m.SkillBalls })));
 

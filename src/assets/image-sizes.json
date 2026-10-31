@@ -437,6 +437,46 @@
       1600
     ]
   },
+  "/shots/sahabat-sentarum-landing-1.png": {
+    "base": "/img/shots/sahabat-sentarum-landing-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/sahabat-sentarum-landing-2.png": {
+    "base": "/img/shots/sahabat-sentarum-landing-2",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/sahabat-sentarum-landing-3.png": {
+    "base": "/img/shots/sahabat-sentarum-landing-3",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/sahabat-sentarum-landing-4.png": {
+    "base": "/img/shots/sahabat-sentarum-landing-4",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/sahabat-sentarum-landing-5.png": {
+    "base": "/img/shots/sahabat-sentarum-landing-5",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
   "/shots/tetrimosuv-0.png": {
     "base": "/img/shots/tetrimosuv-0",
     "widths": [

@@ -33,3 +33,19 @@
   --font-display: var(--font-display);
   --font-mono: var(--font-mono);
 }
+
+@supports (corner-shape: bevel) {
+  *,
+  ::before,
+  ::after {
+    corner-shape: bevel;
+  }
+}
+
+@supports not (corner-shape: bevel) {
+  *,
+  ::before,
+  ::after {
+    border-radius: 0 !important;
+  }
+}

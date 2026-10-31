@@ -2,10 +2,11 @@ import { useState, type ReactNode } from 'react';
 import { FaArrowUpRightFromSquare, FaDownload, FaXmark } from 'react-icons/fa6';
 import { useModal } from '../../hooks/use-modal';
 import { useDismiss } from '../../hooks/use-dismiss';
+import { asset } from '../../lib/asset';
 
-export const CV_PDF = '/cv/marvel-collin-cv.pdf';
+export const CV_PDF = asset('/cv/marvel-collin-cv.pdf');
 export const CV_FILE = 'Marvel-Collin-CV.pdf';
-const CV_PAGE = '/cv/marvel-collin-cv.webp';
+const CV_PAGE = asset('/cv/marvel-collin-cv.webp');
 const CV_PAGE_WIDTH = 1720;
 const CV_PAGE_HEIGHT = 2226;
 

@@ -1,9 +1,9 @@
 @layer base {
   html {
-    cursor: url("/cursors/default.svg") 4 3, auto;
+    cursor: url("../assets/cursors/default.svg") 4 3, auto;
   }
   :is(a[href], button:not(:disabled), [role="button"], summary, label[for], select) {
-    cursor: url("/cursors/pointer.svg") 16 16, pointer;
+    cursor: url("../assets/cursors/pointer.svg") 16 16, pointer;
   }
   :is(input:not([type="button"], [type="submit"], [type="checkbox"], [type="radio"]), textarea, [contenteditable="true"]) {
     cursor: text;
@@ -12,11 +12,11 @@
 
 .cursor-auto,
 .cursor-default {
-  cursor: url("/cursors/default.svg") 4 3, auto;
+  cursor: url("../assets/cursors/default.svg") 4 3, auto;
 }
 .cursor-pointer {
-  cursor: url("/cursors/pointer.svg") 16 16, pointer;
+  cursor: url("../assets/cursors/pointer.svg") 16 16, pointer;
 }
 .cursor-pointer:disabled {
-  cursor: url("/cursors/default.svg") 4 3, auto;
+  cursor: url("../assets/cursors/default.svg") 4 3, auto;
 }

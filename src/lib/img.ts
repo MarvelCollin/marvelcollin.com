@@ -1,4 +1,5 @@
 import SIZES from '../assets/image-sizes.json';
+import { asset } from './asset';
 
 const WIDTHS = [400, 800, 1600];
 
@@ -16,9 +17,9 @@ function variant(url: string, width: number): string {
   const found = local(url);
   if (found) {
     const w = found.widths.find((x) => x >= width) ?? found.widths[found.widths.length - 1];
-    return `${found.base}-${w}.webp`;
+    return asset(`${found.base}-${w}.webp`);
   }
-  return /^https?:\/\//i.test(url) ? remote(url, width) : url;
+  return /^https?:\/\//i.test(url) ? remote(url, width) : asset(url);
 }
 
 export function img(url: string | undefined, width = 800): string | undefined {
@@ -28,7 +29,7 @@ export function img(url: string | undefined, width = 800): string | undefined {
 export function srcSet(url: string | undefined): string | undefined {
   if (!url) return undefined;
   const found = local(url);
-  if (found) return found.widths.map((w) => `${found.base}-${w}.webp ${w}w`).join(', ');
+  if (found) return found.widths.map((w) => `${asset(`${found.base}-${w}.webp`)} ${w}w`).join(', ');
   if (!/^https?:\/\//i.test(url) || /\.gif($|\?)/i.test(url)) return undefined;
   return WIDTHS.map((w) => `${remote(url, w)} ${w}w`).join(', ');
 }

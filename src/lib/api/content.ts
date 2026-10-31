@@ -15,10 +15,9 @@ interface ContentRows {
   education: Education[];
 }
 
-export async function loadContent(): Promise<ContentData> {
-  const res = await fetch('/api/content');
-  if (!res.ok) throw new Error(`Failed to load content (${res.status})`);
-  const rows = (await res.json()) as ContentRows;
+const SNAPSHOT = 'content-v1';
+
+function toData(rows: ContentRows): ContentData {
   return {
     works: rows.works.map(rowToWork),
     skills: rows.skills,
@@ -26,4 +25,27 @@ export async function loadContent(): Promise<ContentData> {
     recognition: rows.recognition.map(rowToAward),
     education: rows.education,
   };
+}
+
+// Last good response, so a repeat visit renders at once while fresh data loads.
+export function cachedContent(): ContentData | null {
+  try {
+    const raw = localStorage.getItem(SNAPSHOT);
+    return raw ? toData(JSON.parse(raw) as ContentRows) : null;
+  } catch {
+    return null;
+  }
+}
+
+export async function loadContent(): Promise<ContentData> {
+  const res = await fetch('/api/content');
+  if (!res.ok) throw new Error(`Failed to load content (${res.status})`);
+  const text = await res.text();
+  const data = toData(JSON.parse(text) as ContentRows);
+  try {
+    localStorage.setItem(SNAPSHOT, text);
+  } catch {
+    // storage full or blocked
+  }
+  return data;
 }

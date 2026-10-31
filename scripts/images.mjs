@@ -7,10 +7,10 @@ const WIDTHS = [400, 800, 1600];
 const OUT = 'public/img';
 const MANIFEST = 'src/assets/image-sizes.json';
 
-rmSync(OUT, { recursive: true, force: true });
 const manifest = {};
 
 for (const dir of DIRS) {
+  rmSync(`${OUT}/${dir}`, { recursive: true, force: true });
   mkdirSync(`${OUT}/${dir}`, { recursive: true });
   for (const file of readdirSync(`public/${dir}`)) {
     if (!/\.(png|jpe?g|webp)$/i.test(file)) continue;

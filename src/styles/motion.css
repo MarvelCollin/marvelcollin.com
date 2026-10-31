@@ -57,6 +57,13 @@
   --rise: 24px;
   animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0ms) backwards;
 }
+.js-motion #prologue [data-part="logo"] .client-badge {
+  animation: grow-pop 0.6s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--delay, 0ms) + 320ms) backwards;
+}
+.ov-rise {
+  --rise: 16px;
+  animation: rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0ms) backwards;
+}
 .js-motion #prologue :is([data-part="title"], [data-part="intro"]) {
   animation-name: settle;
 }
@@ -110,7 +117,9 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .ov-enter,
-  [data-copy] {
+  .ov-rise,
+  [data-copy],
+  .js-motion #prologue .client-badge {
     animation: none;
   }
   [data-grow] {

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import type { CSSProperties } from 'react';
-import { FaArrowRight, FaBriefcase, FaFolderOpen, FaXmark } from 'react-icons/fa6';
+import { FaArrowRight, FaArrowUpRightFromSquare, FaBriefcase, FaFolderOpen, FaXmark } from 'react-icons/fa6';
 import { useContent } from '../../../../content/use-content';
 import { WORK_TYPES } from '../../../../content/work-types';
 import { useDismiss } from '../../../../hooks/use-dismiss';
@@ -8,6 +8,7 @@ import { useModal } from '../../../../hooks/use-modal';
 import { freelanceClients, type Client } from '../../../../lib/clients';
 import { setFlipOrigin } from '../../../../lib/flip';
 import { img } from '../../../../lib/img';
+import { delay } from '../../../../lib/motion';
 import { workHref } from '../../../../lib/work-link';
 import { Skel } from '../../../../components/ui/skeleton';
 
@@ -66,8 +67,8 @@ function ClientModal({ client, onClose }: { client: Client; onClose: () => void 
           </button>
         </header>
         <ul className="min-h-0 flex-1 space-y-3 overflow-y-auto overscroll-contain p-6 max-[560px]:p-4">
-          {client.works.map((work) => (
-            <li key={work.slug}>
+          {client.works.map((work, i) => (
+            <li key={work.slug} className="ov-rise" style={delay(120 + i * 70)}>
               <a
                 href={workHref(work.slug)}
                 onClick={(e) => {
@@ -105,7 +106,9 @@ function ClientModal({ client, onClose }: { client: Client; onClose: () => void 
   );
 }
 
-export function Clients({ style }: { style?: CSSProperties }) {
+const pop = (ms: number) => ({ ...delay(ms), '--from-scale': '0.85' }) as CSSProperties;
+
+export function Clients({ at }: { at: number }) {
   const { works, loading } = useContent();
   const clients = useMemo(() => freelanceClients(works), [works]);
   const [open, setOpen] = useState<Client | null>(null);
@@ -113,41 +116,31 @@ export function Clients({ style }: { style?: CSSProperties }) {
   if (!loading && clients.length === 0) return null;
 
   return (
-    <div data-part="clients" style={style} className="mt-12">
-      <div className="flex items-center gap-4">
-        <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent-2">Freelance clients</span>
-        <span className="h-px flex-1 bg-line" />
-        <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted max-[560px]:hidden">Pick one to see the work</span>
-      </div>
-      <ul className="mt-4 flex flex-wrap gap-3">
+    <div data-part="clients" style={delay(at)} className="mt-12">
+      <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent-2">My clients</p>
+      <ul className="mt-3 flex flex-wrap gap-4">
         {loading && clients.length === 0
           ? Array.from({ length: 3 }, (_, i) => (
               <li key={i}>
-                <Skel className="block h-[66px] w-[250px] rounded-lg" />
+                <Skel className="block h-14 w-14 rounded-lg" />
               </li>
             ))
-          : clients.map((client) => (
-              <li key={client.key} className="max-[560px]:w-full">
+          : clients.map((client, i) => (
+              <li key={client.key} data-part="logo" style={pop(at + 140 + i * 80)}>
                 <button
                   type="button"
                   onClick={() => setOpen(client)}
                   aria-haspopup="dialog"
                   aria-label={`${client.name}, ${count(client.works.length)}. Show projects`}
-                  className="group flex w-full cursor-pointer items-center gap-3.5 rounded-lg border border-line bg-bg/70 py-2 pl-2 pr-3 text-left transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-accent/60"
+                  title={client.name}
+                  className="group relative block cursor-pointer rounded-lg transition-transform duration-200 hover:-translate-y-0.5"
                 >
-                  <Logo client={client} size="h-12 w-12" />
-                  <span className="mr-2 min-w-0 flex-1">
-                    <span className="block text-[15px] leading-[1.3] text-fg">{client.name}</span>
-                    <span className="mt-0.5 block font-mono text-[10px] uppercase tracking-[0.1em] text-muted">
-                      {count(client.works.length)}
-                      {client.place && ` · ${client.place.split(',')[0]}`}
-                    </span>
-                  </span>
+                  <Logo client={client} size="h-14 w-14 transition-[border-color,box-shadow] duration-200 group-hover:border-accent group-hover:shadow-[0_0_0_3px_rgba(224,163,63,0.25)]" />
                   <span
                     aria-hidden="true"
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line text-accent-soft transition-all duration-200 group-hover:border-accent group-hover:bg-accent group-hover:text-accent-ink"
+                    className="client-badge absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-bg bg-accent text-accent-ink transition-transform duration-200 group-hover:scale-110"
                   >
-                    <FaArrowRight size={11} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+                    <FaArrowUpRightFromSquare size={8} />
                   </span>
                 </button>
               </li>

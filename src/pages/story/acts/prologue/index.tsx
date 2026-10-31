@@ -86,7 +86,7 @@ export function Prologue() {
           </dl>
         </div>
 
-        <Clients style={step(5)} />
+        <Clients at={60 + 5 * 70} />
 
         <div data-part="cta" style={step(6)} className="mt-12 flex flex-wrap items-center gap-4">
           <a

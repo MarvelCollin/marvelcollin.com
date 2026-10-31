@@ -3,7 +3,11 @@ import { useContent } from '../../../content/use-content';
 import { SKILL_GROUPS, skillGroup } from '../../../content/skill-groups';
 import { Chips } from '../../../components/ui/chips';
 import { Skel } from '../../../components/ui/skeleton';
+import { TechIcon } from '../../../components/ui/tech-icon';
 import { useNear } from '../../../hooks/use-near';
+import { delay } from '../../../lib/motion';
+
+const MOST = ['.NET', 'Laravel', 'React', 'Go', 'Docker'];
 
 const SkillBalls = lazy(() => import('../skill-board').then((m) => ({ default: m.SkillBalls })));
 
@@ -38,6 +42,21 @@ export function Craft() {
         ) : (
           <Skel className="block h-[520px] w-full rounded-2xl max-[560px]:h-[440px]" />
         )}
+      </div>
+      <div className="mt-10">
+        <p data-part style={delay(80)} className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent-2">
+          What I do most
+        </p>
+        <ul className="mt-4 flex flex-wrap gap-4">
+          {MOST.map((name, i) => (
+            <li key={name} data-part style={delay(160 + i * 80)} title={name}>
+              <span className="flex h-16 w-16 items-center justify-center rounded-xl border border-line bg-bg/70 transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-accent/60">
+                <TechIcon name={name} size={34} />
+              </span>
+              <span className="sr-only">{name}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

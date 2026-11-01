@@ -159,6 +159,46 @@
       1600
     ]
   },
+  "/shots/gwbridge-1.png": {
+    "base": "/img/shots/gwbridge-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/gwbridge-2.png": {
+    "base": "/img/shots/gwbridge-2",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/gwbridge-3.png": {
+    "base": "/img/shots/gwbridge-3",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/gwbridge-4.png": {
+    "base": "/img/shots/gwbridge-4",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/gwbridge-5.png": {
+    "base": "/img/shots/gwbridge-5",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
   "/shots/hiring-system-1.png": {
     "base": "/img/shots/hiring-system-1",
     "widths": [
@@ -552,6 +592,12 @@
     "widths": [
       400,
       447
+    ]
+  },
+  "/logos/gwbridge.png": {
+    "base": "/img/logos/gwbridge",
+    "widths": [
+      256
     ]
   },
   "/logos/itel.png": {

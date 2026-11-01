@@ -25,6 +25,11 @@ function Logo({ client, size }: { client: Client; size: string }) {
   );
 }
 
+function countries(clients: Client[]) {
+  const names = [...new Set(clients.map((c) => c.place.split(',').pop()?.trim()).filter(Boolean))] as string[];
+  return names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names.at(-1)}` : names[0] ?? '';
+}
+
 function count(n: number) {
   return n === 1 ? '1 project' : `${n} projects`;
 }
@@ -114,13 +119,17 @@ const pop = (ms: number) => ({ ...delay(ms), '--from-scale': '0.85' }) as CSSPro
 export function Clients({ at }: { at: number }) {
   const { works, loading } = useContent();
   const clients = useMemo(() => freelanceClients(works), [works]);
+  const where = useMemo(() => countries(clients), [clients]);
   const [open, setOpen] = useState<Client | null>(null);
 
   if (!loading && clients.length === 0) return null;
 
   return (
     <div data-part="clients" style={delay(at)} className="mt-12">
-      <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent-2">My clients</p>
+      <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent-2">
+        My clients
+        {where && <span className="text-muted"> · across {where}</span>}
+      </p>
       <ul className="mt-3 flex flex-wrap gap-4">
         {loading && clients.length === 0
           ? Array.from({ length: 3 }, (_, i) => (

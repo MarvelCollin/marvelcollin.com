@@ -4,4 +4,5 @@ export const WORK_TYPES: Record<string, string> = {
   polaris: 'Web development',
   'sahabat-sentarum-landing': 'Web development · 3D',
   'owl-eyewear': 'Mobile app · Android · iOS',
+  gwbridge: 'Web development · Admin panel',
 };

@@ -9,6 +9,7 @@ const ORGS: Record<string, string> = {
   'sahabat sentarum': '/logos/sahabat-sentarum.png',
   itel: '/logos/itel.png',
   'owl eyewear': '/logos/owl.png',
+  'gw bridge': '/logos/gwbridge.png',
 };
 
 const resolve = (url: string) => (url.endsWith('.svg') ? asset(url) : img(url, 128)!);

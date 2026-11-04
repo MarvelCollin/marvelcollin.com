@@ -25,8 +25,12 @@ function Logo({ client, size }: { client: Client; size: string }) {
   );
 }
 
+// Countries with clients that have no project on the site.
+const EXTRA_COUNTRIES = ['Germany'];
+
 function countries(clients: Client[]) {
-  const names = [...new Set(clients.map((c) => c.place.split(',').pop()?.trim()).filter(Boolean))] as string[];
+  const fromWorks = clients.map((c) => c.place.split(',').pop()?.trim()).filter(Boolean) as string[];
+  const names = [...new Set([...fromWorks, ...EXTRA_COUNTRIES])];
   return names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names.at(-1)}` : names[0] ?? '';
 }
 

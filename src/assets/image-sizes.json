@@ -47,6 +47,38 @@
       1600
     ]
   },
+  "/shots/atlas-1.png": {
+    "base": "/img/shots/atlas-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/atlas-2.png": {
+    "base": "/img/shots/atlas-2",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/atlas-3.png": {
+    "base": "/img/shots/atlas-3",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/atlas-4.png": {
+    "base": "/img/shots/atlas-4",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
   "/shots/attendance-management-1.png": {
     "base": "/img/shots/attendance-management-1",
     "widths": [
@@ -305,6 +337,46 @@
   },
   "/shots/learning-plan-3.png": {
     "base": "/img/shots/learning-plan-3",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/lunar-1.png": {
+    "base": "/img/shots/lunar-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/lunar-2.png": {
+    "base": "/img/shots/lunar-2",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/lunar-3.png": {
+    "base": "/img/shots/lunar-3",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/lunar-4.png": {
+    "base": "/img/shots/lunar-4",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/lunar-5.png": {
+    "base": "/img/shots/lunar-5",
     "widths": [
       400,
       800,

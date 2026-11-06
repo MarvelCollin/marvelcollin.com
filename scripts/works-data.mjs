@@ -485,7 +485,7 @@ export const WORKS = [
     body: [
       'Atlas replaced a fully manual process for managing the lab assistants of the Software Laboratory Center. The secretariat and operations staff keep each assistant record here, with department, grade, contract dates and status, and follow it through contract extensions, promotions to other units and resignations.',
       'Warning letters, outgoing letters, announcements and work certificates each get the next number in their official format, counted per category, region, month and year, and the signed PDF is uploaded to MinIO and kept with the record. Lockers are assigned and returned against each assistant, and every table exports to Excel.',
-      'The API is NestJS 11 with Prisma 7 over PostgreSQL, behind a JWT issued after a BINUS sign in and limited to four staff roles. The frontend is React 19 with Tailwind CSS 4 and shadcn/ui, in Indonesian and English. Both ship as Docker images to the lab registry. The screenshots use seeded sample data, not real assistants.',
+      'The API is NestJS 11 with Prisma 7 over PostgreSQL, behind a JWT issued after a BINUS sign in and limited to four staff roles. The frontend is React 19 with Tailwind CSS 4 and shadcn/ui, in Indonesian and English. Both ship as Docker images to the lab registry.',
     ],
     result: 'Replaced a fully manual process',
     tone: 'slate',

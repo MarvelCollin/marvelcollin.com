@@ -549,6 +549,22 @@
       1600
     ]
   },
+  "/shots/rndbot-1.png": {
+    "base": "/img/shots/rndbot-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/rndbot-flow.png": {
+    "base": "/img/shots/rndbot-flow",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
   "/shots/sahabat-sentarum-landing-1.png": {
     "base": "/img/shots/sahabat-sentarum-landing-1",
     "widths": [

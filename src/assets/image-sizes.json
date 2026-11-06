@@ -549,6 +549,30 @@
       1600
     ]
   },
+  "/shots/resman-1.png": {
+    "base": "/img/shots/resman-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/resman-2.png": {
+    "base": "/img/shots/resman-2",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/resman-3.png": {
+    "base": "/img/shots/resman-3",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
   "/shots/rndbot-1.png": {
     "base": "/img/shots/rndbot-1",
     "widths": [
@@ -559,6 +583,30 @@
   },
   "/shots/rndbot-flow.png": {
     "base": "/img/shots/rndbot-flow",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/room-borrowing-1.png": {
+    "base": "/img/shots/room-borrowing-1",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/room-borrowing-2.png": {
+    "base": "/img/shots/room-borrowing-2",
+    "widths": [
+      400,
+      800,
+      1600
+    ]
+  },
+  "/shots/room-borrowing-3.png": {
+    "base": "/img/shots/room-borrowing-3",
     "widths": [
       400,
       800,

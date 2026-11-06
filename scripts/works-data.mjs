@@ -462,7 +462,7 @@ export const WORKS = [
     body: [
       'LuNAR runs the day to day side of NAR, the training program the Software Laboratory Center uses to turn applicants into lab assistants. It reads trainees, phases, scores and notes from NAR and adds what NAR lacks: trainer job allocation, a tier list per subject, composite rankings, live presentation boards, room logs and the evaluation rundown subject coordinators walk through each evening.',
       'The API is ASP.NET Core 8 in clean architecture layers with EF Core over PostgreSQL, SignalR hubs for the live presentation board and a shared clock, and Excel exports. A separate Python FastAPI service holds a PyTorch deep and cross network that predicts how a trainee will score in five later subjects from their Core Training scores, and builds the rundown with optional AI sentiment tags on presentation notes.',
-      'The frontend is React and TypeScript with Handsontable grids for jobs, shifts and course outlines, drag and drop tier boards, and three themes. Local development runs against a Node mock of NAR and every other upstream, so no work touches real trainee data. The screenshots here come from that mock with made up names.',
+      'The frontend is React and TypeScript with Handsontable grids for jobs, shifts and course outlines, drag and drop tier boards, and three themes. Local development runs against a Node mock of NAR and every other upstream, so no work touches real trainee data.',
     ],
     result: 'Forecasts five subjects per trainee',
     tone: 'navy',

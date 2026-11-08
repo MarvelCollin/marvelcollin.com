@@ -20,7 +20,7 @@ export const PROFILE = {
   cv: '/cv/marvel-collin-cv.pdf',
   links: [
     { label: 'GitHub', href: 'https://github.com/MarvelCollin' },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/marvel-collin-0244a21ba/' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/marvelcollin/' },
     { label: 'Instagram', href: 'https://www.instagram.com/marvelcolin_/' },
   ],
 } as const;

@@ -21,7 +21,7 @@ export const CHAPTERS: Chapter[] = [
     id: 'practice',
     numeral: 'II',
     label: 'Experience',
-    dek: 'Fullstack engineer at BINUS since 2024.',
+    dek: 'At BINUS since 2024, fullstack engineer since 2025.',
     marginal: '2022',
     band: false,
   },

@@ -1,5 +1,5 @@
 import { FaStar } from 'react-icons/fa6';
-import { TechIcon } from '../../../../components/ui/tech-icon';
+import { TechTile } from '../../../../components/ui/tech-tile';
 import { delay } from '../../../../lib/motion';
 
 const REVIEW = {
@@ -29,12 +29,11 @@ export function Review({ at }: { at: number }) {
           {REVIEW.name}
           <span className="text-fg-dim"> · {REVIEW.where}</span>
         </p>
-        <div className="mt-2 flex items-center gap-3">
-          <ul className="flex items-center gap-2.5" aria-label="Stack">
+        <div className="mt-3 flex items-center gap-4">
+          <ul className="flex items-center gap-2" aria-label="Stack">
             {REVIEW.stack.map((name) => (
-              <li key={name} title={name}>
-                <TechIcon name={name} size={18} />
-                <span className="sr-only">{name}</span>
+              <li key={name}>
+                <TechTile name={name} size="md" />
               </li>
             ))}
           </ul>

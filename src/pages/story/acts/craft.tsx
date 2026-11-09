@@ -3,7 +3,7 @@ import { useContent } from '../../../content/use-content';
 import { SKILL_GROUPS, skillGroup } from '../../../content/skill-groups';
 import { Chips } from '../../../components/ui/chips';
 import { Skel } from '../../../components/ui/skeleton';
-import { TechIcon } from '../../../components/ui/tech-icon';
+import { TechTile } from '../../../components/ui/tech-tile';
 import { useNear } from '../../../hooks/use-near';
 import { delay } from '../../../lib/motion';
 import { loadBoard } from '../load-board';
@@ -37,11 +37,8 @@ export function Craft() {
         </p>
         <ul className="mt-4 flex flex-wrap gap-4">
           {MOST.map((name, i) => (
-            <li key={name} data-part style={delay(140 + i * 70)} title={name}>
-              <span className="flex h-16 w-16 items-center justify-center rounded-xl border border-line bg-bg/70 transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-accent/60">
-                <TechIcon name={name} size={34} />
-              </span>
-              <span className="sr-only">{name}</span>
+            <li key={name} data-part style={delay(140 + i * 70)}>
+              <TechTile name={name} />
             </li>
           ))}
         </ul>

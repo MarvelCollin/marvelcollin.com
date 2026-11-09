@@ -9,6 +9,7 @@ import { useRepoStats } from '../../hooks/use-repo-stats';
 import { compact } from '../../lib/api/github';
 import { techIcons } from '../../lib/languages';
 import { TechIcon } from '../ui/tech-icon';
+import { Tip } from '../ui/tip';
 import { clientOf } from '../../lib/client';
 import { workPeriod } from '../../lib/period';
 import { orgLogo } from '../../lib/org-logo';
@@ -94,9 +95,11 @@ export const ProjectCard = memo(function ProjectCard({ p, index }: { p: Project;
           {icons.length > 0 && (
             <div aria-hidden="true" className="mt-3 flex items-center justify-center gap-2">
               {icons.map((name) => (
-                <span key={name} title={name} className="flex h-6 w-6 items-center justify-center rounded-md bg-white/55 ring-1 ring-black/5">
-                  <TechIcon name={name} size={14} surface="light" />
-                </span>
+                <Tip key={name} label={name}>
+                  <span className="flex h-6 w-6 items-center justify-center rounded-md bg-white/55 ring-1 ring-black/5">
+                    <TechIcon name={name} size={14} surface="light" />
+                  </span>
+                </Tip>
               ))}
             </div>
           )}

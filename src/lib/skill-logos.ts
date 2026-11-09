@@ -17,6 +17,8 @@ const LOGOS: [string, string][] = [
   ['c#', 'csharp'],
   ['php', 'php'],
   ['laravel', 'laravel'],
+  ['wordpress', 'wordpress'],
+  ['strato', 'strato'],
   ['python', 'python'],
   ['java', 'java'],
   ['kotlin', 'kotlin'],

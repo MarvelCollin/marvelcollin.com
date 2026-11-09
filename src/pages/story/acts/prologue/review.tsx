@@ -1,4 +1,5 @@
 import { FaStar } from 'react-icons/fa6';
+import { TechIcon } from '../../../../components/ui/tech-icon';
 import { delay } from '../../../../lib/motion';
 
 const REVIEW = {
@@ -6,7 +7,7 @@ const REVIEW = {
     'Marvel is a very professional freelancer, always thinking ahead what is best for the customer. He finished all tasks in time and even eliminated security risks that were not on my task list. He is the first freelancer here I trust fully and I recommend him for any work. He is a very reliable person.',
   name: 'Thomas Kasal',
   where: 'Berlin, Germany',
-  stack: 'Laravel · Strato · WordPress',
+  stack: ['Laravel', 'Strato', 'WordPress'],
   when: 'Nov 2026',
 };
 
@@ -28,9 +29,17 @@ export function Review({ at }: { at: number }) {
           {REVIEW.name}
           <span className="text-fg-dim"> · {REVIEW.where}</span>
         </p>
-        <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
-          {REVIEW.stack} · {REVIEW.when}
-        </p>
+        <div className="mt-2 flex items-center gap-3">
+          <ul className="flex items-center gap-2.5" aria-label="Stack">
+            {REVIEW.stack.map((name) => (
+              <li key={name} title={name}>
+                <TechIcon name={name} size={18} />
+                <span className="sr-only">{name}</span>
+              </li>
+            ))}
+          </ul>
+          <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted">{REVIEW.when}</span>
+        </div>
       </figcaption>
     </figure>
   );

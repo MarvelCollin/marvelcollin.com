@@ -5,7 +5,7 @@ const REVIEW = {
   quote:
     'Marvel is a very professional freelancer, always thinking ahead what is best for the customer. He finished all tasks in time and even eliminated security risks that were not on my task list. He is the first freelancer here I trust fully and I recommend him for any work. He is a very reliable person.',
   name: 'Thomas Kasal',
-  where: 'Frankfurt, Germany',
+  where: 'Berlin, Germany',
   stack: 'Laravel · Strato · WordPress',
   when: 'Nov 2026',
 };

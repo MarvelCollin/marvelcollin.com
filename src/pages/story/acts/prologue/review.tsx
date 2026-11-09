@@ -3,10 +3,8 @@ import { TechTile } from '../../../../components/ui/tech-tile';
 import { delay } from '../../../../lib/motion';
 
 const REVIEW = {
-  quote: [
-    'Marvel is a very professional freelancer, always thinking ahead what is best for the customer. He finished all tasks in time and even eliminated security risks that were not on my task list.',
-    'He is the first freelancer here I trust fully and I recommend him for any work. He is a very reliable person. Thank you very much! Hope working with you together very soon.',
-  ],
+  quote:
+    'Marvel is a very professional freelancer, always thinking ahead what is best for the customer. He finished all tasks in time and even eliminated security risks that were not on my task list. He is the first freelancer here I trust fully and I recommend him for any work. He is a very reliable person. Thank you very much! Hope working with you together very soon.',
   name: 'Thomas Kasal',
   where: 'Berlin, Germany',
   stack: ['Laravel', 'Strato', 'WordPress'],
@@ -25,15 +23,7 @@ export function Review({ at }: { at: number }) {
         </span>
         <span className="font-mono text-[11px] text-fg-dim">5.0</span>
       </div>
-      <blockquote className="mt-3 space-y-2 text-[15px] leading-[1.6] text-fg">
-        {REVIEW.quote.map((line, i) => (
-          <p key={i}>
-            {i === 0 && '“'}
-            {line}
-            {i === REVIEW.quote.length - 1 && '”'}
-          </p>
-        ))}
-      </blockquote>
+      <blockquote className="mt-3 text-[15px] leading-[1.6] text-fg">“{REVIEW.quote}”</blockquote>
       <figcaption className="mt-3">
         <p className="text-[14px] text-fg">
           {REVIEW.name}

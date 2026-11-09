@@ -12,7 +12,6 @@ const SPEC: [string, string][] = [
   ['Focus', 'Fullstack engineering · AI · DevOps'],
   ['Base', 'Jakarta, Indonesia · GMT+7'],
   ['Stack', 'Go · .NET Core · TypeScript · Linux'],
-  ['Open to', 'Freelance and full time'],
 ];
 const ROLES: { kind: string; title: string; where: string; work: string }[] = [
   {

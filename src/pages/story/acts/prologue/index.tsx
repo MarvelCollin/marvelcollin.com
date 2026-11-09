@@ -5,6 +5,7 @@ import { delay } from '../../../../lib/motion';
 import { PROFILE } from '../../../../content/profile';
 import { Clients } from './clients';
 import { Portrait } from './portrait';
+import { Review } from './review';
 
 const COUNT = CHAPTERS.length - 1;
 const SPEC: [string, string][] = [
@@ -86,7 +87,10 @@ export function Prologue() {
           </dl>
         </div>
 
-        <Clients at={60 + 5 * 70} />
+        <div className="mt-12 flex items-start justify-between gap-16 max-[900px]:flex-col max-[900px]:gap-10">
+          <Clients at={60 + 5 * 70} />
+          <Review at={60 + 5 * 70 + 140} />
+        </div>
 
         <div data-part="cta" style={step(6)} className="mt-12 flex flex-wrap items-center gap-4">
           <a

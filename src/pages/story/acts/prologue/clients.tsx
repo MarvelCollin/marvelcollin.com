@@ -129,7 +129,7 @@ export function Clients({ at }: { at: number }) {
   if (!loading && clients.length === 0) return null;
 
   return (
-    <div data-part="clients" style={delay(at)} className="mt-12">
+    <div data-part="clients" style={delay(at)}>
       <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent-2">
         My clients
         {where && <span className="text-muted"> · across {where}</span>}

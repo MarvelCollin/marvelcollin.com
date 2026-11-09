@@ -5,9 +5,9 @@ const REVIEW = {
   quote:
     'Marvel is a very professional freelancer, always thinking ahead what is best for the customer. He finished all tasks in time and even eliminated security risks that were not on my task list. He is the first freelancer here I trust fully and I recommend him for any work. He is a very reliable person.',
   name: 'Thomas Kasal',
-  where: 'Germany',
-  job: 'Webpage for advertisement improvement',
-  when: 'Upwork · Nov 2026',
+  where: 'Frankfurt, Germany',
+  stack: 'Laravel · Strato · WordPress',
+  when: 'Nov 2026',
 };
 
 export function Review({ at }: { at: number }) {
@@ -29,7 +29,7 @@ export function Review({ at }: { at: number }) {
           <span className="text-fg-dim"> · {REVIEW.where}</span>
         </p>
         <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
-          {REVIEW.job} · {REVIEW.when}
+          {REVIEW.stack} · {REVIEW.when}
         </p>
       </figcaption>
     </figure>

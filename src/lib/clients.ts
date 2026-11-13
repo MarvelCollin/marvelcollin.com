@@ -17,7 +17,7 @@ export const SITE_CLIENTS: Client[] = [
     place: 'Berlin, Germany',
     logo: orgLogo('joinenjoy'),
     works: [],
-    services: ['Security audit and hardening', 'SEO'],
+    services: ['Security audit and hardening', 'SEO', 'Website recovery', 'Deployments', 'WordPress'],
   },
 ];
 

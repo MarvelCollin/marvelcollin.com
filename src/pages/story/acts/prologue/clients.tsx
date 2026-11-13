@@ -5,7 +5,7 @@ import { useContent } from '../../../../content/use-content';
 import { WORK_TYPES } from '../../../../content/work-types';
 import { useDismiss } from '../../../../hooks/use-dismiss';
 import { useModal } from '../../../../hooks/use-modal';
-import { freelanceClients, type Client } from '../../../../lib/clients';
+import { freelanceClients, SITE_CLIENTS, type Client } from '../../../../lib/clients';
 import { setFlipOrigin } from '../../../../lib/flip';
 import { img } from '../../../../lib/img';
 import { preloadOrgLogos } from '../../../../lib/org-logo';
@@ -25,17 +25,17 @@ function Logo({ client, size }: { client: Client; size: string }) {
   );
 }
 
-// Countries with clients that have no project on the site.
-const EXTRA_COUNTRIES = ['Germany'];
-
 function countries(clients: Client[]) {
-  const fromWorks = clients.map((c) => c.place.split(',').pop()?.trim()).filter(Boolean) as string[];
-  const names = [...new Set([...fromWorks, ...EXTRA_COUNTRIES])];
+  const names = [...new Set(clients.map((c) => c.place.split(',').pop()?.trim()).filter(Boolean) as string[])];
   return names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names.at(-1)}` : names[0] ?? '';
 }
 
 function count(n: number) {
   return n === 1 ? '1 project' : `${n} projects`;
+}
+
+function summary(client: Client) {
+  return client.works.length ? count(client.works.length) : client.services?.join(' · ') ?? '';
 }
 
 function ClientModal({ client, onClose }: { client: Client; onClose: () => void }) {
@@ -48,7 +48,7 @@ function ClientModal({ client, onClose }: { client: Client; onClose: () => void 
       tabIndex={-1}
       role="dialog"
       aria-modal="true"
-      aria-label={`Projects for ${client.name}`}
+      aria-label={client.name}
       {...dismiss}
       className="fixed inset-0 z-[100] flex items-center justify-center p-6 outline-none max-[560px]:items-end max-[560px]:p-0"
     >
@@ -63,8 +63,7 @@ function ClientModal({ client, onClose }: { client: Client; onClose: () => void 
             <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent-2">Freelance client</p>
             <p className="mt-0.5 truncate text-[18px] font-medium text-fg">{client.name}</p>
             <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
-              {client.place ? `${client.place} · ` : ''}
-              {count(client.works.length)}
+              {[client.place, client.works.length && count(client.works.length)].filter(Boolean).join(' · ')}
             </p>
           </div>
           <button
@@ -76,7 +75,19 @@ function ClientModal({ client, onClose }: { client: Client; onClose: () => void 
             <FaXmark size={16} aria-hidden="true" />
           </button>
         </header>
-        <ul className="min-h-0 flex-1 space-y-3 overflow-y-auto overscroll-contain p-6 max-[560px]:p-4">
+        {client.works.length === 0 && (
+          <div className="ov-rise p-6 max-[560px]:p-4" style={delay(120)}>
+            <ul className="space-y-2">
+              {client.services?.map((service) => (
+                <li key={service} className="flex items-center gap-3 text-[15px] text-fg">
+                  <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                  {service}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        <ul hidden={client.works.length === 0} className="min-h-0 flex-1 space-y-3 overflow-y-auto overscroll-contain p-6 max-[560px]:p-4">
           {client.works.map((work, i) => (
             <li key={work.slug} className="ov-rise" style={delay(120 + i * 70)}>
               <a
@@ -122,11 +133,10 @@ const pop = (ms: number) => ({ ...delay(ms), '--from-scale': '0.85' }) as CSSPro
 
 export function Clients({ at }: { at: number }) {
   const { works, loading } = useContent();
-  const clients = useMemo(() => freelanceClients(works), [works]);
-  const where = useMemo(() => countries(clients), [clients]);
+  const found = useMemo(() => freelanceClients(works), [works]);
+  const clients = loading && found.length === 0 ? [] : [...found, ...SITE_CLIENTS];
+  const where = countries(clients);
   const [open, setOpen] = useState<Client | null>(null);
-
-  if (!loading && clients.length === 0) return null;
 
   return (
     <div data-part="clients" style={delay(at)}>
@@ -135,7 +145,7 @@ export function Clients({ at }: { at: number }) {
         {where && <span className="text-muted"> · across {where}</span>}
       </p>
       <ul className="mt-3 flex flex-wrap gap-4">
-        {loading && clients.length === 0
+        {clients.length === 0
           ? Array.from({ length: 3 }, (_, i) => (
               <li key={i}>
                 <Skel className="block h-14 w-14 rounded-lg" />
@@ -147,7 +157,7 @@ export function Clients({ at }: { at: number }) {
                   type="button"
                   onClick={() => setOpen(client)}
                   aria-haspopup="dialog"
-                  aria-label={`${client.name}, ${count(client.works.length)}. Show projects`}
+                  aria-label={`${client.name}, ${summary(client)}. Show details`}
                   title={client.name}
                   className="group relative block cursor-pointer rounded-lg transition-transform duration-200 hover:-translate-y-0.5"
                 >

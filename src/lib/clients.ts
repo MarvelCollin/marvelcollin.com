@@ -7,7 +7,19 @@ export interface Client {
   place: string;
   logo: string | null;
   works: Project[];
+  services?: string[];
 }
+
+export const SITE_CLIENTS: Client[] = [
+  {
+    key: 'joinenjoy',
+    name: 'JOINENJOY',
+    place: 'Berlin, Germany',
+    logo: orgLogo('joinenjoy'),
+    works: [],
+    services: ['Security audit and hardening', 'SEO'],
+  },
+];
 
 export function freelanceClients(works: Project[]): Client[] {
   const clients = new Map<string, Client>();

@@ -766,6 +766,12 @@
       256
     ]
   },
+  "/logos/joinenjoy.png": {
+    "base": "/img/logos/joinenjoy",
+    "widths": [
+      100
+    ]
+  },
   "/logos/owl.png": {
     "base": "/img/logos/owl",
     "widths": [
